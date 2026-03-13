@@ -167,24 +167,36 @@ function HeroSection() {
               </button>
             </div>
 
-            {/* Partner logos strip */}
-            <div className="flex flex-col gap-2 animate-fade-in-up stagger-5">
-              <span className="text-[13px]" style={{ color: "#94A3B8" }}>
-                Backed by:
-              </span>
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-kIHJ4Istxh4YAnVoqXoE4QT6aYLPqW.png"
-                alt="Backed by NVIDIA Inception, AWS, Microsoft for Startups Founders Hub"
-                width={600}
-                height={80}
-                className="h-14 lg:h-16 w-auto object-contain rounded-lg"
-              />
-            </div>
           </div>
 
           {/* Right Column */}
           <div className="lg:pl-4 animate-slide-in-right">
             <HeroMockup animated={true} />
+          </div>
+        </div>
+      </div>
+      
+      {/* Full-width Partner logos strip */}
+      <div 
+        className="w-full mt-12 lg:mt-16 py-6 lg:py-8 animate-fade-in-up stagger-5"
+        style={{ 
+          background: "#0F172A",
+          borderTop: "1px solid rgba(255,255,255,0.1)",
+          borderBottom: "1px solid rgba(255,255,255,0.1)"
+        }}
+      >
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-20">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-8">
+            <span className="text-[13px] font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.6)" }}>
+              Backed by:
+            </span>
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-kIHJ4Istxh4YAnVoqXoE4QT6aYLPqW.png"
+              alt="Backed by NVIDIA Inception, AWS, Microsoft for Startups Founders Hub"
+              width={900}
+              height={120}
+              className="h-16 lg:h-24 w-auto max-w-full object-contain"
+            />
           </div>
         </div>
       </div>
@@ -518,15 +530,28 @@ function AwardsSection() {
           ))}
         </div>
         
-        {/* Partner logos */}
-        <div className={`flex justify-center mt-8 transition-all duration-700 delay-300 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-kIHJ4Istxh4YAnVoqXoE4QT6aYLPqW.png"
-            alt="Backed by NVIDIA Inception, AWS, Microsoft for Startups Founders Hub"
-            width={800}
-            height={100}
-            className="h-16 lg:h-20 w-auto object-contain rounded-lg"
-          />
+        </div>
+      
+      {/* Full-width Partner logos strip */}
+      <div 
+        className={`w-full py-8 lg:py-10 transition-all duration-700 delay-300 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        style={{ 
+          background: "#0F172A",
+        }}
+      >
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-20">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-8">
+            <span className="text-[14px] font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.6)" }}>
+              Backed by:
+            </span>
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-kIHJ4Istxh4YAnVoqXoE4QT6aYLPqW.png"
+              alt="Backed by NVIDIA Inception, AWS, Microsoft for Startups Founders Hub"
+              width={1000}
+              height={140}
+              className="h-20 lg:h-28 w-auto max-w-full object-contain"
+            />
+          </div>
         </div>
       </div>
     </section>

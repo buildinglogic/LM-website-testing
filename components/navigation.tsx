@@ -61,9 +61,9 @@ export function Navigation() {
         style={{
           top: scrolled ? "0px" : "40px",
           height: "88px",
-          background: scrolled ? "rgba(255,255,255,0.98)" : "rgba(255,255,255,0.95)",
+          background: "#000000",
           backdropFilter: "blur(20px)",
-          borderBottom: "1px solid #E2E8F0",
+          borderBottom: "1px solid rgba(255,255,255,0.1)",
         }}
       >
         <div className="max-w-[1280px] mx-auto h-full px-6 lg:px-20 flex items-center justify-between">
@@ -87,7 +87,7 @@ export function Navigation() {
               onMouseEnter={() => setProductsOpen(true)}
               onMouseLeave={() => setProductsOpen(false)}
             >
-              <button className="flex items-center gap-1 text-[#475569] hover:text-[#0066CC] text-sm font-semibold transition-colors duration-300">
+              <button className="flex items-center gap-1 text-white/80 hover:text-white text-sm font-semibold transition-colors duration-300">
                 Products <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${productsOpen ? 'rotate-180' : ''}`} />
               </button>
               
@@ -116,20 +116,20 @@ export function Navigation() {
               </div>
             </div>
 
-            <Link href="/company" className="text-[#475569] hover:text-[#0066CC] text-sm font-semibold transition-colors duration-300">
+            <Link href="/company" className="text-white/80 hover:text-white text-sm font-semibold transition-colors duration-300">
               Company
             </Link>
-            <Link href="/newsletter" className="text-[#475569] hover:text-[#0066CC] text-sm font-semibold transition-colors duration-300">
+            <Link href="/newsletter" className="text-white/80 hover:text-white text-sm font-semibold transition-colors duration-300">
               Newsletter
             </Link>
-            <Link href="/careers" className="text-[#475569] hover:text-[#0066CC] text-sm font-semibold transition-colors duration-300">
+            <Link href="/careers" className="text-white/80 hover:text-white text-sm font-semibold transition-colors duration-300">
               Careers
             </Link>
           </div>
 
           {/* Right side */}
           <div className="hidden lg:flex items-center gap-4">
-            <a href="#signin" className="text-[#0F172A] text-sm font-semibold hover:text-[#0066CC] transition-colors duration-300">
+            <a href="#signin" className="text-white/80 text-sm font-semibold hover:text-white transition-colors duration-300">
               Sign In
             </a>
             <a
@@ -147,7 +147,7 @@ export function Navigation() {
 
           {/* Mobile menu button */}
           <button
-            className="lg:hidden text-[#0F172A] transition-transform duration-300 hover:scale-110"
+            className="lg:hidden text-white transition-transform duration-300 hover:scale-110"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
