@@ -115,40 +115,40 @@ const benefits = [
 
 export default function CareersPage() {
   const [selectedJob, setSelectedJob] = useState<typeof openPositions[0] | null>(null)
-  const [showApplication, setShowApplication] = useState(false)
 
   return (
-    <main className="min-h-screen" style={{ background: "#050A14" }}>
+    <main className="min-h-screen bg-white">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-[160px] lg:pt-[180px] pb-16 lg:pb-24 px-6 lg:px-20">
+      <section className="pt-[160px] lg:pt-[180px] pb-16 lg:pb-24 px-6 lg:px-20" style={{ background: "linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 50%, #EFF6FF 100%)" }}>
         <div className="max-w-[1280px] mx-auto text-center">
           <div
             className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-6"
             style={{
-              background: "rgba(0,229,180,0.1)",
-              border: "1px solid rgba(0,229,180,0.25)",
-              color: "#00E5B4",
+              background: "rgba(0,102,204,0.1)",
+              border: "1px solid rgba(0,102,204,0.25)",
+              color: "#0066CC",
             }}
           >
             CAREERS
           </div>
-          <h1 className="text-[38px] lg:text-[64px] font-extrabold text-white leading-tight mb-6">
+          <h1 className="text-[38px] lg:text-[64px] font-extrabold leading-tight mb-6" style={{ color: "#0F172A" }}>
             Build the Future of
             <br />
-            <span style={{ color: "#00E5B4" }}>Trade Compliance</span>
+            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">Trade Compliance</span>
           </h1>
-          <p className="text-[#94A3B8] text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed mb-8">
+          <p className="text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed mb-8" style={{ color: "#475569" }}>
             Join a team that's transforming how Indian exporters handle compliance. 
             We're building AI that saves businesses crores every year — and we need talented people to help us scale.
           </p>
           <a
             href="#positions"
-            className="inline-block px-8 py-4 rounded-[10px] text-base font-bold transition-all hover:brightness-110"
+            className="inline-block px-8 py-4 rounded-[10px] text-base font-bold transition-all duration-300 hover:scale-105 btn-shine"
             style={{
-              background: "linear-gradient(90deg, #00E5B4, #00B8D9)",
-              color: "#050A14",
+              background: "linear-gradient(90deg, #0066CC, #00A86B)",
+              color: "#FFFFFF",
+              boxShadow: "0 4px 25px rgba(0,102,204,0.35)",
             }}
           >
             View Open Positions
@@ -157,11 +157,11 @@ export default function CareersPage() {
       </section>
 
       {/* Why Liquidmind Section */}
-      <section className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#0D1526" }}>
+      <section className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#FFFFFF" }}>
         <div className="max-w-[1280px] mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-[44px] font-bold text-white mb-4">Why Liquidmind?</h2>
-            <p className="text-[#94A3B8] text-lg max-w-2xl mx-auto">
+            <h2 className="text-3xl lg:text-[44px] font-bold mb-4" style={{ color: "#0F172A" }}>Why <span className="text-[#0066CC]">Liquidmind?</span></h2>
+            <p className="text-lg max-w-2xl mx-auto" style={{ color: "#475569" }}>
               We're not just building software — we're solving a real problem that costs Indian businesses crores every year.
             </p>
           </div>
@@ -170,30 +170,30 @@ export default function CareersPage() {
               {
                 title: "Real Impact",
                 description: "Our products directly help exporters recover money they didn't know they were losing. See your work make a difference.",
-                color: "#00E5B4",
+                color: "#0066CC",
               },
               {
                 title: "Cutting-Edge Tech",
                 description: "Work with the latest AI models, document processing tech, and cloud infrastructure. Learn and grow every day.",
-                color: "#4DA6FF",
+                color: "#00A86B",
               },
               {
                 title: "Growth Stage",
                 description: "Early enough to shape the company, late enough to have real customers and validation. Best of both worlds.",
-                color: "#F4B942",
+                color: "#F59E0B",
               },
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="p-8 rounded-2xl"
+                className="p-8 rounded-2xl card-hover"
                 style={{ 
-                  background: "#121E33", 
-                  border: "1px solid #1E3557",
+                  background: "#F8FAFC", 
+                  border: "1px solid #E2E8F0",
                   borderTop: `4px solid ${item.color}`,
                 }}
               >
-                <h3 className="text-white text-xl font-bold mb-4">{item.title}</h3>
-                <p className="text-[#94A3B8] text-[15px] leading-relaxed">{item.description}</p>
+                <h3 className="text-xl font-bold mb-4" style={{ color: "#0F172A" }}>{item.title}</h3>
+                <p className="text-[15px] leading-relaxed" style={{ color: "#475569" }}>{item.description}</p>
               </div>
             ))}
           </div>
@@ -201,21 +201,21 @@ export default function CareersPage() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#050A14" }}>
+      <section className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#F8FAFC" }}>
         <div className="max-w-[1280px] mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-[44px] font-bold text-white mb-4">Benefits & Perks</h2>
+            <h2 className="text-3xl lg:text-[44px] font-bold mb-4" style={{ color: "#0F172A" }}>Benefits & Perks</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {benefits.map((benefit, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-2xl text-center"
-                style={{ background: "#121E33", border: "1px solid #1E3557" }}
+                className="p-6 rounded-2xl text-center card-hover"
+                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}
               >
                 <div className="text-4xl mb-4">{benefit.icon}</div>
-                <h3 className="text-white text-lg font-bold mb-2">{benefit.title}</h3>
-                <p className="text-[#94A3B8] text-sm">{benefit.description}</p>
+                <h3 className="text-lg font-bold mb-2" style={{ color: "#0F172A" }}>{benefit.title}</h3>
+                <p className="text-sm" style={{ color: "#475569" }}>{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -223,11 +223,11 @@ export default function CareersPage() {
       </section>
 
       {/* Open Positions Section */}
-      <section id="positions" className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#0D1526" }}>
+      <section id="positions" className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#FFFFFF" }}>
         <div className="max-w-[1280px] mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-[44px] font-bold text-white mb-4">Open Positions</h2>
-            <p className="text-[#94A3B8] text-lg max-w-2xl mx-auto">
+            <h2 className="text-3xl lg:text-[44px] font-bold mb-4" style={{ color: "#0F172A" }}>Open <span className="text-[#0066CC]">Positions</span></h2>
+            <p className="text-lg max-w-2xl mx-auto" style={{ color: "#475569" }}>
               {openPositions.length} open roles across engineering, product, and sales
             </p>
           </div>
@@ -236,31 +236,31 @@ export default function CareersPage() {
               <div
                 key={job.id}
                 onClick={() => setSelectedJob(job)}
-                className="p-6 rounded-2xl cursor-pointer transition-all hover:-translate-y-0.5"
+                className="p-6 rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                 style={{ 
-                  background: "#121E33", 
-                  border: "1px solid #1E3557",
+                  background: "#FFFFFF", 
+                  border: "1px solid #E2E8F0",
                 }}
               >
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div>
-                    <h3 className="text-white text-xl font-bold mb-2">{job.title}</h3>
+                    <h3 className="text-xl font-bold mb-2" style={{ color: "#0F172A" }}>{job.title}</h3>
                     <div className="flex flex-wrap items-center gap-4 text-sm">
-                      <span className="flex items-center gap-1 text-[#94A3B8]">
+                      <span className="flex items-center gap-1" style={{ color: "#475569" }}>
                         <Briefcase className="w-4 h-4" />
                         {job.department}
                       </span>
-                      <span className="flex items-center gap-1 text-[#94A3B8]">
+                      <span className="flex items-center gap-1" style={{ color: "#475569" }}>
                         <MapPin className="w-4 h-4" />
                         {job.location}
                       </span>
-                      <span className="flex items-center gap-1 text-[#94A3B8]">
+                      <span className="flex items-center gap-1" style={{ color: "#475569" }}>
                         <Clock className="w-4 h-4" />
                         {job.type}
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-[#00E5B4]">
+                  <div className="flex items-center gap-2" style={{ color: "#0066CC" }}>
                     <span className="font-semibold">View Details</span>
                     <ChevronRight className="w-5 h-5" />
                   </div>
@@ -272,19 +272,16 @@ export default function CareersPage() {
       </section>
 
       {/* No Match Section */}
-      <section className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#050A14" }}>
+      <section className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "linear-gradient(135deg, #0066CC 0%, #00A86B 100%)" }}>
         <div className="max-w-[800px] mx-auto text-center">
           <h2 className="text-3xl lg:text-[44px] font-bold text-white mb-6">Don't See a Fit?</h2>
-          <p className="text-[#94A3B8] text-lg mb-8">
+          <p className="text-lg text-white/80 mb-8">
             We're always looking for exceptional people. Send us your resume and tell us how you can contribute.
           </p>
           <a
             href="mailto:careers@liquidmind.ai"
-            className="inline-block px-8 py-4 rounded-[10px] text-base font-bold transition-all hover:brightness-110"
-            style={{
-              background: "linear-gradient(90deg, #00E5B4, #00B8D9)",
-              color: "#050A14",
-            }}
+            className="inline-block px-8 py-4 rounded-[10px] text-base font-bold transition-all duration-300 hover:scale-105"
+            style={{ background: "#FFFFFF", color: "#0066CC" }}
           >
             Send General Application
           </a>
@@ -295,23 +292,23 @@ export default function CareersPage() {
       {selectedJob && (
         <div 
           className="fixed inset-0 z-[60] flex items-center justify-center p-4"
-          style={{ background: "rgba(0,0,0,0.8)" }}
+          style={{ background: "rgba(0,0,0,0.5)" }}
           onClick={() => setSelectedJob(null)}
         >
           <div 
-            className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl p-8"
-            style={{ background: "#121E33", border: "1px solid #1E3557" }}
+            className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl p-8 shadow-2xl"
+            style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h2 className="text-white text-2xl font-bold mb-2">{selectedJob.title}</h2>
+                <h2 className="text-2xl font-bold mb-2" style={{ color: "#0F172A" }}>{selectedJob.title}</h2>
                 <div className="flex flex-wrap items-center gap-4 text-sm">
-                  <span className="flex items-center gap-1 text-[#94A3B8]">
+                  <span className="flex items-center gap-1" style={{ color: "#475569" }}>
                     <Briefcase className="w-4 h-4" />
                     {selectedJob.department}
                   </span>
-                  <span className="flex items-center gap-1 text-[#94A3B8]">
+                  <span className="flex items-center gap-1" style={{ color: "#475569" }}>
                     <MapPin className="w-4 h-4" />
                     {selectedJob.location}
                   </span>
@@ -319,23 +316,24 @@ export default function CareersPage() {
               </div>
               <button 
                 onClick={() => setSelectedJob(null)}
-                className="text-[#64748B] hover:text-white transition-colors"
+                className="transition-colors hover:text-[#0066CC]"
+                style={{ color: "#94A3B8" }}
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
 
             <div className="mb-6">
-              <h3 className="text-white font-bold mb-2">About the Role</h3>
-              <p className="text-[#94A3B8] text-[15px] leading-relaxed">{selectedJob.description}</p>
+              <h3 className="font-bold mb-2" style={{ color: "#0F172A" }}>About the Role</h3>
+              <p className="text-[15px] leading-relaxed" style={{ color: "#475569" }}>{selectedJob.description}</p>
             </div>
 
             <div className="mb-6">
-              <h3 className="text-white font-bold mb-3">Requirements</h3>
+              <h3 className="font-bold mb-3" style={{ color: "#0F172A" }}>Requirements</h3>
               <ul className="space-y-2">
                 {selectedJob.requirements.map((req, idx) => (
-                  <li key={idx} className="text-[#94A3B8] text-[15px] flex items-start gap-2">
-                    <span className="text-[#00E5B4] mt-1">•</span>
+                  <li key={idx} className="text-[15px] flex items-start gap-2" style={{ color: "#475569" }}>
+                    <span className="mt-1" style={{ color: "#0066CC" }}>•</span>
                     {req}
                   </li>
                 ))}
@@ -343,11 +341,11 @@ export default function CareersPage() {
             </div>
 
             <div className="mb-8">
-              <h3 className="text-white font-bold mb-3">Nice to Have</h3>
+              <h3 className="font-bold mb-3" style={{ color: "#0F172A" }}>Nice to Have</h3>
               <ul className="space-y-2">
                 {selectedJob.niceToHave.map((item, idx) => (
-                  <li key={idx} className="text-[#64748B] text-[15px] flex items-start gap-2">
-                    <span className="text-[#F4B942] mt-1">•</span>
+                  <li key={idx} className="text-[15px] flex items-start gap-2" style={{ color: "#64748B" }}>
+                    <span className="mt-1" style={{ color: "#F59E0B" }}>•</span>
                     {item}
                   </li>
                 ))}
@@ -357,18 +355,18 @@ export default function CareersPage() {
             <div className="flex gap-4">
               <a
                 href={`mailto:careers@liquidmind.ai?subject=Application for ${selectedJob.title}`}
-                className="flex-1 py-4 rounded-[10px] text-center text-base font-bold transition-all hover:brightness-110"
+                className="flex-1 py-4 rounded-[10px] text-center text-base font-bold transition-all duration-300 hover:scale-[1.02] btn-shine"
                 style={{
-                  background: "linear-gradient(90deg, #00E5B4, #00B8D9)",
-                  color: "#050A14",
+                  background: "linear-gradient(90deg, #0066CC, #00A86B)",
+                  color: "#FFFFFF",
                 }}
               >
                 Apply Now
               </a>
               <button
                 onClick={() => setSelectedJob(null)}
-                className="px-6 py-4 rounded-[10px] text-base font-semibold text-white transition-all hover:border-[#00E5B4]"
-                style={{ background: "transparent", border: "1.5px solid rgba(255,255,255,0.25)" }}
+                className="px-6 py-4 rounded-[10px] text-base font-semibold transition-all duration-300 hover:border-[#0066CC] hover:text-[#0066CC]"
+                style={{ background: "transparent", border: "1.5px solid #CBD5E1", color: "#0F172A" }}
               >
                 Close
               </button>

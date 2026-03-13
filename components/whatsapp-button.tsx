@@ -26,8 +26,8 @@ export function WhatsAppButton() {
       {/* Tooltip */}
       {showTooltip && (
         <div 
-          className="absolute bottom-full mb-3 right-0 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap"
-          style={{ background: "#1A2A45", color: "white" }}
+          className="absolute bottom-full mb-3 right-0 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-lg"
+          style={{ background: "#0F172A", color: "white" }}
         >
           Chat with us
           <div 
@@ -35,7 +35,7 @@ export function WhatsAppButton() {
             style={{
               borderLeft: "6px solid transparent",
               borderRight: "6px solid transparent",
-              borderTop: "6px solid #1A2A45",
+              borderTop: "6px solid #0F172A",
             }}
           />
         </div>

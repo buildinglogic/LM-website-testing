@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 
 const userTypes = [
   { id: "exporter", label: "Exporter" },
@@ -8,10 +8,35 @@ const userTypes = [
   { id: "importer", label: "Importer" },
 ]
 
+function useInView(threshold = 0.1) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [isInView, setIsInView] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true)
+        }
+      },
+      { threshold }
+    )
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => observer.disconnect()
+  }, [threshold])
+
+  return { ref, isInView }
+}
+
 export function ROICalculator() {
   const [userType, setUserType] = useState("exporter")
   const [shipments, setShipments] = useState(100)
   const [fobValue, setFobValue] = useState(50)
+  const { ref, isInView } = useInView()
 
   // Calculations
   const monthlyVolume = shipments * fobValue * 100000
@@ -32,46 +57,46 @@ export function ROICalculator() {
   const estimatedProtectionHigh = annualRisk * 0.9
 
   return (
-    <section id="calculator" className="py-20 lg:py-30 px-6 lg:px-20" style={{ background: "#0D1526" }}>
+    <section ref={ref} id="calculator" className="py-20 lg:py-30 px-6 lg:px-20" style={{ background: "#F8FAFC" }}>
       <div className="max-w-[860px] mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-6"
-            style={{ background: "rgba(0,229,180,0.1)", border: "1px solid rgba(0,229,180,0.25)", color: "#00E5B4" }}>
+            style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.25)", color: "#0066CC" }}>
             CALCULATE YOUR SAVINGS
           </div>
-          <h2 className="text-3xl lg:text-[52px] font-bold text-white leading-tight mb-4">
-            How Much Is Liquidmind Worth to Your Business?
+          <h2 className="text-3xl lg:text-[52px] font-bold leading-tight mb-4" style={{ color: "#0F172A" }}>
+            How Much Is Liquidmind <span className="text-[#0066CC]">Worth to Your Business?</span>
           </h2>
-          <p className="text-[#94A3B8] text-lg max-w-xl mx-auto">
+          <p className="text-lg max-w-xl mx-auto" style={{ color: "#475569" }}>
             Move the sliders. See your exact annual protection value.
           </p>
         </div>
 
         {/* Calculator card */}
-        <div className="rounded-2xl p-8 lg:p-12"
+        <div className={`rounded-2xl p-8 lg:p-12 transition-all duration-700 delay-100 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           style={{ 
-            background: "#121E33", 
-            border: "1.5px solid #00E5B4", 
-            boxShadow: "0 0 40px rgba(0,229,180,0.12)" 
+            background: "#FFFFFF", 
+            border: "2px solid #0066CC", 
+            boxShadow: "0 8px 50px rgba(0,102,204,0.12)" 
           }}>
           
           {/* User type toggle */}
           <div className="mb-8">
-            <label className="text-[#94A3B8] text-sm font-medium mb-3 block">I am a:</label>
+            <label className="text-sm font-medium mb-3 block" style={{ color: "#475569" }}>I am a:</label>
             <div className="flex flex-wrap gap-2">
               {userTypes.map((type) => (
                 <button
                   key={type.id}
                   onClick={() => setUserType(type.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
                     userType === type.id
-                      ? "text-[#00E5B4]"
-                      : "text-[#64748B] hover:text-white"
+                      ? "text-[#0066CC]"
+                      : "text-[#64748B] hover:text-[#0066CC]"
                   }`}
                   style={{
-                    background: userType === type.id ? "rgba(0,229,180,0.1)" : "transparent",
-                    border: userType === type.id ? "1px solid #00E5B4" : "1px solid #1E3557",
+                    background: userType === type.id ? "rgba(0,102,204,0.1)" : "transparent",
+                    border: userType === type.id ? "1px solid #0066CC" : "1px solid #E2E8F0",
                   }}
                 >
                   {type.label}
@@ -85,8 +110,8 @@ export function ROICalculator() {
             {/* Monthly Shipments */}
             <div>
               <div className="flex justify-between items-center mb-3">
-                <label className="text-[#94A3B8] text-sm font-medium">Monthly Shipments</label>
-                <span className="text-[#00E5B4] font-mono text-2xl font-semibold">{shipments}</span>
+                <label className="text-sm font-medium" style={{ color: "#475569" }}>Monthly Shipments</label>
+                <span className="font-mono text-2xl font-semibold" style={{ color: "#0066CC" }}>{shipments}</span>
               </div>
               <input
                 type="range"
@@ -97,7 +122,7 @@ export function ROICalculator() {
                 onChange={(e) => setShipments(Number(e.target.value))}
                 className="w-full h-2"
               />
-              <div className="flex justify-between text-[#64748B] text-xs mt-1">
+              <div className="flex justify-between text-xs mt-1" style={{ color: "#94A3B8" }}>
                 <span>10</span>
                 <span>1000</span>
               </div>
@@ -106,8 +131,8 @@ export function ROICalculator() {
             {/* Average FOB Value */}
             <div>
               <div className="flex justify-between items-center mb-3">
-                <label className="text-[#94A3B8] text-sm font-medium">Average FOB Value per Shipment (₹ Lakhs)</label>
-                <span className="text-[#00E5B4] font-mono text-2xl font-semibold">₹{fobValue}L</span>
+                <label className="text-sm font-medium" style={{ color: "#475569" }}>Average FOB Value per Shipment (₹ Lakhs)</label>
+                <span className="font-mono text-2xl font-semibold" style={{ color: "#0066CC" }}>₹{fobValue}L</span>
               </div>
               <input
                 type="range"
@@ -118,7 +143,7 @@ export function ROICalculator() {
                 onChange={(e) => setFobValue(Number(e.target.value))}
                 className="w-full h-2"
               />
-              <div className="flex justify-between text-[#64748B] text-xs mt-1">
+              <div className="flex justify-between text-xs mt-1" style={{ color: "#94A3B8" }}>
                 <span>₹10L</span>
                 <span>₹500L</span>
               </div>
@@ -126,45 +151,45 @@ export function ROICalculator() {
           </div>
 
           {/* Divider */}
-          <div className="border-t border-[#1E3557] my-8" />
+          <div className="my-8" style={{ borderTop: "1px solid #E2E8F0" }} />
 
           {/* Output grid */}
           <div className="grid grid-cols-2 gap-4 mb-8">
-            <div className="p-4 rounded-xl" style={{ background: "#0D1526" }}>
-              <span className="text-[#64748B] text-xs block mb-1">Monthly Export Volume</span>
-              <span className="text-white font-mono text-xl font-semibold">{formatCrore(monthlyVolume)}</span>
+            <div className="p-4 rounded-xl" style={{ background: "#F8FAFC" }}>
+              <span className="text-xs block mb-1" style={{ color: "#64748B" }}>Monthly Export Volume</span>
+              <span className="font-mono text-xl font-semibold" style={{ color: "#0F172A" }}>{formatCrore(monthlyVolume)}</span>
             </div>
-            <div className="p-4 rounded-xl" style={{ background: "#0D1526" }}>
-              <span className="text-[#64748B] text-xs block mb-1">Annual Value at Risk (5%)</span>
-              <span className="text-[#FF4444] font-mono text-xl font-semibold">{formatCrore(annualRisk)}</span>
+            <div className="p-4 rounded-xl" style={{ background: "rgba(220,38,38,0.05)" }}>
+              <span className="text-xs block mb-1" style={{ color: "#64748B" }}>Annual Value at Risk (5%)</span>
+              <span className="font-mono text-xl font-semibold" style={{ color: "#DC2626" }}>{formatCrore(annualRisk)}</span>
             </div>
-            <div className="p-4 rounded-xl" style={{ background: "#0D1526" }}>
-              <span className="text-[#64748B] text-xs block mb-1">Staff Hours Freed/Month</span>
-              <span className="text-[#00E5B4] font-mono text-xl font-semibold">{staffHours} hours</span>
+            <div className="p-4 rounded-xl" style={{ background: "rgba(0,168,107,0.05)" }}>
+              <span className="text-xs block mb-1" style={{ color: "#64748B" }}>Staff Hours Freed/Month</span>
+              <span className="font-mono text-xl font-semibold" style={{ color: "#00A86B" }}>{staffHours} hours</span>
             </div>
-            <div className="p-4 rounded-xl" style={{ background: "#0D1526" }}>
-              <span className="text-[#64748B] text-xs block mb-1">Error Rate Reduction</span>
-              <span className="text-[#00E5B4] font-mono text-xl font-semibold">{"8–12% → < 1%"}</span>
+            <div className="p-4 rounded-xl" style={{ background: "rgba(0,168,107,0.05)" }}>
+              <span className="text-xs block mb-1" style={{ color: "#64748B" }}>Error Rate Reduction</span>
+              <span className="font-mono text-xl font-semibold" style={{ color: "#00A86B" }}>{"8–12% → < 1%"}</span>
             </div>
           </div>
 
           {/* Big result callout */}
-          <div className="rounded-xl p-6 text-center" style={{ background: "#0D1526", border: "1.5px solid #00E5B4" }}>
+          <div className="rounded-xl p-6 text-center" style={{ background: "linear-gradient(135deg, rgba(0,102,204,0.05) 0%, rgba(0,168,107,0.05) 100%)", border: "2px solid #0066CC" }}>
             <span className="text-2xl mb-2 block">💰</span>
-            <p className="text-[#94A3B8] text-sm mb-2">Estimated Annual Protection</p>
-            <p className="text-[#00E5B4] font-mono text-4xl lg:text-[52px] font-semibold">
+            <p className="text-sm mb-2" style={{ color: "#475569" }}>Estimated Annual Protection</p>
+            <p className="font-mono text-4xl lg:text-[52px] font-semibold bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
               {formatCrore(estimatedProtectionLow)} – {formatCrore(estimatedProtectionHigh)}
             </p>
           </div>
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-8">
-          <a href="#demo" className="inline-block px-8 py-4 rounded-[10px] text-base font-bold transition-all hover:brightness-110 hover:scale-[1.02]"
-            style={{ background: "linear-gradient(90deg, #00E5B4, #00B8D9)", color: "#050A14", boxShadow: "0 0 30px rgba(0,229,180,0.25)" }}>
+        <div className={`text-center mt-8 transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <a href="#demo" className="inline-block px-8 py-4 rounded-[10px] text-base font-bold transition-all duration-300 hover:scale-105 btn-shine"
+            style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.35)" }}>
             Book a Demo to Confirm Your Numbers →
           </a>
-          <p className="text-[#64748B] text-sm mt-4">
+          <p className="text-sm mt-4" style={{ color: "#64748B" }}>
             No commitment. We calculate your actual exposure in 30 minutes.
           </p>
         </div>

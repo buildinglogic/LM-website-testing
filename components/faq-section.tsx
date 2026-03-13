@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Plus, X } from "lucide-react"
 
 const faqGroups = [
@@ -53,8 +53,33 @@ const faqGroups = [
   }
 ]
 
+function useInView(threshold = 0.1) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [isInView, setIsInView] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true)
+        }
+      },
+      { threshold }
+    )
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => observer.disconnect()
+  }, [threshold])
+
+  return { ref, isInView }
+}
+
 export function FAQSection() {
   const [openItems, setOpenItems] = useState<Set<string>>(new Set())
+  const { ref, isInView } = useInView()
 
   const toggleItem = (id: string) => {
     const newOpen = new Set(openItems)
@@ -67,16 +92,20 @@ export function FAQSection() {
   }
 
   return (
-    <section id="faq" className="py-20 lg:py-30 px-6 lg:px-20" style={{ background: "#050A14" }}>
+    <section ref={ref} id="faq" className="py-20 lg:py-30 px-6 lg:px-20" style={{ background: "#FFFFFF" }}>
       <div className="max-w-[800px] mx-auto">
-        <h2 className="text-3xl lg:text-[52px] font-bold text-white leading-tight text-center mb-12">
-          Every Question You Have Before Saying Yes.
+        <h2 className={`text-3xl lg:text-[52px] font-bold leading-tight text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ color: "#0F172A" }}>
+          Every Question You Have <span className="text-[#0066CC]">Before Saying Yes.</span>
         </h2>
 
         <div className="space-y-8">
           {faqGroups.map((group, groupIdx) => (
-            <div key={groupIdx}>
-              <span className="text-[#64748B] text-[11px] font-bold tracking-[0.12em] uppercase block mb-4">
+            <div 
+              key={groupIdx}
+              className={`transition-all duration-500 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ transitionDelay: `${groupIdx * 100}ms` }}
+            >
+              <span className="text-[11px] font-bold tracking-[0.12em] uppercase block mb-4" style={{ color: "#0066CC" }}>
                 {group.label}
               </span>
               <div className="space-y-0">
@@ -85,22 +114,22 @@ export function FAQSection() {
                   const isOpen = openItems.has(id)
                   
                   return (
-                    <div key={id} className="border-b border-[#1E3557]">
+                    <div key={id} style={{ borderBottom: "1px solid #E2E8F0" }}>
                       <button
                         onClick={() => toggleItem(id)}
                         className="w-full py-5 flex items-center justify-between text-left group"
                       >
-                        <span className={`text-lg font-semibold transition-colors ${isOpen ? "text-[#00E5B4]" : "text-white group-hover:text-[#00E5B4]"}`}>
+                        <span className={`text-lg font-semibold transition-colors duration-300 ${isOpen ? "text-[#0066CC]" : "group-hover:text-[#0066CC]"}`} style={{ color: isOpen ? "#0066CC" : "#0F172A" }}>
                           {item.question}
                         </span>
-                        <span className="text-[#94A3B8] ml-4 flex-shrink-0">
-                          {isOpen ? <X className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+                        <span className="ml-4 flex-shrink-0 transition-transform duration-300" style={{ color: "#94A3B8", transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}>
+                          <Plus className="w-5 h-5" />
                         </span>
                       </button>
                       <div 
-                        className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 pb-5" : "max-h-0"}`}
+                        className={`overflow-hidden transition-all duration-500 ${isOpen ? "max-h-96 pb-5" : "max-h-0"}`}
                       >
-                        <p className="text-[#94A3B8] text-base leading-relaxed">
+                        <p className="text-base leading-relaxed" style={{ color: "#475569" }}>
                           {item.answer}
                         </p>
                       </div>
