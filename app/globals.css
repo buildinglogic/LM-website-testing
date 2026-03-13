@@ -1,0 +1,133 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Liquidmind Design System */
+  --bg-primary: #050A14;
+  --bg-secondary: #0D1526;
+  --bg-card: #121E33;
+  --bg-card-hover: #1A2A45;
+  --accent-teal: #00E5B4;
+  --accent-teal-dim: #00B890;
+  --accent-gold: #F4B942;
+  --accent-red: #FF4444;
+  --accent-blue: #4DA6FF;
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --border-subtle: #1E3557;
+  --border-active: #00E5B4;
+  
+  /* shadcn tokens mapped to Liquidmind */
+  --background: #050A14;
+  --foreground: #FFFFFF;
+  --card: #121E33;
+  --card-foreground: #FFFFFF;
+  --popover: #0D1526;
+  --popover-foreground: #FFFFFF;
+  --primary: #00E5B4;
+  --primary-foreground: #050A14;
+  --secondary: #1E3557;
+  --secondary-foreground: #FFFFFF;
+  --muted: #0D1526;
+  --muted-foreground: #94A3B8;
+  --accent: #00E5B4;
+  --accent-foreground: #050A14;
+  --destructive: #FF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #1E3557;
+  --input: #1E3557;
+  --ring: #00E5B4;
+  --radius: 0.625rem;
+}
+
+@theme inline {
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-teal-dim);
+}
+
+/* Slider custom styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-track {
+  background: #1E3557;
+  height: 8px;
+  border-radius: 4px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #00E5B4;
+  margin-top: -6px;
+  box-shadow: 0 0 10px rgba(0, 229, 180, 0.5);
+}
+input[type="range"]::-moz-range-track {
+  background: #1E3557;
+  height: 8px;
+  border-radius: 4px;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #00E5B4;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 229, 180, 0.5);
+}
