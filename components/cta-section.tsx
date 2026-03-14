@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useState, useEffect } from "react"
+import Link from "next/link"
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
@@ -34,15 +35,15 @@ export function CTASection() {
         </div>
 
         <div className={`flex flex-col sm:flex-row items-center justify-center gap-3 transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <a href="https://cal.com/harmanpreetsingh/30min" target="_blank" rel="noopener noreferrer"
+          <Link href="/book-demo"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all hover:scale-105"
             style={{ background: "#FFFFFF", color: "#0066CC" }}>
             <span>Schedule Your Demo</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
-          <a href="mailto:contact@liquidmind.ai"
+          </Link>
+          <a href="mailto:support@liquidmind.ai"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all hover:bg-white/20"
             style={{ background: "transparent", color: "#FFFFFF", border: "2px solid rgba(255,255,255,0.5)" }}>
             <span>Contact Us</span>
@@ -58,9 +59,9 @@ export function CTASection() {
           </div>
           <div className="flex items-center gap-1.5 text-white/60 text-xs">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
-            <span>Setup in 24 hours</span>
+            <span>99.9% Accuracy</span>
           </div>
         </div>
       </div>

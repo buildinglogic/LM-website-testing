@@ -10,6 +10,7 @@ import { Footer } from "@/components/footer"
 import { FooterLinks } from "@/components/footer-links"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import Image from "next/image"
+import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 
 export default function LiquidmindLanding() {
@@ -59,7 +60,7 @@ function HeroSection() {
   ]
 
   return (
-    <section className="min-h-screen pt-[100px] pb-4 px-4 lg:px-6 flex items-center" style={{ background: "#FFFFFF" }}>
+    <section className="min-h-screen pt-[120px] pb-6 px-4 lg:px-6 flex items-center" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[1400px] mx-auto">
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-center">
           <div>
@@ -89,10 +90,10 @@ function HeroSection() {
             </div>
 
             <div className="flex flex-wrap gap-3 animate-fade-in-up stagger-4">
-              <a href="#demo" className="px-5 py-2.5 rounded-lg text-sm font-bold btn-shine transition-all hover:scale-105"
+              <Link href="/book-demo" className="px-5 py-2.5 rounded-lg text-sm font-bold btn-shine transition-all hover:scale-105"
                 style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.35)" }}>
                 Book Free Demo
-              </a>
+              </Link>
               <button className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all hover:border-[#0066CC] hover:text-[#0066CC]"
                 style={{ background: "transparent", border: "1.5px solid #CBD5E1", color: "#0F172A" }}>
                 Watch Demo
@@ -110,7 +111,7 @@ function HeroSection() {
 }
 
 /* ========================
-   PROBLEM SECTION - SpotlightCards
+   PROBLEM SECTION
 ======================== */
 function ProblemSection() {
   const { ref, isInView } = useInView()
@@ -142,19 +143,19 @@ function ProblemSection() {
   }, [])
 
   return (
-    <section ref={ref} className="py-8 lg:py-12 px-4 lg:px-6" style={{ background: "#FFFFFF" }}>
+    <section ref={ref} className="py-10 px-4 lg:px-6" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[1400px] mx-auto">
-        <div className={`text-center mb-8 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-3"
+        <div className={`text-center mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-2"
             style={{ background: "rgba(220,38,38,0.08)", border: "1px solid rgba(220,38,38,0.2)", color: "#DC2626" }}>
             THE COST OF DOING NOTHING
           </div>
-          <h2 className="text-[26px] lg:text-[40px] font-bold leading-tight mb-3" style={{ color: "#0F172A" }}>
-            Your Trade Documents Are<br className="hidden lg:block" /> <span className="text-[#DC2626]">Bleeding Money</span> Right Now.
+          <h2 className="text-[26px] lg:text-[40px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+            Your Trade Documents Are <span className="text-[#DC2626]">Bleeding Money</span> Right Now.
           </h2>
         </div>
 
-        <div ref={containerRef} className="grid lg:grid-cols-3 gap-4 mb-6">
+        <div ref={containerRef} className="grid lg:grid-cols-3 gap-4 mb-5">
           {problems.map((problem, idx) => (
             <div key={idx}
               className={`card-spotlight rounded-2xl p-5 transition-all duration-500 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
@@ -163,8 +164,7 @@ function ProblemSection() {
                 border: problem.featured ? "2px solid #0066CC" : "2px solid #E2E8F0",
                 boxShadow: problem.featured ? "0 20px 60px rgba(0,102,204,0.2)" : "0 4px 20px rgba(0,0,0,0.05)",
                 transitionDelay: `${idx * 100}ms`,
-                '--spotlight-color': problem.featured ? 'rgba(0, 102, 204, 0.25)' : 'rgba(0, 102, 204, 0.1)'
-              } as React.CSSProperties}
+              }}
             >
               <div className="font-mono font-bold mb-2"
                 style={{ fontSize: "44px", lineHeight: 1, color: problem.featured ? "#FFFFFF" : "#0F172A" }}>
@@ -198,23 +198,23 @@ function HowItWorks() {
     { number: 2, title: "Extract", description: "AI reads key fields" },
     { number: 3, title: "Map", description: "Smart field matching" },
     { number: 4, title: "Verify", description: "Cross-check sources" },
-    { number: 5, title: "Report", description: "Results in 5 min" },
+    { number: 5, title: "Report", description: "Get results fast" },
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-12 px-4 lg:px-6" style={{ background: "#F8FAFC" }}>
+    <section ref={ref} className="py-10 px-4 lg:px-6" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[1400px] mx-auto">
-        <div className={`text-center mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-3"
+        <div className={`text-center mb-5 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-2"
             style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.25)", color: "#0066CC" }}>
             THE PROCESS
           </div>
           <h2 className="text-[26px] lg:text-[40px] font-bold leading-tight" style={{ color: "#0F172A" }}>
-            Upload to Report in <span className="text-[#0066CC]">5 Minutes</span>
+            Upload to Report <span className="text-[#0066CC]">Quickly</span>
           </h2>
         </div>
 
-        <div className="relative mb-6">
+        <div className="relative mb-5">
           <div className="hidden lg:block absolute top-5 left-[10%] right-[10%] h-0.5" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", opacity: 0.3 }} />
           <div className="grid grid-cols-5 gap-2 lg:gap-4 relative z-10">
             {steps.map((step, idx) => (
@@ -239,7 +239,7 @@ function HowItWorks() {
           </div>
           <div className={`p-5 rounded-xl card-hover ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
             style={{ background: "#FFFFFF", border: "2px solid #00A86B", transition: "all 0.5s ease", transitionDelay: "100ms" }}>
-            <div className="text-2xl font-bold mb-2 bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">{"< 5 Minutes"}</div>
+            <div className="text-2xl font-bold mb-2 bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">Fast Processing</div>
             <p className="text-sm" style={{ color: "#475569" }}>From document upload to full mismatch report. Not hours. Not days.</p>
           </div>
         </div>
@@ -270,7 +270,7 @@ function AwardsSection() {
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-12 px-4 lg:px-6" style={{ background: "#FFFFFF" }}>
+    <section ref={ref} className="py-10 px-4 lg:px-6" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[1400px] mx-auto">
         <h2 className={`text-[26px] lg:text-[40px] font-bold text-center mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ color: "#0F172A" }}>
           Recognised. <span className="gold-text-shine">Validated.</span> Trusted.
@@ -279,10 +279,10 @@ function AwardsSection() {
         <div className="grid lg:grid-cols-2 gap-4 mb-6">
           {awards.map((award, idx) => (
             <div key={idx}
-              className={`rounded-2xl overflow-hidden card-hover gold-glow ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              className={`rounded-2xl overflow-hidden gold-glow ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{ background: "#0F172A", border: "2px solid #FFD700", transitionDelay: `${idx * 150}ms`, transition: "all 0.5s ease" }}>
-              <div className="relative h-[200px] lg:h-[240px] overflow-hidden">
-                <Image src={award.image} alt={award.title} fill className="object-cover transition-transform duration-500 hover:scale-105" />
+              <div className="relative h-[220px] lg:h-[260px] overflow-hidden">
+                <Image src={award.image} alt={award.title} fill className="object-cover object-top" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3">
                   <div className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-[0.1em] uppercase mb-1"
@@ -300,16 +300,20 @@ function AwardsSection() {
         </div>
       </div>
       
-      {/* Backed By - Individual Logo Marquee */}
-      <div className={`w-full py-5 overflow-hidden transition-all duration-700 delay-300 ${isInView ? 'opacity-100' : 'opacity-0'}`} style={{ background: "#0F172A" }}>
-        <div className="flex items-center">
+      {/* Backed By - Partner Logo Marquee */}
+      <div className={`w-full py-6 overflow-hidden transition-all duration-700 delay-300 ${isInView ? 'opacity-100' : 'opacity-0'}`} style={{ background: "#F8FAFC" }}>
+        <p className="text-center text-sm font-medium mb-4" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
+        <div className="flex items-center overflow-hidden">
           <div className="animate-marquee flex items-center">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="flex items-center gap-12 mx-8">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-white/40">Backed by:</span>
-                <Image src="/images/nvidia-inception.png" alt="NVIDIA Inception" width={160} height={40} className="h-8 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity" />
-                <Image src="/images/aws-powered.png" alt="Powered by AWS" width={100} height={40} className="h-8 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity" />
-                <Image src="/images/microsoft-startups.png" alt="Microsoft for Startups" width={180} height={40} className="h-8 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity" />
+              <div key={i} className="flex items-center mx-16">
+                <Image 
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-03-14%20130405-uP1L2ywM5qrkMF7O4uFcE6Hw2cn93h.png" 
+                  alt="Partner Logos - NVIDIA Inception, AWS, Microsoft for Startups" 
+                  width={500} 
+                  height={60} 
+                  className="h-14 w-auto object-contain" 
+                />
               </div>
             ))}
           </div>
@@ -326,21 +330,21 @@ function MicroConversionSection() {
   const { ref, isInView } = useInView()
   
   const cards = [
-    { badge: "FREE — NO EMAIL", title: "Watch Tradeguard in Action", body: "A real document audit, live on screen. No slides. No fluff.", cta: "Watch Now" },
-    { badge: "FREE — INSTANT", title: "Calculate Your Annual Exposure", body: "Enter your shipment volume. Get your personal rupee risk number.", cta: "Use Calculator" },
+    { badge: "FREE", title: "Watch Tradeguard in Action", body: "A real document audit, live on screen. No slides. No fluff.", cta: "Watch Now" },
+    { badge: "FREE", title: "Calculate Your Annual Exposure", body: "Enter your shipment volume. Get your personal rupee risk number.", cta: "Use Calculator" },
     { badge: "FREE RESOURCE", title: "Trade Compliance Guide", body: "Everything about avoiding document mismatches and maximizing refunds.", cta: "Download" },
     { badge: "30 MINUTES", title: "Talk to a Specialist", body: "We'll calculate your exact exposure on your real documents.", cta: "Book a Call", featured: true },
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-12 px-4 lg:px-6" style={{ background: "#F8FAFC" }}>
+    <section ref={ref} className="py-10 px-4 lg:px-6" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[1400px] mx-auto">
-        <div className={`text-center mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-3"
+        <div className={`text-center mb-5 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-2"
             style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.25)", color: "#0066CC" }}>
             START WHERE YOU ARE
           </div>
-          <h2 className="text-[26px] lg:text-[40px] font-bold leading-tight mb-2" style={{ color: "#0F172A" }}>
+          <h2 className="text-[26px] lg:text-[40px] font-bold leading-tight" style={{ color: "#0F172A" }}>
             Not Ready for a Demo? <span className="text-[#0066CC]">Start Here.</span>
           </h2>
         </div>
@@ -361,7 +365,7 @@ function MicroConversionSection() {
               <h3 className="text-sm font-bold mb-1" style={{ color: card.featured ? "#FFFFFF" : "#0F172A" }}>{card.title}</h3>
               <p className="text-[12px] leading-relaxed mb-3" style={{ color: card.featured ? "rgba(255,255,255,0.8)" : "#475569" }}>{card.body}</p>
               {card.featured ? (
-                <a href="#demo" className="inline-block px-3 py-1.5 rounded-lg text-sm font-bold" style={{ background: "#FFFFFF", color: "#0066CC" }}>{card.cta}</a>
+                <Link href="/book-demo" className="inline-block px-3 py-1.5 rounded-lg text-sm font-bold" style={{ background: "#FFFFFF", color: "#0066CC" }}>{card.cta}</Link>
               ) : (
                 <a href="#" className="text-sm font-semibold hover:underline" style={{ color: "#0066CC" }}>{card.cta} →</a>
               )}

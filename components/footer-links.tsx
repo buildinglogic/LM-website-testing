@@ -35,9 +35,11 @@ export function FooterLinks() {
           <div>
             <h4 className="text-sm font-bold mb-3" style={{ color: "#0F172A" }}>Contact Us</h4>
             <address className="not-italic text-[13px] leading-relaxed mb-3" style={{ color: "#475569" }}>
-              2nd Floor, Tech Park One<br />
-              Koramangala, Bangalore<br />
-              Karnataka 560034, India
+              Banashankari III Stage<br />
+              Kathriguppe<br />
+              Bangalore<br />
+              Karnataka - 560085<br />
+              India
             </address>
             <a href="mailto:support@liquidmind.ai" className="text-[13px] hover:text-[#0066CC] transition-colors block mb-3" style={{ color: "#0066CC" }}>
               support@liquidmind.ai

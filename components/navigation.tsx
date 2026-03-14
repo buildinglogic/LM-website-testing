@@ -38,49 +38,47 @@ export function Navigation() {
     <>
       {/* Award Announcement Bar - Marquee */}
       <div 
-        className={`w-full h-9 flex items-center overflow-hidden transition-all duration-300 ${scrolled ? 'h-0 opacity-0' : 'h-9 opacity-100'}`}
+        className={`w-full overflow-hidden transition-all duration-300 ${scrolled ? 'h-0 opacity-0' : 'h-10 opacity-100'}`}
         style={{ background: "linear-gradient(90deg, #FFD700, #FFA500, #FFD700)" }}
       >
-        <div className="animate-marquee flex items-center whitespace-nowrap">
-          {[...Array(4)].map((_, i) => (
-            <span key={i} className="mx-6 text-[12px] font-bold text-[#0F172A] flex items-center gap-3">
+        <div className="h-full flex items-center animate-marquee whitespace-nowrap">
+          {[...Array(6)].map((_, i) => (
+            <span key={i} className="mx-8 text-[13px] font-bold text-[#0F172A] flex items-center gap-4">
               <span>Aegis Graham Bell Award 2026 Winner</span>
               <span className="opacity-40">|</span>
               <span>Karnataka Elevate 2025 Winner</span>
-              <span className="opacity-40">|</span>
-              <a href="#demo" className="underline hover:no-underline">Book a Demo</a>
               <span className="opacity-40">|</span>
             </span>
           ))}
         </div>
       </div>
 
-      {/* Main Navigation */}
+      {/* Main Navigation - Larger header */}
       <nav
-        className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'top-0' : 'top-9'}`}
-        style={{ height: "64px", background: "#000000" }}
+        className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'top-0' : 'top-10'}`}
+        style={{ height: "72px", background: "#000000" }}
       >
-        <div className="w-full h-full px-4 lg:px-6 flex items-center justify-between">
-          {/* Logo - Far Left */}
-          <Link href="/" className="flex items-center h-full flex-shrink-0">
+        <div className="w-full h-full px-4 lg:px-8 flex items-center justify-between">
+          {/* Logo - Far Left, Full Height */}
+          <Link href="/" className="flex items-center h-full py-2 flex-shrink-0">
             <Image 
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-FQklSuzkmSwjvO1CP9LcCeqsf0SOzb.png"
+              src="/images/liquidmind-logo.png"
               alt="Liquidmind"
-              width={180}
-              height={45}
-              className="h-[42px] w-auto object-contain"
+              width={200}
+              height={56}
+              className="h-full w-auto object-contain"
               priority
             />
           </Link>
 
-          {/* Desktop Nav - Center */}
-          <div className="hidden lg:flex items-center justify-center flex-1 gap-8">
+          {/* Desktop Nav - Center with equal spacing */}
+          <div className="hidden lg:flex items-center justify-center flex-1 gap-10">
             <div 
               className="relative"
               onMouseEnter={() => setProductsOpen(true)}
               onMouseLeave={() => setProductsOpen(false)}
             >
-              <button className="flex items-center gap-1 text-white/80 hover:text-white text-sm font-semibold transition-colors">
+              <button className="flex items-center gap-1.5 text-white/80 hover:text-white text-[15px] font-semibold transition-colors">
                 Products <ChevronDown className={`w-4 h-4 transition-transform ${productsOpen ? 'rotate-180' : ''}`} />
               </button>
               
@@ -92,7 +90,7 @@ export function Navigation() {
                   <button
                     key={product.name}
                     onClick={() => scrollToSection(product.href)}
-                    className="w-full text-left p-3 rounded-lg hover:bg-[#F8FAFC] transition-colors block"
+                    className="w-full text-left p-3 rounded-lg hover:bg-[#F8FAFC] transition-colors block mb-1"
                     style={{ borderLeft: "3px solid #0066CC" }}
                   >
                     <div className="text-[#0F172A] font-bold text-sm">{product.name}</div>
@@ -102,42 +100,42 @@ export function Navigation() {
               </div>
             </div>
 
-            <Link href="/company" className="text-white/80 hover:text-white text-sm font-semibold transition-colors">Company</Link>
-            <Link href="/newsletter" className="text-white/80 hover:text-white text-sm font-semibold transition-colors">Newsletter</Link>
-            <Link href="/careers" className="text-white/80 hover:text-white text-sm font-semibold transition-colors">Careers</Link>
+            <Link href="/company" className="text-white/80 hover:text-white text-[15px] font-semibold transition-colors">Company</Link>
+            <Link href="/newsletter" className="text-white/80 hover:text-white text-[15px] font-semibold transition-colors">Newsletter</Link>
+            <Link href="/careers" className="text-white/80 hover:text-white text-[15px] font-semibold transition-colors">Careers</Link>
           </div>
 
-          {/* Right side */}
-          <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
-            <div className="flex items-center gap-1">
+          {/* Right side - Social icons + Book Demo */}
+          <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
+            <div className="flex items-center gap-2">
               <a href="https://youtube.com/@liquidmindai" target="_blank" rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors">
-                <Youtube className="w-4 h-4 text-white/70 hover:text-white" />
+                className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors">
+                <Youtube className="w-5 h-5 text-white/70 hover:text-white" />
               </a>
               <a href="https://linkedin.com/company/liquidmind" target="_blank" rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors">
-                <Linkedin className="w-4 h-4 text-white/70 hover:text-white" />
+                className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors">
+                <Linkedin className="w-5 h-5 text-white/70 hover:text-white" />
               </a>
               <a href="mailto:support@liquidmind.ai"
-                className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors">
-                <Mail className="w-4 h-4 text-white/70 hover:text-white" />
+                className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors">
+                <Mail className="w-5 h-5 text-white/70 hover:text-white" />
               </a>
             </div>
             
-            <a href="#demo" className="px-5 py-2 rounded-lg text-sm font-bold btn-shine transition-all hover:scale-105"
+            <Link href="/book-demo" className="px-6 py-2.5 rounded-lg text-[15px] font-bold btn-shine transition-all hover:scale-105"
               style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>
               Book Demo
-            </a>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
           <button className="lg:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
 
         {/* Mobile Menu */}
-        <div className={`lg:hidden fixed inset-0 z-40 pt-[100px] transition-all ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        <div className={`lg:hidden fixed inset-0 z-40 pt-[120px] transition-all ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
           style={{ background: "rgba(255,255,255,0.98)" }}>
           <div className="p-6 space-y-4">
             <button onClick={() => scrollToSection("#products")} className="block w-full text-left text-[#0F172A] text-lg font-semibold py-3 border-b border-[#E2E8F0]">Products</button>
@@ -155,6 +153,9 @@ export function Navigation() {
                 <Mail className="w-5 h-5 text-white" />
               </a>
             </div>
+            <Link href="/book-demo" className="block mt-4 py-3 rounded-lg text-center text-lg font-bold" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>
+              Book Demo
+            </Link>
           </div>
         </div>
       </nav>
@@ -162,7 +163,7 @@ export function Navigation() {
       {/* Mobile bottom bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 flex" style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
         <a href="https://wa.me/919876543210" className="flex-1 py-3 text-center text-[#0F172A] font-semibold text-sm border-r border-[#E2E8F0]">WhatsApp</a>
-        <a href="#demo" className="flex-1 py-3 text-center font-semibold text-sm" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>Book Demo</a>
+        <Link href="/book-demo" className="flex-1 py-3 text-center font-semibold text-sm" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>Book Demo</Link>
       </div>
     </>
   )

@@ -5,11 +5,11 @@ export function Footer() {
     <footer className="py-5 px-4 lg:px-6" style={{ background: "#0F172A" }}>
       <div className="w-full max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
         <Image 
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-FQklSuzkmSwjvO1CP9LcCeqsf0SOzb.png"
+          src="/images/liquidmind-logo.png"
           alt="Liquidmind"
-          width={120}
-          height={30}
-          className="h-7 w-auto"
+          width={140}
+          height={35}
+          className="h-8 w-auto"
         />
         <p className="text-[12px]" style={{ color: "#64748B" }}>
           © 2026 LIQUIDMIND Product Consulting Pvt. Ltd. All rights reserved.

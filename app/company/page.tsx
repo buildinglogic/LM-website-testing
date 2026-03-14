@@ -1,200 +1,229 @@
+"use client"
+
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { FooterLinks } from "@/components/footer-links"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import Image from "next/image"
 
-export const metadata = {
-  title: "About Us | Liquidmind AI",
-  description: "Learn about Liquidmind AI - India's #1 AI Trade Compliance Platform",
-}
-
 export default function CompanyPage() {
   return (
     <main className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="pt-[140px] lg:pt-[160px] pb-12 lg:pb-16 px-4 lg:px-6" style={{ background: "linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 50%, #EFF6FF 100%)" }}>
-        <div className="max-w-[1200px] mx-auto text-center">
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-4"
-            style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.25)", color: "#0066CC" }}>
-            ABOUT US
-          </div>
-          <h1 className="text-[32px] lg:text-[52px] font-extrabold leading-tight mb-4" style={{ color: "#0F172A" }}>
-            Building the Future of<br />
-            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">Trade Compliance</span>
+      {/* About Us Section */}
+      <section className="pt-[120px] lg:pt-[140px] pb-8 px-4 lg:px-6" style={{ background: "linear-gradient(180deg, #E8F4FC 0%, #F0F9FF 100%)" }}>
+        <div className="max-w-[1100px] mx-auto text-center">
+          <h1 className="text-[32px] lg:text-[48px] font-extrabold leading-tight mb-4" style={{ color: "#0F172A" }}>
+            About Us
           </h1>
-          <p className="text-base lg:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: "#475569" }}>
-            We're on a mission to eliminate document errors that cost Indian exporters crores every year.
+          <p className="text-base lg:text-lg max-w-3xl mx-auto leading-relaxed" style={{ color: "#475569" }}>
+            Liquidmind AI is redefining trade finance and supply chain management with intelligent AI agents that automate 
+            workflows, optimize liquidity, and enhance compliance. Designed for large and mid-sized enterprises, our AI-driven 
+            products eliminate inefficiencies, improve decision-making, and scale effortlessly with business growth.
           </p>
         </div>
       </section>
 
-      {/* Founder Section */}
+      {/* Team Image */}
+      <section className="px-4 lg:px-6 -mt-4">
+        <div className="max-w-[1000px] mx-auto">
+          <div className="relative h-[280px] lg:h-[400px] rounded-2xl overflow-hidden">
+            <Image
+              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&h=600&fit=crop"
+              alt="Liquidmind Team"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Our Mission Section */}
       <section className="py-12 lg:py-16 px-4 lg:px-6" style={{ background: "#FFFFFF" }}>
-        <div className="max-w-[1200px] mx-auto">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div className="relative aspect-square max-w-[400px] mx-auto lg:mx-0">
+        <div className="max-w-[1100px] mx-auto text-center">
+          <h2 className="text-[28px] lg:text-[40px] font-extrabold mb-4" style={{ color: "#0F172A" }}>
+            Our Mission
+          </h2>
+          <p className="text-base lg:text-lg max-w-4xl mx-auto leading-relaxed mb-6" style={{ color: "#475569" }}>
+            Our mission is to empower enterprises with AI-driven intelligence to optimize global trade, finance, and compliance. 
+            We build intelligent AI agents that automate complex workflows, enhance decision-making, and drive efficiency—
+            helping businesses unlock new opportunities, reduce risk, and scale seamlessly in an evolving digital economy.
+          </p>
+          <div className="relative h-[200px] lg:h-[300px] max-w-[900px] mx-auto rounded-xl overflow-hidden">
+            <Image
+              src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&h=500&fit=crop"
+              alt="Stock Exchange Trading Floor"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Why Enterprises Choose Section */}
+      <section className="py-12 lg:py-16 px-4 lg:px-6" style={{ background: "linear-gradient(180deg, #E8F4FC 0%, #F0F9FF 100%)" }}>
+        <div className="max-w-[1100px] mx-auto">
+          <h2 className="text-[28px] lg:text-[40px] font-extrabold text-center mb-8" style={{ color: "#0F172A" }}>
+            Why Enterprises Choose<br />Liquidmind AI?
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-5">
+            {/* AI-Powered Efficiency */}
+            <div className="p-6 rounded-2xl relative" style={{ background: "#FFFFFF", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}>
+              <div className="absolute -bottom-2 left-6 w-4 h-4 rotate-45" style={{ background: "#FFFFFF" }} />
+              <h3 className="text-lg font-bold mb-2" style={{ color: "#0066CC" }}>AI-Powered Efficiency</h3>
+              <p className="text-[14px] leading-relaxed" style={{ color: "#475569" }}>
+                Automate complex trade, finance, and compliance workflows, reducing operational costs and improving accuracy.
+              </p>
+            </div>
+
+            {/* Actionable Intelligence */}
+            <div className="p-6 rounded-2xl relative" style={{ background: "#FFFFFF", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}>
+              <div className="absolute -bottom-2 left-6 w-4 h-4 rotate-45" style={{ background: "#FFFFFF" }} />
+              <h3 className="text-lg font-bold mb-2" style={{ color: "#00A86B" }}>Actionable Intelligence</h3>
+              <p className="text-[14px] leading-relaxed" style={{ color: "#475569" }}>
+                Leverage AI-powered insights to optimize liquidity, manage risk, and enhance financial strategies.
+              </p>
+            </div>
+
+            {/* Security & Compliance First */}
+            <div className="p-6 rounded-2xl relative" style={{ background: "#FFFFFF", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}>
+              <div className="absolute -bottom-2 left-6 w-4 h-4 rotate-45" style={{ background: "#FFFFFF" }} />
+              <h3 className="text-lg font-bold mb-2" style={{ color: "#0066CC" }}>Security & Compliance First</h3>
+              <p className="text-[14px] leading-relaxed" style={{ color: "#475569" }}>
+                Designed to meet stringent financial and regulatory standards, ensuring data integrity, fraud detection, and risk mitigation.
+              </p>
+            </div>
+
+            {/* Seamless Integration */}
+            <div className="p-6 rounded-2xl relative" style={{ background: "#FFFFFF", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}>
+              <div className="absolute -bottom-2 left-6 w-4 h-4 rotate-45" style={{ background: "#FFFFFF" }} />
+              <h3 className="text-lg font-bold mb-2" style={{ color: "#00A86B" }}>Seamless Integration</h3>
+              <p className="text-[14px] leading-relaxed" style={{ color: "#475569" }}>
+                Connect effortlessly with ERP systems, banking platforms, and trade networks, ensuring smooth interoperability.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Meet the Minds Section */}
+      <section className="py-12 lg:py-16 px-4 lg:px-6" style={{ background: "#FFFFFF" }}>
+        <div className="max-w-[1100px] mx-auto">
+          <h2 className="text-[28px] lg:text-[40px] font-extrabold text-center mb-10" style={{ color: "#0F172A" }}>
+            Meet the Minds Behind<br />Liquidmind AI
+          </h2>
+
+          {/* CEO - Naveen Athresh */}
+          <div className="grid lg:grid-cols-[280px_1fr] gap-8 items-start mb-12 p-6 rounded-2xl" style={{ background: "linear-gradient(180deg, #E8F4FC 0%, #F0F9FF 100%)" }}>
+            <div className="relative w-[260px] h-[320px] mx-auto lg:mx-0 rounded-xl overflow-hidden">
               <Image
-                src="/images/elevate-award.jpg"
-                alt="Harmanpreet Singh - Founder & CEO"
+                src="/images/founder-naveen.avif"
+                alt="Naveen Athresh - Founder & CEO"
                 fill
-                className="object-cover rounded-2xl"
+                className="object-cover"
               />
-              <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl" style={{ background: "rgba(0,0,0,0.8)", backdropFilter: "blur(10px)" }}>
-                <h3 className="text-white font-bold text-lg">Harmanpreet Singh</h3>
-                <p className="text-white/70 text-sm">Founder & CEO</p>
-              </div>
             </div>
             <div>
-              <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-4"
-                style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.25)", color: "#0066CC" }}>
-                OUR FOUNDER
-              </div>
-              <h2 className="text-2xl lg:text-3xl font-bold mb-4" style={{ color: "#0F172A" }}>
-                A Vision Born from <span className="text-[#0066CC]">Real Pain</span>
-              </h2>
-              <p className="text-[15px] leading-relaxed mb-4" style={{ color: "#475569" }}>
-                Harmanpreet Singh founded Liquidmind after witnessing firsthand how document mismatches were 
-                costing Indian exporters billions in lost refunds annually. With a background in AI and 
-                deep tech, he assembled a team to build the most accurate document verification system 
-                for international trade.
+              <h3 className="text-xl font-bold mb-1" style={{ color: "#0066CC" }}>Naveen Athresh</h3>
+              <p className="text-base font-semibold mb-3" style={{ color: "#00A86B" }}>Founder/CEO and Chief Product Officer (March 2024)</p>
+              <p className="text-[14px] leading-relaxed mb-3" style={{ color: "#475569" }}>
+                Naveen runs liquidmind.ai in the mixed reality, digital commerce/Fintech space. A TEDx speaker, Forbes India 2020 top 100 leader (the only leader selected from Rakuten), he has consistently built 200+ member led high performance teams from scratch, led cross geo Product Engineering and Data sciences teams. He has been regularly featured as a thought leader across leading business dailies. Most recently, Naveen was featured on the January 2024 featured section with an elite list of business people globally (mostly USA) on a Global business magazine (Business Today) and USAwire in an article called "Thought leaders making an impact in the world".
               </p>
-              <p className="text-[15px] leading-relaxed" style={{ color: "#475569" }}>
-                Today, Liquidmind protects crores in annual refunds for exporters across India, with 
-                recognition from the Karnataka government, NVIDIA, AWS, and Microsoft.
-              </p>
+              <a href="#" className="text-sm font-medium italic" style={{ color: "#00A86B" }}>
+                Click here to know more about the founder
+              </a>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Mission Section */}
-      <section id="mission" className="py-12 lg:py-16 px-4 lg:px-6" style={{ background: "#F8FAFC" }}>
-        <div className="max-w-[1200px] mx-auto">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-4"
-                style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.25)", color: "#0066CC" }}>
-                OUR MISSION
-              </div>
-              <h2 className="text-2xl lg:text-3xl font-bold mb-4" style={{ color: "#0F172A" }}>
-                Recover Every Rupee Lost to <span className="text-[#0066CC]">Document Mismatches</span>
-              </h2>
-              <p className="text-[15px] leading-relaxed mb-4" style={{ color: "#475569" }}>
-                Indian exporters lose 3-7% of their FOB value every month to document mismatches between 
-                Shipping Bills and Invoices. These aren't obvious errors — they're subtle discrepancies 
-                that slip through manual checks and only surface 8-12 months later when refund claims get rejected.
-              </p>
-              <p className="text-[15px] leading-relaxed mb-4" style={{ color: "#475569" }}>
-                We built Liquidmind to catch every single one of these errors before they cost you money. 
-                Our AI doesn't just extract data — it understands context, maps fields semantically, 
-                and verifies every answer against the source document.
-              </p>
-              <p className="text-[15px] leading-relaxed" style={{ color: "#475569" }}>
-                The goal is simple: zero money lost to preventable document errors. Every exporter, 
-                every shipment, every rupee protected.
+          {/* CTO - Srivani */}
+          <div className="grid lg:grid-cols-[1fr_280px] gap-8 items-start p-6 rounded-2xl" style={{ background: "linear-gradient(180deg, #E8F4FC 0%, #F0F9FF 100%)" }}>
+            <div className="order-2 lg:order-1">
+              <h3 className="text-xl font-bold mb-1" style={{ color: "#0066CC" }}>Srivani Dharwar Vijaya</h3>
+              <p className="text-base font-semibold mb-3" style={{ color: "#0F172A" }}>Co Founder Chief Technology Officer (CTO)</p>
+              <p className="text-[14px] leading-relaxed" style={{ color: "#475569" }}>
+                Srivani has extensive technology architecture experience building/architecting major software systems across her 15+ year+ stints at Capgemini/iGate, Mindtree, Wipro and Infosys. She has a flair for hands-on programming (her specialties lie in enterprise software across SAP systems) and is a big believer in approaching problems from first principles and with a goal towards achieving the strategic objectives laid out. Srivani holds a Bachelors in Engineering degree (BE) from the Visvesvaraya Technology University (VTU) in Information science.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { value: "99.9%", label: "Accuracy Rate" },
-                { value: "5min", label: "Average Processing" },
-                { value: "40+", label: "Fields Extracted" },
-                { value: "Cr+", label: "Money Protected" },
-              ].map((stat, idx) => (
-                <div key={idx} className="p-5 rounded-xl card-hover" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
-                  <div className="text-3xl font-mono font-bold mb-1 bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">{stat.value}</div>
-                  <p className="text-sm font-medium" style={{ color: "#0F172A" }}>{stat.label}</p>
+            <div className="order-1 lg:order-2 relative w-[260px] h-[320px] mx-auto lg:mx-0 rounded-xl overflow-hidden" style={{ background: "#E2E8F0" }}>
+              {/* Placeholder for CTO image */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-20 h-20 rounded-full mx-auto mb-2" style={{ background: "#CBD5E1" }} />
+                  <p className="text-sm" style={{ color: "#64748B" }}>Image Coming Soon</p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="py-12 lg:py-16 px-4 lg:px-6" style={{ background: "#FFFFFF" }}>
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl lg:text-3xl font-bold mb-3" style={{ color: "#0F172A" }}>Our Values</h2>
-            <p className="text-base max-w-xl mx-auto" style={{ color: "#475569" }}>The principles that guide everything we build</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            {[
-              { title: "Accuracy First", description: "We don't guess. Every answer is pixel-verified against the source document. Zero hallucinations, zero assumptions.", color: "#0066CC" },
-              { title: "Speed Matters", description: "Time is money in trade. What takes hours manually should take minutes with AI. That's the standard we hold ourselves to.", color: "#00A86B" },
-              { title: "Real Impact", description: "We measure success in rupees recovered, not features shipped. If it doesn't save our customers money, it doesn't matter.", color: "#F59E0B" },
-            ].map((value, idx) => (
-              <div key={idx} className="p-6 rounded-xl card-hover"
-                style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderTop: `4px solid ${value.color}` }}>
-                <h3 className="text-lg font-bold mb-3" style={{ color: "#0F172A" }}>{value.title}</h3>
-                <p className="text-[14px] leading-relaxed" style={{ color: "#475569" }}>{value.description}</p>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Awards Section */}
-      <section id="awards" className="py-12 lg:py-16 px-4 lg:px-6" style={{ background: "#F8FAFC" }}>
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl lg:text-3xl font-bold mb-3" style={{ color: "#0F172A" }}>Recognition & <span className="text-[#0066CC]">Awards</span></h2>
-          </div>
-          <div className="grid lg:grid-cols-2 gap-4">
-            <div className="rounded-xl overflow-hidden card-hover" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
-              <div className="relative h-[220px] overflow-hidden">
-                <Image src="/images/aegis-award.jpg" alt="Aegis Graham Bell Award" fill className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <div className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase mb-1"
-                    style={{ background: "rgba(255,215,0,0.9)", color: "#0F172A" }}>FEBRUARY 2026</div>
-                  <h3 className="text-white text-lg font-bold">Aegis Graham Bell Award</h3>
-                </div>
-              </div>
-              <div className="p-4">
-                <p className="text-[14px] font-medium mb-1" style={{ color: "#0F172A" }}>Gen AI: CX Sales GTM Intelligence Category</p>
-                <p className="text-[13px] italic" style={{ color: "#64748B" }}>"Recognised for transforming international trade through Generative AI"</p>
-              </div>
-            </div>
-            <div className="rounded-xl overflow-hidden card-hover" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
-              <div className="relative h-[220px] overflow-hidden">
-                <Image src="/images/elevate-award.jpg" alt="Karnataka Elevate Award" fill className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <div className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase mb-1"
-                    style={{ background: "rgba(255,215,0,0.9)", color: "#0F172A" }}>NOVEMBER 2025</div>
-                  <h3 className="text-white text-lg font-bold">Karnataka Elevate 2025 — Winner</h3>
-                </div>
-              </div>
-              <div className="p-4">
-                <p className="text-[14px] font-medium mb-1" style={{ color: "#0F172A" }}>Selected from 1,474+ applicants</p>
-                <p className="text-[13px] italic" style={{ color: "#64748B" }}>"Non-dilutive grant awarded for innovation in trade compliance"</p>
-              </div>
-            </div>
-          </div>
+      <section className="py-12 lg:py-16 px-4 lg:px-6" style={{ background: "#F8FAFC" }}>
+        <div className="max-w-[1100px] mx-auto">
+          <h2 className="text-[28px] lg:text-[40px] font-extrabold text-center mb-8" style={{ color: "#0F172A" }}>
+            Recognition & <span className="text-[#0066CC]">Awards</span>
+          </h2>
           
+          <div className="grid lg:grid-cols-2 gap-5">
+            <div className="rounded-xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
+              <div className="relative h-[240px] overflow-hidden">
+                <Image src="/images/aegis-award.jpg" alt="Aegis Graham Bell Award" fill className="object-cover object-top" />
+              </div>
+              <div className="p-5">
+                <div className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase mb-2"
+                  style={{ background: "linear-gradient(90deg, #FFD700, #FFA500)", color: "#0F172A" }}>FEBRUARY 2026</div>
+                <h3 className="text-lg font-bold mb-1" style={{ color: "#0F172A" }}>Aegis Graham Bell Award</h3>
+                <p className="text-[13px]" style={{ color: "#475569" }}>16th AGBA Innovation in Gen AI - CX, Sales & GTM Intelligence Category Winner</p>
+              </div>
+            </div>
+
+            <div className="rounded-xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
+              <div className="relative h-[240px] overflow-hidden">
+                <Image src="/images/elevate-award.jpg" alt="Karnataka Elevate Award" fill className="object-cover object-center" />
+              </div>
+              <div className="p-5">
+                <div className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase mb-2"
+                  style={{ background: "linear-gradient(90deg, #FFD700, #FFA500)", color: "#0F172A" }}>NOVEMBER 2025</div>
+                <h3 className="text-lg font-bold mb-1" style={{ color: "#0F172A" }}>Karnataka Elevate 2025</h3>
+                <p className="text-[13px]" style={{ color: "#475569" }}>Selected from 1,474+ applicants across all sectors</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Partner Logos */}
           <div className="mt-8 text-center">
-            <p className="text-sm mb-4" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Image src="/images/nvidia-inception.png" alt="NVIDIA Inception" width={140} height={35} className="h-8 w-auto object-contain" />
-              <Image src="/images/aws-powered.png" alt="Powered by AWS" width={80} height={35} className="h-8 w-auto object-contain" />
-              <Image src="/images/microsoft-startups.png" alt="Microsoft for Startups" width={150} height={35} className="h-8 w-auto object-contain" />
+            <p className="text-sm mb-5" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
+            <div className="flex justify-center items-center">
+              <Image 
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-03-14%20130405-uP1L2ywM5qrkMF7O4uFcE6Hw2cn93h.png" 
+                alt="Partner Logos - NVIDIA Inception, AWS, Microsoft for Startups" 
+                width={500} 
+                height={60} 
+                className="h-12 w-auto object-contain" 
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section className="py-12 lg:py-16 px-4 lg:px-6" style={{ background: "linear-gradient(135deg, #0066CC 0%, #00A86B 100%)" }}>
-        <div className="max-w-[700px] mx-auto text-center">
-          <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">Get in Touch</h2>
-          <p className="text-base mb-6 text-white/80">Have questions? Want to learn more about how we can help your business?</p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <a href="mailto:support@liquidmind.ai" className="px-6 py-3 rounded-lg text-sm font-bold transition-all hover:scale-105" style={{ background: "#FFFFFF", color: "#0066CC" }}>Email Us</a>
-            <a href="/#demo" className="px-6 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-white/10" style={{ background: "transparent", border: "2px solid #FFFFFF", color: "#FFFFFF" }}>Book a Demo</a>
+      {/* Locate Us Section */}
+      <section className="py-12 lg:py-16 px-4 lg:px-6" style={{ background: "#FFFFFF" }}>
+        <div className="max-w-[1100px] mx-auto">
+          <h2 className="text-[24px] lg:text-[32px] font-extrabold mb-6" style={{ color: "#00A86B" }}>
+            Locate Us
+          </h2>
+          <div className="rounded-xl overflow-hidden" style={{ border: "1px solid #E2E8F0" }}>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.6849566261147!2d77.5486!3d12.9351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU2JzA2LjQiTiA3N8KwMzInNTUuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
+              width="100%"
+              height="350"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </section>
