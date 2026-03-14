@@ -259,13 +259,13 @@ function AwardsSection() {
       date: "FEBRUARY 2026",
       title: "Aegis Graham Bell Award",
       subtitle: "16th AGBA Innovation in Gen AI - CX, Sales & GTM Intelligence Category Winner",
-      image: "/images/aegis-award.jpg",
+      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Aegis%20graham%20bell%20award-Io0nVjDGHyxbMH3GUnh9D2M8PtIHjM.jpg",
     },
     {
       date: "NOVEMBER 2025",
       title: "Karnataka Elevate 2025",
       subtitle: "Selected from 1,474+ applicants across all sectors",
-      image: "/images/elevate-award.jpg",
+      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/karnataka%20elevate%20award-6VQmT2ahCZSsynysJCRN0mwxbYjAZp.jpg",
     },
   ]
 
@@ -276,46 +276,51 @@ function AwardsSection() {
           Recognised. <span className="gold-text-shine">Validated.</span> Trusted.
         </h2>
 
-        <div className="grid lg:grid-cols-2 gap-4 mb-6">
+        <div className="grid lg:grid-cols-2 gap-5 mb-8">
           {awards.map((award, idx) => (
             <div key={idx}
-              className={`rounded-2xl overflow-hidden gold-glow ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-              style={{ background: "#0F172A", border: "2px solid #FFD700", transitionDelay: `${idx * 150}ms`, transition: "all 0.5s ease" }}>
-              <div className="relative h-[220px] lg:h-[260px] overflow-hidden">
-                <Image src={award.image} alt={award.title} fill className="object-cover object-top" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <div className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-[0.1em] uppercase mb-1"
-                    style={{ background: "linear-gradient(90deg, #FFD700, #FFA500)", color: "#0F172A" }}>
+              className={`rounded-2xl overflow-hidden group transition-all duration-500 hover:scale-[1.02] ${isInView ? 'opacity-100 translate-y-0 animate-float-subtle' : 'opacity-0 translate-y-8'}`}
+              style={{ 
+                background: "#0F172A", 
+                border: "3px solid transparent",
+                backgroundImage: "linear-gradient(#0F172A, #0F172A), linear-gradient(135deg, #FFD700, #FFA500, #FFD700)",
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box, border-box",
+                boxShadow: "0 0 40px rgba(255,215,0,0.15), 0 20px 60px rgba(0,0,0,0.3)",
+                transitionDelay: `${idx * 150}ms`,
+              }}>
+              <div className="relative h-[280px] lg:h-[340px] overflow-hidden">
+                <Image src={award.image} alt={award.title} fill className="object-cover object-center group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/30 to-transparent" />
+                <div className="absolute top-3 right-3">
+                  <div className="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase animate-shimmer"
+                    style={{ background: "linear-gradient(90deg, #FFD700, #FFA500, #FFD700)", backgroundSize: "200% 100%", color: "#0F172A" }}>
                     {award.date}
                   </div>
-                  <h3 className="text-white text-lg font-bold gold-text-shine">{award.title}</h3>
                 </div>
               </div>
-              <div className="p-4">
-                <p className="text-[13px] font-medium" style={{ color: "#FFD700" }}>{award.subtitle}</p>
+              <div className="p-5 relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FFD700]/5 to-transparent animate-shimmer" style={{ backgroundSize: "200% 100%" }} />
+                <h3 className="text-xl font-bold mb-2 gold-text-shine">{award.title}</h3>
+                <p className="text-[14px] font-medium" style={{ color: "rgba(255,215,0,0.9)" }}>{award.subtitle}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
       
-      {/* Backed By - Partner Logo Marquee */}
-      <div className={`w-full py-6 overflow-hidden transition-all duration-700 delay-300 ${isInView ? 'opacity-100' : 'opacity-0'}`} style={{ background: "#F8FAFC" }}>
-        <p className="text-center text-sm font-medium mb-4" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
-        <div className="flex items-center overflow-hidden">
-          <div className="animate-marquee flex items-center">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="flex items-center mx-16">
-                <Image 
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-03-14%20130405-uP1L2ywM5qrkMF7O4uFcE6Hw2cn93h.png" 
-                  alt="Partner Logos - NVIDIA Inception, AWS, Microsoft for Startups" 
-                  width={500} 
-                  height={60} 
-                  className="h-14 w-auto object-contain" 
-                />
-              </div>
-            ))}
+      {/* Backed By - Static Partner Logos */}
+      <div className={`w-full py-8 transition-all duration-700 delay-300 ${isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`} style={{ background: "#F8FAFC" }}>
+        <div className="max-w-[700px] mx-auto text-center">
+          <p className="text-base font-medium mb-5 tracking-wide" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
+          <div className="flex justify-center items-center animate-fade-in-up">
+            <Image 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-G9hl35IAaJDFUvKFh8S2YTV0z9g6lE.png" 
+              alt="Partner Logos - NVIDIA Inception, AWS, Microsoft for Startups" 
+              width={600} 
+              height={80} 
+              className="h-16 lg:h-20 w-auto object-contain hover:scale-105 transition-transform duration-500" 
+            />
           </div>
         </div>
       </div>

@@ -83,18 +83,41 @@ export function Navigation() {
               </button>
               
               <div 
-                className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[320px] p-4 rounded-xl transition-all duration-200 ${productsOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'}`}
-                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 20px 50px rgba(0,0,0,0.15)" }}
+                className={`absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[340px] p-3 rounded-2xl transition-all duration-300 ${productsOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
+                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 25px 60px rgba(0,0,0,0.2)" }}
               >
-                {products.map((product) => (
+                {products.map((product, idx) => (
                   <button
                     key={product.name}
                     onClick={() => scrollToSection(product.href)}
-                    className="w-full text-left p-3 rounded-lg hover:bg-[#F8FAFC] transition-colors block mb-1"
-                    style={{ borderLeft: "3px solid #0066CC" }}
+                    className="w-full text-left p-4 rounded-xl transition-all duration-300 block mb-2 last:mb-0 group relative overflow-hidden hover:scale-[1.02]"
+                    style={{ 
+                      background: "linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)",
+                      border: "2px solid #E2E8F0",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = '#0066CC'
+                      e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,102,204,0.15)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = '#E2E8F0'
+                      e.currentTarget.style.boxShadow = 'none'
+                    }}
                   >
-                    <div className="text-[#0F172A] font-bold text-sm">{product.name}</div>
-                    <div className="text-[#475569] text-xs">{product.description}</div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0066CC]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="relative flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
+                        style={{ background: `linear-gradient(135deg, ${idx === 0 ? '#0066CC' : idx === 1 ? '#00A86B' : '#0052A3'}, ${idx === 0 ? '#0052A3' : idx === 1 ? '#008B5E' : '#003D7A'})` }}>
+                        <span className="text-white font-bold text-sm">{product.name.charAt(0)}</span>
+                      </div>
+                      <div>
+                        <div className="text-[#0F172A] font-bold text-[15px] group-hover:text-[#0066CC] transition-colors">{product.name}</div>
+                        <div className="text-[#64748B] text-[12px]">{product.description}</div>
+                      </div>
+                      <svg className="w-5 h-5 text-[#94A3B8] group-hover:text-[#0066CC] group-hover:translate-x-1 transition-all ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
                   </button>
                 ))}
               </div>

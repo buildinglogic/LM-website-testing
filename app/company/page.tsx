@@ -138,23 +138,12 @@ export default function CompanyPage() {
           </div>
 
           {/* CTO - Srivani */}
-          <div className="grid lg:grid-cols-[1fr_280px] gap-8 items-start p-6 rounded-2xl" style={{ background: "linear-gradient(180deg, #E8F4FC 0%, #F0F9FF 100%)" }}>
-            <div className="order-2 lg:order-1">
-              <h3 className="text-xl font-bold mb-1" style={{ color: "#0066CC" }}>Srivani Dharwar Vijaya</h3>
-              <p className="text-base font-semibold mb-3" style={{ color: "#0F172A" }}>Co Founder Chief Technology Officer (CTO)</p>
-              <p className="text-[14px] leading-relaxed" style={{ color: "#475569" }}>
-                Srivani has extensive technology architecture experience building/architecting major software systems across her 15+ year+ stints at Capgemini/iGate, Mindtree, Wipro and Infosys. She has a flair for hands-on programming (her specialties lie in enterprise software across SAP systems) and is a big believer in approaching problems from first principles and with a goal towards achieving the strategic objectives laid out. Srivani holds a Bachelors in Engineering degree (BE) from the Visvesvaraya Technology University (VTU) in Information science.
-              </p>
-            </div>
-            <div className="order-1 lg:order-2 relative w-[260px] h-[320px] mx-auto lg:mx-0 rounded-xl overflow-hidden" style={{ background: "#E2E8F0" }}>
-              {/* Placeholder for CTO image */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-20 h-20 rounded-full mx-auto mb-2" style={{ background: "#CBD5E1" }} />
-                  <p className="text-sm" style={{ color: "#64748B" }}>Image Coming Soon</p>
-                </div>
-              </div>
-            </div>
+          <div className="p-6 rounded-2xl" style={{ background: "linear-gradient(180deg, #E8F4FC 0%, #F0F9FF 100%)" }}>
+            <h3 className="text-xl font-bold mb-1" style={{ color: "#0066CC" }}>Srivani Dharwar Vijaya</h3>
+            <p className="text-base font-semibold mb-3" style={{ color: "#0F172A" }}>Co Founder Chief Technology Officer (CTO)</p>
+            <p className="text-[14px] leading-relaxed" style={{ color: "#475569" }}>
+              Srivani has extensive technology architecture experience building/architecting major software systems across her 15+ year+ stints at Capgemini/iGate, Mindtree, Wipro and Infosys. She has a flair for hands-on programming (her specialties lie in enterprise software across SAP systems) and is a big believer in approaching problems from first principles and with a goal towards achieving the strategic objectives laid out. Srivani holds a Bachelors in Engineering degree (BE) from the Visvesvaraya Technology University (VTU) in Information science.
+            </p>
           </div>
         </div>
       </section>
@@ -168,8 +157,8 @@ export default function CompanyPage() {
           
           <div className="grid lg:grid-cols-2 gap-5">
             <div className="rounded-xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
-              <div className="relative h-[240px] overflow-hidden">
-                <Image src="/images/aegis-award.jpg" alt="Aegis Graham Bell Award" fill className="object-cover object-top" />
+              <div className="relative h-[280px] overflow-hidden">
+                <Image src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Aegis%20graham%20bell%20award-Io0nVjDGHyxbMH3GUnh9D2M8PtIHjM.jpg" alt="Aegis Graham Bell Award" fill className="object-cover object-center" />
               </div>
               <div className="p-5">
                 <div className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase mb-2"
@@ -180,8 +169,8 @@ export default function CompanyPage() {
             </div>
 
             <div className="rounded-xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
-              <div className="relative h-[240px] overflow-hidden">
-                <Image src="/images/elevate-award.jpg" alt="Karnataka Elevate Award" fill className="object-cover object-center" />
+              <div className="relative h-[280px] overflow-hidden">
+                <Image src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/karnataka%20elevate%20award-6VQmT2ahCZSsynysJCRN0mwxbYjAZp.jpg" alt="Karnataka Elevate Award" fill className="object-cover object-center" />
               </div>
               <div className="p-5">
                 <div className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase mb-2"
@@ -194,14 +183,14 @@ export default function CompanyPage() {
 
           {/* Partner Logos */}
           <div className="mt-8 text-center">
-            <p className="text-sm mb-5" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
+            <p className="text-base font-medium mb-5" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
             <div className="flex justify-center items-center">
               <Image 
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-03-14%20130405-uP1L2ywM5qrkMF7O4uFcE6Hw2cn93h.png" 
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-G9hl35IAaJDFUvKFh8S2YTV0z9g6lE.png" 
                 alt="Partner Logos - NVIDIA Inception, AWS, Microsoft for Startups" 
-                width={500} 
-                height={60} 
-                className="h-12 w-auto object-contain" 
+                width={600} 
+                height={80} 
+                className="h-16 lg:h-20 w-auto object-contain" 
               />
             </div>
           </div>
