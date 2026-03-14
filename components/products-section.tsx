@@ -419,8 +419,12 @@ function TradeguardTab() {
           >
             Get Started
           </a>
+          <button
+            className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300"
+            style={{ background: "transparent", border: "1.5px solid #CBD5E1", color: "#0F172A" }}
+          >
             Watch Demo
-          </a>
+          </button>
         </div>
       </div>
 

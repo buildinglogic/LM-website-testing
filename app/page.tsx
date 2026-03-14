@@ -96,6 +96,9 @@ function HeroSection() {
   ] as { to: number; suffix: string; line1: string; line2: string; prefix?: string }[]
 
   return (
+    <section
+      className="page-snap min-h-screen pt-[120px] pb-6 px-4 lg:px-8 flex items-center"
+      style={{
         backgroundImage: `url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/white%20textured%20background-VTbHzt4lKA0rxfUKqNSLETf6lAlqjC.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -126,6 +129,22 @@ function HeroSection() {
               Liquidmind AI catches every error before customs does.
             </p>
 
+            {/* Compact inline stats */}
+            <div className="flex items-start gap-0 mb-8 animate-fade-in-up stagger-3">
+              {stats.map((stat, idx) => (
+                <React.Fragment key={idx}>
+                  <div className="flex flex-col">
+                    <span className="text-[30px] lg:text-[34px] font-black tracking-tight leading-none tabular-nums" style={{ color: "#0066CC" }}>
+                      {stat.prefix}<AnimatedCount to={stat.to} />{stat.suffix}
+                    </span>
+                    <span className="text-[10px] font-medium leading-[1.3] mt-1.5" style={{ color: "#94A3B8" }}>
+                      {stat.line1}<br />{stat.line2}
+                    </span>
+                  </div>
+                  {idx < 2 && (
+                    <div className="w-px mx-6 mt-1" style={{ height: "44px", background: "#E2E8F0" }} />
+                  )}
+                </React.Fragment>
               ))}
             </div>
 
@@ -139,6 +158,21 @@ function HeroSection() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
               </Link>
+
+              <button className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all hover:bg-slate-50 haptic-btn"
+                style={{ border: "1.5px solid #E2E8F0" }}>
+                <div className="relative w-8 h-8 flex-shrink-0 flex items-center justify-center">
+                  <span className="absolute inset-0 rounded-full play-ring-1" style={{ background: "rgba(0,102,204,0.12)" }} />
+                  <span className="absolute inset-0 rounded-full play-ring-2" style={{ background: "rgba(0,102,204,0.07)" }} />
+                  <span className="relative w-full h-full rounded-full flex items-center justify-center"
+                    style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.2)" }}>
+                    <svg className="w-3 h-3 ml-0.5" fill="#0066CC" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </span>
+                </div>
+                <span className="text-sm font-semibold" style={{ color: "#0F172A" }}>Watch Demo</span>
+              </button>
             </div>
           </div>
 
@@ -227,10 +261,53 @@ function ProblemSection() {
   ]
 
   return (
+    <section
+      ref={ref}
+      className="page-snap min-h-screen flex flex-col justify-center py-6 px-4 lg:px-8 relative"
+      style={{
+        background: `linear-gradient(180deg, rgba(255,255,255,0.88) 0%, rgba(248,250,252,0.92) 100%), url('/images/world-map-bg.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
+      <div className="w-full max-w-[1000px] mx-auto">
+        <div className={`text-center mb-5 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 flex-shrink-0 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>
+              The Cost of Doing Nothing
+            </span>
+            <div className="h-px w-8 flex-shrink-0 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] lg:text-[36px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+            Your Trade Documents Are{" "}
+            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">Bleeding Money</span>{" "}
+            Right Now.
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 mb-5">
+          {problems.map((problem, idx) => (
+            <ProblemCardItem key={idx} problem={problem} idx={idx} isInView={isInView} />
+          ))}
+        </div>
+
+        <div className={`flex flex-col items-center gap-3 transition-all duration-700 delay-300 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center gap-3">
+            <div className="h-px w-12 rounded-full" style={{ background: "linear-gradient(90deg, transparent, #CBD5E1)" }} />
+            <span className="text-[10px] font-mono font-semibold tracking-[0.15em] uppercase" style={{ color: "#94A3B8" }}>
+              ₹2,40,000+ at risk in an average shipment
+            </span>
+            <div className="h-px w-12 rounded-full" style={{ background: "linear-gradient(270deg, transparent, #CBD5E1)" }} />
+          </div>
+
+          <a href="#products"
+            className="group btn-cta-glow btn-shine haptic-btn relative inline-flex items-center gap-3 px-9 py-4 rounded-2xl text-white font-extrabold text-[15px] tracking-tight overflow-hidden"
+            style={{ background: "linear-gradient(90deg, #0066CC 0%, #00A86B 100%)" }}>
+            <span className="absolute left-0 right-0 h-px top-0 opacity-40" style={{ background: "linear-gradient(90deg, transparent, #ffffff, transparent)", animation: "shimmer 2s linear infinite" }} />
+            <span className="relative">Stop Losing Money. See Tradeguard in Action</span>
+            <span className="relative inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
+              <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
               </svg>
             </span>
@@ -469,6 +546,12 @@ function AwardsSection() {
         <div className="max-w-[900px] mx-auto text-center px-4">
           <p className="text-base font-semibold mb-6 tracking-wide" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
           <div className="flex justify-center items-center">
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-03-14%20133550-DW8iyYo9sqjlGDVnoCBNdZDhoLi2E4.png"
+              alt="Partner Logos - NVIDIA Inception, AWS, Microsoft for Startups"
+              width={800}
+              height={120}
+              className="w-full max-w-[700px] h-auto object-contain"
             />
           </div>
         </div>
