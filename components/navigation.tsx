@@ -37,26 +37,28 @@ export function Navigation() {
   return (
     <>
       {/* Award Announcement Bar - Marquee */}
-      <div 
-        className={`w-full overflow-hidden transition-all duration-300 ${scrolled ? 'h-0 opacity-0' : 'h-10 opacity-100'}`}
-        style={{ background: "linear-gradient(90deg, #FFD700, #FFA500, #FFD700)" }}
-      >
-        <div className="h-full flex items-center animate-marquee whitespace-nowrap">
-          {[...Array(6)].map((_, i) => (
-            <span key={i} className="mx-8 text-[13px] font-bold text-[#0F172A] flex items-center gap-4">
-              <span>Aegis Graham Bell Award 2026 Winner</span>
-              <span className="opacity-40">|</span>
-              <span>Karnataka Elevate 2025 Winner</span>
-              <span className="opacity-40">|</span>
-            </span>
-          ))}
+      {!scrolled && (
+        <div 
+          className="fixed top-0 left-0 right-0 z-50 h-10 overflow-hidden"
+          style={{ background: "linear-gradient(90deg, #FFD700, #FFA500, #FFD700)" }}
+        >
+          <div className="h-full flex items-center animate-marquee whitespace-nowrap">
+            {[...Array(6)].map((_, i) => (
+              <span key={i} className="mx-8 text-[13px] font-bold text-[#0F172A] flex items-center gap-4">
+                <span>Aegis Graham Bell Award 2026 Winner</span>
+                <span className="opacity-40">|</span>
+                <span>Karnataka Elevate 2025 Winner</span>
+                <span className="opacity-40">|</span>
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main Navigation - Larger header */}
       <nav
-        className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'top-0' : 'top-10'}`}
-        style={{ height: "72px", background: "#000000" }}
+        className="fixed w-full z-50"
+        style={{ height: "72px", background: "#000000", top: scrolled ? "0" : "40px" }}
       >
         <div className="w-full h-full px-4 lg:px-8 flex items-center justify-between">
           {/* Logo - Far Left, Full Height */}

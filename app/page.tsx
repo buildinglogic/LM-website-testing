@@ -310,16 +310,16 @@ function AwardsSection() {
       </div>
       
       {/* Backed By - Static Partner Logos */}
-      <div className={`w-full py-8 transition-all duration-700 delay-300 ${isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`} style={{ background: "#F8FAFC" }}>
-        <div className="max-w-[700px] mx-auto text-center">
-          <p className="text-base font-medium mb-5 tracking-wide" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
-          <div className="flex justify-center items-center animate-fade-in-up">
+      <div className={`w-full py-10 transition-all duration-700 delay-300 ${isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`} style={{ background: "#F8FAFC" }}>
+        <div className="max-w-[900px] mx-auto text-center">
+          <p className="text-base font-medium mb-6 tracking-wide" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
+          <div className="flex justify-center items-center">
             <Image 
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-G9hl35IAaJDFUvKFh8S2YTV0z9g6lE.png" 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Gqt7incm1St02ycvVbXNCKm4NzQz1I.png" 
               alt="Partner Logos - NVIDIA Inception, AWS, Microsoft for Startups" 
-              width={600} 
-              height={80} 
-              className="h-16 lg:h-20 w-auto object-contain hover:scale-105 transition-transform duration-500" 
+              width={800} 
+              height={100} 
+              className="h-20 lg:h-24 w-auto object-contain" 
             />
           </div>
         </div>

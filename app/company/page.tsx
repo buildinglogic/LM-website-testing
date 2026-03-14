@@ -182,15 +182,15 @@ export default function CompanyPage() {
           </div>
 
           {/* Partner Logos */}
-          <div className="mt-8 text-center">
-            <p className="text-base font-medium mb-5" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
+          <div className="mt-10 text-center">
+            <p className="text-base font-medium mb-6" style={{ color: "#64748B" }}>Backed by leading technology partners</p>
             <div className="flex justify-center items-center">
               <Image 
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-G9hl35IAaJDFUvKFh8S2YTV0z9g6lE.png" 
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Gqt7incm1St02ycvVbXNCKm4NzQz1I.png" 
                 alt="Partner Logos - NVIDIA Inception, AWS, Microsoft for Startups" 
-                width={600} 
-                height={80} 
-                className="h-16 lg:h-20 w-auto object-contain" 
+                width={700} 
+                height={90} 
+                className="h-20 lg:h-24 w-auto object-contain" 
               />
             </div>
           </div>
