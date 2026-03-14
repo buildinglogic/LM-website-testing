@@ -49,21 +49,21 @@ export function ROICalculator() {
   const estimatedProtectionHigh = annualRisk * 0.9
 
   return (
-    <section ref={ref} id="calculator" className="min-h-screen py-12 lg:py-16 px-4 lg:px-8 flex items-center" style={{ background: "#F8FAFC" }}>
+    <section ref={ref} id="calculator" className="py-8 lg:py-12 px-4 lg:px-6" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[1000px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-8 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-4"
+        <div className={`text-center mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-3"
             style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.25)", color: "#0066CC" }}>
             ROI CALCULATOR
           </div>
-          <h2 className="text-[28px] lg:text-[44px] font-bold leading-tight mb-3" style={{ color: "#0F172A" }}>
+          <h2 className="text-[26px] lg:text-[40px] font-bold leading-tight mb-2" style={{ color: "#0F172A" }}>
             Calculate Your <span className="text-[#0066CC]">Annual Exposure</span>
           </h2>
         </div>
 
         {/* Calculator card */}
-        <div className={`grid lg:grid-cols-2 gap-6 transition-all duration-700 delay-100 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`grid lg:grid-cols-2 gap-4 transition-all duration-700 delay-100 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           
           {/* Input Panel */}
           <div className="rounded-xl p-6" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>

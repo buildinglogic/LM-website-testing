@@ -39,24 +39,24 @@ export function ProductsSection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section ref={ref} id="products" className="min-h-screen py-12 lg:py-16 px-4 lg:px-8 flex items-center" style={{ background: "#FFFFFF" }}>
+    <section ref={ref} id="products" className="py-8 lg:py-12 px-4 lg:px-6" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[1400px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-8 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-4"
+        <div className={`text-center mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-3"
             style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.25)", color: "#0066CC" }}>
             OUR PRODUCTS
           </div>
-          <h2 className="text-[28px] lg:text-[44px] font-bold leading-tight mb-3" style={{ color: "#0F172A" }}>
+          <h2 className="text-[26px] lg:text-[40px] font-bold leading-tight mb-2" style={{ color: "#0F172A" }}>
             Three Products. <span className="text-[#0066CC]">One Mission.</span>
           </h2>
-          <p className="text-sm lg:text-base max-w-xl mx-auto" style={{ color: "#475569" }}>
+          <p className="text-sm max-w-lg mx-auto" style={{ color: "#475569" }}>
             Stop money leaking through your trade documents.
           </p>
         </div>
 
         {/* Toggle Tab bar */}
-        <div className={`flex justify-center mb-8 transition-all duration-700 delay-100 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`flex justify-center mb-6 transition-all duration-700 delay-100 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="inline-flex p-1 rounded-full" style={{ background: "#F1F5F9", border: "2px solid #E2E8F0" }}>
             {tabs.map((tab) => (
               <button
