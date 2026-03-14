@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Plus, X } from "lucide-react"
+import { Plus } from "lucide-react"
 
 const faqGroups = [
   {
@@ -19,10 +19,6 @@ const faqGroups = [
         question: "How long does a comparison take?",
         answer: "Under 5 minutes for a standard Shipping Bill + Invoice pair. Complex multi-document sets take 8–12 minutes."
       },
-      {
-        question: "Is my document data stored or shared?",
-        answer: "No. Documents are processed in-memory on Azure's enterprise infrastructure and deleted after the session ends."
-      },
     ]
   },
   {
@@ -39,7 +35,7 @@ const faqGroups = [
     ]
   },
   {
-    label: "FOR ALL",
+    label: "GENERAL",
     items: [
       {
         question: "How is this different from manual checking?",
@@ -92,46 +88,71 @@ export function FAQSection() {
   }
 
   return (
-    <section ref={ref} id="faq" className="py-20 lg:py-30 px-6 lg:px-20" style={{ background: "#FFFFFF" }}>
-      <div className="max-w-[800px] mx-auto">
-        <h2 className={`text-3xl lg:text-[52px] font-bold leading-tight text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ color: "#0F172A" }}>
-          Every Question You Have <span className="text-[#0066CC]">Before Saying Yes.</span>
-        </h2>
+    <section ref={ref} id="faq" className="min-h-screen py-12 lg:py-16 px-4 lg:px-8 flex items-center" style={{ background: "#FFFFFF" }}>
+      <div className="w-full max-w-[900px] mx-auto">
+        {/* Header with FAQ badge */}
+        <div className={`text-center mb-8 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div
+            className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-4"
+            style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.25)", color: "#0066CC" }}
+          >
+            FAQ
+          </div>
+          <h2 className="text-[28px] lg:text-[44px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+            Questions Before <span className="text-[#0066CC]">Saying Yes?</span>
+          </h2>
+        </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           {faqGroups.map((group, groupIdx) => (
             <div 
               key={groupIdx}
               className={`transition-all duration-500 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{ transitionDelay: `${groupIdx * 100}ms` }}
             >
-              <span className="text-[11px] font-bold tracking-[0.12em] uppercase block mb-4" style={{ color: "#0066CC" }}>
+              <span className="text-[11px] font-bold tracking-[0.12em] uppercase block mb-3" style={{ color: "#0066CC" }}>
                 {group.label}
               </span>
-              <div className="space-y-0">
+              <div className="rounded-xl overflow-hidden" style={{ border: "1px solid #E2E8F0", background: "#FFFFFF" }}>
                 {group.items.map((item, itemIdx) => {
                   const id = `${groupIdx}-${itemIdx}`
                   const isOpen = openItems.has(id)
                   
                   return (
-                    <div key={id} style={{ borderBottom: "1px solid #E2E8F0" }}>
+                    <div key={id} style={{ borderTop: itemIdx > 0 ? "1px solid #E2E8F0" : "none" }}>
                       <button
                         onClick={() => toggleItem(id)}
-                        className="w-full py-5 flex items-center justify-between text-left group"
+                        className="w-full py-4 px-5 flex items-center justify-between text-left group haptic-btn ripple-container"
                       >
-                        <span className={`text-lg font-semibold transition-colors duration-300 ${isOpen ? "text-[#0066CC]" : "group-hover:text-[#0066CC]"}`} style={{ color: isOpen ? "#0066CC" : "#0F172A" }}>
+                        <span 
+                          className={`text-base font-semibold transition-all duration-300 pr-4`} 
+                          style={{ color: isOpen ? "#0066CC" : "#0F172A" }}
+                        >
                           {item.question}
                         </span>
-                        <span className="ml-4 flex-shrink-0 transition-transform duration-300" style={{ color: "#94A3B8", transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}>
-                          <Plus className="w-5 h-5" />
+                        <span 
+                          className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
+                          style={{ 
+                            background: isOpen ? "#0066CC" : "#F1F5F9",
+                            transform: isOpen ? "rotate(45deg) scale(1.1)" : "rotate(0deg) scale(1)",
+                            boxShadow: isOpen ? "0 4px 15px rgba(0,102,204,0.4)" : "none"
+                          }}
+                        >
+                          <Plus className="w-4 h-4" style={{ color: isOpen ? "#FFFFFF" : "#64748B" }} />
                         </span>
                       </button>
                       <div 
-                        className={`overflow-hidden transition-all duration-500 ${isOpen ? "max-h-96 pb-5" : "max-h-0"}`}
+                        className={`overflow-hidden transition-all duration-500 ease-out`}
+                        style={{ 
+                          maxHeight: isOpen ? "300px" : "0px",
+                          opacity: isOpen ? 1 : 0,
+                        }}
                       >
-                        <p className="text-base leading-relaxed" style={{ color: "#475569" }}>
-                          {item.answer}
-                        </p>
+                        <div className="px-5 pb-4">
+                          <p className="text-[14px] leading-relaxed" style={{ color: "#475569" }}>
+                            {item.answer}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   )

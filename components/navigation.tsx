@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Menu, X, ChevronDown } from "lucide-react"
+import { Menu, X, ChevronDown, Youtube, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -22,7 +22,7 @@ const products = [
     name: "TariffIQ",
     description: "HSN Classification & Duty Calculator",
     target: "For importers & exporters",
-    color: "#F59E0B",
+    color: "#0066CC",
   },
 ]
 
@@ -41,46 +41,49 @@ export function Navigation() {
 
   return (
     <>
-      {/* Announcement Bar */}
+      {/* Announcement Bar - Marquee Style */}
       <div 
-        className="w-full h-10 flex items-center justify-center px-4 text-[13px] font-bold transition-all duration-300"
-        style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}
+        className="w-full h-10 flex items-center overflow-hidden"
+        style={{ background: "linear-gradient(90deg, #D4AF37, #B8860B, #D4AF37)", color: "#000000" }}
       >
-        <span className="hidden sm:inline">
-          Aegis Graham Bell Award 2026 · Karnataka Elevate Winner ·{" "}
-        </span>
-        <span className="sm:hidden">Award Winner 2026 · </span>
-        <a href="#demo" className="underline hover:no-underline ml-1">
-          Book a Demo
-        </a>
+        <div className="animate-marquee flex items-center whitespace-nowrap">
+          {[...Array(3)].map((_, i) => (
+            <span key={i} className="mx-8 text-[13px] font-bold flex items-center gap-4">
+              <span>Aegis Graham Bell Award 2026 Winner</span>
+              <span className="text-[#0F172A]/60">|</span>
+              <span>Karnataka Elevate 2025 Winner</span>
+              <span className="text-[#0F172A]/60">|</span>
+              <a href="#demo" className="underline hover:no-underline">Book a Demo</a>
+              <span className="text-[#0F172A]/60">|</span>
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* Sticky Navigation */}
       <nav
-        className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'shadow-lg' : ''}`}
+        className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'shadow-xl' : ''}`}
         style={{
           top: scrolled ? "0px" : "40px",
-          height: "88px",
+          height: "72px",
           background: "#000000",
-          backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255,255,255,0.1)",
         }}
       >
-        <div className="max-w-[1280px] mx-auto h-full px-6 lg:px-20 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center h-full group">
+        <div className="w-full h-full px-4 lg:px-8 flex items-center justify-between">
+          {/* Logo - Far Left */}
+          <Link href="/" className="flex items-center h-full flex-shrink-0">
             <Image 
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-FQklSuzkmSwjvO1CP9LcCeqsf0SOzb.png"
               alt="Liquidmind"
-              width={320}
-              height={88}
-              className="h-[70px] lg:h-[80px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              width={200}
+              height={50}
+              className="h-[50px] w-auto object-contain"
               priority
             />
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-8">
+          {/* Desktop Nav - Center with equal spacing */}
+          <div className="hidden lg:flex items-center justify-center flex-1 gap-10">
             {/* Products Dropdown */}
             <div 
               className="relative"
@@ -92,11 +95,11 @@ export function Navigation() {
               </button>
               
               <div 
-                className={`absolute top-full left-0 mt-2 w-[480px] p-6 rounded-xl transition-all duration-300 ${productsOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'}`}
+                className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[480px] p-6 rounded-xl transition-all duration-300 ${productsOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'}`}
                 style={{ 
                   background: "#FFFFFF", 
                   border: "1px solid #E2E8F0",
-                  boxShadow: "0 20px 50px rgba(0,0,0,0.1)"
+                  boxShadow: "0 20px 50px rgba(0,0,0,0.15)"
                 }}
               >
                 <div className="grid grid-cols-2 gap-4">
@@ -127,14 +130,37 @@ export function Navigation() {
             </Link>
           </div>
 
-          {/* Right side */}
-          <div className="hidden lg:flex items-center gap-4">
-            <a href="#signin" className="text-white/80 text-sm font-semibold hover:text-white transition-colors duration-300">
-              Sign In
-            </a>
+          {/* Right side - Book Demo + Social Icons */}
+          <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
+            {/* Social Icons */}
+            <div className="flex items-center gap-2">
+              <a 
+                href="https://youtube.com/@liquidmindai" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-white/10 hover:scale-110"
+              >
+                <Youtube className="w-4 h-4 text-white/80 hover:text-white" />
+              </a>
+              <a 
+                href="https://linkedin.com/company/liquidmind" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-white/10 hover:scale-110"
+              >
+                <Linkedin className="w-4 h-4 text-white/80 hover:text-white" />
+              </a>
+              <a 
+                href="mailto:support@liquidmind.ai"
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-white/10 hover:scale-110"
+              >
+                <Mail className="w-4 h-4 text-white/80 hover:text-white" />
+              </a>
+            </div>
+            
             <a
               href="#demo"
-              className="px-5 py-2.5 rounded-[10px] text-sm font-bold transition-all duration-300 hover:scale-105 btn-shine"
+              className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 hover:scale-105 btn-shine"
               style={{
                 background: "linear-gradient(90deg, #0066CC, #00A86B)",
                 color: "#FFFFFF",
@@ -156,7 +182,7 @@ export function Navigation() {
 
         {/* Mobile Menu */}
         <div 
-          className={`lg:hidden fixed inset-0 z-40 pt-[128px] transition-all duration-500 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+          className={`lg:hidden fixed inset-0 z-40 pt-[112px] transition-all duration-500 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
           style={{ background: "rgba(255,255,255,0.98)" }}
         >
           <div className="p-6 space-y-4">
@@ -172,6 +198,19 @@ export function Navigation() {
             <Link href="/careers" className="block text-[#0F172A] text-lg font-semibold py-3 border-b border-[#E2E8F0] hover:text-[#0066CC] transition-colors">
               Careers
             </Link>
+            
+            {/* Social Icons Mobile */}
+            <div className="flex items-center gap-4 pt-4">
+              <a href="https://youtube.com/@liquidmindai" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center bg-[#0066CC]">
+                <Youtube className="w-5 h-5 text-white" />
+              </a>
+              <a href="https://linkedin.com/company/liquidmind" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center bg-[#0066CC]">
+                <Linkedin className="w-5 h-5 text-white" />
+              </a>
+              <a href="mailto:support@liquidmind.ai" className="w-10 h-10 rounded-full flex items-center justify-center bg-[#0066CC]">
+                <Mail className="w-5 h-5 text-white" />
+              </a>
+            </div>
           </div>
         </div>
       </nav>
