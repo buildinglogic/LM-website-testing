@@ -20,6 +20,11 @@ export const metadata: Metadata = {
   description: 'Stop losing crores to trade document errors. Liquidmind AI catches every mismatch between Shipping Bills and Invoices before customs does. Tradeguard, Patram AI, TariffIQ.',
   keywords: 'trade compliance, AI document verification, shipping bill, customs, drawback, IGST refund, HSN code, export compliance, India trade',
   authors: [{ name: 'Liquidmind AI' }],
+  icons: {
+    icon: '/images/favicon.jpg',
+    shortcut: '/images/favicon.jpg',
+    apple: '/images/favicon.jpg',
+  },
   openGraph: {
     title: 'Liquidmind AI — Stop Losing Crores to Trade Document Errors',
     description: 'India\'s #1 AI Trade Compliance Platform. Tradeguard catches every document mismatch before customs does.',
