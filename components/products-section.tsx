@@ -645,7 +645,7 @@ function PatramTab() {
 
 const TARIFF_MESSAGES = [
   {
-    title: "HSN 84137096 — High confidence: 99%",
+    title: "HSN 84137096 — High confidence: 95%",
     text: "Slurry pumps | Other centrifugal pumps. Chapter 84 — Nuclear Reactors, Boilers, Machinery. 8-digit ITC-HS: 8413 70 96.",
     color: "#1B4F8A",
     bg: "rgba(27,79,138,0.06)",
@@ -822,7 +822,7 @@ function TariffIQTab() {
               <tr style={{ borderTop: "1px solid #E2E8F0" }}>
                 <td className="py-1.5 px-3" style={{ color: "#475569" }}>Accuracy</td>
                 <td className="py-1.5 px-3" style={{ color: "#0F172A" }}>~70%</td>
-                <td className="py-1.5 px-3 font-semibold" style={{ color: "#1B4F8A" }}>99.2%</td>
+                <td className="py-1.5 px-3 font-semibold" style={{ color: "#1B4F8A" }}>95%</td>
               </tr>
             </tbody>
           </table>

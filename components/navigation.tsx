@@ -42,7 +42,7 @@ const products = [
     name: "TariffIQ",
     tagline: "HSN Classification & Duty",
     description: "AI classifies your product to 8-digit ITC-HS and compares RoDTEP vs Drawback earnings.",
-    stats: ["99.2% accuracy", "RoDTEP vs Drawback"],
+    stats: ["95% accuracy", "RoDTEP vs Drawback"],
     color: "#1B4F8A",
     gradientFrom: "#1B4F8A",
     gradientTo: "#2563EB",

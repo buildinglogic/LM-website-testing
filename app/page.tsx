@@ -261,7 +261,7 @@ function ProblemSection() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
         </svg>
       ),
-      number: "99.9%", 
+      number: "95%", 
       title: "Accuracy Needed for Compliance", 
       body: "One wrong digit in HSN code or port abbreviation can reject your entire drawback claim.", 
       citation: "Industry Standard"
@@ -669,13 +669,15 @@ function AwardsSection() {
       date: "FEBRUARY 2026",
       title: "Aegis Graham Bell Award",
       subtitle: "16th AGBA Innovation in Gen AI - CX, Sales & GTM Intelligence Category Winner",
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Aegis%20graham%20bell%20award-Io0nVjDGHyxbMH3GUnh9D2M8PtIHjM.jpg",
+      image: "/images/aegis-graham-bell-award.jpg",
+      objectPosition: "object-top",
     },
     {
       date: "NOVEMBER 2025",
       title: "Karnataka Elevate 2025",
       subtitle: "Selected from 1,474+ applicants across all sectors",
       image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/karnataka%20elevate%20award-6VQmT2ahCZSsynysJCRN0mwxbYjAZp.jpg",
+      objectPosition: "object-center",
     },
   ]
 
@@ -704,7 +706,7 @@ function AwardsSection() {
                 transitionDelay: `${idx * 150}ms`,
               }}>
               <div className="relative h-[180px] lg:h-[220px] overflow-hidden">
-                <Image src={award.image} alt={award.title} fill priority className="object-cover object-center group-hover:scale-105 transition-transform duration-700" />
+                <Image src={award.image} alt={award.title} fill priority className={`object-cover ${award.objectPosition} group-hover:scale-105 transition-transform duration-700`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/30 to-transparent" />
                 <div className="absolute top-3 right-3">
                   <div className="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase"
