@@ -1,177 +1,126 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
-import { MapPin, Briefcase, Clock, ChevronRight, X, ArrowRight } from "lucide-react"
+import { ArrowRight, Upload, ChevronDown } from "lucide-react"
 import Image from "next/image"
 
-const openPositions = [
-  {
-    id: 1,
-    title: "Senior Full Stack Engineer",
-    department: "Engineering",
-    location: "Bangalore, India",
-    type: "Full-time",
-    description: "Build and scale our AI-powered trade compliance platform. You'll work on document processing pipelines, real-time extraction systems, and intuitive interfaces.",
-    requirements: [
-      "5+ years of experience with React, Node.js, and TypeScript",
-      "Experience with Python and ML/AI integrations",
-      "Strong understanding of database design and optimization",
-      "Experience building scalable SaaS applications",
-    ],
-    niceToHave: [
-      "Experience with document processing or OCR systems",
-      "Knowledge of international trade or compliance domains",
-      "Experience with AWS or GCP cloud services",
-    ],
-  },
-  {
-    id: 2,
-    title: "AI/ML Engineer",
-    department: "AI Research",
-    location: "Bangalore, India",
-    type: "Full-time",
-    description: "Develop and improve our AI models for document extraction, field mapping, and semantic understanding of trade documents.",
-    requirements: [
-      "3+ years of experience in ML/AI engineering",
-      "Strong Python skills with PyTorch or TensorFlow",
-      "Experience with NLP and document understanding models",
-      "Familiarity with LLM fine-tuning and prompt engineering",
-    ],
-    niceToHave: [
-      "Experience with Azure AI services",
-      "Background in OCR or computer vision",
-      "Published research in relevant areas",
-    ],
-  },
-  {
-    id: 3,
-    title: "Product Manager",
-    department: "Product",
-    location: "Bangalore, India",
-    type: "Full-time",
-    description: "Own the product roadmap for our trade compliance tools. Work directly with customers to understand their needs and translate them into features.",
-    requirements: [
-      "4+ years of product management experience in B2B SaaS",
-      "Strong analytical and problem-solving skills",
-      "Excellent communication and stakeholder management",
-      "Experience working with engineering teams on complex products",
-    ],
-    niceToHave: [
-      "Background in fintech, logistics, or trade",
-      "Experience with AI/ML products",
-      "Understanding of Indian export-import ecosystem",
-    ],
-  },
-]
+const POSITIONS = ["AI/ML Engineer", "Full Stack Developer"]
 
 export default function CareersPage() {
-  const [selectedJob, setSelectedJob] = useState<typeof openPositions[0] | null>(null)
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    position: "",
+    startDate: "",
+    cvLink: "",
+  })
+  const [positionOpen, setPositionOpen] = useState(false)
+  const [resumeFile, setResumeFile] = useState<File | null>(null)
+  const [submitted, setSubmitted] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setPositionOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file && file.size <= 15 * 1024 * 1024) setResumeFile(file)
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!form.position) return
+    setSubmitted(true)
+  }
+
+  const labelStyle = { color: "#0066CC" }
+  const inputClass = "w-full px-4 py-3 rounded-full text-[14px] outline-none transition-all focus:ring-2 focus:ring-[#0066CC]/30"
+  const inputStyle = { background: "#F1F5F9", border: "none", color: "#0F172A" }
 
   return (
     <main className="min-h-screen bg-white">
       <Navigation />
-      
-      {/* Hero Section - "Let's make the world better together!" */}
-      <section className="pt-[140px] lg:pt-[160px] pb-16 lg:pb-20 px-6 lg:px-20" style={{ background: "#FFFFFF" }}>
+
+      {/* Hero */}
+      <section className="pt-[120px] lg:pt-[160px] pb-10 lg:pb-20 px-5 lg:px-20" style={{ background: "#FFFFFF" }}>
         <div className="max-w-[1280px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div>
-              <h1 className="text-[38px] lg:text-[56px] font-extrabold leading-tight mb-6" style={{ color: "#0F172A" }}>
+              <h1 className="text-[28px] sm:text-[38px] lg:text-[56px] font-extrabold leading-tight mb-5" style={{ color: "#0F172A" }}>
                 {"Let's make the world"}
                 <br />
-                <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">better together!</span>
+                <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
+                  better together!
+                </span>
               </h1>
               <a
-                href="#positions"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold transition-all duration-300 hover:scale-105 btn-shine"
-                style={{
-                  background: "#0066CC",
-                  color: "#FFFFFF",
-                  boxShadow: "0 4px 25px rgba(0,102,204,0.35)",
-                }}
+                href="#apply"
+                className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 rounded-full text-sm sm:text-base font-bold transition-all duration-300 hover:scale-105 btn-shine"
+                style={{ background: "#0066CC", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.35)" }}
               >
-                EXPLORE VACANCIES <ArrowRight className="w-5 h-5" />
+                EXPLORE VACANCIES <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </div>
-            <div className="relative">
-              <div className="relative h-[350px] lg:h-[420px] rounded-2xl overflow-hidden card-hover" style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.1)" }}>
-                <Image 
-                  src="/images/career-hero.jpg" 
-                  alt="Join our team" 
-                  fill 
-                  className="object-cover"
-                />
-              </div>
+            <div className="relative h-[220px] sm:h-[300px] lg:h-[420px] rounded-2xl overflow-hidden card-hover" style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.1)" }}>
+              <Image src="/images/career-hero.jpg" alt="Join our team" fill className="object-cover" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Unity in Diversity Section */}
-      <section className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#F8FAFC" }}>
+      {/* Unity in Diversity */}
+      <section className="py-10 lg:py-20 px-5 lg:px-20" style={{ background: "#F8FAFC" }}>
         <div className="max-w-[1280px] mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <div className="order-2 lg:order-1">
-              <div className="gradient-container inline-block mb-4">
-                <div className="px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.12em] uppercase" 
-                  style={{ background: "#FFFFFF", color: "#0066CC" }}>
-                  OUR CULTURE
-                </div>
-              </div>
-              <h2 className="text-[32px] lg:text-[44px] font-bold mb-4" style={{ color: "#0F172A" }}>
-                Unity in <span className="text-[#0066CC]">Diversity</span>
+              <h2 className="text-[22px] sm:text-[28px] lg:text-[40px] font-bold mb-4" style={{ color: "#0F172A" }}>
+                Unity in <span style={{ color: "#0066CC" }}>Diversity</span>
               </h2>
-              <p className="text-lg leading-relaxed" style={{ color: "#475569" }}>
-                Join our innovative team where diverse backgrounds drive financial revolution. 
-                Embrace a collaborative environment uniting varied perspectives. Shape the future 
+              <p className="text-[13px] sm:text-[15px] lg:text-lg leading-relaxed" style={{ color: "#475569" }}>
+                Join our innovative team where diverse backgrounds drive financial revolution.
+                Embrace a collaborative environment uniting varied perspectives. Shape the future
                 of finance with us today!
               </p>
             </div>
-            <div className="order-1 lg:order-2">
-              <div className="relative h-[300px] lg:h-[380px] rounded-2xl overflow-hidden card-hover" style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.1)" }}>
-                <Image 
-                  src="/images/career-diversity.jpg" 
-                  alt="Unity in Diversity" 
-                  fill 
-                  className="object-cover"
-                />
-              </div>
+            <div className="order-1 lg:order-2 relative h-[200px] sm:h-[260px] lg:h-[360px] rounded-2xl overflow-hidden card-hover" style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.1)" }}>
+              <Image src="/images/career-diversity.jpg" alt="Unity in Diversity" fill className="object-cover" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Positive Learning Curve Section */}
-      <section className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#FFFFFF" }}>
+      {/* Positive Learning Curve */}
+      <section className="py-10 lg:py-20 px-5 lg:px-20" style={{ background: "#FFFFFF" }}>
         <div className="max-w-[1280px] mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="relative h-[300px] lg:h-[380px] rounded-2xl overflow-hidden card-hover" style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.1)" }}>
-                <Image 
-                  src="/images/career-learning.jpg" 
-                  alt="Positive Learning Curve" 
-                  fill 
-                  className="object-cover"
-                />
-              </div>
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
+            <div className="relative h-[200px] sm:h-[260px] lg:h-[360px] rounded-2xl overflow-hidden card-hover" style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.1)" }}>
+              <Image src="/images/career-learning.jpg" alt="Positive Learning Curve" fill className="object-cover" />
             </div>
             <div>
-              <div className="gradient-container inline-block mb-4">
-                <div className="px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.12em] uppercase" 
-                  style={{ background: "#FFFFFF", color: "#00A86B" }}>
-                  GROWTH
-                </div>
-              </div>
-              <h2 className="text-[32px] lg:text-[44px] font-bold mb-4" style={{ color: "#0F172A" }}>
-                Positive Learning <span className="text-[#00A86B]">Curve</span>
+              <h2 className="text-[22px] sm:text-[28px] lg:text-[40px] font-bold mb-4" style={{ color: "#0F172A" }}>
+                Positive Learning <span style={{ color: "#00A86B" }}>Curve</span>
               </h2>
-              <p className="text-lg leading-relaxed" style={{ color: "#475569" }}>
-                Join our team to explore innovative use cases and experiment with proof of concepts 
-                in a dynamic learning environment. Empowerment drives us to push boundaries and 
-                contribute to groundbreaking solutions in financial operations. Unlock your potential 
+              <p className="text-[13px] sm:text-[15px] lg:text-lg leading-relaxed" style={{ color: "#475569" }}>
+                Join our team to explore innovative use cases and experiment with proof of concepts
+                in a dynamic learning environment. Empowerment drives us to push boundaries and
+                contribute to groundbreaking solutions in financial operations. Unlock your potential
                 and embark on a journey of continuous growth with us today.
               </p>
             </div>
@@ -179,277 +128,173 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Create Something Better Section */}
-      <section className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#F8FAFC" }}>
+      {/* Create Something Better */}
+      <section className="py-10 lg:py-20 px-5 lg:px-20" style={{ background: "#F8FAFC" }}>
         <div className="max-w-[1280px] mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <div className="order-2 lg:order-1">
-              <div className="gradient-container inline-block mb-4">
-                <div className="px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.12em] uppercase" 
-                  style={{ background: "#FFFFFF", color: "#0066CC" }}>
-                  IMPACT
-                </div>
-              </div>
-              <h2 className="text-[32px] lg:text-[44px] font-bold mb-4 italic" style={{ color: "#0066CC" }}>
+              <h2 className="text-[20px] sm:text-[26px] lg:text-[36px] font-bold mb-4 italic" style={{ color: "#0066CC" }}>
                 Create something better for the world through innovation
               </h2>
-              <p className="text-lg leading-relaxed mb-6" style={{ color: "#475569" }}>
-                Our team dedicated to various initiatives, uplifting underprivileged communities, 
-                and advocating for education. Make a tangible impact through our robust programs, 
+              <p className="text-[13px] sm:text-[15px] lg:text-lg leading-relaxed mb-5" style={{ color: "#475569" }}>
+                Our team dedicated to various initiatives, uplifting underprivileged communities,
+                and advocating for education. Make a tangible impact through our robust programs,
                 driving innovation while fostering positive change. Join us in making a difference today.
               </p>
               <a
-                href="#positions"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold transition-all duration-300 hover:scale-105 btn-shine"
-                style={{
-                  background: "transparent",
-                  color: "#0F172A",
-                  border: "2px solid #0F172A",
-                }}
+                href="#apply"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold transition-all duration-300 hover:scale-105"
+                style={{ background: "transparent", color: "#0F172A", border: "2px solid #0F172A" }}
               >
                 EXPLORE VACANCIES <ArrowRight className="w-5 h-5" />
               </a>
             </div>
-            <div className="order-1 lg:order-2">
-              <div className="relative h-[300px] lg:h-[380px] rounded-2xl overflow-hidden card-hover" style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.1)" }}>
-                <Image 
-                  src="/images/career-innovation.jpg" 
-                  alt="Create something better" 
-                  fill 
-                  className="object-cover"
-                />
-              </div>
+            <div className="order-1 lg:order-2 relative h-[200px] sm:h-[260px] lg:h-[360px] rounded-2xl overflow-hidden card-hover" style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.1)" }}>
+              <Image src="/images/career-innovation.jpg" alt="Create something better" fill className="object-cover" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why Liquidmind - Animated Cards */}
-      <section className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#FFFFFF" }}>
-        <div className="max-w-[1280px] mx-auto">
-          <div className="text-center mb-12">
-            <div className="gradient-container inline-block mb-4">
-              <div className="px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.12em] uppercase" 
-                style={{ background: "#FFFFFF", color: "#0066CC" }}>
-                WHY JOIN US
-              </div>
-            </div>
-            <h2 className="text-3xl lg:text-[44px] font-bold mb-4" style={{ color: "#0F172A" }}>Why <span className="text-[#0066CC]">Liquidmind?</span></h2>
-            <p className="text-lg max-w-2xl mx-auto" style={{ color: "#475569" }}>
-              We're not just building software — we're solving a real problem that costs Indian businesses crores every year.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Real Impact",
-                description: "Our products directly help exporters recover money they didn't know they were losing. See your work make a difference.",
-                color: "#0066CC",
-              },
-              {
-                title: "Cutting-Edge Tech",
-                description: "Work with the latest AI models, document processing tech, and cloud infrastructure. Learn and grow every day.",
-                color: "#00A86B",
-              },
-              {
-                title: "Growth Stage",
-                description: "Early enough to shape the company, late enough to have real customers and validation. Best of both worlds.",
-                color: "#0066CC",
-              },
-            ].map((item, idx) => (
+      {/* Application Form */}
+      <section id="apply" className="py-10 lg:py-24 px-5 lg:px-20" style={{ background: "#FFFFFF" }}>
+        <div className="max-w-[640px] mx-auto">
+          <h2 className="text-[22px] sm:text-[28px] lg:text-[36px] font-bold text-center mb-7" style={{ color: "#0F172A" }}>
+            Come Work With Us
+          </h2>
+
+          {submitted ? (
+            <div className="text-center py-16">
               <div
-                key={idx}
-                className="group p-8 rounded-2xl problem-card relative overflow-hidden cursor-pointer"
-                style={{ 
-                  background: "linear-gradient(135deg, #E0F4F1 0%, #E8F4FD 100%)", 
-                  border: "2px solid transparent",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#0F172A"
-                  e.currentTarget.style.borderColor = item.color
-                  const title = e.currentTarget.querySelector('h3')
-                  const desc = e.currentTarget.querySelector('p')
-                  if (title) (title as HTMLElement).style.color = "#FFFFFF"
-                  if (desc) (desc as HTMLElement).style.color = "rgba(255,255,255,0.8)"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "linear-gradient(135deg, #E0F4F1 0%, #E8F4FD 100%)"
-                  e.currentTarget.style.borderColor = "transparent"
-                  const title = e.currentTarget.querySelector('h3')
-                  const desc = e.currentTarget.querySelector('p')
-                  if (title) (title as HTMLElement).style.color = "#0F172A"
-                  if (desc) (desc as HTMLElement).style.color = "#475569"
-                }}
+                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}
               >
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ArrowRight className="w-5 h-5 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-4 transition-colors" style={{ color: "#0F172A" }}>{item.title}</h3>
-                <p className="text-[15px] leading-relaxed transition-colors" style={{ color: "#475569" }}>{item.description}</p>
+                <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Open Positions Section */}
-      <section id="positions" className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "#F8FAFC" }}>
-        <div className="max-w-[1280px] mx-auto">
-          <div className="text-center mb-12">
-            <div className="gradient-container inline-block mb-4">
-              <div className="px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.12em] uppercase" 
-                style={{ background: "#FFFFFF", color: "#0066CC" }}>
-                OPPORTUNITIES
-              </div>
+              <h3 className="text-[20px] font-bold mb-2" style={{ color: "#0F172A" }}>Application Submitted!</h3>
+              <p className="text-[14px]" style={{ color: "#64748B" }}>
+                We'll review your application and get back to you shortly.
+              </p>
             </div>
-            <h2 className="text-3xl lg:text-[44px] font-bold mb-4" style={{ color: "#0F172A" }}>Open <span className="text-[#0066CC]">Positions</span></h2>
-            <p className="text-lg max-w-2xl mx-auto" style={{ color: "#475569" }}>
-              {openPositions.length} open roles across engineering, product, and sales
-            </p>
-          </div>
-          <div className="space-y-4">
-            {openPositions.map((job) => (
-              <div
-                key={job.id}
-                onClick={() => setSelectedJob(job)}
-                className="p-6 rounded-2xl cursor-pointer problem-card"
-                style={{ 
-                  background: "#FFFFFF", 
-                  border: "1px solid #E2E8F0",
-                }}
-              >
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                  <div>
-                    <h3 className="text-xl font-bold mb-2" style={{ color: "#0F172A" }}>{job.title}</h3>
-                    <div className="flex flex-wrap items-center gap-4 text-sm">
-                      <span className="flex items-center gap-1" style={{ color: "#475569" }}>
-                        <Briefcase className="w-4 h-4" />
-                        {job.department}
-                      </span>
-                      <span className="flex items-center gap-1" style={{ color: "#475569" }}>
-                        <MapPin className="w-4 h-4" />
-                        {job.location}
-                      </span>
-                      <span className="flex items-center gap-1" style={{ color: "#475569" }}>
-                        <Clock className="w-4 h-4" />
-                        {job.type}
-                      </span>
-                    </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-5">
+
+              {/* First + Last name */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[13px] font-semibold mb-1.5" style={labelStyle}>First name</label>
+                  <input name="firstName" value={form.firstName} onChange={handleChange}
+                    className={inputClass} style={inputStyle} />
+                </div>
+                <div>
+                  <label className="block text-[13px] font-semibold mb-1.5" style={labelStyle}>Last name</label>
+                  <input name="lastName" value={form.lastName} onChange={handleChange}
+                    className={inputClass} style={inputStyle} />
+                </div>
+              </div>
+
+              {/* Email + Phone */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[13px] font-semibold mb-1.5" style={labelStyle}>
+                    Email <span style={{ color: "#0066CC" }}>*</span>
+                  </label>
+                  <input name="email" type="email" value={form.email} onChange={handleChange}
+                    required className={inputClass} style={inputStyle} />
+                </div>
+                <div>
+                  <label className="block text-[13px] font-semibold mb-1.5" style={labelStyle}>Phone</label>
+                  <input name="phone" type="tel" value={form.phone} onChange={handleChange}
+                    className={inputClass} style={inputStyle} />
+                </div>
+              </div>
+
+              {/* Position — custom dropdown matching Company nav style */}
+              <div ref={dropdownRef} className="relative">
+                <label className="block text-[13px] font-semibold mb-1.5" style={labelStyle}>Position</label>
+                <button
+                  type="button"
+                  onClick={() => setPositionOpen(!positionOpen)}
+                  className="w-full px-4 py-3 rounded-full text-[14px] flex items-center justify-between transition-all focus:outline-none focus:ring-2 focus:ring-[#0066CC]/30"
+                  style={{
+                    background: "#F1F5F9",
+                    border: positionOpen ? "1.5px solid #0066CC" : "1.5px solid transparent",
+                    color: form.position ? "#0F172A" : "#94A3B8",
+                  }}
+                >
+                  <span>{form.position || ""}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform flex-shrink-0`} style={{ color: "#64748B", transform: positionOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
+                </button>
+
+                {positionOpen && (
+                  <div
+                    className="absolute top-[calc(100%+8px)] left-0 right-0 z-50 p-2 rounded-xl"
+                    style={{
+                      background: "#FFFFFF",
+                      border: "1px solid #E2E8F0",
+                      boxShadow: "0 25px 60px rgba(0,0,0,0.2)",
+                    }}
+                  >
+                    {POSITIONS.map((pos) => (
+                      <button
+                        key={pos}
+                        type="button"
+                        onClick={() => { setForm({ ...form, position: pos }); setPositionOpen(false) }}
+                        className="w-full text-left px-4 py-2.5 rounded-lg text-[14px] font-medium transition-all hover:bg-[#F1F5F9]"
+                        style={{ color: form.position === pos ? "#0066CC" : "#0F172A" }}
+                      >
+                        {pos}
+                      </button>
+                    ))}
                   </div>
-                  <div className="flex items-center gap-2" style={{ color: "#0066CC" }}>
-                    <span className="font-semibold">View Details</span>
-                    <ChevronRight className="w-5 h-5" />
-                  </div>
+                )}
+              </div>
+
+              {/* Start Date + CV Link */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[13px] font-semibold mb-1.5" style={labelStyle}>Start Date</label>
+                  <input name="startDate" type="date" value={form.startDate} onChange={handleChange}
+                    className={inputClass} style={inputStyle} />
+                </div>
+                <div>
+                  <label className="block text-[13px] font-semibold mb-1.5" style={labelStyle}>Link to CV/LinkedIn</label>
+                  <input name="cvLink" type="url" value={form.cvLink} onChange={handleChange}
+                    className={inputClass} style={inputStyle} />
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* No Match Section */}
-      <section className="py-16 lg:py-24 px-6 lg:px-20" style={{ background: "linear-gradient(135deg, #0066CC 0%, #00A86B 100%)" }}>
-        <div className="max-w-[800px] mx-auto text-center">
-          <h2 className="text-3xl lg:text-[44px] font-bold text-white mb-6">{"Don't See a Fit?"}</h2>
-          <p className="text-lg text-white/80 mb-8">
-            We're always looking for exceptional people. Send us your resume and tell us how you can contribute.
-          </p>
-          <a
-            href="mailto:careers@liquidmind.ai"
-            className="inline-block px-8 py-4 rounded-full text-base font-bold transition-all duration-300 hover:scale-105"
-            style={{ background: "#FFFFFF", color: "#0066CC" }}
-          >
-            Send General Application
-          </a>
-        </div>
-      </section>
-
-      {/* Job Detail Modal */}
-      {selectedJob && (
-        <div 
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4"
-          style={{ background: "rgba(0,0,0,0.5)" }}
-          onClick={() => setSelectedJob(null)}
-        >
-          <div 
-            className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl p-8 shadow-2xl"
-            style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <h2 className="text-2xl font-bold mb-2" style={{ color: "#0F172A" }}>{selectedJob.title}</h2>
-                <div className="flex flex-wrap items-center gap-4 text-sm">
-                  <span className="flex items-center gap-1" style={{ color: "#475569" }}>
-                    <Briefcase className="w-4 h-4" />
-                    {selectedJob.department}
-                  </span>
-                  <span className="flex items-center gap-1" style={{ color: "#475569" }}>
-                    <MapPin className="w-4 h-4" />
-                    {selectedJob.location}
-                  </span>
-                </div>
+              {/* Upload Resume */}
+              <div className="flex flex-col items-center gap-2 pt-2">
+                <input ref={fileInputRef} type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} className="hidden" />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[14px] font-semibold transition-all hover:scale-105"
+                  style={{ background: "#F1F5F9", color: "#0F172A", border: "1px solid #E2E8F0" }}
+                >
+                  {resumeFile ? resumeFile.name : "Upload Resume"} <Upload className="w-4 h-4" />
+                </button>
+                <span className="text-[12px]" style={{ color: "#94A3B8" }}>(File Size Max 15MB)</span>
               </div>
-              <button 
-                onClick={() => setSelectedJob(null)}
-                className="transition-colors hover:text-[#0066CC]"
-                style={{ color: "#94A3B8" }}
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
 
-            <div className="mb-6">
-              <h3 className="font-bold mb-2" style={{ color: "#0F172A" }}>About the Role</h3>
-              <p className="text-[15px] leading-relaxed" style={{ color: "#475569" }}>{selectedJob.description}</p>
-            </div>
+              {/* Apply */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="w-full py-4 rounded-full text-[15px] font-bold tracking-widest transition-all hover:scale-[1.02] btn-shine"
+                  style={{ background: "#0F172A", color: "#FFFFFF" }}
+                >
+                  APPLY
+                </button>
+              </div>
 
-            <div className="mb-6">
-              <h3 className="font-bold mb-3" style={{ color: "#0F172A" }}>Requirements</h3>
-              <ul className="space-y-2">
-                {selectedJob.requirements.map((req, idx) => (
-                  <li key={idx} className="text-[15px] flex items-start gap-2" style={{ color: "#475569" }}>
-                    <span className="mt-1" style={{ color: "#0066CC" }}>•</span>
-                    {req}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mb-8">
-              <h3 className="font-bold mb-3" style={{ color: "#0F172A" }}>Nice to Have</h3>
-              <ul className="space-y-2">
-                {selectedJob.niceToHave.map((item, idx) => (
-                  <li key={idx} className="text-[15px] flex items-start gap-2" style={{ color: "#64748B" }}>
-                    <span className="mt-1" style={{ color: "#00A86B" }}>•</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="flex gap-4">
-              <a
-                href={`mailto:careers@liquidmind.ai?subject=Application for ${selectedJob.title}`}
-                className="flex-1 py-4 rounded-full text-center text-base font-bold transition-all duration-300 hover:scale-[1.02] btn-shine"
-                style={{
-                  background: "linear-gradient(90deg, #0066CC, #00A86B)",
-                  color: "#FFFFFF",
-                }}
-              >
-                Apply Now
-              </a>
-              <button
-                onClick={() => setSelectedJob(null)}
-                className="px-6 py-4 rounded-full text-base font-semibold transition-all duration-300 hover:border-[#0066CC] hover:text-[#0066CC]"
-                style={{ background: "transparent", border: "1.5px solid #CBD5E1", color: "#0F172A" }}
-              >
-                Close
-              </button>
-            </div>
-          </div>
+            </form>
+          )}
         </div>
-      )}
+      </section>
 
       <Footer />
       <WhatsAppButton />

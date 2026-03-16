@@ -54,12 +54,14 @@ export function FAQSection() {
     <section ref={ref} id="faq" className="py-8 lg:py-12 px-4 lg:px-6" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[900px] mx-auto">
         <div className={`text-center mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-3"
-            style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.25)", color: "#0066CC" }}>
-            FAQ
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>FAQ</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[26px] lg:text-[40px] font-bold leading-tight" style={{ color: "#0F172A" }}>
-            Every Question <span className="text-[#0066CC]">Answered</span>
+          <h2 className="text-[22px] lg:text-[36px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
+            Every Question{" "}
+            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">Answered</span>
           </h2>
         </div>
 

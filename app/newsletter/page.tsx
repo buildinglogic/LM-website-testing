@@ -7,8 +7,63 @@ import { FooterLinks } from "@/components/footer-links"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Check } from "lucide-react"
 
+const benefits = [
+  "Weekly trade compliance insights",
+  "HSN code updates & tariff changes",
+  "DGFT policy announcements",
+  "Tips to maximize Drawback & RoDTEP",
+  "Case studies & success stories",
+  "Early access to new features",
+]
+
+const recentIssues = [
+  { title: "5 Hidden Reasons Your Drawback Claims Are Getting Rejected", date: "March 10, 2026", readTime: "5 min read" },
+  { title: "RoDTEP vs Duty Drawback: Which Scheme Pays You More?", date: "March 3, 2026", readTime: "7 min read" },
+  { title: "How One Exporter Recovered 12 Lakhs in 30 Days", date: "February 24, 2026", readTime: "4 min read" },
+  { title: "New DGFT Guidelines: What Changes for You in 2026", date: "February 17, 2026", readTime: "6 min read" },
+  { title: "The Complete Guide to HSN Code Classification", date: "February 10, 2026", readTime: "10 min read" },
+  { title: "Avoiding IGST Refund Rejections: A Step-by-Step Checklist", date: "February 3, 2026", readTime: "8 min read" },
+]
+
+const learnItems = [
+  {
+    title: "Compliance Updates",
+    description: "Stay ahead of DGFT policy changes, new HSN codes, and tariff updates that directly affect your exports.",
+    color: "#0066CC",
+    lightBg: "#EFF6FF",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Refund Optimisation",
+    description: "Learn strategies to maximise your Drawback, RoDTEP, and IGST refunds. Real numbers, real results.",
+    color: "#00A86B",
+    lightBg: "#ECFDF5",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Error Prevention",
+    description: "Common documentation mistakes that cost exporters lakhs — and exactly how to avoid them every time.",
+    color: "#1B4F8A",
+    lightBg: "#EFF6FF",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+    ),
+  },
+]
+
 export default function NewsletterPage() {
   const [email, setEmail] = useState("")
+  const [role, setRole] = useState("")
   const [subscribed, setSubscribed] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -16,92 +71,118 @@ export default function NewsletterPage() {
     setSubscribed(true)
   }
 
-  const benefits = [
-    "Weekly trade compliance insights",
-    "HSN code updates & tariff changes",
-    "DGFT policy announcements",
-    "Tips to maximize drawback & RODTEP",
-    "Case studies & success stories",
-    "Early access to new features",
-  ]
-
-  const recentIssues = [
-    { title: "5 Hidden Reasons Your Drawback Claims Are Getting Rejected", date: "March 10, 2026", readTime: "5 min read" },
-    { title: "RoDTEP vs Duty Drawback: Which Scheme Pays You More?", date: "March 3, 2026", readTime: "7 min read" },
-    { title: "How One Exporter Recovered 12 Lakhs in 30 Days", date: "February 24, 2026", readTime: "4 min read" },
-    { title: "New DGFT Guidelines: What Changes for You in 2026", date: "February 17, 2026", readTime: "6 min read" },
-    { title: "The Complete Guide to HSN Code Classification", date: "February 10, 2026", readTime: "10 min read" },
-    { title: "Avoiding IGST Refund Rejections: A Step-by-Step Checklist", date: "February 3, 2026", readTime: "8 min read" },
-  ]
-
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen" style={{ background: "#FFFFFF" }}>
       <Navigation />
-      
-      {/* Hero Section */}
-      <section className="pt-[140px] lg:pt-[160px] pb-12 lg:pb-16 px-4 lg:px-6" style={{ background: "linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 50%, #EFF6FF 100%)" }}>
+
+      {/* ── Hero ── */}
+      <section className="pt-[120px] lg:pt-[152px] pb-12 lg:pb-20 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 items-start">
+
+            {/* Left: copy */}
             <div>
-              <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.12em] uppercase mb-4"
-                style={{ background: "rgba(0,102,204,0.1)", border: "1px solid rgba(0,102,204,0.25)", color: "#0066CC" }}>
-                NEWSLETTER
+              {/* Label */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-px w-8 flex-shrink-0 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+                <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>
+                  Weekly Newsletter
+                </span>
               </div>
-              <h1 className="text-[32px] lg:text-[48px] font-extrabold leading-tight mb-4" style={{ color: "#0F172A" }}>
+
+              <h1 className="text-[28px] sm:text-[36px] lg:text-[48px] font-extrabold leading-tight mb-4" style={{ color: "#0F172A" }}>
                 Trade Compliance<br />
-                <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">Made Simple</span>
+                <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
+                  Made Simple
+                </span>
               </h1>
-              <p className="text-base leading-relaxed mb-6" style={{ color: "#475569" }}>
-                Get actionable insights on trade compliance, export documentation, and refund optimization 
-                delivered to your inbox every week. Join exporters who are already saving crores.
+              <p className="text-[14px] sm:text-[15px] lg:text-base leading-relaxed mb-6 max-w-md" style={{ color: "#475569" }}>
+                Actionable insights on trade compliance, export documentation, and refund optimisation —
+                delivered every week. Join thousands of exporters already saving crores.
               </p>
 
-              <div className="space-y-2 mb-6">
+              <div className="space-y-2">
                 {benefits.map((benefit, idx) => (
-                  <div key={idx} className="flex items-center gap-2">
-                    <Check className="w-4 h-4 flex-shrink-0" style={{ color: "#00A86B" }} />
-                    <span className="text-[13px]" style={{ color: "#0F172A" }}>{benefit}</span>
+                  <div key={idx} className="flex items-center gap-2.5">
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ background: "#ECFDF5" }}>
+                      <Check className="w-3 h-3" style={{ color: "#00A86B" }} />
+                    </div>
+                    <span className="text-[13px] sm:text-[14px]" style={{ color: "#0F172A" }}>{benefit}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Subscribe Form */}
-            <div className="p-6 lg:p-8 rounded-xl" style={{ background: "#FFFFFF", border: "2px solid #0066CC", boxShadow: "0 8px 40px rgba(0,102,204,0.15)" }}>
+            {/* Right: subscribe card */}
+            <div className="rounded-2xl p-6 lg:p-8"
+              style={{ background: "#FFFFFF", border: "2px solid #0066CC", boxShadow: "0 8px 40px rgba(0,102,204,0.12)" }}>
               {subscribed ? (
-                <div className="text-center py-6">
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(0,168,107,0.1)" }}>
-                    <Check className="w-7 h-7" style={{ color: "#00A86B" }} />
+                <div className="text-center py-8">
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"
+                    style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}>
+                    <Check className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold mb-3" style={{ color: "#0F172A" }}>{"You're Subscribed!"}</h3>
-                  <p className="text-sm" style={{ color: "#475569" }}>Check your inbox for a confirmation email. Your first newsletter arrives this week.</p>
+                  <h3 className="text-[18px] font-bold mb-2" style={{ color: "#0F172A" }}>{"You're Subscribed!"}</h3>
+                  <p className="text-[13px]" style={{ color: "#475569" }}>
+                    Check your inbox for a confirmation email. Your first issue arrives this week.
+                  </p>
                 </div>
               ) : (
                 <>
-                  <h3 className="text-xl font-bold mb-2" style={{ color: "#0F172A" }}>Subscribe Now</h3>
-                  <p className="text-sm mb-4" style={{ color: "#475569" }}>Free. No spam. Unsubscribe anytime.</p>
-                  <form onSubmit={handleSubmit} className="space-y-3">
+                  <h3 className="text-[18px] sm:text-[20px] font-bold mb-1" style={{ color: "#0F172A" }}>Subscribe Now</h3>
+                  <p className="text-[13px] mb-5" style={{ color: "#64748B" }}>Free. No spam. Unsubscribe anytime.</p>
+
+                  <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                      <label className="text-xs mb-1 block" style={{ color: "#475569" }}>Work Email</label>
-                      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" required
-                        className="w-full px-3 py-2.5 rounded-lg text-sm" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#0F172A" }} />
+                      <label className="block text-[13px] font-semibold mb-1.5" style={{ color: "#0066CC" }}>
+                        Work Email <span style={{ color: "#0066CC" }}>*</span>
+                      </label>
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="you@company.com"
+                        required
+                        className="w-full px-4 py-3 rounded-full text-[14px] outline-none transition-all focus:ring-2 focus:ring-[#0066CC]/30"
+                        style={{ background: "#F1F5F9", border: "none", color: "#0F172A" }}
+                      />
                     </div>
+
                     <div>
-                      <label className="text-xs mb-1 block" style={{ color: "#475569" }}>Your Role (Optional)</label>
-                      <select className="w-full px-3 py-2.5 rounded-lg text-sm" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#0F172A" }}>
-                        <option value="">Select your role</option>
-                        <option value="exporter">Exporter / Trader</option>
-                        <option value="cha">Customs House Agent (CHA)</option>
-                        <option value="ca">CA / Audit Professional</option>
-                        <option value="logistics">Logistics Manager</option>
-                        <option value="other">Other</option>
-                      </select>
+                      <label className="block text-[13px] font-semibold mb-1.5" style={{ color: "#0066CC" }}>
+                        Your Role <span style={{ color: "#94A3B8", fontWeight: 400 }}>(Optional)</span>
+                      </label>
+                      {/* Custom role selector */}
+                      <div className="flex flex-wrap gap-2">
+                        {["Exporter / Trader", "CHA", "CA / Auditor", "Logistics", "Other"].map((r) => (
+                          <button
+                            key={r}
+                            type="button"
+                            onClick={() => setRole(r)}
+                            className="px-3 py-1.5 rounded-full text-[12px] font-medium transition-all"
+                            style={{
+                              background: role === r ? "#0066CC" : "#F1F5F9",
+                              color: role === r ? "#FFFFFF" : "#475569",
+                              border: role === r ? "none" : "1px solid #E2E8F0",
+                            }}
+                          >
+                            {r}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                    <button type="submit" className="w-full py-3 rounded-lg text-sm font-bold btn-shine transition-all hover:scale-[1.02]"
-                      style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>
+
+                    <button
+                      type="submit"
+                      className="w-full py-3.5 rounded-full text-[14px] font-bold btn-shine transition-all hover:scale-[1.02]"
+                      style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}
+                    >
                       Subscribe to Newsletter
                     </button>
-                    <p className="text-[10px] text-center" style={{ color: "#94A3B8" }}>By subscribing, you agree to receive our newsletter. We respect your privacy.</p>
+                    <p className="text-[11px] text-center" style={{ color: "#94A3B8" }}>
+                      By subscribing you agree to receive our newsletter. We respect your privacy.
+                    </p>
                   </form>
                 </>
               )}
@@ -110,59 +191,124 @@ export default function NewsletterPage() {
         </div>
       </section>
 
-      {/* Recent Issues Section */}
-      <section className="py-12 lg:py-16 px-4 lg:px-6" style={{ background: "#FFFFFF" }}>
+      {/* ── What You'll Learn ── */}
+      <section className="py-12 lg:py-20 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
         <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl lg:text-3xl font-bold mb-3" style={{ color: "#0F172A" }}>Recent <span className="text-[#0066CC]">Issues</span></h2>
-            <p className="text-base max-w-xl mx-auto" style={{ color: "#475569" }}>A glimpse of what subscribers receive every week</p>
+          <div className="text-center mb-8 lg:mb-12">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+              <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>
+                Every Issue
+              </span>
+              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+            </div>
+            <h2 className="text-[22px] sm:text-[28px] lg:text-[36px] font-extrabold" style={{ color: "#0F172A" }}>
+              {"What You'll "}
+              <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">Learn</span>
+            </h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {recentIssues.map((issue, idx) => (
-              <div key={idx} className="p-5 rounded-xl transition-all card-hover cursor-pointer"
-                style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs" style={{ color: "#94A3B8" }}>{issue.date}</span>
-                  <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(0,102,204,0.1)", color: "#0066CC" }}>{issue.readTime}</span>
+
+          <div className="grid sm:grid-cols-3 gap-5">
+            {learnItems.map((item, idx) => (
+              <div
+                key={idx}
+                className="group p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
+              >
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
+                  style={{ background: item.lightBg, color: item.color }}
+                >
+                  {item.icon}
                 </div>
-                <h3 className="text-[15px] font-bold leading-snug" style={{ color: "#0F172A" }}>{issue.title}</h3>
+                <div
+                  className="h-0.5 w-8 rounded-full mb-4"
+                  style={{ background: `linear-gradient(90deg, ${item.color}, transparent)` }}
+                />
+                <h3 className="text-[15px] sm:text-[16px] font-bold mb-2" style={{ color: "#0F172A" }}>
+                  {item.title}
+                </h3>
+                <p className="text-[13px] leading-relaxed" style={{ color: "#475569" }}>
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* What You'll Learn Section */}
-      <section className="py-12 lg:py-16 px-4 lg:px-6" style={{ background: "#F8FAFC" }}>
+      {/* ── Recent Issues ── */}
+      <section className="py-12 lg:py-20 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl lg:text-3xl font-bold mb-3" style={{ color: "#0F172A" }}>{"What You'll"} <span className="text-[#0066CC]">Learn</span></h2>
+          <div className="text-center mb-8 lg:mb-12">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+              <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>
+                Past Editions
+              </span>
+              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+            </div>
+            <h2 className="text-[22px] sm:text-[28px] lg:text-[36px] font-extrabold mb-2" style={{ color: "#0F172A" }}>
+              Recent{" "}
+              <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">Issues</span>
+            </h2>
+            <p className="text-[13px] sm:text-[14px]" style={{ color: "#64748B" }}>
+              A glimpse of what subscribers receive every week
+            </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {[
-              { title: "Compliance Updates", description: "Stay ahead of DGFT policy changes, new HSN codes, and tariff updates that affect your business.", color: "#0066CC" },
-              { title: "Refund Optimization", description: "Learn strategies to maximize your Drawback, RoDTEP, and IGST refunds. Real numbers, real results.", color: "#00A86B" },
-              { title: "Error Prevention", description: "Common documentation mistakes that cost exporters lakhs, and how to avoid them.", color: "#F59E0B" },
-            ].map((item, idx) => (
-              <div key={idx} className="group relative block max-w-[340px] rounded-[10px] p-6 mx-auto cursor-pointer overflow-hidden transition-all duration-300"
-                style={{ background: "linear-gradient(to bottom, #c3e6ec, #a7d1d9)" }}>
-                {/* Expanding circle effect on hover */}
-                <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full transition-transform duration-[350ms] ease-out group-hover:scale-[28] -z-0"
-                  style={{ background: "linear-gradient(135deg, #364a60, #384c6c)" }} />
-                
-                {/* Corner arrow */}
-                <div className="absolute top-0 right-0 w-8 h-8 flex items-center justify-center overflow-hidden rounded-bl-[32px]"
-                  style={{ background: "linear-gradient(135deg, #6293c8, #384c6c)" }}>
-                  <span className="text-white text-sm font-bold -mt-1 -mr-1">→</span>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {recentIssues.map((issue, idx) => (
+              <div
+                key={idx}
+                className="p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md cursor-pointer"
+                style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-[11px]" style={{ color: "#94A3B8" }}>{issue.date}</span>
+                  <span
+                    className="text-[11px] px-2 py-0.5 rounded-full font-medium"
+                    style={{ background: "rgba(0,102,204,0.08)", color: "#0066CC" }}
+                  >
+                    {issue.readTime}
+                  </span>
                 </div>
-                
-                <div className="relative z-10">
-                  <h3 className="text-xl font-bold mb-3 transition-colors duration-500 text-[#262626] group-hover:text-white">{item.title}</h3>
-                  <p className="text-[15px] leading-relaxed transition-colors duration-500 text-[#452c2c] group-hover:text-white/80">{item.description}</p>
+                <h3 className="text-[13px] sm:text-[14px] font-bold leading-snug" style={{ color: "#0F172A" }}>
+                  {issue.title}
+                </h3>
+                <div className="mt-3 flex items-center gap-1 text-[12px] font-semibold" style={{ color: "#0066CC" }}>
+                  Read issue
+                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
                 </div>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── Bottom CTA ── */}
+      <section className="py-12 lg:py-16 px-5 lg:px-8" style={{ background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
+        <div className="max-w-[600px] mx-auto text-center">
+          <h2 className="text-[20px] sm:text-[26px] lg:text-[32px] font-extrabold mb-3" style={{ color: "#0F172A" }}>
+            Join{" "}
+            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
+              2,400+ Exporters
+            </span>{" "}
+            Already Subscribed
+          </h2>
+          <p className="text-[13px] sm:text-[14px] mb-6" style={{ color: "#64748B" }}>
+            Free. No spam. Unsubscribe anytime.
+          </p>
+          <a
+            href="#top"
+            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }) }}
+            className="inline-block px-8 py-3.5 rounded-full text-[14px] font-bold btn-shine transition-all hover:scale-105"
+            style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
+          >
+            Subscribe Now — It's Free
+          </a>
         </div>
       </section>
 

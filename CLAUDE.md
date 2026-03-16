@@ -1,0 +1,273 @@
+# Liquidmind AI — Claude Rulebook
+
+## Project Stack
+- Next.js 14 App Router, TypeScript, Tailwind CSS
+- Shell: bash (Unix syntax, forward slashes)
+- Package manager: npm
+- Dev server: `npm run dev` (port 3000)
+
+---
+
+## Brand Colour Palette — NEVER deviate
+
+| Role | Value |
+|---|---|
+| Primary Blue | `#0066CC` |
+| Primary Green | `#00A86B` |
+| Navy | `#1B4F8A` |
+| Dark text | `#0F172A` |
+| Body text | `#475569` |
+| Muted text | `#64748B` |
+| Placeholder / label muted | `#94A3B8` |
+| White bg | `#FFFFFF` |
+| Light bg | `#F8FAFC` |
+| Border | `#E2E8F0` |
+| Light blue tint | `#EFF6FF` |
+| Light green tint | `#ECFDF5` |
+
+**Gradient (primary):** `linear-gradient(90deg, #0066CC, #00A86B)`
+**Gradient (icon/circle):** `linear-gradient(135deg, #0066CC, #00A86B)`
+
+### Forbidden colours
+- No teal/cyan (`#c3e6ec`, `#a7d1d9`, `#14b8a6`, etc.)
+- No yellow/amber (`#F59E0B`, `#EAB308`)
+- No dark overlay hover cards
+- No off-brand gradients
+
+---
+
+## Typography Scale
+
+Always use this responsive pattern — never flat `text-base` or `text-lg`:
+
+| Context | Mobile | Tablet | Desktop |
+|---|---|---|---|
+| Hero H1 | `text-[26px]` | `sm:text-[36px]` | `lg:text-[48px]` |
+| Section H2 | `text-[22px]` | `sm:text-[30px]` | `lg:text-[40px]` |
+| Card H3 | `text-[14px]` | `sm:text-[15px]` | — |
+| Body | `text-[13px]` | `sm:text-[14px]` | — |
+| Small / label | `text-[11px]` | `sm:text-[12px]` | — |
+| Micro / badge | `text-[10px]` | — | — |
+
+---
+
+## Spacing & Layout Conventions
+
+### Section padding
+- Standard: `py-10 lg:py-14 px-5 lg:px-8`
+- Compact (legal/timeline style): `pt-5 pb-4 px-5 lg:px-8`
+- Hero pages: `pt-[140px] pb-10 px-5 lg:px-8`
+
+### Fixed navbar offset
+- Announcement bar: `40px` (hidden when scrolled)
+- Navbar height: `72px`
+- Nav top when scrolled: `0`, when not scrolled: `40px`
+- Page `pt` to clear nav: `pt-[112px]` (scrolled) or `pt-[140px]` (not scrolled, with announcement bar)
+- Timeline / compact pages: `<main className="pt-[112px]">` + section `pt-6 pb-5`
+
+### Max widths
+- Wide content: `max-w-[1100px]`
+- Standard content: `max-w-[780px]` or `max-w-[860px]`
+- Narrow/forms: `max-w-[620px]`
+- Hero: `max-w-[1400px]`
+
+---
+
+## Section Label Pattern (use on EVERY section)
+
+```tsx
+<div className="flex items-center gap-3 mb-3">
+  <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+  <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Label Text</span>
+  <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+</div>
+```
+
+For left-aligned (non-centred) sections, omit the right rule and `justify-center`.
+
+---
+
+## Card Patterns
+
+### Standard white card
+```tsx
+<div className="p-5 rounded-2xl" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}>
+```
+
+### Hover lift card
+```tsx
+className="transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+```
+
+### Coloured icon square (inside card)
+```tsx
+<div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "#EFF6FF", color: "#0066CC" }}>
+  {icon}
+</div>
+```
+
+### Dark stat card (home hero style)
+```tsx
+<div className="p-4 rounded-2xl" style={{ background: "#0F172A" }}>
+```
+
+### Accordion-style section cards (legal pages)
+- Header: `background: #F8FAFC`, `borderBottom: 1px solid #E2E8F0`
+- Badge: gradient circle `linear-gradient(135deg, #0066CC, #00A86B)` white text
+
+---
+
+## Buttons
+
+### Primary (gradient)
+```tsx
+className="px-6 py-2.5 rounded-lg text-[14px] font-bold btn-shine transition-all hover:scale-105"
+style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}
+```
+
+### Secondary (outlined)
+```tsx
+className="px-6 py-2.5 rounded-lg text-[14px] font-semibold border transition-all hover:bg-[#F8FAFC]"
+style={{ border: "1px solid #E2E8F0", color: "#0F172A" }}
+```
+
+### Watch Demo / secondary CTA (same height as primary)
+```tsx
+className="inline-flex items-center gap-2 px-6 py-3 rounded-xl transition-all hover:scale-105"
+style={{ background: "#FFFFFF", border: "2px solid #0066CC", boxShadow: "0 4px 20px rgba(0,102,204,0.18)" }}
+// Text: bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent
+```
+
+**Rule:** Both buttons in a CTA pair must have identical `px` / `py` / `rounded` — never mix sizes.
+
+---
+
+## Forms
+
+### Input / select style
+```tsx
+className="w-full px-3 py-2 rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#0066CC]"
+style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#0F172A" }}
+```
+
+### Label style
+```tsx
+className="block text-[10px] font-semibold mb-1 uppercase tracking-wide"
+style={{ color: "#0066CC" }}
+```
+
+### Grid fields: always `grid-cols-2 gap-3` (not `sm:grid-cols-2`)
+
+---
+
+## Navigation Rules
+
+**File:** `components/navigation.tsx`
+
+- Navbar: `height: 72px`, `background: #000000`
+- Announcement bar: `height: 40px`, `background: #0066CC`, marquee animation
+- Dropdown: white bg `#FFFFFF`, `border: 1px solid #E2E8F0`, `boxShadow: 0 25px 60px rgba(0,0,0,0.2)`, `rounded-xl`
+- Dropdown items hover: `#F1F5F9` background
+- Mobile menu: slides down from navbar, `top: scrolled ? "72px" : "112px"`, white bg, accordion for Products + Company
+
+### Social links (correct URLs)
+- YouTube: `https://www.youtube.com/@LIQUIDMIND_AI`
+- LinkedIn: `https://www.linkedin.com/company/liquid-mind-product-consulting-inc./`
+- Mail: `mailto:naveen@liquidmind.ai`
+
+### Company dropdown order
+About → Mission → Why Choose Us? → Minds Behind Liquidmind AI → Timeline → Map → Giving Back → [divider] → Privacy Policy → Terms of Service
+
+---
+
+## Page Structure Template
+
+```tsx
+<main className="min-h-screen" style={{ background: "#FFFFFF" }}>
+  <Navigation />
+  {/* compact hero */}
+  <section className="pt-[140px] pb-10 px-5 lg:px-8 text-center" style={{ background: "#FFFFFF" }}>
+  {/* sections alternate #FFFFFF and #F8FAFC backgrounds */}
+  <FooterLinks />
+  <Footer />
+  <WhatsAppButton />
+</main>
+```
+
+**Compact header pages** (legal, timeline, book-demo):
+```tsx
+<main className="min-h-screen pt-[112px]" style={{ background: "#FFFFFF" }}>
+  <Navigation />
+  <section className="pt-5 pb-4 px-5 lg:px-8 text-center" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+```
+
+---
+
+## Mobile Optimisation Rules
+
+1. **Always** use responsive font pattern: `text-[Xpx] sm:text-[Ypx] lg:text-[Zpx]`
+2. **Always** use responsive padding: `py-10 lg:py-16 px-5 lg:px-8`
+3. **Images** must have explicit height at every breakpoint — never `sm:h-auto` alone with `fill`
+4. **Hero sections**: `pt-[140px]` to clear announcement bar + navbar
+5. **Never** use `min-h-screen` on sections where content + button must fit in one viewport
+6. **Single framepoint rule**: if a section has a heading + content + CTA, everything must fit without scrolling. Use `height: min(Xpx, Yvh)` for media embeds.
+7. **Form pages**: single-column centred layout (`max-w-[620px]`), no two-column split that causes overflow
+8. **Mobile menu**: items `text-[15px]`, sub-items `text-[13px]`, consistent `px-2` padding
+
+---
+
+## RichText Component (legal pages)
+
+Both `/legal/privacy-policy` and `/legal/terms` have a local `RichText` component that renders:
+- `**bold**` → `<strong style={{ color: "#0F172A" }}>`
+- Lines starting with `•` or `-` → dot-list `<li>` with `background: #0066CC` dot
+- Empty lines → `<div className="h-2" />`
+
+---
+
+## Animations
+
+- Scroll-triggered: use `useInView` from `react-intersection-observer` (`triggerOnce: true, threshold: 0.1`)
+- Animated counter: `AnimatedCount` component (home page + book-demo) — ease-out cubic, 1400ms
+- Stagger delays: `transitionDelay: ${Math.min(index * 40, 200)}ms`
+- Standard fade-in: `transition-all duration-500 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`
+
+---
+
+## Key File Map
+
+| File | Purpose |
+|---|---|
+| `app/page.tsx` | Home page — HeroSection, ProblemSection, AwardsSection, HowItWorks, MicroConversionSection (demo video) |
+| `components/navigation.tsx` | Nav + mobile menu + announcement bar |
+| `components/footer.tsx` | Footer |
+| `components/footer-links.tsx` | Footer link strip (used on every page) |
+| `components/whatsapp-button.tsx` | Floating WhatsApp CTA |
+| `components/products-section.tsx` | Products tab section |
+| `app/company/page.tsx` | Company / About page |
+| `app/company/founder/page.tsx` | Naveen Athresh founder profile |
+| `app/company/timeline/page.tsx` | Company timeline |
+| `app/company/giving-back/page.tsx` | Community / giving back |
+| `app/careers/page.tsx` | Careers + application form |
+| `app/newsletter/page.tsx` | Newsletter subscribe page |
+| `app/book-demo/page.tsx` | Book demo form |
+| `app/legal/privacy-policy/page.tsx` | Privacy policy |
+| `app/legal/terms/page.tsx` | Terms of service |
+| `public/images/` | Local images (founder-naveen.avif, liquidmind-logo.png, award photos, etc.) |
+
+---
+
+## What NOT to Do
+
+- No emojis anywhere
+- No `text-base`, `text-lg`, `text-xl` — use explicit `text-[Xpx]` always
+- No teal/cyan/yellow colours
+- No two-column form layouts that overflow on mobile
+- No `sm:h-auto` on `fill` image containers
+- No `min-h-screen` on sections that need a CTA visible below content
+- No dark overlay cards (the old teal gradient cards)
+- No inline `style={{ color: "..." }}` using off-brand colours
+- Do not add docstrings, comments, or type annotations to unchanged code
+- Do not create helpers/abstractions for one-off use
+- Do not add backwards-compat shims
+- Never guess external URLs — only use URLs provided by the user
