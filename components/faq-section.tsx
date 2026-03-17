@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { Plus } from "lucide-react"
+import { trackFAQExpanded } from "@/lib/amplitude"
 
 const faqGroups = [
   {
@@ -43,10 +44,14 @@ export function FAQSection() {
   const [openItems, setOpenItems] = useState<Set<string>>(new Set())
   const { ref, isInView } = useInView()
 
-  const toggleItem = (id: string) => {
+  const toggleItem = (id: string, question: string) => {
     const newOpen = new Set(openItems)
-    if (newOpen.has(id)) newOpen.delete(id)
-    else newOpen.add(id)
+    if (newOpen.has(id)) {
+      newOpen.delete(id)
+    } else {
+      newOpen.add(id)
+      trackFAQExpanded(question)   // only fire on open
+    }
     setOpenItems(newOpen)
   }
 
@@ -77,7 +82,7 @@ export function FAQSection() {
                   
                   return (
                     <div key={id} style={{ borderTop: itemIdx > 0 ? "1px solid #E2E8F0" : "none" }}>
-                      <button onClick={() => toggleItem(id)} className="w-full py-3 px-4 flex items-center justify-between text-left group">
+                      <button onClick={() => toggleItem(id, item.question)} className="w-full py-3 px-4 flex items-center justify-between text-left group">
                         <span className="text-sm font-semibold transition-all pr-3" style={{ color: isOpen ? "#0066CC" : "#0F172A" }}>{item.question}</span>
                         <span className={`faq-plus-btn flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center ${isOpen ? 'open' : ''}`}
                           style={{ background: isOpen ? "#0066CC" : "#F1F5F9", boxShadow: isOpen ? "0 4px 15px rgba(0,102,204,0.4)" : "none" }}>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { trackDemoFormView, trackDemoFormStart, trackDemoFormSubmit } from "@/lib/amplitude"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { FooterLinks } from "@/components/footer-links"
@@ -65,6 +66,17 @@ export default function BookDemoPage() {
   const [submitted, setSubmitted] = useState(false)
   const [agreed, setAgreed] = useState(false)
   const [loading, setLoading] = useState(false)
+  const formStarted = useRef(false)
+
+  // Track form page view
+  useEffect(() => { trackDemoFormView() }, [])
+
+  const handleFieldFocus = () => {
+    if (!formStarted.current) {
+      formStarted.current = true
+      trackDemoFormStart()
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -75,6 +87,7 @@ export default function BookDemoPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
+      trackDemoFormSubmit({ company: formData.company, location: formData.location })
     } catch (_) {
       // still show success — email may have sent
     } finally {
@@ -192,6 +205,7 @@ export default function BookDemoPage() {
                         <input
                           type="text" required value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          onFocus={handleFieldFocus}
                           className="w-full px-3 py-2 rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#0066CC]"
                           style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#0F172A" }}
                           placeholder="John Doe"

@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
+import { trackROIShipmentsChanged, trackROIFOBChanged, trackROIReportClick } from "@/lib/amplitude"
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
@@ -30,6 +31,22 @@ export function ROICalculator() {
   const [shipments, setShipments] = useState(100)
   const [fobValue, setFobValue] = useState(50)
   const { ref, isInView } = useInView()
+
+  // Debounced tracking so we don't fire on every pixel of slider drag
+  const shipmentsTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const fobTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+
+  const handleShipmentsChange = useCallback((val: number) => {
+    setShipments(val)
+    clearTimeout(shipmentsTimer.current)
+    shipmentsTimer.current = setTimeout(() => trackROIShipmentsChanged(val), 600)
+  }, [])
+
+  const handleFOBChange = useCallback((val: number) => {
+    setFobValue(val)
+    clearTimeout(fobTimer.current)
+    fobTimer.current = setTimeout(() => trackROIFOBChanged(val), 600)
+  }, [])
 
   // Calculations
   const monthlyVolume = shipments * fobValue * 100000
@@ -78,7 +95,7 @@ export function ROICalculator() {
                   <span className="font-mono text-[15px] font-semibold" style={{ color: "#0066CC" }}>{shipments}</span>
                 </div>
                 <input type="range" min="10" max="500" step="10" value={shipments}
-                  onChange={(e) => setShipments(Number(e.target.value))} className="w-full" />
+                  onChange={(e) => handleShipmentsChange(Number(e.target.value))} className="w-full" />
                 <div className="flex justify-between text-[11px] mt-0.5" style={{ color: "#94A3B8" }}>
                   <span>10</span><span>500</span>
                 </div>
@@ -90,7 +107,7 @@ export function ROICalculator() {
                   <span className="font-mono text-[15px] font-semibold" style={{ color: "#0066CC" }}>₹{fobValue}L</span>
                 </div>
                 <input type="range" min="10" max="200" step="5" value={fobValue}
-                  onChange={(e) => setFobValue(Number(e.target.value))} className="w-full" />
+                  onChange={(e) => handleFOBChange(Number(e.target.value))} className="w-full" />
                 <div className="flex justify-between text-[11px] mt-0.5" style={{ color: "#94A3B8" }}>
                   <span>₹10L</span><span>₹200L</span>
                 </div>
@@ -134,6 +151,7 @@ export function ROICalculator() {
             </div>
 
             <a href="#demo"
+              onClick={trackROIReportClick}
               className="w-full mt-3 py-2.5 rounded-lg text-center font-bold text-[13px] transition-all duration-300 hover:scale-105 block relative z-10"
               style={{ background: "#FFFFFF", color: "#0066CC" }}>
               Get Your Report

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { trackWhatsAppClick } from "@/lib/amplitude"
 
 export function WhatsAppButton() {
   const [showTooltip, setShowTooltip] = useState(false)
@@ -10,6 +11,7 @@ export function WhatsAppButton() {
       href="https://wa.me/919876543210"
       target="_blank"
       rel="noopener noreferrer"
+      onClick={trackWhatsAppClick}
       className="fixed bottom-8 right-8 z-[999] hidden lg:flex items-center justify-center w-14 h-14 rounded-full transition-transform hover:scale-110"
       style={{ 
         background: "#25D366", 

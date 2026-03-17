@@ -12,6 +12,7 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import Image from "next/image"
 import Link from "next/link"
 import React, { useEffect, useRef, useState } from "react"
+import { trackBookDemoCTAClick, trackWatchDemoClick } from "@/lib/amplitude"
 
 export default function LiquidmindLanding() {
   return (
@@ -158,6 +159,7 @@ function HeroSection() {
             {/* CTAs — stacked on mobile, row on sm+ */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 lg:gap-3 animate-fade-in-up stagger-4">
               <Link href="/book-demo"
+                onClick={() => trackBookDemoCTAClick('Hero')}
                 className="px-5 py-2.5 lg:px-6 lg:py-3 rounded-xl text-sm font-bold btn-shine haptic-btn inline-flex items-center justify-center gap-2"
                 style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.35)" }}>
                 Book Free Demo
@@ -167,7 +169,10 @@ function HeroSection() {
               </Link>
 
               <button
-                onClick={() => document.getElementById('demo-video')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => {
+                  trackWatchDemoClick('Hero')
+                  document.getElementById('demo-video')?.scrollIntoView({ behavior: 'smooth' })
+                }}
                 className="inline-flex items-center justify-center gap-2 px-5 py-2.5 lg:px-6 lg:py-3 rounded-xl transition-all hover:scale-105 haptic-btn"
                 style={{ background: "#FFFFFF", border: "2px solid #0066CC", boxShadow: "0 4px 20px rgba(0,102,204,0.18)" }}>
                 <div className="relative flex-shrink-0 w-5 h-5">

@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react"
 import Link from "next/link"
+import { trackBookDemoCTAClick } from "@/lib/amplitude"
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
@@ -36,6 +37,7 @@ export function CTASection() {
 
         <div className={`flex flex-col sm:flex-row items-center justify-center gap-3 transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <Link href="/book-demo"
+            onClick={() => trackBookDemoCTAClick('CTA Section')}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all hover:scale-105"
             style={{ background: "#FFFFFF", color: "#0066CC" }}>
             <span>Schedule Your Demo</span>
