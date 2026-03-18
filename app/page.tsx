@@ -187,7 +187,7 @@ function HeroSection() {
               <button
                 onClick={() => {
                   trackWatchDemoClick('Hero')
-                  document.getElementById('demo-video')?.scrollIntoView({ behavior: 'smooth' })
+                  document.getElementById('video-demo')?.scrollIntoView({ behavior: 'smooth' })
                 }}
                 className="inline-flex items-center justify-center gap-2 px-5 py-2.5 lg:px-6 lg:py-3 rounded-xl transition-all hover:scale-105 haptic-btn"
                 style={{ background: "#FFFFFF", border: "2px solid #0066CC", boxShadow: "0 4px 20px rgba(0,102,204,0.18)" }}>
