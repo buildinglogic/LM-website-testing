@@ -1,4 +1,4 @@
-name: Trigger Vercel Deploy
+name: Fix Author & Deploy
 
 on:
   push:
@@ -8,7 +8,23 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Rewrite last commit author
+        env:
+          AUTHOR_EMAIL: ${{ secrets.GIT_AUTHOR_EMAIL }}
+          AUTHOR_NAME: ${{ secrets.GIT_AUTHOR_NAME }}
+        run: |
+          git config user.email "$AUTHOR_EMAIL"
+          git config user.name "$AUTHOR_NAME"
+          git commit --amend --reset-author --no-edit
+          git push --force origin main
+
       - name: Trigger Vercel Deploy Hook
         env:
           DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
