@@ -15,8 +15,24 @@ import React, { useEffect, useRef, useState } from "react"
 import { trackBookDemoCTAClick, trackWatchDemoClick } from "@/lib/amplitude"
 
 export default function LiquidmindLanding() {
+  useEffect(() => {
+    // Handle initial hash on mount or back button navigation
+    const hash = window.location.hash
+    if (hash) {
+      const id = hash.replace("#", "")
+      const element = document.getElementById(id)
+      if (element) {
+        // Small delay to ensure layout is stable
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" })
+        }, 100)
+      }
+    }
+  }, [])
+
   return (
     <main className="bg-white">
+
       <Navigation />
       <HeroSection />
       <ProblemSection />
@@ -760,7 +776,7 @@ function MicroConversionSection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section id="demo-video" ref={ref} className="page-snap flex flex-col justify-center py-8 lg:py-10 px-4 lg:px-8" style={{ background: "#F8FAFC" }}>
+    <section id="demo" ref={ref} className="page-snap flex flex-col justify-center py-8 lg:py-10 px-4 lg:px-8" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[900px] mx-auto">
 
         {/* Header */}

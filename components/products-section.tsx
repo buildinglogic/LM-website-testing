@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import { Check } from "lucide-react"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 const tabs = [
   { id: "tradeguard", label: "Tradeguard" },
@@ -29,6 +29,23 @@ function useInView(threshold = 0.1) {
 export function ProductsSection() {
   const [activeTab, setActiveTab] = useState("tradeguard")
   const { ref, isInView } = useInView()
+  const router = useRouter()
+
+  // Navigate to the demo section on the home page.
+  // If already on '/', scroll instantly. If on another page, push a new
+  // history entry so the browser 'Back' button returns to '/#demo'.
+  const handleGetStarted = useCallback(() => {
+    // We always push to the URL hash so that the browser history records it.
+    // This fixed the "Back" button issue where the user wouldn't return to the
+    // demo section after navigating away and coming back.
+    router.push("/#demo")
+    
+    // If we're already on the home page, manual scroll provides a smoother immediately
+    // feedback than the native hash-change scroll in some browsers.
+    if (window.location.pathname === "/") {
+      document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" })
+    }
+  }, [router])
   const activeIdx = tabs.findIndex(t => t.id === activeTab)
 
   // Listen for tab changes dispatched from navigation dropdown, and handle URL param on mount
@@ -128,9 +145,9 @@ export function ProductsSection() {
           {/* Tab content */}
           <div className={`transition-all duration-500 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="animate-fade-in" key={activeTab}>
-              {activeTab === "tradeguard" && <TradeguardTab />}
-              {activeTab === "patram" && <PatramTab />}
-              {activeTab === "tariffiq" && <TariffIQTab />}
+              {activeTab === "tradeguard" && <TradeguardTab onGetStarted={handleGetStarted} />}
+              {activeTab === "patram" && <PatramTab onGetStarted={handleGetStarted} />}
+              {activeTab === "tariffiq" && <TariffIQTab onGetStarted={handleGetStarted} />}
             </div>
           </div>
         </div>
@@ -319,7 +336,7 @@ function TradeguardScanMockup() {
   )
 }
 
-function TradeguardTab() {
+function TradeguardTab({ onGetStarted }: { onGetStarted: () => void }) {
   const features = [
     "HSN / HS Code cross-validation",
     "Port code semantic matching",
@@ -383,8 +400,8 @@ function TradeguardTab() {
         </div>
 
         <div className="flex flex-row gap-3">
-          <Link
-            href="/#demo"
+          <button
+            onClick={onGetStarted}
             className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 hover:scale-105 btn-shine"
             style={{
               background: "linear-gradient(90deg, #0066CC, #00A86B)",
@@ -393,7 +410,7 @@ function TradeguardTab() {
             }}
           >
             Get Started
-          </Link>
+          </button>
           <a
             href="https://www.youtube.com/watch?v=LrHbm877l5g"
             target="_blank"
@@ -551,7 +568,7 @@ function PatramAdvisorMockup() {
   )
 }
 
-function PatramTab() {
+function PatramTab({ onGetStarted }: { onGetStarted: () => void }) {
   const features = [
     "Country-specific customs rules",
     "Required document checklist",
@@ -614,8 +631,8 @@ function PatramTab() {
         </div>
 
         <div className="flex flex-row gap-3">
-          <Link
-            href="/#demo"
+          <button
+            onClick={onGetStarted}
             className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 hover:scale-105 btn-shine"
             style={{
               background: "linear-gradient(90deg, #00A86B, #0066CC)",
@@ -624,7 +641,7 @@ function PatramTab() {
             }}
           >
             Get Started
-          </Link>
+          </button>
           <a
             href="https://www.youtube.com/watch?v=SvIrGfc1nIk"
             target="_blank"
@@ -768,7 +785,7 @@ function TariffIQChatMockup() {
   )
 }
 
-function TariffIQTab() {
+function TariffIQTab({ onGetStarted }: { onGetStarted: () => void }) {
   const features = [
     "8-digit ITC-HS classification",
     "Handles vague descriptions",
@@ -831,8 +848,8 @@ function TariffIQTab() {
         </div>
 
         <div className="flex flex-row gap-3">
-          <Link
-            href="/#demo"
+          <button
+            onClick={onGetStarted}
             className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 hover:scale-105 btn-shine"
             style={{
               background: "linear-gradient(90deg, #1B4F8A, #2563EB)",
@@ -841,7 +858,7 @@ function TariffIQTab() {
             }}
           >
             Get Started
-          </Link>
+          </button>
           <a
             href="https://www.youtube.com/watch?v=GozRgIrKy6U"
             target="_blank"
