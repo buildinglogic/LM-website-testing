@@ -776,7 +776,7 @@ function MicroConversionSection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section id="demo" ref={ref} className="page-snap flex flex-col justify-center py-8 lg:py-10 px-4 lg:px-8" style={{ background: "#F8FAFC" }}>
+    <section id="video-demo" ref={ref} className="page-snap flex flex-col justify-center py-8 lg:py-10 px-4 lg:px-8" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[900px] mx-auto">
 
         {/* Header */}
