@@ -173,14 +173,14 @@ export default function CompanyPage() {
           {/* CEO */}
           <div className="rounded-2xl overflow-hidden mb-4" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}>
             <div className="flex flex-col sm:flex-row gap-0">
-              <div className="relative w-full sm:w-[220px] lg:w-[280px] h-[320px] sm:h-[320px] lg:h-[360px] flex-shrink-0">
+              <div className="relative w-full sm:w-[220px] lg:w-[280px] h-[380px] sm:h-[320px] lg:h-[360px] flex-shrink-0">
                 <Image
                   src="/images/founder-naveen.avif"
                   alt="Naveen Athresh - Founder & CEO"
                   fill
                   priority
                   className="object-cover"
-                  style={{ objectPosition: "center 10%" }}
+                  style={{ objectPosition: "center 15%" }}
                 />
               </div>
               <div className="p-5 lg:p-7 flex flex-col justify-center">

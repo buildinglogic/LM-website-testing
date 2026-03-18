@@ -84,7 +84,8 @@ function navigateToProduct(tabId: string) {
     if (el) el.scrollIntoView({ behavior: "smooth" })
     window.dispatchEvent(new CustomEvent("changeProductTab", { detail: tabId }))
   } else {
-    window.location.href = `/#products?tab=${tabId}`
+    // Use real query param so ProductsSection can read it via window.location.search
+    window.location.href = `/?tab=${tabId}#products`
   }
 }
 

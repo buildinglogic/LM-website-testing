@@ -1,18 +1,40 @@
 import * as amplitude from '@amplitude/analytics-browser'
 
+let _initialized = false
+
 /** ─────────────────────────────────────────────────────────────
  *  Amplitude initialisation
  *  Called once from providers.tsx — safe to call multiple times
  * ─────────────────────────────────────────────────────────────*/
 export const initAmplitude = () => {
-  amplitude.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY!, {
+  if (_initialized) return
+  _initialized = true
+
+  const apiKey = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY
+  if (!apiKey) {
+    console.warn('[Amplitude] Missing NEXT_PUBLIC_AMPLITUDE_API_KEY')
+    return
+  }
+
+  amplitude.init(apiKey, {
+    // Show warnings in console so you can see if anything is wrong
+    // logLevel: 2=Warn, 3=Verbose/Debug
+    logLevel: process.env.NODE_ENV === 'development' ? 3 : 2,
+
     defaultTracking: {
-      pageViews: true,      // auto page-view on every route change
-      sessions: true,       // session start / session end
+      pageViews: true,        // auto page-view on every route change
+      sessions: true,         // session start / session end
       formInteractions: true, // form field focus & submit
-      fileDownloads: true,  // any <a download> clicks
+      fileDownloads: true,    // any <a download> clicks
+      attribution: true,      // UTM params, referrer
     },
-    autocapture: true,      // clicks & rage-clicks (no code needed)
+
+    // Flush events immediately (don't batch) — critical for seeing events in real-time
+    flushQueueSize: 1,
+    flushIntervalMillis: 0,
+
+    // Don't use batch endpoint — use real-time endpoint
+    useBatch: false,
   })
 }
 

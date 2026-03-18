@@ -11,6 +11,8 @@ interface TimelineEvent {
   description: string
   image?: string
   side: "left" | "right"
+  objectPosition?: string
+  objectFit?: "cover" | "contain"
 }
 
 const timelineData: { year: string; events: TimelineEvent[] }[] = [
@@ -50,33 +52,27 @@ const timelineData: { year: string; events: TimelineEvent[] }[] = [
         image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/may%202025%20tedx-k41OwTXtfh2Vc9JjwOdR5Z26LXgHDn.avif",
         side: "right",
       },
-      {
-        date: "February 2025",
-        title: "Bharat Fintech Summit 2025",
-        description: "Liquidmind AI participated in Bharat Fintech Summit 2025, engaging with India's leading fintech ecosystem.",
-        image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/feb%202025%20bharat%20fintech-0faTPtjoXpaAV7VGNG7ySf72VbIE80.avif",
-        side: "left",
-      },
+
       {
         date: "January 2025",
         title: "Economic Times SME Regional Summit",
         description: "Participated in an invite-only conclave promoting Make in India and empowering MSMEs with financial inclusion.",
         image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/jan%202025%20economic%20times-fgEkvVQTeTcAgCd2HaD0ds8NkLSAhy.avif",
-        side: "right",
+        side: "left",
       },
       {
         date: "January 2025",
         title: "National Conference on Strategic Trade Controls",
         description: "Two-day workshop at NCSTC (16–17 January 2025) covering strategic trade control policies and compliance frameworks.",
         image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/NCSTC-25BabmS9B176JSSEVRiMsvgsVw7nxi.avif",
-        side: "left",
+        side: "right",
       },
       {
         date: "January 2025",
         title: "MIT Media Lab's E79 Hub Workshop",
         description: "Joined MIT Media Lab's E79 Hub workshop with Prof. Ramesh Raskar, blending deep tech with India's cultural identity to foster groundbreaking ventures.",
         image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/B79Hub-qDjM2nLu3UIzLsUVbsY8f63PQ5woHd.avif",
-        side: "right",
+        side: "left",
       },
     ],
   },
@@ -204,6 +200,8 @@ const timelineData: { year: string; events: TimelineEvent[] }[] = [
         description: "Demoed our conversational commerce product for fast fashion at TechCrunch Disrupt New York — a 3-day landmark event.",
         image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/techcrunch-NPoFKYudE7uructh2fkVZzUBdnWOxV.avif",
         side: "right",
+        objectPosition: "center center",
+        objectFit: "contain",
       },
       {
         date: "6 May 2017",
@@ -283,12 +281,13 @@ function Card({ event, align }: { event: TimelineEvent; align: "left" | "right" 
       }}
     >
       {event.image && (
-        <div className="relative w-full overflow-hidden" style={{ height: 200 }}>
+        <div className="relative w-full overflow-hidden" style={{ height: 200, background: event.objectFit === "contain" ? "#F8FAFC" : "transparent" }}>
           <Image
             src={event.image}
             alt={event.title}
             fill
-            className="object-cover"
+            className={event.objectFit === "contain" ? "object-contain" : "object-cover"}
+            style={{ objectPosition: event.objectPosition || "center top" }}
             loading="lazy"
             sizes="(max-width: 768px) 90vw, 420px"
           />
@@ -344,12 +343,13 @@ function MobileTimelineCard({ event, index }: { event: TimelineEvent; index: num
       <div className="flex-1 rounded-2xl overflow-hidden"
         style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 1px 6px rgba(0,0,0,0.05)" }}>
         {event.image && (
-          <div className="relative w-full" style={{ height: 160 }}>
+          <div className="relative w-full overflow-hidden" style={{ height: 160, background: event.objectFit === "contain" ? "#F8FAFC" : "transparent" }}>
             <Image
               src={event.image}
               alt={event.title}
               fill
-              className="object-cover"
+              className={event.objectFit === "contain" ? "object-contain" : "object-cover"}
+              style={{ objectPosition: event.objectPosition || "center top" }}
               loading="lazy"
               sizes="85vw"
             />

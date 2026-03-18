@@ -446,7 +446,11 @@ function HowItWorks() {
     const cards = Array.from(container.children) as HTMLElement[]
     const card = cards[activeIdx]
     if (!card) return
+    
+    // Calculate the left position to center the card within the container
     const targetLeft = card.offsetLeft - (container.offsetWidth - card.offsetWidth) / 2
+    
+    // Use container.scrollTo so only the horizontal position of this div changes
     container.scrollTo({ left: targetLeft, behavior: 'smooth' })
   }, [activeIdx])
 

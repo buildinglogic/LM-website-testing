@@ -30,42 +30,31 @@ export function ProductsSection() {
   const { ref, isInView } = useInView()
   const activeIdx = tabs.findIndex(t => t.id === activeTab)
 
-  // Listen for tab changes dispatched from navigation dropdown
-  useEffect(() => {
-    const handleTabChange = (event: CustomEvent) => {
-      setActiveTab(event.detail)
-    }
-    const storedTab = sessionStorage.getItem('selectedProductTab')
-    if (storedTab) {
-      setActiveTab(storedTab)
-      sessionStorage.removeItem('selectedProductTab')
-    }
-    const urlParams = new URLSearchParams(window.location.search)
-    const tabParam = urlParams.get('tab')
-    if (tabParam) setActiveTab(tabParam)
-
-    window.addEventListener('changeProductTab', handleTabChange as EventListener)
-    return () => window.removeEventListener('changeProductTab', handleTabChange as EventListener)
-  }, [])
-
-  // Listen for tab change events from navigation
+  // Listen for tab changes dispatched from navigation dropdown, and handle URL param on mount
   useEffect(() => {
     const handleTabChange = (event: CustomEvent) => {
       setActiveTab(event.detail)
     }
 
-    // Check sessionStorage on mount for initial tab
+    // 1. Check sessionStorage first (set by nav when on same page)
     const storedTab = sessionStorage.getItem('selectedProductTab')
     if (storedTab) {
       setActiveTab(storedTab)
       sessionStorage.removeItem('selectedProductTab')
     }
 
-    // Check URL params
+    // 2. Check real URL query param (?tab=X) — used when navigating from another page
     const urlParams = new URLSearchParams(window.location.search)
     const tabParam = urlParams.get('tab')
     if (tabParam) {
       setActiveTab(tabParam)
+      // Clean up the URL so it doesn't show ?tab=X after the tab is set
+      const cleanUrl = window.location.pathname + window.location.hash.replace(/\?tab=[^&]*/, '')
+      history.replaceState(null, '', cleanUrl || '/')
+      // Small delay then scroll to products section
+      setTimeout(() => {
+        document.getElementById('products')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 300)
     }
 
     window.addEventListener('changeProductTab', handleTabChange as EventListener)
@@ -404,12 +393,15 @@ function TradeguardTab() {
           >
             Get Started
           </a>
-          <button
-            className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300"
+          <a
+            href="https://www.youtube.com/watch?v=LrHbm877l5g"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105"
             style={{ background: "transparent", border: "1.5px solid #CBD5E1", color: "#0F172A" }}
           >
             Watch Demo
-          </button>
+          </a>
         </div>
       </div>
 
@@ -626,12 +618,15 @@ function PatramTab() {
           >
             Try Free
           </a>
-          <button
-            className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300"
+          <a
+            href="https://www.youtube.com/watch?v=SvIrGfc1nIk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105"
             style={{ background: "transparent", border: "1.5px solid #CBD5E1", color: "#0F172A" }}
           >
             See Live Demo
-          </button>
+          </a>
         </div>
       </div>
 
@@ -840,12 +835,15 @@ function TariffIQTab() {
           >
             Classify My Product
           </a>
-          <button
-            className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300"
+          <a
+            href="https://www.youtube.com/watch?v=GozRgIrKy6U"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105"
             style={{ background: "transparent", border: "1.5px solid #CBD5E1", color: "#0F172A" }}
           >
             See Demo
-          </button>
+          </a>
         </div>
       </div>
 

@@ -111,8 +111,8 @@ export function Navigation() {
       // Dispatch a custom event to change the tab
       window.dispatchEvent(new CustomEvent('changeProductTab', { detail: product.tabId }))
     } else {
-      // Navigate to home page with hash
-      window.location.href = `/#products?tab=${product.tabId}`
+      // Navigate to home page — use real query param so ProductsSection can read it via window.location.search
+      window.location.href = `/?tab=${product.tabId}#products`
     }
     setProductsOpen(false)
     setMobileMenuOpen(false)
@@ -387,7 +387,7 @@ export function Navigation() {
 
       {/* Mobile bottom bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 flex" style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
-        <a href="https://wa.me/919876543210" className="flex-1 py-3 text-center text-[#0F172A] font-semibold text-sm border-r border-[#E2E8F0]">WhatsApp</a>
+        <a href="https://wa.me/919845592468" className="flex-1 py-3 text-center text-[#0F172A] font-semibold text-sm border-r border-[#E2E8F0]">WhatsApp</a>
         <Link href="/book-demo" className="flex-1 py-3 text-center font-semibold text-sm" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>Book Demo</Link>
       </div>
     </>

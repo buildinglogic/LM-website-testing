@@ -132,7 +132,7 @@ export default function FounderPage() {
                   src="/images/founder-naveen.avif"
                   alt="Naveen Athresh"
                   fill
-                  className="object-cover object-top"
+                  className="object-cover" style={{ objectPosition: "center 20%" }}
                   priority
                 />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 55%)" }} />
