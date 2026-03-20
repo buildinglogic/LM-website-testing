@@ -780,7 +780,7 @@ function AwardsSection() {
       title: "Karnataka Elevate 2025",
       subtitle: "Selected from 1,474+ applicants — Non-dilutive grant of up to ₹50 Lakhs",
       image: "/images/elevate-felicitation.png",
-      objectPosition: "object-top object-cover",
+      objectPosition: "object-top object-contain sm:object-cover",
       logo: "/images/karnataka_itbt_department_logo.png",
       logoAlt: "Karnataka Elevate",
       accent: "#00A86B",

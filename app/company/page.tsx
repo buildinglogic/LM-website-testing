@@ -261,7 +261,7 @@ export default function CompanyPage() {
 
             {/* Elevate Award */}
             <div className="rounded-2xl overflow-hidden relative w-full h-[460px] sm:h-[500px]" style={{ border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.06)", background: "#0F172A" }}>
-              <Image src="/images/elevate-felicitation.png" alt="Karnataka Elevate" fill className="object-cover object-top" />
+              <Image src="/images/elevate-felicitation.png" alt="Karnataka Elevate" fill className="object-top object-contain sm:object-cover" />
 
               {/* Gradient for text contrast */}
               <div className="absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-[#0F172A]/90 to-transparent pointer-events-none z-10" />
