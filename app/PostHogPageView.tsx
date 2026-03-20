@@ -16,7 +16,6 @@ export default function PostHogPageView() : null {
       if (searchParams.toString()) {
         url = url + `?${searchParams.toString()}`
       }
-      console.log('PostHog tracking pageview:', url)
       posthog.capture('$pageview', {
         '$current_url': url,
       })
