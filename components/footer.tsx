@@ -2,8 +2,8 @@ import Image from "next/image"
 
 export function Footer() {
   return (
-    <footer className="py-5 px-4 lg:px-8" style={{ background: "#000000" }}>
-      <div className="w-full flex flex-col md:flex-row justify-between items-center gap-3">
+    <footer className="py-6 px-6 lg:px-12 xl:px-16" style={{ background: "#000000" }}>
+      <div className="w-full flex flex-col md:flex-row justify-between items-center gap-4">
         <Image 
           src="/images/liquidmind-logo.png"
           alt="Liquidmind"

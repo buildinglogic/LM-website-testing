@@ -123,12 +123,12 @@ export function FooterLinks() {
   return (
     <section
       ref={secRef}
-      className="py-6 px-4 lg:px-6"
+      className="py-10 px-6 lg:px-12 xl:px-16"
       style={{ background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}
     >
-      <div className="w-full max-w-[1200px] mx-auto">
-        {/* 5-col grid: Products | Company col1 | Company col2 | Contact | Newsletter */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-6">
+      <div className="w-full">
+        {/* Full-width flex layout: Products | Company col1 | Company col2 | Contact | Newsletter */}
+        <div className="flex flex-wrap lg:flex-nowrap justify-between gap-x-8 gap-y-10">
 
           {/* ── Products ── */}
           <div>
