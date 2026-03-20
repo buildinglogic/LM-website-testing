@@ -254,7 +254,7 @@ export default function CompanyPage() {
                 <div className="flex-1 min-w-0 flex flex-col justify-end" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}>
                   <div className="h-[2px] w-8 rounded-full mb-2" style={{ background: `linear-gradient(90deg, #0066CC, transparent)` }} />
                   <h3 className="text-[16px] sm:text-[19px] font-extrabold mb-1 leading-tight truncate text-white">Aegis Graham Bell Award</h3>
-                  <p className="text-[13px] sm:text-[14px] leading-snug line-clamp-2 text-white">16th AGBA — Gen AI CX, Sales & GTM Intelligence Category Winner</p>
+                  <p className="text-[13px] sm:text-[14px] leading-snug line-clamp-4 sm:line-clamp-2 text-white">16th AGBA — Gen AI CX, Sales & GTM Intelligence Category Winner</p>
                 </div>
               </div>
             </div>
@@ -290,7 +290,7 @@ export default function CompanyPage() {
                 <div className="flex-1 min-w-0 flex flex-col justify-end" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}>
                   <div className="h-[2px] w-8 rounded-full mb-2" style={{ background: `linear-gradient(90deg, #00A86B, transparent)` }} />
                   <h3 className="text-[16px] sm:text-[19px] font-extrabold mb-1 leading-tight truncate text-white">Karnataka Elevate 2025</h3>
-                  <p className="text-[13px] sm:text-[14px] leading-snug line-clamp-2 text-white">Selected from 1,474+ applicants — up to ₹50 lakh non-dilutive grant</p>
+                  <p className="text-[13px] sm:text-[14px] leading-snug line-clamp-4 sm:line-clamp-2 text-white">Selected from 1,474+ applicants — up to ₹50 lakh non-dilutive grant</p>
                 </div>
               </div>
             </div>
