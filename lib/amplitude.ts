@@ -70,43 +70,42 @@ export const track = (
 // ─── Page / Section Views ────────────────────────────────────
 
 export const trackSectionView = (section: string) =>
-  track('Section Viewed', { section })
+  track(`${section} Section Viewed`)
 
 // ─── CTA Button Clicks ───────────────────────────────────────
 
 /** "Book Free Demo" / "Schedule My Demo" hero CTA */
 export const trackBookDemoCTAClick = (location: string) =>
-  track('CTA Clicked', { cta: 'Book Demo', location })
+  track('Book Free Demo', { location })
 
 /** "Watch Demo" / video CTA in hero */
 export const trackWatchDemoClick = (location: string) =>
-  track('CTA Clicked', { cta: 'Watch Demo', location })
+  track('Watch Demo', { location })
 
 /** WhatsApp floating button */
 export const trackWhatsAppClick = () =>
-  track('CTA Clicked', { cta: 'WhatsApp', location: 'Floating Button' })
+  track('WhatsApp', { location: 'Floating Button' })
 
 /** "Get Your Report" inside ROI calculator */
 export const trackROIReportClick = (annualRisk: number, estimatedProtectionLow: number) =>
-  track('CTA Clicked', { cta: 'Get ROI Report', location: 'ROI Calculator', annualRisk, estimatedProtectionLow })
+  track('Get Your Report', { location: 'ROI Calculator', annualRisk, estimatedProtectionLow })
 
 // ─── Form Events ─────────────────────────────────────────────
 
 /** User lands on /book-demo page */
 export const trackDemoFormView = () =>
-  track('Form Viewed', { form: 'Book Demo' })
+  track('Book Demo Page')
 
 /** User starts filling in the form (first field focus) */
 export const trackDemoFormStart = () =>
-  track('Form Started', { form: 'Book Demo' })
+  track('Book Demo Form Started')
 
 /** Demo form submitted successfully */
 export const trackDemoFormSubmit = (data: {
   company?: string
   location?: string
 }) =>
-  track('Form Submitted', {
-    form: 'Book Demo',
+  track('Schedule My Demo', {
     company: data.company,
     location: data.location,
   })
@@ -115,37 +114,37 @@ export const trackDemoFormSubmit = (data: {
 
 /** Fired when a user moves the shipments slider */
 export const trackROIShipmentsChanged = (value: number) =>
-  track('ROI Calculator Used', { field: 'Monthly Shipments', value })
+  track('Monthly Shipments Changed', { value })
 
 /** Fired when a user moves the FOB value slider */
 export const trackROIFOBChanged = (value: number) =>
-  track('ROI Calculator Used', { field: 'Avg FOB Value (Lakhs)', value })
+  track('Avg FOB Value (Lakhs) Changed', { value })
 
 // ─── Navigation ──────────────────────────────────────────────
 
 export const trackNavClick = (label: string) =>
-  track('Nav Clicked', { label })
+  track(label, { location: 'Navigation' })
 
 // ─── Video ───────────────────────────────────────────────────
 
 export const trackVideoPlayed = (title: string) =>
-  track('Video Played', { title })
+  track(`${title} Video Played`)
 
 // ─── Product Interest ────────────────────────────────────────
 
 export const trackProductCardHover = (product: string) =>
-  track('Product Hovered', { product })
+  track(`${product} Product Hovered`)
 
 export const trackProductCTAClick = (product: string, cta: string) =>
-  track('Product CTA Clicked', { product, cta })
+  track(`${cta} Clicked on ${product}`)
 
 // ─── Journey & Product Engagement ─────────────────────────────
 
 export const trackProductTabNavigated = (product: string, location: string) =>
-  track('Product Tab Navigated', { product, location })
+  track(product, { action: 'Tab Navigated', location })
 
 export const trackJourneyStepViewed = (stepNumber: number, stepName: string) =>
-  track('How It Works Step Viewed', { stepNumber, stepName })
+  track(stepName, { stepNumber })
 
 // ─── ROI Calculator (Deep Intent) ─────────────────────────────
 
@@ -155,18 +154,18 @@ export const trackROICalculatorStarted = () =>
 // ─── Proof & Media ────────────────────────────────────────────
 
 export const trackAwardInteracted = (awardName: string) =>
-  track('Social Proof Interacted', { type: 'Award', awardName })
+  track(`${awardName} Award Interacted`)
 
 export const trackPartnerInteracted = (partnerName: string) =>
-  track('Social Proof Interacted', { type: 'Partner', partnerName })
+  track(`${partnerName} Partner Interacted`)
 
 export const trackExternalLinkClicked = (destination: string) =>
-  track('External Link Clicked', { destination })
+  track(`${destination} External Link Clicked`)
 
 export const trackFooterLinkClicked = (linkName: string) =>
-  track('Footer Link Clicked', { linkName })
+  track(linkName, { location: 'Footer' })
 
 // ─── FAQ ─────────────────────────────────────────────────────
 
 export const trackFAQExpanded = (question: string) =>
-  track('FAQ Expanded', { question })
+  track(question, { action: 'FAQ Expanded' })
