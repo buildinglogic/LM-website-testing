@@ -805,7 +805,7 @@ function AwardsSection() {
           {awards.map((award, idx) => (
             <div key={idx}
               onMouseEnter={() => trackAwardInteracted(award.title)}
-              className={`relative rounded-2xl overflow-hidden group transition-all duration-500 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              className={`relative rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{ transitionDelay: `${idx * 150}ms` }}
             >
               {/* Gradient border shell — 2px gradient edge */}
@@ -822,7 +822,7 @@ function AwardsSection() {
 
               {/* Card body */}
               <div
-                className="rounded-2xl overflow-hidden transition-all duration-500 group-hover:shadow-[0_20px_60px_rgba(0,102,204,0.22)] relative w-full h-[460px] sm:h-[500px]"
+                className="rounded-2xl overflow-hidden relative w-full h-[460px] sm:h-[500px]"
                 style={{ background: "#0F172A" }}
               >
                 {/* Full Bleed Image */}
@@ -831,7 +831,7 @@ function AwardsSection() {
                   alt={award.title}
                   fill
                   priority
-                  className={`${award.objectPosition} group-hover:scale-105 transition-transform duration-700`}
+                  className={`${award.objectPosition}`}
                 />
 
                 {/* Gradient for text contrast */}
@@ -887,35 +887,35 @@ function AwardsSection() {
       <div className="w-full py-4" style={{ background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
         <div className="w-full text-center px-4 relative flex flex-col items-center">
           <p className="text-[16px] font-medium mb-4 tracking-wide" style={{ color: "#64748B" }}>Backed by leading technology partners & institutions</p>
-          <div className="w-full max-w-[1200px] max-w-[100vw] overflow-x-auto lg:overflow-hidden relative h-16 sm:h-24 scrollbar-none">
-            {/* Gradient Fades for edges - Desktop Only */}
-            <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #F8FAFC, transparent)' }} />
-            <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #F8FAFC, transparent)' }} />
+          <div className="w-full max-w-[1200px] max-w-[100vw] overflow-hidden relative h-16 sm:h-24">
+            {/* Gradient Fades for edges - All views */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #F8FAFC, transparent)' }} />
+            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #F8FAFC, transparent)' }} />
 
-            <div className="flex items-center justify-center lg:justify-start gap-8 sm:gap-12 lg:gap-24 w-max lg:animate-marquee h-full pt-2 px-6 lg:px-0 pb-2">
+            <div className="flex items-center justify-start gap-6 sm:gap-10 lg:gap-16 w-max animate-marquee h-full pt-1 pb-1">
               {/* Group 1 */}
               {[
                 { src: "/images/nvidia-inception.png", alt: "NVIDIA Inception", w: 220 },
                 { src: "/images/aws-powered.png", alt: "AWS Powered", w: 160 },
-                { src: "/images/microsoft-startups.png", alt: "Microsoft for Startups", w: 220 },
+                { src: "/images/microsoft-startups.png", alt: "Microsoft for Startups", w: 220, css: "scale-[1.35] mix-blend-multiply origin-center" },
                 { src: "/images/karnataka_itbt_department_logo.png", alt: "Karnataka Elevate", w: 180 },
                 { src: "/images/Aegis_award_logo.jpg", alt: "Aegis Award", w: 160 },
               ].map((logo, i) => (
-                <div key={i} onMouseEnter={() => trackPartnerInteracted(logo.alt)} className="flex-shrink-0 h-10 sm:h-14 relative transition-transform duration-300 hover:scale-105" style={{ width: logo.w * 0.7 }}>
-                  <Image src={logo.src} alt={logo.alt} fill className="object-contain" />
+                <div key={i} onMouseEnter={() => trackPartnerInteracted(logo.alt)} className="flex-shrink-0 h-12 sm:h-16 lg:h-20 relative transition-all duration-300 hover:scale-105" style={{ width: logo.w * 0.95 }}>
+                  <Image src={logo.src} alt={logo.alt} fill className={`object-contain ${logo.css || ''}`} />
                 </div>
               ))}
-              {/* Group 2 (Duplicate for infinite seamless scroll on desktop) */}
-              <div className="hidden lg:contents">
+              {/* Group 2 (Duplicate for infinite seamless scroll universally) */}
+              <div className="contents">
                 {[
                   { src: "/images/nvidia-inception.png", alt: "NVIDIA Inception", w: 220 },
                   { src: "/images/aws-powered.png", alt: "AWS Powered", w: 160 },
-                  { src: "/images/microsoft-startups.png", alt: "Microsoft for Startups", w: 220 },
+                  { src: "/images/microsoft-startups.png", alt: "Microsoft for Startups", w: 220, css: "scale-[1.35] mix-blend-multiply origin-center" },
                   { src: "/images/karnataka_itbt_department_logo.png", alt: "Karnataka Elevate", w: 180 },
                   { src: "/images/Aegis_award_logo.jpg", alt: "Aegis Award", w: 160 },
                 ].map((logo, i) => (
-                  <div key={`dup-${i}`} onMouseEnter={() => trackPartnerInteracted(logo.alt)} className="flex-shrink-0 h-10 sm:h-14 relative transition-transform duration-300 hover:scale-105" style={{ width: logo.w * 0.7 }}>
-                    <Image src={logo.src} alt={logo.alt} fill className="object-contain" />
+                  <div key={`dup-${i}`} onMouseEnter={() => trackPartnerInteracted(logo.alt)} className="flex-shrink-0 h-12 sm:h-16 lg:h-20 relative transition-all duration-300 hover:scale-105" style={{ width: logo.w * 0.95 }}>
+                    <Image src={logo.src} alt={logo.alt} fill className={`object-contain ${logo.css || ''}`} />
                   </div>
                 ))}
               </div>
