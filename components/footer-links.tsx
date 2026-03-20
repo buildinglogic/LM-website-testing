@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Youtube, Linkedin, Mail, Instagram, Facebook, MapPin } from "lucide-react"
 import { useRef, useState, useEffect } from "react"
+import { trackFooterLinkClicked, trackExternalLinkClicked } from "@/lib/amplitude"
 
 // ── Animated item — replicates AnimatedList scale+opacity entrance ──────────
 function AnimatedItem({
@@ -102,6 +103,7 @@ function HoverLink({ children, onClick, href }: { children: React.ReactNode; onC
   if (href) {
     return (
       <Link href={href} className={base} style={style}
+        onClick={() => trackFooterLinkClicked(href)}
         onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
         {children}
       </Link>
@@ -199,6 +201,7 @@ export function FooterLinks() {
                   <a
                     key={s.label}
                     href={s.href}
+                    onClick={() => trackExternalLinkClicked(s.href)}
                     target={s.href.startsWith("mailto") ? undefined : "_blank"}
                     rel={s.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
                     aria-label={s.label}

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect, useCallback } from "react"
-import { trackROIShipmentsChanged, trackROIFOBChanged, trackROIReportClick } from "@/lib/amplitude"
+import { trackROIShipmentsChanged, trackROIFOBChanged, trackROIReportClick, trackROICalculatorStarted } from "@/lib/amplitude"
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
@@ -31,6 +31,14 @@ export function ROICalculator() {
   const [shipments, setShipments] = useState(100)
   const [fobValue, setFobValue] = useState(50)
   const { ref, isInView } = useInView()
+  const hasTrackedStartRef = useRef(false)
+
+  useEffect(() => {
+    if (isInView && !hasTrackedStartRef.current) {
+      hasTrackedStartRef.current = true
+      trackROICalculatorStarted()
+    }
+  }, [isInView])
 
   // Debounced tracking so we don't fire on every pixel of slider drag
   const shipmentsTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
@@ -159,7 +167,7 @@ export function ROICalculator() {
             </div>
 
             <a href="#demo"
-              onClick={trackROIReportClick}
+              onClick={() => trackROIReportClick(annualRisk, estimatedProtectionLow)}
               className="w-full mt-3 py-2.5 rounded-lg text-center font-bold text-[15px] transition-all duration-300 hover:scale-105 block relative z-10"
               style={{ background: "#FFFFFF", color: "#0066CC" }}>
               Get Your Report

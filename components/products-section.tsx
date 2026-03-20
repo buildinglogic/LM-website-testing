@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import { Check } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { trackProductTabNavigated } from "@/lib/amplitude"
 
 const tabs = [
   { id: "tradeguard", label: "Tradeguard" },
@@ -123,7 +124,10 @@ export function ProductsSection() {
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => {
+                  setActiveTab(tab.id)
+                  trackProductTabNavigated(tab.label, "Products Section")
+                }}
                 style={{
                   position: "relative", zIndex: 1,
                   flex: 1, minWidth: 0, padding: "7px 0",

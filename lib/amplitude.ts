@@ -38,12 +38,28 @@ export const initAmplitude = () => {
   })
 }
 
-/** Generic event tracker — use for custom events below */
+declare global {
+  interface Window {
+    posthog: any;
+  }
+}
+
+/** Generic event tracker — pushes symmetrically to Amplitude and PostHog */
 export const track = (
   event: string,
   properties?: Record<string, unknown>
 ) => {
+  if (typeof window === 'undefined') return;
+  
+  // 1. Amplitude Fire
   amplitude.track(event, properties)
+  
+  // 2. PostHog Fire (Intelligent Semantic B2B Logging)
+  if (window.posthog && typeof window.posthog.capture === 'function') {
+    window.posthog.capture(event, properties)
+  } else {
+    console.warn('[Analytics] PostHog capture not ready for event:', event);
+  }
 }
 
 // ─── Page / Section Views ────────────────────────────────────
@@ -66,8 +82,8 @@ export const trackWhatsAppClick = () =>
   track('CTA Clicked', { cta: 'WhatsApp', location: 'Floating Button' })
 
 /** "Get Your Report" inside ROI calculator */
-export const trackROIReportClick = () =>
-  track('CTA Clicked', { cta: 'Get ROI Report', location: 'ROI Calculator' })
+export const trackROIReportClick = (annualRisk: number, estimatedProtectionLow: number) =>
+  track('CTA Clicked', { cta: 'Get ROI Report', location: 'ROI Calculator', annualRisk, estimatedProtectionLow })
 
 // ─── Form Events ─────────────────────────────────────────────
 
@@ -117,6 +133,33 @@ export const trackProductCardHover = (product: string) =>
 
 export const trackProductCTAClick = (product: string, cta: string) =>
   track('Product CTA Clicked', { product, cta })
+
+// ─── Journey & Product Engagement ─────────────────────────────
+
+export const trackProductTabNavigated = (product: string, location: string) =>
+  track('Product Tab Navigated', { product, location })
+
+export const trackJourneyStepViewed = (stepNumber: number, stepName: string) =>
+  track('How It Works Step Viewed', { stepNumber, stepName })
+
+// ─── ROI Calculator (Deep Intent) ─────────────────────────────
+
+export const trackROICalculatorStarted = () =>
+  track('ROI Calculator Started')
+
+// ─── Proof & Media ────────────────────────────────────────────
+
+export const trackAwardInteracted = (awardName: string) =>
+  track('Social Proof Interacted', { type: 'Award', awardName })
+
+export const trackPartnerInteracted = (partnerName: string) =>
+  track('Social Proof Interacted', { type: 'Partner', partnerName })
+
+export const trackExternalLinkClicked = (destination: string) =>
+  track('External Link Clicked', { destination })
+
+export const trackFooterLinkClicked = (linkName: string) =>
+  track('Footer Link Clicked', { linkName })
 
 // ─── FAQ ─────────────────────────────────────────────────────
 

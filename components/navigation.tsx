@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Menu, X, ChevronDown, Youtube, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { trackNavClick, trackExternalLinkClicked } from "@/lib/amplitude"
 
 const products = [
   {
@@ -98,6 +99,7 @@ export function Navigation() {
   }
 
   const navigateToProduct = (product: typeof products[0]) => {
+    trackNavClick(`Product: ${product.name}`)
     // Store the selected tab in sessionStorage so ProductsSection can read it
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('selectedProductTab', product.tabId)
@@ -222,7 +224,7 @@ export function Navigation() {
                       href={link.href}
                       className="block px-4 py-2.5 rounded-lg text-[15px] font-medium transition-all hover:bg-[#F1F5F9]"
                       style={{ color: "#0F172A" }}
-                      onClick={() => setCompanyOpen(false)}
+                      onClick={() => { trackNavClick(link.name); setCompanyOpen(false) }}
                     >
                       {link.name}
                     </Link>
@@ -230,28 +232,31 @@ export function Navigation() {
                 )}
               </div>
             </div>
-            <Link href="/newsletter" className="text-white/80 hover:text-white text-[16px] font-semibold transition-colors">Newsletter</Link>
-            <Link href="/careers" className="text-white/80 hover:text-white text-[16px] font-semibold transition-colors">Careers</Link>
+            <Link href="/newsletter" onClick={() => trackNavClick("Newsletter")} className="text-white/80 hover:text-white text-[16px] font-semibold transition-colors">Newsletter</Link>
+            <Link href="/careers" onClick={() => trackNavClick("Careers")} className="text-white/80 hover:text-white text-[16px] font-semibold transition-colors">Careers</Link>
           </div>
 
           {/* Right side - Social icons + Book Demo */}
           <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
             <div className="flex items-center gap-2">
               <a href="https://www.youtube.com/@LIQUIDMIND_AI" target="_blank" rel="noopener noreferrer"
+                onClick={() => trackExternalLinkClicked("https://www.youtube.com/@LIQUIDMIND_AI")}
                 className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors">
                 <Youtube className="w-5 h-5 text-white/70 hover:text-white" />
               </a>
               <a href="https://www.linkedin.com/company/liquid-mind-product-consulting-inc./" target="_blank" rel="noopener noreferrer"
+                onClick={() => trackExternalLinkClicked("https://www.linkedin.com/company/liquid-mind-product-consulting-inc./")}
                 className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors">
                 <Linkedin className="w-5 h-5 text-white/70 hover:text-white" />
               </a>
               <a href="mailto:support@liquidmind.ai"
+                onClick={() => trackExternalLinkClicked("mailto:support@liquidmind.ai")}
                 className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors">
                 <Mail className="w-5 h-5 text-white/70 hover:text-white" />
               </a>
             </div>
 
-            <Link href="/book-demo" className="px-6 py-2.5 rounded-lg text-[16px] font-bold btn-shine transition-all hover:scale-105"
+            <Link href="/book-demo" onClick={() => trackNavClick("Book Demo")} className="px-6 py-2.5 rounded-lg text-[16px] font-bold btn-shine transition-all hover:scale-105"
               style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>
               Book Demo
             </Link>
@@ -332,7 +337,7 @@ export function Navigation() {
                       href={link.href}
                       className="block px-2 py-2.5 rounded-xl text-[15px] font-medium transition-colors hover:bg-[#F8FAFC]"
                       style={{ color: "#475569" }}
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={() => { trackNavClick(link.name); setMobileMenuOpen(false) }}
                     >
                       {link.name}
                     </Link>
@@ -345,13 +350,13 @@ export function Navigation() {
             <Link href="/newsletter"
               className="flex items-center py-3.5 text-[16px] font-semibold"
               style={{ color: "#0F172A", borderBottom: "1px solid #E2E8F0" }}
-              onClick={() => setMobileMenuOpen(false)}>
+              onClick={() => { trackNavClick("Newsletter"); setMobileMenuOpen(false) }}>
               Newsletter
             </Link>
             <Link href="/careers"
               className="flex items-center py-3.5 text-[16px] font-semibold"
               style={{ color: "#0F172A", borderBottom: "1px solid #E2E8F0" }}
-              onClick={() => setMobileMenuOpen(false)}>
+              onClick={() => { trackNavClick("Careers"); setMobileMenuOpen(false) }}>
               Careers
             </Link>
 
@@ -359,16 +364,19 @@ export function Navigation() {
             <div className="pt-5 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <a href="https://www.youtube.com/@LIQUIDMIND_AI" target="_blank" rel="noopener noreferrer"
+                  onClick={() => trackExternalLinkClicked("https://www.youtube.com/@LIQUIDMIND_AI")}
                   className="w-9 h-9 rounded-full flex items-center justify-center"
                   style={{ background: "#F1F5F9" }}>
                   <Youtube className="w-4 h-4" style={{ color: "#0066CC" }} />
                 </a>
                 <a href="https://www.linkedin.com/company/liquid-mind-product-consulting-inc./" target="_blank" rel="noopener noreferrer"
+                  onClick={() => trackExternalLinkClicked("https://www.linkedin.com/company/liquid-mind-product-consulting-inc./")}
                   className="w-9 h-9 rounded-full flex items-center justify-center"
                   style={{ background: "#F1F5F9" }}>
                   <Linkedin className="w-4 h-4" style={{ color: "#0066CC" }} />
                 </a>
                 <a href="mailto:support@liquidmind.ai"
+                  onClick={() => trackExternalLinkClicked("mailto:support@liquidmind.ai")}
                   className="w-9 h-9 rounded-full flex items-center justify-center"
                   style={{ background: "#F1F5F9" }}>
                   <Mail className="w-4 h-4" style={{ color: "#0066CC" }} />
@@ -378,7 +386,7 @@ export function Navigation() {
                 href="/book-demo"
                 className="px-5 py-2.5 rounded-full text-[15px] font-bold btn-shine"
                 style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => { trackNavClick("Book Demo"); setMobileMenuOpen(false) }}
               >
                 Book Demo
               </Link>
@@ -389,8 +397,8 @@ export function Navigation() {
 
       {/* Mobile bottom bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 flex" style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
-        <a href="https://wa.me/919845592468" className="flex-1 py-3 text-center text-[#0F172A] font-semibold text-[16px] border-r border-[#E2E8F0]">WhatsApp</a>
-        <Link href="/book-demo" className="flex-1 py-3 text-center font-semibold text-[16px]" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>Book Demo</Link>
+        <a href="https://wa.me/919845592468" onClick={() => trackExternalLinkClicked("https://wa.me/919845592468")} className="flex-1 py-3 text-center text-[#0F172A] font-semibold text-[16px] border-r border-[#E2E8F0]">WhatsApp</a>
+        <Link href="/book-demo" onClick={() => trackNavClick("Book Demo")} className="flex-1 py-3 text-center font-semibold text-[16px]" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>Book Demo</Link>
       </div>
     </>
   )

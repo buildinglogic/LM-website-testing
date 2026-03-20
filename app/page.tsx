@@ -12,7 +12,7 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import Image from "next/image"
 import Link from "next/link"
 import React, { useEffect, useRef, useState } from "react"
-import { trackBookDemoCTAClick, trackWatchDemoClick } from "@/lib/amplitude"
+import { trackBookDemoCTAClick, trackWatchDemoClick, trackJourneyStepViewed, trackPartnerInteracted, trackVideoPlayed, trackAwardInteracted } from "@/lib/amplitude"
 
 export default function LiquidmindLanding() {
   useEffect(() => {
@@ -448,6 +448,8 @@ function HowItWorks() {
   const isUserScrolling = useRef(false)
   const autoTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
+  const trackedStepsRef = useRef<Set<number>>(new Set())
+
   // Sync dot to whichever card is ≥60% visible in the scroll container
   useEffect(() => {
     const container = scrollRef.current
@@ -460,6 +462,10 @@ function HowItWorks() {
         ([entry]) => {
           if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
             setActiveIdx(idx)
+            if (!trackedStepsRef.current.has(idx)) {
+              trackedStepsRef.current.add(idx)
+              trackJourneyStepViewed(idx + 1, steps[idx].title)
+            }
           }
         },
         {
@@ -794,6 +800,7 @@ function AwardsSection() {
         <div className="grid lg:grid-cols-2 gap-5 mb-6">
           {awards.map((award, idx) => (
             <div key={idx}
+              onMouseEnter={() => trackAwardInteracted(award.title)}
               className={`relative rounded-2xl overflow-hidden group transition-all duration-500 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{ transitionDelay: `${idx * 150}ms` }}
             >
@@ -896,7 +903,7 @@ function AwardsSection() {
                 { src: "/images/karnataka_itbt_department_logo.png", alt: "Karnataka Elevate", w: 180 },
                 { src: "/images/Aegis_award_logo.jpg", alt: "Aegis Award", w: 160 },
               ].map((logo, i) => (
-                <div key={i} className="flex-shrink-0 h-16 sm:h-24 relative transition-transform duration-300 hover:scale-105" style={{ width: logo.w }}>
+                <div key={i} onMouseEnter={() => trackPartnerInteracted(logo.alt)} className="flex-shrink-0 h-16 sm:h-24 relative transition-transform duration-300 hover:scale-105" style={{ width: logo.w }}>
                   <Image src={logo.src} alt={logo.alt} fill className="object-contain" />
                 </div>
               ))}
@@ -908,7 +915,7 @@ function AwardsSection() {
                 { src: "/images/karnataka_itbt_department_logo.png", alt: "Karnataka Elevate", w: 180 },
                 { src: "/images/Aegis_award_logo.jpg", alt: "Aegis Award", w: 160 },
               ].map((logo, i) => (
-                <div key={`dup-${i}`} className="flex-shrink-0 h-16 sm:h-24 relative transition-transform duration-300 hover:scale-105" style={{ width: logo.w }}>
+                <div key={`dup-${i}`} onMouseEnter={() => trackPartnerInteracted(logo.alt)} className="flex-shrink-0 h-16 sm:h-24 relative transition-transform duration-300 hover:scale-105" style={{ width: logo.w }}>
                   <Image src={logo.src} alt={logo.alt} fill className="object-contain" />
                 </div>
               ))}
@@ -926,6 +933,14 @@ function AwardsSection() {
 ======================== */
 function MicroConversionSection() {
   const { ref, isInView } = useInView()
+  const hasTrackedRef = useRef(false)
+
+  useEffect(() => {
+    if (isInView && !hasTrackedRef.current) {
+      hasTrackedRef.current = true
+      trackVideoPlayed("Liquidmind AI Demo Section")
+    }
+  }, [isInView])
 
   return (
     <section id="video-demo" ref={ref} className="page-snap flex flex-col justify-center py-8 lg:py-10 px-4 lg:px-8" style={{ background: "#F8FAFC" }}>
