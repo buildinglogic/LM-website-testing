@@ -8,27 +8,33 @@ import { initAmplitude } from '@/lib/amplitude'
 
 export function PHProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
+    const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY
+    
+    if (posthogKey) {
+      posthog.init(posthogKey, {
+        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
 
-      // ── Core tracking ──────────────────────────────────────────
-      capture_pageview: false,      // Disabled here because we use PostHogPageView for better App Router support
-      capture_pageleave: true,      // bounce / time-on-page tracking
+        // ── Core tracking ──────────────────────────────────────────
+        capture_pageview: false,      // Disabled here because we use PostHogPageView for better App Router support
+        capture_pageleave: true,      // bounce / time-on-page tracking
 
-      // ── Auto-capture: clicks, forms, rage-clicks — zero extra code ──
-      autocapture: true,
+        // ── Auto-capture: clicks, forms, rage-clicks — zero extra code ──
+        autocapture: true,
 
-      // ── Session recordings (free up to 5,000/month) ──────────────
-      session_recording: {
-        maskAllInputs: true,        // hides passwords / sensitive fields
-        maskTextSelector: '*',      // GDPR-safe: masks all text content
-      },
+        // ── Session recordings (free up to 5,000/month) ──────────────
+        session_recording: {
+          maskAllInputs: true,        // hides passwords / sensitive fields
+          maskTextSelector: '*',      // GDPR-safe: masks all text content
+        },
 
-      // ── Performance: only load in production ─────────────────────
-      loaded: (ph) => {
-        if (process.env.NODE_ENV === 'development') ph.debug()
-      },
-    })
+        // ── Performance: only load in production ─────────────────────
+        loaded: (ph) => {
+          if (process.env.NODE_ENV === 'development') ph.debug()
+        },
+      })
+    } else {
+      console.warn('[PostHog] Missing NEXT_PUBLIC_POSTHOG_KEY - analytics disabled')
+    }
     
     // Explicitly set window.posthog for global access
     if (typeof window !== 'undefined') {

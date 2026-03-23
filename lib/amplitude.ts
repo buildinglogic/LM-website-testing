@@ -52,18 +52,26 @@ export const track = (
 ) => {
   if (typeof window === 'undefined') return;
   
-  // 1. Amplitude Fire
-  amplitude.track(event, properties)
+  try {
+    // 1. Amplitude Fire (if initialized)
+    if (amplitude && typeof amplitude.track === 'function') {
+      amplitude.track(event, properties)
+    }
+  } catch (e) {
+    console.warn('[Amplitude] Failed to track event:', e)
+  }
   
-  // 2. PostHog Fire (Intelligent Semantic B2B Logging)
-  if (posthog && typeof posthog.capture === 'function') {
-    // Try the imported posthog instance first (it's a singleton)
-    posthog.capture(event, properties)
-  } else if (window.posthog && typeof window.posthog.capture === 'function') {
-    // Fallback to window object
-    window.posthog.capture(event, properties)
-  } else {
-    console.warn('[Analytics] PostHog capture not ready for event:', event);
+  try {
+    // 2. PostHog Fire (Intelligent Semantic B2B Logging)
+    if (posthog && typeof posthog.capture === 'function') {
+      // Try the imported posthog instance first (it's a singleton)
+      posthog.capture(event, properties)
+    } else if (window.posthog && typeof window.posthog.capture === 'function') {
+      // Fallback to window object
+      window.posthog.capture(event, properties)
+    }
+  } catch (e) {
+    console.warn('[PostHog] Failed to track event:', e)
   }
 }
 
