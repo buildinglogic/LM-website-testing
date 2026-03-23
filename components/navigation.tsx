@@ -1,10 +1,25 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Menu, X, ChevronDown, Youtube, Linkedin, Mail } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { Menu, X, ChevronDown, Youtube, Linkedin, Mail, ArrowLeftRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { trackNavClick, trackExternalLinkClicked } from "@/lib/amplitude"
+
+const countries = [
+  { code: "IN", name: "India", flag: "🇮🇳" },
+  { code: "US", name: "United States", flag: "🇺🇸" },
+  { code: "AE", name: "UAE", flag: "🇦🇪" },
+  { code: "DE", name: "Germany", flag: "🇩🇪" },
+  { code: "GB", name: "United Kingdom", flag: "🇬🇧" },
+  { code: "CN", name: "China", flag: "🇨🇳" },
+  { code: "JP", name: "Japan", flag: "🇯🇵" },
+  { code: "SG", name: "Singapore", flag: "🇸🇬" },
+  { code: "AU", name: "Australia", flag: "🇦🇺" },
+  { code: "NL", name: "Netherlands", flag: "🇳🇱" },
+  { code: "FR", name: "France", flag: "🇫🇷" },
+  { code: "SA", name: "Saudi Arabia", flag: "🇸🇦" },
+]
 
 const products = [
   {
@@ -15,7 +30,7 @@ const products = [
     color: "#0066CC",
     gradientFrom: "#0066CC",
     gradientTo: "#0052A3",
-    href: "/#products",
+    href: "/products/tradeguard",
     tabId: "tradeguard",
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}>
@@ -31,7 +46,7 @@ const products = [
     color: "#00A86B",
     gradientFrom: "#00A86B",
     gradientTo: "#008B5E",
-    href: "/#products",
+    href: "/products/patram",
     tabId: "patram",
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -49,7 +64,7 @@ const products = [
     color: "#1B4F8A",
     gradientFrom: "#1B4F8A",
     gradientTo: "#2563EB",
-    href: "/#products",
+    href: "/products/tariffiq",
     tabId: "tariffiq",
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}>
@@ -71,6 +86,129 @@ const companyLinks = [
   { name: "Privacy Policy", href: "/legal/privacy-policy" },
   { name: "Terms of Service", href: "/legal/terms" },
 ]
+
+function CountryPicker() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [exportCountry, setExportCountry] = useState(countries[0]) // India default
+  const [importCountry, setImportCountry] = useState(countries[2]) // UAE default
+  const [selectingFor, setSelectingFor] = useState<"export" | "import" | null>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+        setSelectingFor(null)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  const handleCountrySelect = (country: typeof countries[0]) => {
+    if (selectingFor === "export") {
+      setExportCountry(country)
+    } else if (selectingFor === "import") {
+      setImportCountry(country)
+    }
+    setSelectingFor(null)
+  }
+
+  const swapCountries = () => {
+    const temp = exportCountry
+    setExportCountry(importCountry)
+    setImportCountry(temp)
+  }
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all hover:bg-white/10"
+        style={{ border: "1px solid rgba(255,255,255,0.2)" }}
+      >
+        <span className="text-lg">{exportCountry.flag}</span>
+        <ArrowLeftRight className="w-3.5 h-3.5 text-white/60" />
+        <span className="text-lg">{importCountry.flag}</span>
+        <ChevronDown className={`w-3.5 h-3.5 text-white/60 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      {isOpen && (
+        <div
+          className="absolute top-[calc(100%+8px)] right-0 w-[280px] rounded-xl overflow-hidden z-50"
+          style={{
+            background: "#FFFFFF",
+            border: "1px solid #E2E8F0",
+            boxShadow: "0 25px 60px rgba(0,0,0,0.25)",
+          }}
+        >
+          <div className="p-3 border-b" style={{ borderColor: "#E2E8F0", background: "#F8FAFC" }}>
+            <p className="text-[12px] font-semibold uppercase tracking-wider" style={{ color: "#64748B" }}>
+              Trade Route
+            </p>
+          </div>
+
+          {/* Selected Countries Display */}
+          <div className="p-4 flex items-center justify-between gap-3">
+            <button
+              onClick={() => setSelectingFor(selectingFor === "export" ? null : "export")}
+              className={`flex-1 flex items-center gap-2 p-2.5 rounded-lg transition-all ${selectingFor === "export" ? "ring-2 ring-[#0066CC]" : ""}`}
+              style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
+            >
+              <span className="text-xl">{exportCountry.flag}</span>
+              <div className="text-left">
+                <p className="text-[10px] uppercase tracking-wider" style={{ color: "#94A3B8" }}>From</p>
+                <p className="text-[13px] font-semibold" style={{ color: "#0F172A" }}>{exportCountry.code}</p>
+              </div>
+            </button>
+
+            <button
+              onClick={swapCountries}
+              className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:scale-110"
+              style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}
+            >
+              <ArrowLeftRight className="w-4 h-4 text-white" />
+            </button>
+
+            <button
+              onClick={() => setSelectingFor(selectingFor === "import" ? null : "import")}
+              className={`flex-1 flex items-center gap-2 p-2.5 rounded-lg transition-all ${selectingFor === "import" ? "ring-2 ring-[#00A86B]" : ""}`}
+              style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
+            >
+              <span className="text-xl">{importCountry.flag}</span>
+              <div className="text-left">
+                <p className="text-[10px] uppercase tracking-wider" style={{ color: "#94A3B8" }}>To</p>
+                <p className="text-[13px] font-semibold" style={{ color: "#0F172A" }}>{importCountry.code}</p>
+              </div>
+            </button>
+          </div>
+
+          {/* Country Selection List */}
+          {selectingFor && (
+            <div className="border-t max-h-[200px] overflow-y-auto" style={{ borderColor: "#E2E8F0" }}>
+              <div className="p-2">
+                <p className="px-2 py-1.5 text-[11px] font-semibold uppercase tracking-wider" style={{ color: "#94A3B8" }}>
+                  Select {selectingFor === "export" ? "Exporting" : "Importing"} Country
+                </p>
+                {countries.map((country) => (
+                  <button
+                    key={country.code}
+                    onClick={() => handleCountrySelect(country)}
+                    className="w-full flex items-center gap-3 px-2 py-2 rounded-lg transition-all hover:bg-[#F1F5F9]"
+                  >
+                    <span className="text-lg">{country.flag}</span>
+                    <span className="text-[14px] font-medium" style={{ color: "#0F172A" }}>{country.name}</span>
+                    <span className="ml-auto text-[12px]" style={{ color: "#94A3B8" }}>{country.code}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -100,24 +238,8 @@ export function Navigation() {
 
   const navigateToProduct = (product: typeof products[0]) => {
     trackNavClick(`Product: ${product.name}`)
-    // Store the selected tab in sessionStorage so ProductsSection can read it
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('selectedProductTab', product.tabId)
-    }
-
-    // Check if we're on the home page
-    if (window.location.pathname === '/') {
-      // Scroll to products section
-      const element = document.getElementById('products')
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" })
-      }
-      // Dispatch a custom event to change the tab
-      window.dispatchEvent(new CustomEvent('changeProductTab', { detail: product.tabId }))
-    } else {
-      // Navigate to home page — use real query param so ProductsSection can read it via window.location.search
-      window.location.href = `/?tab=${product.tabId}#products`
-    }
+    // Navigate directly to product page
+    window.location.href = product.href
     setProductsOpen(false)
     setMobileMenuOpen(false)
   }
@@ -236,7 +358,7 @@ export function Navigation() {
             <Link href="/careers" onClick={() => trackNavClick("Careers")} className="text-white/80 hover:text-white text-[16px] font-semibold transition-colors">Careers</Link>
           </div>
 
-          {/* Right side - Social icons + Book Demo */}
+          {/* Right side - Social icons + Country Picker + Book Demo */}
           <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
             <div className="flex items-center gap-2">
               <a href="https://www.youtube.com/@LIQUIDMIND_AI" target="_blank" rel="noopener noreferrer"
@@ -255,6 +377,8 @@ export function Navigation() {
                 <Mail className="w-5 h-5 text-white/70 hover:text-white" />
               </a>
             </div>
+
+            <CountryPicker />
 
             <Link href="/book-demo" onClick={() => trackNavClick("Book Demo")} className="px-6 py-2.5 rounded-lg text-[16px] font-bold btn-shine transition-all hover:scale-105"
               style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>

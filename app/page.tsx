@@ -3,6 +3,7 @@
 import { Navigation } from "@/components/navigation"
 import { HeroMockup } from "@/components/hero-mockup"
 import { ProductsSection } from "@/components/products-section"
+import { ProductsHero } from "@/components/products-hero"
 import { ROICalculator } from "@/components/roi-calculator"
 import { FAQSection } from "@/components/faq-section"
 import { CTASection } from "@/components/cta-section"
@@ -34,6 +35,7 @@ export default function LiquidmindLanding() {
     <main className="bg-white">
 
       <Navigation />
+      <ProductsHero />
       <HeroSection />
       <ProductsSection />
       <ProblemSection />
