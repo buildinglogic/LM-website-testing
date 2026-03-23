@@ -2,7 +2,13 @@ import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Initialize Resend only if API key exists
+let resend: any = null
+if (process.env.RESEND_API_KEY) {
+  resend = new Resend(process.env.RESEND_API_KEY)
+} else {
+  console.warn('[newsletter] Missing RESEND_API_KEY - email notifications disabled')
+}
 
 // ─── Shared brand styles ────────────────────────────────────────────────────
 const brand = {
@@ -133,20 +139,28 @@ export async function POST(req: Request) {
     }
 
     // 3. Notify Naveen (from naveen@, to naveen@)
-    await resend.emails.send({
-      from:    'Liquidmind AI <naveen@liquidmind.ai>',
-      to:      'naveen@liquidmind.ai',
-      subject: `📨 New newsletter subscriber — ${email}`,
-      html:    internalNewsletterEmail(email, role || null),
-    })
+    if (resend) {
+      await resend.emails.send({
+        from:    'Liquidmind AI <naveen@liquidmind.ai>',
+        to:      'naveen@liquidmind.ai',
+        subject: `📨 New newsletter subscriber — ${email}`,
+        html:    internalNewsletterEmail(email, role || null),
+      })
+    } else {
+      console.warn('[newsletter] Resend not initialized - skipping internal notification')
+    }
 
     // 4. Welcome email to subscriber (from naveen@)
-    await resend.emails.send({
-      from:    'Naveen at Liquidmind AI <naveen@liquidmind.ai>',
-      to:      email,
-      subject: "You're in — Liquidmind Trade Insights 🚀",
-      html:    userNewsletterEmail(),
-    })
+    if (resend) {
+      await resend.emails.send({
+        from:    'Naveen at Liquidmind AI <naveen@liquidmind.ai>',
+        to:      email,
+        subject: "You're in — Liquidmind Trade Insights 🚀",
+        html:    userNewsletterEmail(),
+      })
+    } else {
+      console.warn('[newsletter] Resend not initialized - skipping welcome email')
+    }
 
     return NextResponse.json({ ok: true })
   } catch (err) {

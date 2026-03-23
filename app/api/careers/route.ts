@@ -2,7 +2,13 @@ import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Initialize Resend only if API key exists
+let resend: any = null
+if (process.env.RESEND_API_KEY) {
+  resend = new Resend(process.env.RESEND_API_KEY)
+} else {
+  console.warn('[careers] Missing RESEND_API_KEY - email notifications disabled')
+}
 
 // ─── Shared brand styles ────────────────────────────────────────────────────
 const brand = {
@@ -190,20 +196,28 @@ export async function POST(req: Request) {
     if (dbError) console.error('[careers] DB error:', dbError.message)
 
     // 3. Notify support team (from support@, to support@)
-    await resend.emails.send({
-      from:    'Liquidmind AI <support@liquidmind.ai>',
-      to:      'support@liquidmind.ai',
-      subject: `📋 Application — ${position} — ${fullName}`,
-      html:    internalCareerEmail(fullName, email, phone, position, startDate, cvLink, resumeUrl),
-    })
+    if (resend) {
+      await resend.emails.send({
+        from:    'Liquidmind AI <support@liquidmind.ai>',
+        to:      'support@liquidmind.ai',
+        subject: `📋 Application — ${position} — ${fullName}`,
+        html:    internalCareerEmail(fullName, email, phone, position, startDate, cvLink, resumeUrl),
+      })
+    } else {
+      console.warn('[careers] Resend not initialized - skipping internal notification')
+    }
 
     // 4. Confirmation to applicant (from support@)
-    await resend.emails.send({
-      from:    'Liquidmind AI Careers <support@liquidmind.ai>',
-      to:      email,
-      subject: `Application received — ${position} at Liquidmind AI`,
-      html:    userCareerEmail(firstName, position),
-    })
+    if (resend) {
+      await resend.emails.send({
+        from:    'Liquidmind AI Careers <support@liquidmind.ai>',
+        to:      email,
+        subject: `Application received — ${position} at Liquidmind AI`,
+        html:    userCareerEmail(firstName, position),
+      })
+    } else {
+      console.warn('[careers] Resend not initialized - skipping applicant confirmation')
+    }
 
     return NextResponse.json({ ok: true })
   } catch (err) {

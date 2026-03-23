@@ -2,7 +2,13 @@ import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Initialize Resend only if API key exists
+let resend: any = null
+if (process.env.RESEND_API_KEY) {
+  resend = new Resend(process.env.RESEND_API_KEY)
+} else {
+  console.warn('[book-demo] Missing RESEND_API_KEY - email notifications disabled')
+}
 
 // ─── Shared brand styles ────────────────────────────────────────────────────
 const brand = {
@@ -140,20 +146,28 @@ export async function POST(req: Request) {
     if (dbError) console.error('[book-demo] DB error:', dbError.message)
 
     // 2. Notify Naveen (from naveen@, to naveen@)
-    await resend.emails.send({
-      from:    'Liquidmind AI <naveen@liquidmind.ai>',
-      to:      'naveen@liquidmind.ai',
-      subject: `🎯 New demo request — ${name} (${company})`,
-      html:    internalDemoEmail(name, email, company, phone, location),
-    })
+    if (resend) {
+      await resend.emails.send({
+        from:    'Liquidmind AI <naveen@liquidmind.ai>',
+        to:      'naveen@liquidmind.ai',
+        subject: `🎯 New demo request — ${name} (${company})`,
+        html:    internalDemoEmail(name, email, company, phone, location),
+      })
+    } else {
+      console.warn('[book-demo] Resend not initialized - skipping internal notification')
+    }
 
     // 3. Confirmation to the prospect (from naveen@)
-    await resend.emails.send({
-      from:    'Naveen at Liquidmind AI <naveen@liquidmind.ai>',
-      to:      email,
-      subject: `Your Liquidmind demo is confirmed, ${name}!`,
-      html:    userDemoEmail(name),
-    })
+    if (resend) {
+      await resend.emails.send({
+        from:    'Naveen at Liquidmind AI <naveen@liquidmind.ai>',
+        to:      email,
+        subject: `Your Liquidmind demo is confirmed, ${name}!`,
+        html:    userDemoEmail(name),
+      })
+    } else {
+      console.warn('[book-demo] Resend not initialized - skipping user confirmation')
+    }
 
     return NextResponse.json({ ok: true })
   } catch (err) {
