@@ -78,22 +78,31 @@ function HeroSection() {
           <span style={{ color: BRAND_BLUE }}>TradeGuard</span>
         </nav>
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="grid sm:grid-cols-2 gap-8 lg:gap-14 items-center">
           {/* Left: Content */}
           <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {/* Badge */}
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
-              style={{ background: `${BRAND_BLUE}10`, border: `1px solid ${BRAND_BLUE}25` }}
-            >
-              <FileCheck className="w-4 h-4" style={{ color: BRAND_BLUE }} />
-              <span className="text-[13px] font-semibold" style={{ color: BRAND_BLUE }}>
-                Document Mismatch Detection
-              </span>
+            {/* Product Name Header - Clear identification */}
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div 
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${BRAND_BLUE}, ${BRAND_GREEN})` }}
+                >
+                  <FileCheck className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-[28px] lg:text-[36px] font-black tracking-tight" style={{ color: BRAND_BLUE }}>
+                    TradeGuard
+                  </h2>
+                  <span className="text-[13px] font-medium tracking-wide" style={{ color: "#64748B" }}>
+                    Document Mismatch Detection
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* Headline */}
-            <h1 className="text-[40px] lg:text-[56px] xl:text-[64px] font-extrabold leading-[1.08] tracking-[-0.03em] mb-6" style={{ color: "#0F172A" }}>
+            <h1 className="text-[28px] sm:text-[36px] lg:text-[52px] xl:text-[60px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4 lg:mb-6" style={{ color: "#0F172A" }}>
               Catch Every
               <br />
               <span style={{ color: BRAND_BLUE }}>Mismatch</span>
@@ -102,22 +111,22 @@ function HeroSection() {
             </h1>
 
             {/* Description */}
-            <p className="text-[17px] lg:text-[19px] leading-relaxed max-w-[520px] mb-8" style={{ color: "#475569" }}>
+            <p className="text-[14px] sm:text-[16px] lg:text-[18px] leading-relaxed max-w-[520px] mb-6 lg:mb-8" style={{ color: "#475569" }}>
               TradeGuard extracts 40+ fields from your Shipping Bill and Commercial Invoice, maps them intelligently, and flags every discrepancy in under 5 seconds.
             </p>
 
-            {/* Stats */}
-            <div className="flex items-start gap-8 lg:gap-12 mb-10">
+            {/* Stats - Mobile optimized */}
+            <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-6 lg:gap-12 mb-8 lg:mb-10">
               {[
                 { value: "40+", label: "Fields Validated" },
                 { value: "< 5s", label: "Analysis Time" },
-                { value: "99%", label: "Accuracy Rate" },
+                { value: "95%", label: "Accuracy Rate" },
               ].map((stat, idx) => (
-                <div key={idx} className="flex flex-col">
-                  <span className="text-[32px] lg:text-[40px] font-black tracking-tight leading-none" style={{ color: BRAND_BLUE }}>
+                <div key={idx} className="flex flex-col min-w-0">
+                  <span className="text-[24px] sm:text-[28px] lg:text-[36px] font-black tracking-tight leading-none" style={{ color: BRAND_BLUE }}>
                     {stat.value}
                   </span>
-                  <span className="text-[13px] font-medium mt-1.5" style={{ color: "#94A3B8" }}>
+                  <span className="text-[11px] sm:text-[12px] lg:text-[13px] font-medium mt-1 whitespace-nowrap" style={{ color: "#94A3B8" }}>
                     {stat.label}
                   </span>
                 </div>
@@ -125,10 +134,10 @@ function HeroSection() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-wrap">
               <Link
                 href="/book-demo"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-[16px] font-bold transition-all duration-300 hover:scale-105 btn-shine"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-bold transition-all duration-300 hover:scale-105 btn-shine"
                 style={{
                   background: `linear-gradient(135deg, ${BRAND_BLUE}, ${BRAND_GREEN})`,
                   color: "#FFFFFF",
@@ -140,16 +149,28 @@ function HeroSection() {
               </Link>
               <a
                 href="#how-it-works"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-[16px] font-semibold transition-all duration-300 hover:scale-105"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
                 style={{ background: "#FFFFFF", border: `2px solid ${BRAND_BLUE}25`, color: BRAND_BLUE }}
               >
                 See It In Action
               </a>
+              <a
+                href="https://www.youtube.com/watch?v=LrHbm877l5g"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
+                style={{ background: "#0F172A", color: "#FFFFFF" }}
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                Watch Demo
+              </a>
             </div>
           </div>
 
-          {/* Right: Visual */}
-          <div className={`transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
+          {/* Right: Visual - Hidden on small mobile for cleaner UX */}
+          <div className={`hidden sm:block transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
             <div
               className="rounded-2xl p-6 lg:p-8 animate-float"
               style={{
@@ -435,7 +456,7 @@ function HowItWorksSection() {
   const { ref, isInView } = useInView()
 
   const steps = [
-    { number: "01", title: "Upload Documents", description: "Drop your Shipping Bill and Commercial Invoice. We support all PDF formats." },
+    { number: "01", title: "Connect Your ERP", description: "TradeGuard seamlessly pulls documents directly from your ERP system. No manual uploads needed." },
     { number: "02", title: "AI Extraction", description: "Our AI extracts 40+ fields with exact bounding boxes for full traceability." },
     { number: "03", title: "Get Results", description: "Instant mismatch report with color-coded severity. Review and export." },
   ]
@@ -483,7 +504,7 @@ function ComparisonSection() {
   const metrics = [
     { metric: "Check Time", manual: "2-4 hours", tradeguard: "< 5 seconds" },
     { metric: "Fields Checked", manual: "~10", tradeguard: "40+" },
-    { metric: "Accuracy", manual: "70-80%", tradeguard: "99%" },
+    { metric: "Accuracy", manual: "70-80%", tradeguard: "95%" },
     { metric: "Semantic Matching", manual: "Impossible", tradeguard: "Built-in" },
     { metric: "Audit Trail", manual: "None", tradeguard: "Complete" },
     { metric: "Cost per Check", manual: "Staff hours", tradeguard: "Pennies" },

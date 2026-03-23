@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react"
 import Link from "next/link"
-import { ArrowRight, FileCheck, Globe, Calculator, Check, Sparkles } from "lucide-react"
+import { ArrowRight, FileCheck, Globe, Calculator, Check, Sparkles, Play } from "lucide-react"
 import { trackProductTabNavigated } from "@/lib/amplitude"
 
 const products = [
@@ -17,7 +17,7 @@ const products = [
     stats: [
       { value: "40+", label: "Fields Validated" },
       { value: "< 5s", label: "Analysis Time" },
-      { value: "99%", label: "Accuracy Rate" },
+      { value: "95%", label: "Accuracy Rate" },
     ],
     features: [
       "HSN / HS Code cross-validation",
@@ -29,6 +29,7 @@ const products = [
     ],
     cta: "Try TradeGuard Free",
     href: "/products/tradeguard",
+    youtubeUrl: "https://www.youtube.com/watch?v=LrHbm877l5g",
     color: "#0066CC",
     accentColor: "#00A86B",
     gradientFrom: "#0066CC",
@@ -58,6 +59,7 @@ const products = [
     ],
     cta: "Try Patram AI Free",
     href: "/products/patram",
+    youtubeUrl: "https://www.youtube.com/watch?v=SvIrGfc1nIk",
     color: "#00A86B",
     accentColor: "#0066CC",
     gradientFrom: "#00A86B",
@@ -87,6 +89,7 @@ const products = [
     ],
     cta: "Try TariffIQ Free",
     href: "/products/tariffiq",
+    youtubeUrl: "https://www.youtube.com/watch?v=GozRgIrKy6U",
     color: "#1B4F8A",
     accentColor: "#2563EB",
     gradientFrom: "#1B4F8A",
@@ -246,39 +249,42 @@ export function ProductsHero() {
 
         {/* Main Content - Fixed Height Container to prevent layout shift */}
         <div 
-          className="min-h-[600px] lg:min-h-[520px]"
+          className="min-h-[420px] sm:min-h-[520px] lg:min-h-[480px]"
           style={{ transition: "min-height 0.5s ease" }}
         >
           <div 
-            className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-center transition-all duration-500 ${
+            className={`grid sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-14 items-center transition-all duration-500 ${
               isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
             }`}
           >
             {/* Left: Content */}
             <div className={`transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              {/* Badge */}
-              <div
-                className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full mb-6"
-                style={{
-                  background: `linear-gradient(135deg, ${product.color}08, ${product.color}15)`,
-                  border: `1.5px solid ${product.color}25`,
-                  boxShadow: `0 4px 20px ${product.color}10`,
-                }}
-              >
-                <div 
-                  className="w-6 h-6 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${product.gradientFrom}, ${product.gradientTo})` }}
-                >
-                  <Icon className="w-3.5 h-3.5 text-white" />
+              {/* Product Name Header - Premium Design */}
+              <div className="mb-5 lg:mb-6">
+                <div className="flex items-center gap-3">
+                  <div 
+                    className="w-11 h-11 lg:w-12 lg:h-12 rounded-2xl flex items-center justify-center shadow-lg"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${product.gradientFrom}, ${product.gradientTo})`,
+                      boxShadow: `0 8px 24px ${product.color}30`
+                    }}
+                  >
+                    <Icon className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-[24px] lg:text-[28px] font-black tracking-tight leading-tight" style={{ color: product.color }}>
+                      {product.name}
+                    </h2>
+                    <span className="text-[12px] lg:text-[13px] font-medium tracking-wide" style={{ color: "#64748B" }}>
+                      {product.tagline}
+                    </span>
+                  </div>
                 </div>
-                <span className="text-[13px] font-semibold tracking-wide" style={{ color: product.color }}>
-                  {product.tagline}
-                </span>
               </div>
 
-              {/* Headline - Uniform sizing */}
+              {/* Headline - Uniform sizing with mobile optimization */}
               <h1
-                className="text-[32px] sm:text-[40px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.03em] mb-5"
+                className="text-[28px] sm:text-[36px] lg:text-[48px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4 lg:mb-5"
                 style={{ color: "#0F172A" }}
               >
                 {product.headline}
@@ -309,23 +315,23 @@ export function ProductsHero() {
 
               {/* Description */}
               <p
-                className="text-[16px] lg:text-[17px] leading-[1.7] max-w-[540px] mb-6"
+                className="text-[14px] sm:text-[15px] lg:text-[16px] leading-[1.6] lg:leading-[1.7] max-w-[540px] mb-5 lg:mb-6"
                 style={{ color: "#475569" }}
               >
                 {product.description}
               </p>
 
-              {/* Stats Row */}
-              <div className="flex items-start gap-6 lg:gap-10 mb-8">
+              {/* Stats Row - Mobile optimized with better spacing */}
+              <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-6 lg:gap-10 mb-6 lg:mb-8">
                 {product.stats.map((stat, idx) => (
-                  <div key={idx} className="flex flex-col">
+                  <div key={idx} className="flex flex-col min-w-0">
                     <span
-                      className="text-[28px] lg:text-[36px] font-black tracking-tight leading-none tabular-nums"
+                      className="text-[24px] sm:text-[28px] lg:text-[36px] font-black tracking-tight leading-none tabular-nums"
                       style={{ color: product.color }}
                     >
                       {stat.value}
                     </span>
-                    <span className="text-[12px] lg:text-[13px] font-medium mt-1.5" style={{ color: "#94A3B8" }}>
+                    <span className="text-[11px] sm:text-[12px] lg:text-[13px] font-medium mt-1 lg:mt-1.5 whitespace-nowrap" style={{ color: "#94A3B8" }}>
                       {stat.label}
                     </span>
                   </div>
@@ -333,10 +339,10 @@ export function ProductsHero() {
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-wrap">
                 <Link
                   href={product.href}
-                  className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 lg:px-8 lg:py-4 rounded-xl text-[15px] lg:text-[16px] font-bold transition-all duration-500 hover:scale-[1.03] btn-shine"
+                  className="group inline-flex items-center justify-center gap-2.5 px-5 py-3 lg:px-6 lg:py-3.5 rounded-xl text-[14px] lg:text-[15px] font-bold transition-all duration-500 hover:scale-[1.03] btn-shine"
                   style={{
                     background: `linear-gradient(135deg, ${product.gradientFrom}, ${product.gradientTo})`,
                     color: "#FFFFFF",
@@ -348,7 +354,7 @@ export function ProductsHero() {
                 </Link>
                 <Link
                   href={product.href}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 lg:px-8 lg:py-4 rounded-xl text-[15px] lg:text-[16px] font-semibold transition-all duration-300 hover:scale-[1.02]"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 lg:px-6 lg:py-3.5 rounded-xl text-[14px] lg:text-[15px] font-semibold transition-all duration-300 hover:scale-[1.02]"
                   style={{
                     background: "#FFFFFF",
                     border: `2px solid ${product.color}25`,
@@ -358,11 +364,24 @@ export function ProductsHero() {
                 >
                   See It In Action
                 </Link>
+                <a
+                  href={product.youtubeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 lg:px-6 lg:py-3.5 rounded-xl text-[14px] lg:text-[15px] font-semibold transition-all duration-300 hover:scale-[1.02]"
+                  style={{
+                    background: "#0F172A",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  <Play className="w-4 h-4" />
+                  Watch Demo
+                </a>
               </div>
             </div>
 
-            {/* Right: Product Visual Card */}
-            <div className={`transition-all duration-700 delay-300 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
+            {/* Right: Product Visual Card - Hidden on small mobile for cleaner UX */}
+            <div className={`hidden sm:block transition-all duration-700 delay-300 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
               <ProductCard product={product} isActive={!isTransitioning} />
             </div>
           </div>

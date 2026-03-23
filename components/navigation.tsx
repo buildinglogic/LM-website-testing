@@ -124,12 +124,20 @@ function CountryPicker() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all hover:bg-white/10"
-        style={{ border: "1px solid rgba(255,255,255,0.2)" }}
+        className="flex items-center gap-2 px-3 py-2 rounded-xl transition-all hover:bg-white/10 group"
+        style={{ 
+          background: "linear-gradient(135deg, rgba(0,102,204,0.15), rgba(0,168,107,0.15))",
+          border: "1px solid rgba(255,255,255,0.25)" 
+        }}
       >
-        <span className="text-lg">{exportCountry.flag}</span>
-        <ArrowLeftRight className="w-3.5 h-3.5 text-white/60" />
-        <span className="text-lg">{importCountry.flag}</span>
+        <div className="flex flex-col items-start mr-1">
+          <span className="text-[9px] font-semibold uppercase tracking-wider text-white/50">Trade Route</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-base">{exportCountry.flag}</span>
+            <ArrowLeftRight className="w-3 h-3 text-white/60" />
+            <span className="text-base">{importCountry.flag}</span>
+          </div>
+        </div>
         <ChevronDown className={`w-3.5 h-3.5 text-white/60 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
