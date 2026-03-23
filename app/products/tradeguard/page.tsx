@@ -81,6 +81,12 @@ function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left: Content */}
           <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            {/* Product Name Heading */}
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full mb-6" style={{ background: `${BRAND_BLUE}08` }}>
+              <div className="w-3 h-3 rounded-full" style={{ background: BRAND_BLUE }} />
+              <span className="text-[12px] font-semibold uppercase tracking-wider" style={{ color: BRAND_BLUE }}>TradeGuard</span>
+            </div>
+
             {/* Badge */}
             <div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
@@ -144,6 +150,15 @@ function HeroSection() {
                 style={{ background: "#FFFFFF", border: `2px solid ${BRAND_BLUE}25`, color: BRAND_BLUE }}
               >
                 See It In Action
+              </a>
+              <a
+                href="https://www.youtube.com/@LIQUIDMIND_AI"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-[16px] font-semibold transition-all duration-300 hover:scale-105"
+                style={{ background: "#F8FAFC", border: `2px solid ${BRAND_BLUE}15`, color: BRAND_BLUE }}
+              >
+                Watch Demo
               </a>
             </div>
           </div>
@@ -435,7 +450,7 @@ function HowItWorksSection() {
   const { ref, isInView } = useInView()
 
   const steps = [
-    { number: "01", title: "Upload Documents", description: "Drop your Shipping Bill and Commercial Invoice. We support all PDF formats." },
+    { number: "01", title: "Takes Docs From ERP System", description: "Upload your Shipping Bill and Commercial Invoice directly from your ERP or manually." },
     { number: "02", title: "AI Extraction", description: "Our AI extracts 40+ fields with exact bounding boxes for full traceability." },
     { number: "03", title: "Get Results", description: "Instant mismatch report with color-coded severity. Review and export." },
   ]

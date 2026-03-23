@@ -80,11 +80,11 @@ export function ProductsHero() {
     return () => observer.disconnect()
   }, [])
 
-  // Auto-rotate products
+  // Auto-rotate products - changed to 10 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveProduct((prev) => (prev + 1) % products.length)
-    }, 6000)
+    }, 10000)
     return () => clearInterval(interval)
   }, [])
 
@@ -95,6 +95,7 @@ export function ProductsHero() {
     <section
       ref={sectionRef}
       className="page-snap lg:min-h-[100svh] pt-[130px] lg:pt-[140px] pb-20 lg:pb-10 px-4 lg:px-8 flex items-start lg:items-center relative overflow-hidden"
+      style={{ minHeight: "auto" }}
     >
       {/* Animated gradient background */}
       <div
@@ -169,7 +170,7 @@ export function ProductsHero() {
             <h1
               key={`headline-${activeProduct}`}
               className="text-[36px] lg:text-[56px] xl:text-[64px] font-extrabold leading-[1.1] tracking-[-0.03em] mb-4 lg:mb-6 animate-fade-in-up"
-              style={{ color: "#0F172A" }}
+              style={{ color: "#0F172A", minHeight: "auto" }}
             >
               {product.headline}
               <br />
@@ -188,17 +189,17 @@ export function ProductsHero() {
             {/* Stats */}
             <div
               key={`stats-${activeProduct}`}
-              className="flex items-start gap-6 lg:gap-10 mb-8 lg:mb-10 animate-fade-in-up stagger-2"
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-6 lg:gap-10 mb-8 lg:mb-10 animate-fade-in-up stagger-2"
             >
               {product.stats.map((stat, idx) => (
-                <div key={idx} className="flex flex-col">
+                <div key={idx} className="flex flex-col min-w-[100px]">
                   <span
                     className="text-[28px] lg:text-[36px] font-black tracking-tight leading-none"
                     style={{ color: product.color }}
                   >
                     {stat.value}
                   </span>
-                  <span className="text-[12px] lg:text-[13px] font-medium mt-1" style={{ color: "#94A3B8" }}>
+                  <span className="text-[12px] lg:text-[13px] font-medium mt-1 text-center lg:text-left whitespace-nowrap" style={{ color: "#94A3B8" }}>
                     {stat.label}
                   </span>
                 </div>
@@ -230,6 +231,17 @@ export function ProductsHero() {
               >
                 See How It Works
               </Link>
+              <a
+                href={`${product.href}#watch-demo`}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 lg:px-8 lg:py-4 rounded-xl text-[15px] lg:text-[16px] font-semibold transition-all duration-300 hover:scale-105"
+                style={{
+                  background: "#F8FAFC",
+                  border: `2px solid ${product.color}20`,
+                  color: product.color,
+                }}
+              >
+                Watch Demo
+              </a>
             </div>
           </div>
 
@@ -261,7 +273,7 @@ export function ProductsHero() {
                     className="absolute inset-0 rounded-full origin-left"
                     style={{
                       background: "rgba(255,255,255,0.4)",
-                      animation: "progress 6s linear",
+                      animation: "progress 10s linear",
                     }}
                   />
                 </>

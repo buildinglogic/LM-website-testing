@@ -73,6 +73,12 @@ function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left: Content */}
           <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            {/* Product Name Heading */}
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full mb-6" style={{ background: `${BRAND_GREEN}08` }}>
+              <div className="w-3 h-3 rounded-full" style={{ background: BRAND_GREEN }} />
+              <span className="text-[12px] font-semibold uppercase tracking-wider" style={{ color: BRAND_GREEN }}>Patram AI</span>
+            </div>
+
             {/* Badge */}
             <div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
@@ -136,6 +142,15 @@ function HeroSection() {
                 style={{ background: "#FFFFFF", border: `2px solid ${BRAND_GREEN}25`, color: BRAND_GREEN }}
               >
                 See Use Cases
+              </a>
+              <a
+                href="https://www.youtube.com/@LIQUIDMIND_AI"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-[16px] font-semibold transition-all duration-300 hover:scale-105"
+                style={{ background: "#F8FAFC", border: `2px solid ${BRAND_GREEN}15`, color: BRAND_GREEN }}
+              >
+                Watch Demo
               </a>
             </div>
           </div>

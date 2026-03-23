@@ -124,11 +124,13 @@ function CountryPicker() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all hover:bg-white/10"
-        style={{ border: "1px solid rgba(255,255,255,0.2)" }}
+        className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all hover:bg-white/10 text-[12px] font-semibold uppercase tracking-wider"
+        style={{ border: "1px solid rgba(255,255,255,0.3)", color: "#FFFFFF" }}
+        title="Select trade route: From (Exporting) To (Importing)"
       >
+        <span className="text-sm">Trade Route:</span>
         <span className="text-lg">{exportCountry.flag}</span>
-        <ArrowLeftRight className="w-3.5 h-3.5 text-white/60" />
+        <ArrowLeftRight className="w-3 h-3 text-white/70" />
         <span className="text-lg">{importCountry.flag}</span>
         <ChevronDown className={`w-3.5 h-3.5 text-white/60 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
