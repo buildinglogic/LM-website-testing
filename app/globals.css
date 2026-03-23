@@ -478,6 +478,30 @@ input[type="range"]::-moz-range-thumb {
   animation: float-subtle 4s ease-in-out infinite;
 }
 
+/* Floating particle animation for product cards */
+@keyframes float-particle {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-15px) translateX(5px);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-8px) translateX(-5px);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translateY(-20px) translateX(3px);
+    opacity: 0.4;
+  }
+}
+
+.animate-float-particle {
+  animation: float-particle 6s ease-in-out infinite;
+}
+
 /* Problem Card Styles - from styles.css reference */
 .problem-card {
   position: relative;
