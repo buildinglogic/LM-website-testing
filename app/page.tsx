@@ -872,7 +872,7 @@ function AwardsSection() {
                     <h3 className="text-[16px] sm:text-[19px] font-extrabold mb-1 leading-tight truncate text-white">
                       {award.title}
                     </h3>
-                    <p className="text-[13px] sm:text-[14px] leading-snug line-clamp-2 text-white">
+                    <p className="text-[13px] sm:text-[14px] leading-snug line-clamp-4 sm:line-clamp-2 text-white">
                       {award.subtitle}
                     </p>
                   </div>
