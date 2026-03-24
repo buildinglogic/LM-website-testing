@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect, useCallback } from "react"
-import { trackROIShipmentsChanged, trackROIFOBChanged, trackROIReportClick, trackROICalculatorStarted } from "@/lib/amplitude"
+import { trackROIInteracted } from "@/lib/amplitude"
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
@@ -36,7 +36,7 @@ export function ROICalculator() {
   useEffect(() => {
     if (isInView && !hasTrackedStartRef.current) {
       hasTrackedStartRef.current = true
-      trackROICalculatorStarted()
+      trackROIInteracted({ action: 'started' })
     }
   }, [isInView])
 
@@ -47,13 +47,13 @@ export function ROICalculator() {
   const handleShipmentsChange = useCallback((val: number) => {
     setShipments(val)
     clearTimeout(shipmentsTimer.current)
-    shipmentsTimer.current = setTimeout(() => trackROIShipmentsChanged(val), 600)
+    shipmentsTimer.current = setTimeout(() => trackROIInteracted({ action: 'shipments_changed', shipments: val }), 600)
   }, [])
 
   const handleFOBChange = useCallback((val: number) => {
     setFobValue(val)
     clearTimeout(fobTimer.current)
-    fobTimer.current = setTimeout(() => trackROIFOBChanged(val), 600)
+    fobTimer.current = setTimeout(() => trackROIInteracted({ action: 'fob_changed', fob_value: val }), 600)
   }, [])
 
   // Calculations
@@ -167,7 +167,7 @@ export function ROICalculator() {
             </div>
 
             <a href="#demo"
-              onClick={() => trackROIReportClick(annualRisk, estimatedProtectionLow)}
+              onClick={() => trackROIInteracted({ action: 'report_clicked', annual_risk: annualRisk, estimated_protection: estimatedProtectionLow })}
               className="w-full mt-3 py-2.5 rounded-lg text-center font-bold text-[15px] transition-all duration-300 hover:scale-105 block relative z-10"
               style={{ background: "#FFFFFF", color: "#0066CC" }}>
               Get Your Report

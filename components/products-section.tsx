@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { Check } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { trackProductTabNavigated } from "@/lib/amplitude"
+// trackProductTabNavigated signature unchanged — product + location
 
 const tabs = [
   { id: "tradeguard", label: "Tradeguard" },

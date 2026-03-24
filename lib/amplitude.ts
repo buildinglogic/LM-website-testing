@@ -18,154 +18,295 @@ export const initAmplitude = () => {
   }
 
   amplitude.init(apiKey, {
-    // Show warnings in console so you can see if anything is wrong
-    // logLevel: 2=Warn, 3=Verbose/Debug
     logLevel: process.env.NODE_ENV === 'development' ? 3 : 2,
-
     defaultTracking: {
-      pageViews: true,        // auto page-view on every route change
-      sessions: true,         // session start / session end
-      formInteractions: true, // form field focus & submit
-      fileDownloads: true,    // any <a download> clicks
-      attribution: true,      // UTM params, referrer
+      pageViews: true,
+      sessions: true,
+      // Disabled: auto-capture of form keystrokes risks logging PII (email, phone, company)
+      // All form events are tracked manually via trackFormStarted / trackFormSubmitted
+      formInteractions: false,
+      fileDownloads: true,
+      attribution: true,
     },
-
-    // Flush events immediately (don't batch) — critical for seeing events in real-time
     flushQueueSize: 1,
     flushIntervalMillis: 0,
-
-    // Don't use batch endpoint — use real-time endpoint
     useBatch: false,
   })
 }
 
 declare global {
   interface Window {
-    posthog: any;
+    posthog: any
   }
 }
 
-/** Generic event tracker — pushes symmetrically to Amplitude and PostHog */
+/** ─────────────────────────────────────────────────────────────
+ *  Generic event tracker
+ *  Sends every event symmetrically to Amplitude AND PostHog
+ * ─────────────────────────────────────────────────────────────*/
 export const track = (
   event: string,
   properties?: Record<string, unknown>
 ) => {
-  if (typeof window === 'undefined') return;
-  
-  // 1. Amplitude Fire
-  amplitude.track(event, properties)
-  
-  // 2. PostHog Fire (Intelligent Semantic B2B Logging)
-  if (posthog && typeof posthog.capture === 'function') {
-    // Try the imported posthog instance first (it's a singleton)
-    posthog.capture(event, properties)
-  } else if (window.posthog && typeof window.posthog.capture === 'function') {
-    // Fallback to window object
-    window.posthog.capture(event, properties)
-  } else {
-    console.warn('[Analytics] PostHog capture not ready for event:', event);
+  if (typeof window === 'undefined') return
+
+  try {
+    if (amplitude && typeof amplitude.track === 'function') {
+      amplitude.track(event, properties)
+    }
+  } catch (e) {
+    console.warn('[Amplitude] track failed:', e)
+  }
+
+  try {
+    const ph = window.posthog || posthog
+    if (ph && typeof ph.capture === 'function') {
+      ph.capture(event, properties)
+    }
+  } catch (e) {
+    console.warn('[PostHog] capture failed:', e)
   }
 }
 
-// ─── Page / Section Views ────────────────────────────────────
+// ─── Identity ─────────────────────────────────────────────────
 
-export const trackSectionView = (section: string) =>
-  track(`${section} Section Viewed`)
+/**
+ * Full identity link — called on form submit.
+ * Associates all prior anonymous events with the identified user in both
+ * Amplitude (setUserId + Identify) and PostHog (identify).
+ */
+export const identifyUser = (data: {
+  email: string
+  name?: string
+  company?: string
+  location?: string
+  product_interest?: string
+  trade_route_export?: string
+  trade_route_import?: string
+}) => {
+  if (typeof window === 'undefined') return
 
-// ─── CTA Button Clicks ───────────────────────────────────────
+  try {
+    amplitude.setUserId(data.email)
+    const identifyObj = new amplitude.Identify()
+    if (data.name)               identifyObj.set('name', data.name)
+    if (data.company)            identifyObj.set('company', data.company)
+    if (data.location)           identifyObj.set('location', data.location)
+    if (data.product_interest)   identifyObj.set('product_interest', data.product_interest)
+    if (data.trade_route_export) identifyObj.set('trade_route_export', data.trade_route_export)
+    if (data.trade_route_import) identifyObj.set('trade_route_import', data.trade_route_import)
+    if (data.trade_route_export && data.trade_route_import) {
+      identifyObj.set('trade_route', `${data.trade_route_export}→${data.trade_route_import}`)
+    }
+    amplitude.identify(identifyObj)
+  } catch (e) {
+    console.warn('[Amplitude] identifyUser failed:', e)
+  }
 
-/** "Book Free Demo" / "Schedule My Demo" hero CTA */
-export const trackBookDemoCTAClick = (location: string) =>
-  track('Book Free Demo', { location })
+  try {
+    const ph = window.posthog || posthog
+    if (ph && typeof ph.identify === 'function') {
+      ph.identify(data.email, {
+        name: data.name,
+        company: data.company,
+        location: data.location,
+        product_interest: data.product_interest,
+        trade_route_export: data.trade_route_export,
+        trade_route_import: data.trade_route_import,
+        ...(data.trade_route_export && data.trade_route_import
+          ? { trade_route: `${data.trade_route_export}→${data.trade_route_import}` }
+          : {}),
+      })
+    }
+  } catch (e) {
+    console.warn('[PostHog] identify failed:', e)
+  }
+}
 
-/** "Watch Demo" / video CTA in hero */
-export const trackWatchDemoClick = (location: string) =>
-  track('Watch Demo', { location })
+/**
+ * Partial identity on email field blur.
+ * Links the current anonymous session to an email address before the form
+ * is submitted — captures abandonment sessions for retargeting.
+ */
+export const identifyEmailPartial = (email: string) => {
+  if (typeof window === 'undefined' || !email.includes('@')) return
+  try {
+    amplitude.setUserId(email)
+  } catch (e) {
+    console.warn('[Amplitude] identifyEmailPartial failed:', e)
+  }
+}
 
-/** WhatsApp floating button */
-export const trackWhatsAppClick = () =>
-  track('WhatsApp', { location: 'Floating Button' })
+/**
+ * Persist trade route selection as a user property.
+ * Also stored in sessionStorage so book-demo can pick it up.
+ */
+export const setTradeRouteProperty = (exportCountry: string, importCountry: string) => {
+  if (typeof window === 'undefined') return
 
-/** "Get Your Report" inside ROI calculator */
-export const trackROIReportClick = (annualRisk: number, estimatedProtectionLow: number) =>
-  track('Get Your Report', { location: 'ROI Calculator', annualRisk, estimatedProtectionLow })
+  try {
+    sessionStorage.setItem('trade_route_export', exportCountry)
+    sessionStorage.setItem('trade_route_import', importCountry)
+  } catch (_) {}
+
+  try {
+    const identifyObj = new amplitude.Identify()
+    identifyObj.set('trade_route_export', exportCountry)
+    identifyObj.set('trade_route_import', importCountry)
+    identifyObj.set('trade_route', `${exportCountry}→${importCountry}`)
+    amplitude.identify(identifyObj)
+  } catch (e) {
+    console.warn('[Amplitude] setTradeRouteProperty failed:', e)
+  }
+
+  try {
+    const ph = window.posthog || posthog
+    if (ph?.people?.set) {
+      ph.people.set({ trade_route_export: exportCountry, trade_route_import: importCountry })
+    }
+  } catch (_) {}
+}
+
+// ─── CTA Clicks ───────────────────────────────────────────────
+
+export const trackCTAClicked = (data: {
+  cta_name: string
+  location: string
+  product_source?: string
+  cta_source?: string
+}) => track('cta_clicked', data)
 
 // ─── Form Events ─────────────────────────────────────────────
 
-/** User lands on /book-demo page */
-export const trackDemoFormView = () =>
-  track('Book Demo Page')
+export const trackFormViewed = (data: {
+  form_name: string
+  product_source?: string
+  cta_source?: string
+  utm_source?: string
+  utm_medium?: string
+  utm_campaign?: string
+  utm_content?: string
+  utm_term?: string
+}) => track('form_viewed', data)
 
-/** User starts filling in the form (first field focus) */
-export const trackDemoFormStart = () =>
-  track('Book Demo Form Started')
+export const trackFormStarted = (form_name: string) =>
+  track('form_started', { form_name })
 
-/** Demo form submitted successfully */
-export const trackDemoFormSubmit = (data: {
+export const trackFormSubmitted = (data: {
+  form_name: string
   company?: string
   location?: string
-}) =>
-  track('Schedule My Demo', {
-    company: data.company,
-    location: data.location,
-  })
+  product_source?: string
+  cta_source?: string
+  utm_source?: string
+  utm_medium?: string
+  utm_campaign?: string
+  utm_content?: string
+  utm_term?: string
+  trade_route_export?: string
+  trade_route_import?: string
+}) => track('form_submitted', data)
 
-// ─── ROI Calculator Interactions ─────────────────────────────
+// ─── ROI Calculator ───────────────────────────────────────────
 
-/** Fired when a user moves the shipments slider */
-export const trackROIShipmentsChanged = (value: number) =>
-  track('Monthly Shipments Changed', { value })
+export const trackROIInteracted = (data: {
+  action: 'started' | 'shipments_changed' | 'fob_changed' | 'report_clicked'
+  shipments?: number
+  fob_value?: number
+  annual_risk?: number
+  estimated_protection?: number
+}) => track('roi_calculator_interacted', data)
 
-/** Fired when a user moves the FOB value slider */
-export const trackROIFOBChanged = (value: number) =>
-  track('Avg FOB Value (Lakhs) Changed', { value })
+// ─── Trade Route (Country Picker) ────────────────────────────
 
-// ─── Navigation ──────────────────────────────────────────────
+export const trackTradeRouteOpened = () =>
+  track('trade_route_opened', {})
 
-export const trackNavClick = (label: string) =>
-  track(label, { location: 'Navigation' })
+export const trackTradeRouteSelected = (data: {
+  export_country: string
+  import_country: string
+}) => {
+  track('trade_route_selected', data)
+  setTradeRouteProperty(data.export_country, data.import_country)
+}
 
-// ─── Video ───────────────────────────────────────────────────
+export const trackTradeRouteSwapped = (data: {
+  new_export: string
+  new_import: string
+}) => {
+  track('trade_route_swapped', data)
+  setTradeRouteProperty(data.new_export, data.new_import)
+}
 
-export const trackVideoPlayed = (title: string) =>
-  track(`${title} Video Played`)
+// ─── Navigation ───────────────────────────────────────────────
 
-// ─── Product Interest ────────────────────────────────────────
-
-export const trackProductCardHover = (product: string) =>
-  track(`${product} Product Hovered`)
-
-export const trackProductCTAClick = (product: string, cta: string) =>
-  track(`${cta} Clicked on ${product}`)
-
-// ─── Journey & Product Engagement ─────────────────────────────
+export const trackNavClicked = (data: { label: string; dropdown?: string }) =>
+  track('nav_clicked', data)
 
 export const trackProductTabNavigated = (product: string, location: string) =>
-  track(product, { action: 'Tab Navigated', location })
+  track('product_tab_navigated', { product, location })
+
+// ─── Journey ──────────────────────────────────────────────────
 
 export const trackJourneyStepViewed = (stepNumber: number, stepName: string) =>
-  track(stepName, { stepNumber })
+  track('journey_step_viewed', { step_number: stepNumber, step_name: stepName })
 
-// ─── ROI Calculator (Deep Intent) ─────────────────────────────
+// ─── Video ────────────────────────────────────────────────────
 
-export const trackROICalculatorStarted = () =>
-  track('ROI Calculator Started')
+export const trackVideoPlayed = (title: string, location?: string) =>
+  track('video_played', { title, location })
+
+// ─── Scroll Depth ─────────────────────────────────────────────
+
+/**
+ * Fire once per depth milestone (25 / 50 / 75 / 90 %).
+ * Call from a useEffect scroll listener in each product page.
+ */
+export const trackScrollDepth = (depth_percent: number) => {
+  if (typeof window === 'undefined') return
+  track('scroll_depth_reached', {
+    page_path: window.location.pathname,
+    depth_percent,
+  })
+}
+
+// ─── Exit Intent ──────────────────────────────────────────────
+
+/**
+ * Fire when the user moves the mouse toward the browser chrome (desktop).
+ * Call from a mouseleave listener on document in each product page.
+ */
+export const trackExitIntent = (data: {
+  scroll_depth_reached?: number
+  time_on_page_sec?: number
+}) => {
+  if (typeof window === 'undefined') return
+  track('exit_intent_detected', {
+    page_path: window.location.pathname,
+    ...data,
+  })
+}
 
 // ─── Proof & Media ────────────────────────────────────────────
 
 export const trackAwardInteracted = (awardName: string) =>
-  track(`${awardName} Award Interacted`)
+  track('award_interacted', { award_name: awardName })
 
 export const trackPartnerInteracted = (partnerName: string) =>
-  track(`${partnerName} Partner Interacted`)
+  track('partner_interacted', { partner_name: partnerName })
 
 export const trackExternalLinkClicked = (destination: string) =>
-  track(`${destination} External Link Clicked`)
+  track('external_link_clicked', { destination })
 
 export const trackFooterLinkClicked = (linkName: string) =>
-  track(linkName, { location: 'Footer' })
+  track('footer_link_clicked', { link_name: linkName })
 
 // ─── FAQ ─────────────────────────────────────────────────────
 
-export const trackFAQExpanded = (question: string) =>
-  track(question, { action: 'FAQ Expanded' })
+export const trackFAQExpanded = (question: string, index?: number) =>
+  track('faq_expanded', { question, index })
+
+// ─── WhatsApp ─────────────────────────────────────────────────
+
+export const trackWhatsAppClicked = (location = 'Floating Button') =>
+  track('whatsapp_clicked', { location })

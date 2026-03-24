@@ -1,7 +1,13 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { trackDemoFormView, trackDemoFormStart, trackDemoFormSubmit } from "@/lib/amplitude"
+import {
+  trackFormViewed,
+  trackFormStarted,
+  trackFormSubmitted,
+  identifyUser,
+  identifyEmailPartial,
+} from "@/lib/amplitude"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { FooterLinks } from "@/components/footer-links"
@@ -68,26 +74,112 @@ export default function BookDemoPage() {
   const [loading, setLoading] = useState(false)
   const formStarted = useRef(false)
 
-  // Track form page view
-  useEffect(() => { trackDemoFormView() }, [])
+  // Attribution state — populated from URL params + sessionStorage on mount
+  const attribution = useRef({
+    product_source: "",
+    cta_source: "",
+    utm_source: "",
+    utm_medium: "",
+    utm_campaign: "",
+    utm_content: "",
+    utm_term: "",
+    trade_route_export: "",
+    trade_route_import: "",
+    referrer: "",
+    landing_page: "",
+  })
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const a = attribution.current
+
+    a.product_source    = params.get("source")        || ""
+    a.cta_source        = params.get("cta_source")    || ""
+    a.utm_source        = params.get("utm_source")    || ""
+    a.utm_medium        = params.get("utm_medium")    || ""
+    a.utm_campaign      = params.get("utm_campaign")  || ""
+    a.utm_content       = params.get("utm_content")   || ""
+    a.utm_term          = params.get("utm_term")      || ""
+    a.referrer          = document.referrer           || ""
+    a.landing_page      = window.location.pathname   || ""
+
+    try {
+      a.trade_route_export = sessionStorage.getItem("trade_route_export") || ""
+      a.trade_route_import = sessionStorage.getItem("trade_route_import") || ""
+    } catch (_) {}
+
+    trackFormViewed({
+      form_name:      "book_demo",
+      product_source: a.product_source || undefined,
+      cta_source:     a.cta_source     || undefined,
+      utm_source:     a.utm_source     || undefined,
+      utm_medium:     a.utm_medium     || undefined,
+      utm_campaign:   a.utm_campaign   || undefined,
+      utm_content:    a.utm_content    || undefined,
+      utm_term:       a.utm_term       || undefined,
+    })
+  }, [])
 
   const handleFieldFocus = () => {
     if (!formStarted.current) {
       formStarted.current = true
-      trackDemoFormStart()
+      trackFormStarted("book_demo")
     }
+  }
+
+  const handleEmailBlur = () => {
+    if (formData.email) identifyEmailPartial(formData.email)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
+    const a = attribution.current
     try {
-      await fetch('/api/book-demo', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+      await fetch("/api/book-demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          product_source:      a.product_source,
+          cta_source:          a.cta_source,
+          utm_source:          a.utm_source,
+          utm_medium:          a.utm_medium,
+          utm_campaign:        a.utm_campaign,
+          utm_content:         a.utm_content,
+          utm_term:            a.utm_term,
+          trade_route_export:  a.trade_route_export,
+          trade_route_import:  a.trade_route_import,
+          referrer:            a.referrer,
+          landing_page:        a.landing_page,
+        }),
       })
-      trackDemoFormSubmit({ company: formData.company, location: formData.location })
+
+      // Full identity link on successful submission
+      identifyUser({
+        email:               formData.email,
+        name:                formData.name,
+        company:             formData.company,
+        location:            formData.location,
+        product_interest:    a.product_source,
+        trade_route_export:  a.trade_route_export,
+        trade_route_import:  a.trade_route_import,
+      })
+
+      trackFormSubmitted({
+        form_name:           "book_demo",
+        company:             formData.company,
+        location:            formData.location,
+        product_source:      a.product_source  || undefined,
+        cta_source:          a.cta_source      || undefined,
+        utm_source:          a.utm_source      || undefined,
+        utm_medium:          a.utm_medium      || undefined,
+        utm_campaign:        a.utm_campaign    || undefined,
+        utm_content:         a.utm_content     || undefined,
+        utm_term:            a.utm_term        || undefined,
+        trade_route_export:  a.trade_route_export || undefined,
+        trade_route_import:  a.trade_route_import || undefined,
+      })
     } catch (_) {
       // still show success — email may have sent
     } finally {
@@ -197,7 +289,6 @@ export default function BookDemoPage() {
                   ))}
                 </div>
 
-
                 <form onSubmit={handleSubmit} className="space-y-3">
                   <div className="grid grid-cols-2 gap-3">
                     <div>
@@ -216,6 +307,8 @@ export default function BookDemoPage() {
                       <input
                         type="email" required value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onFocus={handleFieldFocus}
+                        onBlur={handleEmailBlur}
                         className="w-full px-3 py-2 rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#0066CC]"
                         style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#0F172A" }}
                         placeholder="john@company.com"
@@ -280,7 +373,7 @@ export default function BookDemoPage() {
                     className="w-full py-2.5 rounded-lg text-[14px] font-bold btn-shine transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                     style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}
                   >
-                    {loading ? 'Sending…' : 'Schedule My Demo'}
+                    {loading ? "Sending…" : "Schedule My Demo"}
                   </button>
                 </form>
               </>

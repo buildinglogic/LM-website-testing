@@ -2,7 +2,13 @@ import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Initialize Resend only if API key exists
+let resend: any = null
+if (process.env.RESEND_API_KEY) {
+  resend = new Resend(process.env.RESEND_API_KEY)
+} else {
+  console.warn('[book-demo] Missing RESEND_API_KEY - email notifications disabled')
+}
 
 // ─── Shared brand styles ────────────────────────────────────────────────────
 const brand = {
@@ -37,7 +43,23 @@ function footer() {
 }
 
 // ─── Internal notification (to Naveen) ─────────────────────────────────────
-function internalDemoEmail(name: string, email: string, company: string, phone: string, location: string) {
+function internalDemoEmail(
+  name: string, email: string, company: string, phone: string, location: string,
+  attribution: {
+    product_source?: string, cta_source?: string,
+    utm_source?: string, utm_medium?: string, utm_campaign?: string,
+    trade_route_export?: string, trade_route_import?: string,
+  }
+) {
+  const tradeRoute = attribution.trade_route_export && attribution.trade_route_import
+    ? `${attribution.trade_route_export} → ${attribution.trade_route_import}`
+    : '—'
+  const utmInfo = [
+    attribution.utm_source   && `Source: ${attribution.utm_source}`,
+    attribution.utm_medium   && `Medium: ${attribution.utm_medium}`,
+    attribution.utm_campaign && `Campaign: ${attribution.utm_campaign}`,
+  ].filter(Boolean).join(' · ') || '—'
+
   return `
     <div style="background:${brand.bg};padding:24px;font-family:sans-serif;">
       <div style="max-width:560px;margin:0 auto;border-radius:12px;
@@ -45,11 +67,11 @@ function internalDemoEmail(name: string, email: string, company: string, phone: 
                   box-shadow:0 4px 24px rgba(0,0,0,0.06);">
         ${header()}
         <div style="padding:28px 32px;background:${brand.card};">
-          <h2 style="margin:0 0 4px;font-size:20px;color:${brand.dark};">🎯 New Demo Request</h2>
+          <h2 style="margin:0 0 4px;font-size:20px;color:${brand.dark};">New Demo Request</h2>
           <p style="margin:0 0 20px;font-size:13px;color:${brand.muted};">Someone just booked a personalised demo. Here are the details:</p>
           <table width="100%" style="border-collapse:collapse;font-size:14px;">
             <tr style="border-bottom:1px solid ${brand.border};">
-              <td style="padding:10px 0;color:${brand.muted};width:110px;">Name</td>
+              <td style="padding:10px 0;color:${brand.muted};width:130px;">Name</td>
               <td style="padding:10px 0;color:${brand.dark};font-weight:600;">${name}</td>
             </tr>
             <tr style="border-bottom:1px solid ${brand.border};">
@@ -64,9 +86,21 @@ function internalDemoEmail(name: string, email: string, company: string, phone: 
               <td style="padding:10px 0;color:${brand.muted};">Phone</td>
               <td style="padding:10px 0;color:${brand.dark};">${phone || '—'}</td>
             </tr>
-            <tr>
+            <tr style="border-bottom:1px solid ${brand.border};">
               <td style="padding:10px 0;color:${brand.muted};">Location</td>
               <td style="padding:10px 0;color:${brand.dark};">${location || '—'}</td>
+            </tr>
+            <tr style="border-bottom:1px solid ${brand.border};">
+              <td style="padding:10px 0;color:${brand.muted};">Product Interest</td>
+              <td style="padding:10px 0;color:${brand.blue};font-weight:600;">${attribution.product_source || '—'}</td>
+            </tr>
+            <tr style="border-bottom:1px solid ${brand.border};">
+              <td style="padding:10px 0;color:${brand.muted};">Trade Route</td>
+              <td style="padding:10px 0;color:${brand.dark};">${tradeRoute}</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 0;color:${brand.muted};">Marketing Source</td>
+              <td style="padding:10px 0;color:${brand.dark};font-size:13px;">${utmInfo}</td>
             </tr>
           </table>
           <div style="margin-top:24px;">
@@ -130,30 +164,59 @@ function userDemoEmail(name: string) {
 // ─── Route Handler ───────────────────────────────────────────────────────────
 export async function POST(req: Request) {
   try {
-    const { name, email, company, phone, location } = await req.json()
+    const {
+      name, email, company, phone, location,
+      product_source, cta_source,
+      utm_source, utm_medium, utm_campaign, utm_content, utm_term,
+      trade_route_export, trade_route_import,
+      referrer, landing_page,
+    } = await req.json()
 
-    // 1. Save to Supabase
+    // 1. Save to Supabase (all attribution columns)
     const { error: dbError } = await supabase
       .from('demo_leads')
-      .insert({ name, email, company, phone, location })
+      .insert({
+        name, email, company, phone, location,
+        product_source:     product_source     || null,
+        cta_source:         cta_source         || null,
+        utm_source:         utm_source         || null,
+        utm_medium:         utm_medium         || null,
+        utm_campaign:       utm_campaign       || null,
+        utm_content:        utm_content        || null,
+        utm_term:           utm_term           || null,
+        trade_route_export: trade_route_export || null,
+        trade_route_import: trade_route_import || null,
+        referrer:           referrer           || null,
+        landing_page:       landing_page       || null,
+      })
 
     if (dbError) console.error('[book-demo] DB error:', dbError.message)
 
-    // 2. Notify Naveen (from naveen@, to naveen@)
-    await resend.emails.send({
-      from:    'Liquidmind AI <naveen@liquidmind.ai>',
-      to:      'naveen@liquidmind.ai',
-      subject: `🎯 New demo request — ${name} (${company})`,
-      html:    internalDemoEmail(name, email, company, phone, location),
-    })
+    const attribution = { product_source, cta_source, utm_source, utm_medium, utm_campaign, trade_route_export, trade_route_import }
 
-    // 3. Confirmation to the prospect (from naveen@)
-    await resend.emails.send({
-      from:    'Naveen at Liquidmind AI <naveen@liquidmind.ai>',
-      to:      email,
-      subject: `Your Liquidmind demo is confirmed, ${name}!`,
-      html:    userDemoEmail(name),
-    })
+    // 2. Notify Naveen with full lead context
+    if (resend) {
+      await resend.emails.send({
+        from:    'Liquidmind AI <naveen@liquidmind.ai>',
+        to:      'naveen@liquidmind.ai',
+        subject: `New demo request — ${name} (${company})${product_source ? ` · ${product_source}` : ''}`,
+        html:    internalDemoEmail(name, email, company, phone, location, attribution),
+      })
+    } else {
+      console.warn('[book-demo] Resend not initialized - skipping internal notification')
+    }
+
+    // 3. Confirmation to the prospect
+    if (resend) {
+      await resend.emails.send({
+        from:    'Naveen at Liquidmind AI <naveen@liquidmind.ai>',
+        to:      email,
+        subject: `Your Liquidmind demo is confirmed, ${name}!`,
+        html:    userDemoEmail(name),
+      })
+    } else {
+      console.warn('[book-demo] Resend not initialized - skipping user confirmation')
+    }
 
     return NextResponse.json({ ok: true })
   } catch (err) {

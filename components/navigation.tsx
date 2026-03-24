@@ -1,10 +1,31 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Menu, X, ChevronDown, Youtube, Linkedin, Mail } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { Menu, X, ChevronDown, Youtube, Linkedin, Mail, ArrowLeftRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { trackNavClick, trackExternalLinkClicked } from "@/lib/amplitude"
+import {
+  trackNavClicked,
+  trackExternalLinkClicked,
+  trackTradeRouteOpened,
+  trackTradeRouteSelected,
+  trackTradeRouteSwapped,
+} from "@/lib/amplitude"
+
+const countries = [
+  { code: "IN", name: "India", flag: "🇮🇳" },
+  { code: "US", name: "United States", flag: "🇺🇸" },
+  { code: "AE", name: "UAE", flag: "🇦🇪" },
+  { code: "DE", name: "Germany", flag: "🇩🇪" },
+  { code: "GB", name: "United Kingdom", flag: "🇬🇧" },
+  { code: "CN", name: "China", flag: "🇨🇳" },
+  { code: "JP", name: "Japan", flag: "🇯🇵" },
+  { code: "SG", name: "Singapore", flag: "🇸🇬" },
+  { code: "AU", name: "Australia", flag: "🇦🇺" },
+  { code: "NL", name: "Netherlands", flag: "🇳🇱" },
+  { code: "FR", name: "France", flag: "🇫🇷" },
+  { code: "SA", name: "Saudi Arabia", flag: "🇸🇦" },
+]
 
 const products = [
   {
@@ -15,7 +36,7 @@ const products = [
     color: "#0066CC",
     gradientFrom: "#0066CC",
     gradientTo: "#0052A3",
-    href: "/#products",
+    href: "/products/tradeguard",
     tabId: "tradeguard",
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}>
@@ -31,7 +52,7 @@ const products = [
     color: "#00A86B",
     gradientFrom: "#00A86B",
     gradientTo: "#008B5E",
-    href: "/#products",
+    href: "/products/patram",
     tabId: "patram",
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -49,7 +70,7 @@ const products = [
     color: "#1B4F8A",
     gradientFrom: "#1B4F8A",
     gradientTo: "#2563EB",
-    href: "/#products",
+    href: "/products/tariffiq",
     tabId: "tariffiq",
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}>
@@ -71,6 +92,169 @@ const companyLinks = [
   { name: "Privacy Policy", href: "/legal/privacy-policy" },
   { name: "Terms of Service", href: "/legal/terms" },
 ]
+
+function CountryPicker() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [exportCountry, setExportCountry] = useState(countries[0]) // India default
+  const [importCountry, setImportCountry] = useState(countries[2]) // UAE default
+  const [selectingFor, setSelectingFor] = useState<"export" | "import" | null>(null)
+  const [sameCountryError, setSameCountryError] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+        setSelectingFor(null)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  const handleCountrySelect = (country: typeof countries[0]) => {
+    if (selectingFor === "export" && country.code === importCountry.code) {
+      setSameCountryError(true)
+      setTimeout(() => setSameCountryError(false), 2500)
+      return
+    }
+    if (selectingFor === "import" && country.code === exportCountry.code) {
+      setSameCountryError(true)
+      setTimeout(() => setSameCountryError(false), 2500)
+      return
+    }
+    setSameCountryError(false)
+    if (selectingFor === "export") {
+      setExportCountry(country)
+      trackTradeRouteSelected({ export_country: country.code, import_country: importCountry.code })
+    } else if (selectingFor === "import") {
+      setImportCountry(country)
+      trackTradeRouteSelected({ export_country: exportCountry.code, import_country: country.code })
+    }
+    setSelectingFor(null)
+  }
+
+  const swapCountries = () => {
+    const temp = exportCountry
+    setExportCountry(importCountry)
+    setImportCountry(temp)
+    trackTradeRouteSwapped({ new_export: importCountry.code, new_import: exportCountry.code })
+  }
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => { setIsOpen(!isOpen); if (!isOpen) trackTradeRouteOpened() }}
+        className="flex items-center gap-2 px-3 py-2 rounded-xl transition-all hover:bg-white/10 group"
+        style={{ 
+          background: "linear-gradient(135deg, rgba(0,102,204,0.15), rgba(0,168,107,0.15))",
+          border: "1px solid rgba(255,255,255,0.25)" 
+        }}
+      >
+        <div className="flex flex-col items-start mr-1">
+          <span className="text-[9px] font-semibold uppercase tracking-wider text-white/50">Trade Route</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-base">{exportCountry.flag}</span>
+            <ArrowLeftRight className="w-3 h-3 text-white/60" />
+            <span className="text-base">{importCountry.flag}</span>
+          </div>
+        </div>
+        <ChevronDown className={`w-3.5 h-3.5 text-white/60 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      {isOpen && (
+        <div
+          className="absolute top-[calc(100%+8px)] right-0 w-[280px] rounded-xl overflow-hidden z-50"
+          style={{
+            background: "#FFFFFF",
+            border: "1px solid #E2E8F0",
+            boxShadow: "0 25px 60px rgba(0,0,0,0.25)",
+          }}
+        >
+          <div className="p-3.5" style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", borderBottom: "none" }}>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="text-[12px] font-bold uppercase tracking-[0.15em] text-white">
+                Trade Route
+              </p>
+            </div>
+          </div>
+
+          {/* Selected Countries Display */}
+          <div className="p-4 flex items-center justify-between gap-3">
+            <button
+              onClick={() => setSelectingFor(selectingFor === "export" ? null : "export")}
+              className={`flex-1 flex items-center gap-2 p-2.5 rounded-lg transition-all ${selectingFor === "export" ? "ring-2 ring-[#0066CC]" : ""}`}
+              style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
+            >
+              <span className="text-xl">{exportCountry.flag}</span>
+              <div className="text-left">
+                <p className="text-[10px] uppercase tracking-wider" style={{ color: "#94A3B8" }}>From</p>
+                <p className="text-[13px] font-semibold" style={{ color: "#0F172A" }}>{exportCountry.code}</p>
+              </div>
+            </button>
+
+            <button
+              onClick={swapCountries}
+              className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:scale-110"
+              style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}
+            >
+              <ArrowLeftRight className="w-4 h-4 text-white" />
+            </button>
+
+            <button
+              onClick={() => setSelectingFor(selectingFor === "import" ? null : "import")}
+              className={`flex-1 flex items-center gap-2 p-2.5 rounded-lg transition-all ${selectingFor === "import" ? "ring-2 ring-[#00A86B]" : ""}`}
+              style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
+            >
+              <span className="text-xl">{importCountry.flag}</span>
+              <div className="text-left">
+                <p className="text-[10px] uppercase tracking-wider" style={{ color: "#94A3B8" }}>To</p>
+                <p className="text-[13px] font-semibold" style={{ color: "#0F172A" }}>{importCountry.code}</p>
+              </div>
+            </button>
+          </div>
+
+          {sameCountryError && (
+            <div className="mx-3 mb-2 px-3 py-1.5 rounded-lg text-[12px] font-semibold text-center"
+              style={{ background: "rgba(220,38,38,0.08)", color: "#DC2626", border: "1px solid rgba(220,38,38,0.15)" }}>
+              Export and import country cannot be the same
+            </div>
+          )}
+
+          {/* Country Selection List */}
+          {selectingFor && (
+            <div className="border-t max-h-[200px] overflow-y-auto" style={{ borderColor: "#E2E8F0" }}>
+              <div className="p-2">
+                <p className="px-2 py-1.5 text-[11px] font-semibold uppercase tracking-wider" style={{ color: "#94A3B8" }}>
+                  Select {selectingFor === "export" ? "Exporting" : "Importing"} Country
+                </p>
+                {countries.map((country) => {
+                  const isDisabled = (selectingFor === "export" && country.code === importCountry.code) ||
+                    (selectingFor === "import" && country.code === exportCountry.code)
+                  return (
+                    <button
+                      key={country.code}
+                      onClick={() => handleCountrySelect(country)}
+                      className={`w-full flex items-center gap-3 px-2 py-2 rounded-lg transition-all ${isDisabled ? "opacity-40 cursor-not-allowed" : "hover:bg-[#F1F5F9]"}`}
+                      disabled={isDisabled}
+                    >
+                      <span className="text-lg">{country.flag}</span>
+                      <span className="text-[14px] font-medium" style={{ color: "#0F172A" }}>{country.name}</span>
+                      <span className="ml-auto text-[12px]" style={{ color: "#94A3B8" }}>{country.code}</span>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -99,25 +283,9 @@ export function Navigation() {
   }
 
   const navigateToProduct = (product: typeof products[0]) => {
-    trackNavClick(`Product: ${product.name}`)
-    // Store the selected tab in sessionStorage so ProductsSection can read it
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('selectedProductTab', product.tabId)
-    }
-
-    // Check if we're on the home page
-    if (window.location.pathname === '/') {
-      // Scroll to products section
-      const element = document.getElementById('products')
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" })
-      }
-      // Dispatch a custom event to change the tab
-      window.dispatchEvent(new CustomEvent('changeProductTab', { detail: product.tabId }))
-    } else {
-      // Navigate to home page — use real query param so ProductsSection can read it via window.location.search
-      window.location.href = `/?tab=${product.tabId}#products`
-    }
+    trackNavClicked({ label: `Product: ${product.name}`, dropdown: 'Products' })
+    // Navigate directly to product page
+    window.location.href = product.href
     setProductsOpen(false)
     setMobileMenuOpen(false)
   }
@@ -224,7 +392,7 @@ export function Navigation() {
                       href={link.href}
                       className="block px-4 py-2.5 rounded-lg text-[15px] font-medium transition-all hover:bg-[#F1F5F9]"
                       style={{ color: "#0F172A" }}
-                      onClick={() => { trackNavClick(link.name); setCompanyOpen(false) }}
+                      onClick={() => { trackNavClicked({ label: link.name, dropdown: 'Company' }); setCompanyOpen(false) }}
                     >
                       {link.name}
                     </Link>
@@ -232,11 +400,11 @@ export function Navigation() {
                 )}
               </div>
             </div>
-            <Link href="/newsletter" onClick={() => trackNavClick("Newsletter")} className="text-white/80 hover:text-white text-[16px] font-semibold transition-colors">Newsletter</Link>
-            <Link href="/careers" onClick={() => trackNavClick("Careers")} className="text-white/80 hover:text-white text-[16px] font-semibold transition-colors">Careers</Link>
+            <Link href="/newsletter" onClick={() => trackNavClicked({ label: 'Newsletter' })} className="text-white/80 hover:text-white text-[16px] font-semibold transition-colors">Newsletter</Link>
+            <Link href="/careers" onClick={() => trackNavClicked({ label: 'Careers' })} className="text-white/80 hover:text-white text-[16px] font-semibold transition-colors">Careers</Link>
           </div>
 
-          {/* Right side - Social icons + Book Demo */}
+          {/* Right side - Social icons + Country Picker + Book Demo */}
           <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
             <div className="flex items-center gap-2">
               <a href="https://www.youtube.com/@LIQUIDMIND_AI" target="_blank" rel="noopener noreferrer"
@@ -256,7 +424,9 @@ export function Navigation() {
               </a>
             </div>
 
-            <Link href="/book-demo" onClick={() => trackNavClick("Book Demo")} className="px-6 py-2.5 rounded-lg text-[16px] font-bold btn-shine transition-all hover:scale-105"
+            <CountryPicker />
+
+            <Link href="/book-demo?source=navigation" onClick={() => trackNavClicked({ label: 'Book Demo' })} className="px-6 py-2.5 rounded-lg text-[16px] font-bold btn-shine transition-all hover:scale-105"
               style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>
               Book Demo
             </Link>
@@ -337,7 +507,7 @@ export function Navigation() {
                       href={link.href}
                       className="block px-2 py-2.5 rounded-xl text-[15px] font-medium transition-colors hover:bg-[#F8FAFC]"
                       style={{ color: "#475569" }}
-                      onClick={() => { trackNavClick(link.name); setMobileMenuOpen(false) }}
+                      onClick={() => { trackNavClicked({ label: link.name, dropdown: 'Company' }); setMobileMenuOpen(false) }}
                     >
                       {link.name}
                     </Link>
@@ -350,13 +520,13 @@ export function Navigation() {
             <Link href="/newsletter"
               className="flex items-center py-3.5 text-[16px] font-semibold"
               style={{ color: "#0F172A", borderBottom: "1px solid #E2E8F0" }}
-              onClick={() => { trackNavClick("Newsletter"); setMobileMenuOpen(false) }}>
+              onClick={() => { trackNavClicked({ label: 'Newsletter' }); setMobileMenuOpen(false) }}>
               Newsletter
             </Link>
             <Link href="/careers"
               className="flex items-center py-3.5 text-[16px] font-semibold"
               style={{ color: "#0F172A", borderBottom: "1px solid #E2E8F0" }}
-              onClick={() => { trackNavClick("Careers"); setMobileMenuOpen(false) }}>
+              onClick={() => { trackNavClicked({ label: 'Careers' }); setMobileMenuOpen(false) }}>
               Careers
             </Link>
 
@@ -383,10 +553,10 @@ export function Navigation() {
                 </a>
               </div>
               <Link
-                href="/book-demo"
+                href="/book-demo?source=navigation_mobile"
                 className="px-5 py-2.5 rounded-full text-[15px] font-bold btn-shine"
                 style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}
-                onClick={() => { trackNavClick("Book Demo"); setMobileMenuOpen(false) }}
+                onClick={() => { trackNavClicked({ label: 'Book Demo' }); setMobileMenuOpen(false) }}
               >
                 Book Demo
               </Link>
@@ -398,7 +568,7 @@ export function Navigation() {
       {/* Mobile bottom bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 flex" style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
         <a href="https://wa.me/919845592468" onClick={() => trackExternalLinkClicked("https://wa.me/919845592468")} className="flex-1 py-3 text-center text-[#0F172A] font-semibold text-[16px] border-r border-[#E2E8F0]">WhatsApp</a>
-        <Link href="/book-demo" onClick={() => trackNavClick("Book Demo")} className="flex-1 py-3 text-center font-semibold text-[16px]" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>Book Demo</Link>
+        <Link href="/book-demo?source=mobile_bottom_bar" onClick={() => trackNavClicked({ label: 'Book Demo' })} className="flex-1 py-3 text-center font-semibold text-[16px]" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}>Book Demo</Link>
       </div>
     </>
   )
