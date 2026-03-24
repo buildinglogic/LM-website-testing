@@ -92,6 +92,7 @@ function CountryPicker() {
   const [exportCountry, setExportCountry] = useState(countries[0]) // India default
   const [importCountry, setImportCountry] = useState(countries[2]) // UAE default
   const [selectingFor, setSelectingFor] = useState<"export" | "import" | null>(null)
+  const [sameCountryError, setSameCountryError] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -106,6 +107,17 @@ function CountryPicker() {
   }, [])
 
   const handleCountrySelect = (country: typeof countries[0]) => {
+    if (selectingFor === "export" && country.code === importCountry.code) {
+      setSameCountryError(true)
+      setTimeout(() => setSameCountryError(false), 2500)
+      return
+    }
+    if (selectingFor === "import" && country.code === exportCountry.code) {
+      setSameCountryError(true)
+      setTimeout(() => setSameCountryError(false), 2500)
+      return
+    }
+    setSameCountryError(false)
     if (selectingFor === "export") {
       setExportCountry(country)
     } else if (selectingFor === "import") {
@@ -150,10 +162,15 @@ function CountryPicker() {
             boxShadow: "0 25px 60px rgba(0,0,0,0.25)",
           }}
         >
-          <div className="p-3 border-b" style={{ borderColor: "#E2E8F0", background: "#F8FAFC" }}>
-            <p className="text-[12px] font-semibold uppercase tracking-wider" style={{ color: "#64748B" }}>
-              Trade Route
-            </p>
+          <div className="p-3.5" style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", borderBottom: "none" }}>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="text-[12px] font-bold uppercase tracking-[0.15em] text-white">
+                Trade Route
+              </p>
+            </div>
           </div>
 
           {/* Selected Countries Display */}
@@ -191,6 +208,13 @@ function CountryPicker() {
             </button>
           </div>
 
+          {sameCountryError && (
+            <div className="mx-3 mb-2 px-3 py-1.5 rounded-lg text-[12px] font-semibold text-center"
+              style={{ background: "rgba(220,38,38,0.08)", color: "#DC2626", border: "1px solid rgba(220,38,38,0.15)" }}>
+              Export and import country cannot be the same
+            </div>
+          )}
+
           {/* Country Selection List */}
           {selectingFor && (
             <div className="border-t max-h-[200px] overflow-y-auto" style={{ borderColor: "#E2E8F0" }}>
@@ -198,17 +222,22 @@ function CountryPicker() {
                 <p className="px-2 py-1.5 text-[11px] font-semibold uppercase tracking-wider" style={{ color: "#94A3B8" }}>
                   Select {selectingFor === "export" ? "Exporting" : "Importing"} Country
                 </p>
-                {countries.map((country) => (
-                  <button
-                    key={country.code}
-                    onClick={() => handleCountrySelect(country)}
-                    className="w-full flex items-center gap-3 px-2 py-2 rounded-lg transition-all hover:bg-[#F1F5F9]"
-                  >
-                    <span className="text-lg">{country.flag}</span>
-                    <span className="text-[14px] font-medium" style={{ color: "#0F172A" }}>{country.name}</span>
-                    <span className="ml-auto text-[12px]" style={{ color: "#94A3B8" }}>{country.code}</span>
-                  </button>
-                ))}
+                {countries.map((country) => {
+                  const isDisabled = (selectingFor === "export" && country.code === importCountry.code) ||
+                    (selectingFor === "import" && country.code === exportCountry.code)
+                  return (
+                    <button
+                      key={country.code}
+                      onClick={() => handleCountrySelect(country)}
+                      className={`w-full flex items-center gap-3 px-2 py-2 rounded-lg transition-all ${isDisabled ? "opacity-40 cursor-not-allowed" : "hover:bg-[#F1F5F9]"}`}
+                      disabled={isDisabled}
+                    >
+                      <span className="text-lg">{country.flag}</span>
+                      <span className="text-[14px] font-medium" style={{ color: "#0F172A" }}>{country.name}</span>
+                      <span className="ml-auto text-[12px]" style={{ color: "#94A3B8" }}>{country.code}</span>
+                    </button>
+                  )
+                })}
               </div>
             </div>
           )}
