@@ -151,12 +151,12 @@ function ProductShowcase() {
     <section
       ref={ref}
       id="products"
-      className="py-14 lg:py-20 px-5 lg:px-8"
+      className="py-10 lg:py-14 px-5 lg:px-8"
       style={{ background: "#FFFFFF", scrollMarginTop: "80px" }}
     >
       <div className="max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-10 lg:mb-14 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Our Products</span>
@@ -303,7 +303,7 @@ function ProblemSection() {
   return (
     <section
       ref={ref}
-      className="py-14 lg:py-20 px-5 lg:px-8 relative overflow-hidden"
+      className="py-10 lg:py-14 px-5 lg:px-8 relative overflow-hidden"
     >
       {/* Blurred map layer */}
       <div className="absolute inset-0 scale-110 pointer-events-none" style={{
@@ -318,7 +318,7 @@ function ProblemSection() {
 
       <div className="w-full max-w-[1100px] mx-auto relative">
         {/* Header */}
-        <div className={`text-center mb-10 lg:mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 flex-shrink-0 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>
@@ -336,7 +336,7 @@ function ProblemSection() {
         </div>
 
         {/* 4 Premium cards — 2x2 grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 mb-8">
           {problems.map((problem, idx) => (
             <ProblemCardItem key={idx} problem={problem} idx={idx} isInView={isInView} />
           ))}
@@ -539,12 +539,12 @@ function HowItWorks() {
   return (
     <section
       ref={ref}
-      className="py-14 lg:py-20 px-5 lg:px-8 relative"
+      className="py-10 lg:py-14 px-5 lg:px-8 relative"
       style={{ background: "#F8FAFC" }}
     >
       <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-10 lg:mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Journey</span>
@@ -562,7 +562,7 @@ function HowItWorks() {
         </div>
 
         {/* Timeline connector + cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 mb-8">
           {steps.map((step, idx) => {
             const active = activeIdx === idx
             return (
@@ -744,7 +744,7 @@ function AwardsSection() {
 
               {/* Card body */}
               <div
-                className="rounded-2xl overflow-hidden relative w-full h-[360px] sm:h-[400px] lg:h-[440px]"
+                className="rounded-2xl overflow-hidden relative w-full h-[460px] sm:h-[500px]"
                 style={{ background: "#0F172A" }}
               >
                 {/* Full Bleed Image */}
@@ -862,8 +862,8 @@ function MicroConversionSection() {
   }, [isInView])
 
   return (
-    <section id="video-demo" ref={ref} className="page-snap flex flex-col justify-center py-8 lg:py-10 px-4 lg:px-8" style={{ background: "#F8FAFC" }}>
-      <div className="w-full max-w-[900px] mx-auto">
+    <section id="video-demo" ref={ref} className="page-snap flex flex-col justify-center py-6 lg:py-8 px-4 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <div className="w-full max-w-[800px] mx-auto">
 
         {/* Header */}
         <div className={`text-center mb-4 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
