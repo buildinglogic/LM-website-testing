@@ -171,8 +171,8 @@ function ProductShowcase() {
           </p>
         </div>
 
-        {/* Cards — horizontal scroll on mobile, grid on desktop */}
-        <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 -mx-5 px-5 lg:overflow-visible lg:snap-none lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 scroll-hide">
+        {/* Cards — stacked on mobile, grid on desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {products.map((product, idx) => {
             const Icon = product.icon
             return (
@@ -180,7 +180,7 @@ function ProductShowcase() {
                 key={product.name}
                 href={product.href}
                 onClick={() => trackProductCTAClick(product.name, "Product Showcase")}
-                className={`group min-w-[82vw] sm:min-w-[55vw] lg:min-w-0 snap-center flex-shrink-0 product-card-apple card-shimmer-on-hover rounded-2xl flex flex-col transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+                className={`group product-card-apple card-shimmer-on-hover rounded-2xl flex flex-col transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
                 style={{
                   background: "#FFFFFF",
                   border: "1px solid #E2E8F0",

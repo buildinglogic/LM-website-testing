@@ -974,3 +974,21 @@ input[type="range"]::-moz-range-thumb {
 /* Hide scrollbar for horizontal scroll carousel */
 .scroll-hide::-webkit-scrollbar { display: none; }
 .scroll-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ===== Hero text blur-up reveal (Linear/Vercel style) ===== */
+@keyframes text-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.hero-text-reveal {
+  animation: text-reveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}

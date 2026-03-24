@@ -25,14 +25,23 @@ export function PatramHero() {
       ref={sectionRef}
       className="relative overflow-hidden"
     >
-      {/* Animated gradient background */}
+      {/* Blurred world map background */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: `
-            radial-gradient(ellipse 120% 60% at 50% -10%, rgba(0,168,107,0.08) 0%, transparent 60%),
-            radial-gradient(ellipse 80% 40% at 80% 90%, rgba(0,102,204,0.05) 0%, transparent 50%)
-          `,
+          backgroundImage: "url('/images/world-map-bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 40%",
+          filter: "blur(3px)",
+          opacity: 0.25,
+          transform: "scale(1.05)",
+        }}
+      />
+      {/* White gradient fade over map */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.85) 55%, #FFFFFF 100%)",
         }}
       />
 
@@ -42,103 +51,95 @@ export function PatramHero() {
         style={{ opacity: 0.02, backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }}
       />
 
-      <div className="relative w-full max-w-[1400px] mx-auto px-5 lg:px-8 pt-[140px] pb-16 lg:pb-24 lg:min-h-[90vh] flex items-center">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center w-full">
+      <div className="relative w-full max-w-[1400px] mx-auto px-5 lg:px-8 pt-[140px] pb-10 lg:pb-14">
+        <div className="flex flex-col items-center text-center">
 
-          {/* Left: Copy */}
-          <div className={`transition-all duration-900 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-
-            {/* Overline */}
-            <p
-              className="text-[13px] sm:text-[14px] font-medium leading-relaxed mb-4 max-w-[480px]"
-              style={{ color: "#64748B" }}
-            >
-              Introducing{" "}
-              <span className="font-bold" style={{ color: "#0F172A" }}>Patram AI</span>
-              {" "} — built for exporters who can't afford to guess.
-            </p>
-
-            {/* H1 */}
-            <h1
-              className="text-[32px] sm:text-[44px] lg:text-[56px] font-extrabold leading-[1.05] tracking-[-0.03em] mb-5 lg:mb-6"
-              style={{ color: "#0F172A" }}
-            >
-              Trade compliance,
-              <br />
-              <span className="bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">
-                answered instantly.
-              </span>
-            </h1>
-
-            {/* Sub */}
-            <p
-              className="text-[15px] sm:text-[16px] lg:text-[17px] leading-[1.65] max-w-[460px] mb-8 lg:mb-10"
-              style={{ color: "#475569" }}
-            >
-              Ask about regulations, certifications, or restrictions for any country. Get sourced, citable answers — not summaries.
-            </p>
-
-            {/* Stats — refined with dividers */}
-            <div className="flex items-center mb-8 lg:mb-10">
-              {[
-                { value: "190+", label: "Countries" },
-                { value: "24/7", label: "Always on" },
-                { value: "1.5s", label: "Avg. response" },
-              ].map((stat, idx) => (
-                <div key={idx} className="flex items-center">
-                  {idx > 0 && (
-                    <div className="w-px h-8 mx-5 sm:mx-7" style={{ background: "#E2E8F0" }} />
-                  )}
-                  <div className="flex flex-col">
-                    <span
-                      className="text-[24px] sm:text-[28px] lg:text-[34px] font-extrabold tracking-tight leading-none"
-                      style={{ color: "#0F172A" }}
-                    >
-                      {stat.value}
-                    </span>
-                    <span className="text-[11px] sm:text-[12px] font-medium mt-1.5 tracking-wide uppercase" style={{ color: "#94A3B8" }}>
-                      {stat.label}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              <Link
-                href="/products/patram"
-                onClick={() => trackBookDemoCTAClick("Hero")}
-                className="group btn-magnetic btn-glow-pulse inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-[14px] lg:text-[15px] font-semibold text-white overflow-hidden"
-                style={{
-                  background: "linear-gradient(135deg, #00A86B, #0066CC)",
-                }}
-              >
-                Explore Patram AI
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              <button
-                onClick={() => {
-                  trackWatchDemoClick("Hero")
-                  document.getElementById("video-demo")?.scrollIntoView({ behavior: "smooth" })
-                }}
-                className="btn-outline-glow inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-[14px] lg:text-[15px] font-semibold"
-                style={{
-                  background: "#FFFFFF",
-                  border: "1.5px solid #E2E8F0",
-                  color: "#0F172A",
-                }}
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polygon points="5 3 19 12 5 21 5 3" />
-                </svg>
-                Watch demo
-              </button>
-            </div>
+          {/* Section label */}
+          <div className={`flex items-center gap-3 mb-5 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>
+              Introducing
+            </span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
 
-          {/* Right: Patram Card */}
-          <div className={`hidden lg:block transition-all duration-900 delay-200 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
+          {/* Massive product name */}
+          <h1
+            className={`hero-text-reveal text-[52px] sm:text-[76px] lg:text-[100px] font-extrabold leading-[0.95] tracking-[-0.04em] mb-4 ${isInView ? "" : "opacity-0"}`}
+          >
+            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
+              Patram AI
+            </span>
+          </h1>
+
+          {/* One-line tagline */}
+          <p
+            className={`text-[20px] sm:text-[24px] lg:text-[28px] font-medium leading-snug mb-8 lg:mb-10 transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+            style={{ color: "#475569" }}
+          >
+            Trade compliance, answered instantly.
+          </p>
+
+          {/* CTAs */}
+          <div className={`flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mb-8 lg:mb-10 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <Link
+              href="/products/patram"
+              onClick={() => trackBookDemoCTAClick("Hero")}
+              className="group btn-magnetic btn-glow-pulse inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-[14px] lg:text-[15px] font-semibold text-white overflow-hidden"
+              style={{
+                background: "linear-gradient(135deg, #00A86B, #0066CC)",
+              }}
+            >
+              Explore Patram AI
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            <button
+              onClick={() => {
+                trackWatchDemoClick("Hero")
+                document.getElementById("video-demo")?.scrollIntoView({ behavior: "smooth" })
+              }}
+              className="btn-outline-glow inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-[14px] lg:text-[15px] font-semibold"
+              style={{
+                background: "#FFFFFF",
+                border: "1.5px solid #E2E8F0",
+                color: "#0F172A",
+              }}
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              Watch demo
+            </button>
+          </div>
+
+          {/* Stats row */}
+          <div className={`flex items-center justify-center mb-8 transition-all duration-700 delay-400 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            {[
+              { value: "190+", label: "Countries" },
+              { value: "24/7", label: "Always on" },
+              { value: "1.5s", label: "Avg. response" },
+            ].map((stat, idx) => (
+              <div key={idx} className="flex items-center">
+                {idx > 0 && (
+                  <div className="w-px h-8 mx-5 sm:mx-7" style={{ background: "#E2E8F0" }} />
+                )}
+                <div className="flex flex-col items-center">
+                  <span
+                    className="text-[24px] sm:text-[28px] lg:text-[34px] font-extrabold tracking-tight leading-none"
+                    style={{ color: "#0F172A" }}
+                  >
+                    {stat.value}
+                  </span>
+                  <span className="text-[11px] sm:text-[12px] font-medium mt-1.5 tracking-wide uppercase" style={{ color: "#94A3B8" }}>
+                    {stat.label}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* PatramCard — desktop only, below the fold */}
+          <div className={`hidden lg:block max-w-[480px] w-full mx-auto mt-2 transition-all duration-900 delay-500 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
             <div className="hero-float">
               <PatramCard isActive={isInView} />
             </div>
