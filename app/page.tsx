@@ -744,7 +744,7 @@ function AwardsSection() {
 
               {/* Card body */}
               <div
-                className="rounded-2xl overflow-hidden relative w-full h-[460px] sm:h-[500px]"
+                className="rounded-2xl overflow-hidden relative w-full h-[360px] sm:h-[400px] lg:h-[440px]"
                 style={{ background: "#0F172A" }}
               >
                 {/* Full Bleed Image */}
