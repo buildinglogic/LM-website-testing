@@ -36,17 +36,10 @@ export function PatramHero() {
         }}
       />
 
-      {/* Subtle grid */}
+      {/* Subtle noise texture */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          opacity: 0.03,
-          backgroundImage: `
-            linear-gradient(rgba(0,168,107,0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0,168,107,0.3) 1px, transparent 1px)
-          `,
-          backgroundSize: "80px 80px",
-        }}
+        style={{ opacity: 0.02, backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }}
       />
 
       <div className="relative w-full max-w-[1400px] mx-auto px-5 lg:px-8 pt-[140px] pb-16 lg:pb-24 lg:min-h-[90vh] flex items-center">
@@ -55,69 +48,58 @@ export function PatramHero() {
           {/* Left: Copy */}
           <div className={`transition-all duration-900 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
 
-            {/* Section label */}
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #00A86B, #0066CC)" }} />
-              <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>
-                Flagship Product
-              </span>
-            </div>
-
-            {/* Product badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5"
-              style={{ background: "linear-gradient(135deg, rgba(0,168,107,0.08), rgba(0,102,204,0.08))", border: "1px solid rgba(0,168,107,0.2)" }}>
-              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#00A86B" }} />
-              <span className="text-[13px] font-bold tracking-wide bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">
-                Patram AI
-              </span>
-            </div>
-
-            {/* Pain line */}
+            {/* Overline */}
             <p
-              className="text-[13px] sm:text-[14px] leading-relaxed mb-3 max-w-[480px]"
+              className="text-[13px] sm:text-[14px] font-medium leading-relaxed mb-4 max-w-[480px]"
               style={{ color: "#64748B" }}
             >
-              Exporters waste hours digging through policy documents.
+              Introducing{" "}
+              <span className="font-bold" style={{ color: "#0F172A" }}>Patram AI</span>
+              {" "} — built for exporters who can't afford to guess.
             </p>
 
             {/* H1 */}
             <h1
-              className="text-[30px] sm:text-[40px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.02em] mb-5 lg:mb-6"
+              className="text-[32px] sm:text-[44px] lg:text-[56px] font-extrabold leading-[1.05] tracking-[-0.03em] mb-5 lg:mb-6"
               style={{ color: "#0F172A" }}
             >
-              Your 24/7{" "}
-              <span className="bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">
-                Export Intelligence
-              </span>
+              Trade compliance,
               <br />
-              Advisor.
+              <span className="bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">
+                answered instantly.
+              </span>
             </h1>
 
-            {/* One-liner */}
+            {/* Sub */}
             <p
-              className="text-[14px] sm:text-[15px] lg:text-[16px] leading-[1.6] max-w-[480px] mb-6 lg:mb-8"
+              className="text-[15px] sm:text-[16px] lg:text-[17px] leading-[1.65] max-w-[460px] mb-8 lg:mb-10"
               style={{ color: "#475569" }}
             >
-              Patram AI reads trade regulations so you don't have to. Sourced answers in 1.5 seconds.
+              Ask about regulations, certifications, or restrictions for any country. Get sourced, citable answers — not summaries.
             </p>
 
-            {/* Stats */}
-            <div className="flex items-start gap-6 sm:gap-8 lg:gap-10 mb-7 lg:mb-9">
+            {/* Stats — refined with dividers */}
+            <div className="flex items-center mb-8 lg:mb-10">
               {[
                 { value: "190+", label: "Countries" },
-                { value: "24/7", label: "Available" },
-                { value: "1.5s", label: "Response" },
+                { value: "24/7", label: "Always on" },
+                { value: "1.5s", label: "Avg. response" },
               ].map((stat, idx) => (
-                <div key={idx} className="flex flex-col">
-                  <span
-                    className="text-[26px] sm:text-[30px] lg:text-[36px] font-black tracking-tight leading-none"
-                    style={{ color: "#00A86B" }}
-                  >
-                    {stat.value}
-                  </span>
-                  <span className="text-[11px] sm:text-[12px] font-medium mt-1" style={{ color: "#94A3B8" }}>
-                    {stat.label}
-                  </span>
+                <div key={idx} className="flex items-center">
+                  {idx > 0 && (
+                    <div className="w-px h-8 mx-5 sm:mx-7" style={{ background: "#E2E8F0" }} />
+                  )}
+                  <div className="flex flex-col">
+                    <span
+                      className="text-[24px] sm:text-[28px] lg:text-[34px] font-extrabold tracking-tight leading-none"
+                      style={{ color: "#0F172A" }}
+                    >
+                      {stat.value}
+                    </span>
+                    <span className="text-[11px] sm:text-[12px] font-medium mt-1.5 tracking-wide uppercase" style={{ color: "#94A3B8" }}>
+                      {stat.label}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -127,32 +109,30 @@ export function PatramHero() {
               <Link
                 href="/products/patram"
                 onClick={() => trackBookDemoCTAClick("Hero")}
-                className="group btn-magnetic btn-glow-pulse btn-shine inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl text-[14px] lg:text-[15px] font-bold text-white overflow-hidden"
+                className="group btn-magnetic btn-glow-pulse inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-[14px] lg:text-[15px] font-semibold text-white overflow-hidden"
                 style={{
                   background: "linear-gradient(135deg, #00A86B, #0066CC)",
                 }}
               >
-                Try Patram AI
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-all duration-300">
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </span>
+                Explore Patram AI
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
               <button
                 onClick={() => {
                   trackWatchDemoClick("Hero")
                   document.getElementById("video-demo")?.scrollIntoView({ behavior: "smooth" })
                 }}
-                className="btn-outline-glow inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl text-[14px] lg:text-[15px] font-semibold"
+                className="btn-outline-glow inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-[14px] lg:text-[15px] font-semibold"
                 style={{
                   background: "#FFFFFF",
-                  border: "2px solid rgba(0,168,107,0.25)",
-                  color: "#00A86B",
+                  border: "1.5px solid #E2E8F0",
+                  color: "#0F172A",
                 }}
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z" />
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Watch Demo
+                Watch demo
               </button>
             </div>
           </div>

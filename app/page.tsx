@@ -111,8 +111,8 @@ function ProductShowcase() {
   const products = [
     {
       name: "TradeGuard",
-      tagline: "Catch every mismatch before customs does.",
-      description: "Upload your Shipping Bill and Invoice. TradeGuard cross-matches 40+ fields in under 5 seconds and flags discrepancies that would cost you at the customs gate.",
+      tagline: "Document audit in seconds, not hours.",
+      description: "Upload Shipping Bill and Invoice. TradeGuard cross-matches 40+ fields and flags the discrepancies that would cost you at customs.",
       stat: "40+",
       statLabel: "Fields checked",
       speed: "<5s",
@@ -123,8 +123,8 @@ function ProductShowcase() {
     },
     {
       name: "Patram AI",
-      tagline: "Your 24/7 export intelligence advisor.",
-      description: "Ask anything about trade regulations, certifications, or restrictions. Patram reads policy documents and delivers sourced answers covering 190+ countries.",
+      tagline: "Ask anything. Get sourced answers.",
+      description: "Regulations, certifications, restrictions — for 190+ countries. Patram reads the policy documents so your team doesn't have to.",
       stat: "190+",
       statLabel: "Countries",
       speed: "1.5s",
@@ -135,8 +135,8 @@ function ProductShowcase() {
     },
     {
       name: "TariffIQ",
-      tagline: "Classify once. Maximize every incentive.",
-      description: "Get the right HSN code, duty rate, and applicable incentives in seconds. No guesswork. No customs roulette. Maximize drawback and RoDTEP claims.",
+      tagline: "Right HSN code. Maximum incentive.",
+      description: "Duty rates, drawback eligibility, RoDTEP claims — resolved in seconds. No guesswork. No missed refunds.",
       stat: "95%",
       statLabel: "Accuracy",
       speed: "<3s",
@@ -162,12 +162,12 @@ function ProductShowcase() {
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Our Products</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[26px] sm:text-[30px] lg:text-[40px] font-bold leading-tight" style={{ color: "#0F172A" }}>
-            Three Products.{" "}
-            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">One Mission.</span>
+          <h2 className="text-[26px] sm:text-[30px] lg:text-[40px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
+            Purpose-built for{" "}
+            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">every stage of export.</span>
           </h2>
-          <p className="text-[14px] sm:text-[15px] mt-3 max-w-[500px] mx-auto" style={{ color: "#64748B" }}>
-            Every dollar leaking through your trade documents, we catch it.
+          <p className="text-[14px] sm:text-[15px] mt-3 max-w-[460px] mx-auto" style={{ color: "#64748B" }}>
+            Classification. Compliance. Intelligence. Each one solves a real bottleneck.
           </p>
         </div>
 
@@ -326,12 +326,12 @@ function ProblemSection() {
             </span>
             <div className="h-px w-8 flex-shrink-0 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-bold leading-tight mb-3" style={{ color: "#0F172A" }}>
-            Your Trade Documents Are{" "}
-            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">Bleeding Money.</span>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-3" style={{ color: "#0F172A" }}>
+            The cost of{" "}
+            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">doing nothing.</span>
           </h2>
           <p className="text-[14px] sm:text-[15px] max-w-[420px] mx-auto" style={{ color: "#64748B" }}>
-            Every unchecked shipment is a gamble you don't need to take.
+            What your shipments lose before they leave the port.
           </p>
         </div>
 
@@ -550,14 +550,14 @@ function HowItWorks() {
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Journey</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight mb-2" style={{ color: "#0F172A" }}>
-            From PO to Port.{" "}
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-2" style={{ color: "#0F172A" }}>
+            From purchase order to{" "}
             <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
-              Under 5 Minutes.
+              cleared shipment.
             </span>
           </h2>
-          <p className="text-[14px] sm:text-[15px] max-w-[480px] mx-auto" style={{ color: "#64748B" }}>
-            Four moments. One exporter. Zero compliance stress.
+          <p className="text-[14px] sm:text-[15px] max-w-[400px] mx-auto" style={{ color: "#64748B" }}>
+            The entire compliance workflow, in under five minutes.
           </p>
         </div>
 
@@ -718,10 +718,9 @@ function AwardsSection() {
           <span className="text-[13px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Recognition</span>
           <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
         </div>
-        <h2 className={`text-[28px] lg:text-[40px] font-extrabold text-center mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ color: "#0F172A" }}>
-          Recognised.{" "}
-          <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">Validated.</span>{" "}
-          Trusted.
+        <h2 className={`text-[26px] sm:text-[30px] lg:text-[40px] font-extrabold text-center leading-[1.1] tracking-[-0.02em] mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ color: "#0F172A" }}>
+          Backed by the{" "}
+          <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">best in the industry.</span>
         </h2>
 
         <div className="grid lg:grid-cols-2 gap-5 mb-6">
@@ -873,14 +872,14 @@ function MicroConversionSection() {
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>See It Live</span>
             <div className="h-px w-6 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[20px] lg:text-[28px] font-extrabold leading-tight mb-1" style={{ color: "#0F172A" }}>
-            Watch Liquidmind AI{" "}
+          <h2 className="text-[20px] sm:text-[26px] lg:text-[32px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-1" style={{ color: "#0F172A" }}>
+            See it{" "}
             <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
-              in Action
+              in action.
             </span>
           </h2>
-          <p className="text-[12px] sm:text-[13px]" style={{ color: "#64748B" }}>
-            A real document audit, live on screen. No slides. No fluff.
+          <p className="text-[13px] sm:text-[14px]" style={{ color: "#64748B" }}>
+            A real document audit. No slides, no fluff.
           </p>
         </div>
 
