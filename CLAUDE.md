@@ -257,6 +257,38 @@ Both `/legal/privacy-policy` and `/legal/terms` have a local `RichText` componen
 
 ---
 
+## Editing Rules — STRICT
+
+These rules apply to **every** change made to the website. Follow them exactly.
+
+### 1. Do NOT touch unrelated code
+- Only modify what is explicitly requested. Do not change, refactor, or "improve" any component, section, or element that is not part of the current task.
+- The website has been precisely built for specific use cases. Changing unrelated code breaks things.
+- When editing or adding to a section, **no other section** should be affected.
+
+### 2. Design variety across sections — no copy-paste layouts
+- Each section on the home page must feel **visually distinct**. Do not reuse the same card layout, grid pattern, or component structure across multiple sections.
+- For example: if "Cost of Doing Nothing" uses a 2x2 card grid, "The Journey" must use a **different** visual approach (timeline, steps, tabs, etc.) — not the same card grid again.
+- Every section should be immediately distinguishable from adjacent sections at a glance.
+
+### 3. CTA / button consistency
+- All CTA buttons across the site must share a **uniform** look: same colours, same shape (`rounded-xl`), same padding (`px-7 py-4` for primary, `px-6 py-2.5` for compact), same gradient direction.
+- The user should be able to instantly recognise a clickable CTA no matter where it appears.
+- Never mix different button styles within the same page — primary CTAs always use the gradient, secondary always use the outlined style.
+
+### 4. Laptop framepoint rule — every section must fit in one screen
+- Target viewport: **1366×768** laptop in a non-fullscreen browser window (~696px usable height after 72px navbar).
+- Every section (heading + content + CTA) must be **fully visible** without scrolling when that section is scrolled into view.
+- Use compact padding (`py-10 lg:py-14`), tight header margins (`mb-8 lg:mb-10`), and size content to stay within ~650px of vertical space.
+- Media embeds (video, images) should use constrained max-widths so their 16:9 ratio doesn't exceed the available height.
+- Test mentally: 140px top offset + section padding + heading + cards/content + CTA + bottom padding ≤ 696px.
+
+### 5. Think from the customer's perspective
+- Every design decision should prioritise **customer convenience** — easy scanning, clear hierarchy, obvious actions.
+- If a user lands on the page, they should understand what each section does without effort.
+
+---
+
 ## What NOT to Do
 
 - No emojis anywhere
@@ -271,3 +303,6 @@ Both `/legal/privacy-policy` and `/legal/terms` have a local `RichText` componen
 - Do not create helpers/abstractions for one-off use
 - Do not add backwards-compat shims
 - Never guess external URLs — only use URLs provided by the user
+- Never touch code outside the scope of the current request — no drive-by changes
+- Never duplicate the same card/grid layout across multiple home page sections — each section must be visually distinct
+- Never create CTA buttons with inconsistent sizing, colours, or shapes — keep them uniform site-wide
