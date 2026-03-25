@@ -93,7 +93,7 @@ export default function GivingBackPage() {
       <Navigation />
 
       {/* Hero */}
-      <section className="pt-[112px] pb-8 px-5 lg:px-8 text-center" style={{ background: "#FFFFFF" }}>
+      <section className="pt-[80px] pb-8 px-5 lg:px-8 text-center" style={{ background: "#FFFFFF" }}>
         <div className="max-w-[900px] mx-auto">
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />

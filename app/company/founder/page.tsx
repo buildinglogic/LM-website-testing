@@ -110,7 +110,7 @@ export default function FounderPage() {
       <Navigation />
 
       {/* Hero */}
-      <section className="pt-[140px] pb-10 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      <section className="pt-[100px] pb-10 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div className="max-w-[1000px] mx-auto">
           <div className="flex items-center gap-3 mb-6">
             <Link href="/company" className="text-[12px] font-medium flex items-center gap-1.5 hover:opacity-70 transition-opacity" style={{ color: "#94A3B8" }}>

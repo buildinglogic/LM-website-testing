@@ -381,7 +381,7 @@ export default function TimelinePage() {
   return (
     <>
       <Navigation />
-      <main className="pt-[112px]" style={{ background: "#FFFFFF" }}>
+      <main className="pt-[80px]" style={{ background: "#FFFFFF" }}>
 
         {/* Hero */}
         <section className="pt-6 pb-5 px-4 text-center" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>

@@ -51,7 +51,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="pt-[130px] lg:pt-[160px] pb-20 lg:pb-28 px-4 lg:px-8 relative overflow-hidden"
+      className="pt-[100px] lg:pt-[120px] pb-20 lg:pb-28 px-4 lg:px-8 relative overflow-hidden"
     >
       {/* Gradient background */}
       <div

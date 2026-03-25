@@ -97,7 +97,7 @@ export default function BookDemoPage() {
   }
 
   return (
-    <main className="min-h-screen pt-[112px]" style={{ background: "#FFFFFF" }}>
+    <main className="min-h-screen pt-[80px]" style={{ background: "#FFFFFF" }}>
       <Navigation />
 
       {/* Header — horizontal layout, everything in one band */}

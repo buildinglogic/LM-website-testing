@@ -60,7 +60,7 @@ export default function CompanyPage() {
       <Navigation />
 
       {/* ── Hero / About Us ── */}
-      <section className="pt-[140px] pb-10 px-5 lg:px-8 text-center" style={{ background: "#FFFFFF" }}>
+      <section className="pt-[100px] pb-10 px-5 lg:px-8 text-center" style={{ background: "#FFFFFF" }}>
         <div className="max-w-[1100px] mx-auto">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />

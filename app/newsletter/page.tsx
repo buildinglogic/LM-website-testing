@@ -90,7 +90,7 @@ export default function NewsletterPage() {
       <Navigation />
 
       {/* ── Hero ── */}
-      <section className="pt-[120px] lg:pt-[152px] pb-12 lg:pb-20 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      <section className="pt-[100px] lg:pt-[120px] pb-12 lg:pb-20 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div className="max-w-[1200px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-10 items-start">
 

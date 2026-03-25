@@ -11,18 +11,18 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import Image from "next/image"
 import Link from "next/link"
 import React, { useEffect, useRef, useState } from "react"
-import { Shield, Globe, Calculator, ArrowRight } from "lucide-react"
+import { Shield, Globe, Calculator, ArrowRight, X, Trophy } from "lucide-react"
 import { trackBookDemoCTAClick, trackWatchDemoClick, trackJourneyStepViewed, trackPartnerInteracted, trackVideoPlayed, trackAwardInteracted, trackProductCTAClick } from "@/lib/amplitude"
 
 export default function LiquidmindLanding() {
+  const [autoplayVideo, setAutoplayVideo] = useState(false)
+
   useEffect(() => {
-    // Handle initial hash on mount or back button navigation
     const hash = window.location.hash
     if (hash) {
       const id = hash.replace("#", "")
       const element = document.getElementById(id)
       if (element) {
-        // Small delay to ensure layout is stable
         setTimeout(() => {
           element.scrollIntoView({ behavior: "smooth" })
         }, 100)
@@ -34,18 +34,19 @@ export default function LiquidmindLanding() {
     <main className="bg-white">
 
       <Navigation />
-      <PatramHero />
+      <PatramHero onWatchDemo={() => setAutoplayVideo(true)} />
       <ProblemSection />
       <ProductShowcase />
       <HowItWorks />
       <div className="page-snap"><ROICalculator /></div>
       <AwardsSection />
-      <MicroConversionSection />
+      <MicroConversionSection autoplay={autoplayVideo} />
       <div className="page-snap"><FAQSection /></div>
       <CTASection />
       <FooterLinks />
       <Footer />
       <WhatsAppButton />
+      <AwardToast />
     </main>
   )
 }
@@ -110,18 +111,6 @@ function ProductShowcase() {
 
   const products = [
     {
-      name: "TradeGuard",
-      tagline: "Document audit in seconds, not hours.",
-      description: "Upload Shipping Bill and Invoice. TradeGuard cross-matches 40+ fields and flags the discrepancies that would cost you at customs.",
-      stat: "40+",
-      statLabel: "Fields checked",
-      speed: "<5s",
-      speedLabel: "Per audit",
-      href: "/products/tradeguard",
-      color: "#0066CC",
-      icon: Shield,
-    },
-    {
       name: "Patram AI",
       tagline: "Ask anything. Get sourced answers.",
       description: "Regulations, certifications, restrictions — for 190+ countries. Patram reads the policy documents so your team doesn't have to.",
@@ -132,6 +121,18 @@ function ProductShowcase() {
       href: "/products/patram",
       color: "#00A86B",
       icon: Globe,
+    },
+    {
+      name: "TradeGuard",
+      tagline: "Document audit in seconds, not hours.",
+      description: "Upload Shipping Bill and Invoice. TradeGuard cross-matches 40+ fields and flags the discrepancies that would cost you at customs.",
+      stat: "40+",
+      statLabel: "Fields checked",
+      speed: "<5s",
+      speedLabel: "Per audit",
+      href: "/products/tradeguard",
+      color: "#0066CC",
+      icon: Shield,
     },
     {
       name: "TariffIQ",
@@ -346,13 +347,11 @@ function ProblemSection() {
         <div className={`text-center transition-all duration-700 delay-300 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <a
             href="#products"
-            className="group btn-magnetic btn-shine inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-white font-bold text-[15px] overflow-hidden"
-            style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", boxShadow: "0 8px 32px rgba(0,102,204,0.35)" }}
+            className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-[15px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+            style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
           >
             See How We Fix This
-            <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/20 group-hover:bg-white/30 transition-all duration-300">
-              <ArrowRight className="w-4 h-4" />
-            </span>
+            <ArrowRight className="w-4 h-4" />
           </a>
           <p className="text-[12px] mt-3" style={{ color: "#94A3B8" }}>
             Works on your actual documents
@@ -663,13 +662,11 @@ function HowItWorks() {
         <div className={`text-center transition-all duration-700 delay-400 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <Link
             href="/book-demo"
-            className="group btn-magnetic btn-glow-pulse btn-shine inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-[15px] text-white overflow-hidden"
-            style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}
+            className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-[15px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+            style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
           >
             Watch It Happen Live
-            <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/20 group-hover:bg-white/30 transition-all duration-300">
-              <ArrowRight className="w-4 h-4" />
-            </span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
           <p className="text-[12px] font-mono tracking-wider mt-3 uppercase" style={{ color: '#94A3B8' }}>
             Entire journey under 5 minutes
@@ -850,7 +847,7 @@ function AwardsSection() {
 /* ========================
    DEMO VIDEO SECTION
 ======================== */
-function MicroConversionSection() {
+function MicroConversionSection({ autoplay }: { autoplay: boolean }) {
   const { ref, isInView } = useInView()
   const hasTrackedRef = useRef(false)
 
@@ -890,7 +887,7 @@ function MicroConversionSection() {
         >
           <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%", height: 0 }}>
             <iframe
-              src="https://www.youtube.com/embed/OBuNapaXt2I"
+              src={`https://www.youtube.com/embed/OBuNapaXt2I${autoplay ? '?autoplay=1&mute=1' : ''}`}
               title="Liquidmind AI Demo"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -903,17 +900,84 @@ function MicroConversionSection() {
         <div className={`text-center mt-4 transition-all duration-700 delay-300 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <Link
             href="/book-demo"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-[13px] font-bold btn-shine transition-all hover:scale-105"
-            style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 20px rgba(0,102,204,0.3)" }}
+            className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-[15px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+            style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
           >
             Book a Live Demo
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
       </div>
     </section>
+  )
+}
+
+function AwardToast() {
+  const [dismissed, setDismissed] = useState(false)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("award-toast-dismissed")) {
+      setDismissed(true)
+      return
+    }
+    const timer = setTimeout(() => setVisible(true), 2000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (dismissed) return null
+
+  return (
+    <div
+      className={`hidden lg:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-40 items-center gap-4 px-5 py-3 rounded-2xl max-w-[540px] transition-all duration-700 ${visible ? "translate-y-0 opacity-100" : "translate-y-[120%] opacity-0"}`}
+      style={{
+        background: "rgba(255,255,255,0.92)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        border: "1px solid #E2E8F0",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
+      }}
+    >
+      <div
+        className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+        style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}
+      >
+        <Trophy className="w-4 h-4 text-white" />
+      </div>
+      <div className="flex flex-col gap-0.5 min-w-0">
+        <span className="text-[12px] font-bold" style={{ color: "#0F172A" }}>Award-Winning AI</span>
+        <div className="flex items-center gap-3">
+          <a
+            href="https://www.linkedin.com/posts/liquid-mind-product-consulting-inc%2E_agba2026-aegisgrahambellawards-winner-activity-7434940047562375169-5N1e"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[11px] font-semibold hover:underline"
+            style={{ color: "#0066CC" }}
+          >
+            Aegis Graham Bell 2026
+          </a>
+          <span className="text-[10px]" style={{ color: "#CBD5E1" }}>|</span>
+          <a
+            href="https://www.linkedin.com/posts/liquid-mind-product-consulting-inc%2E_elevate2025-liquidmindai-bengalurutechsummit-activity-7397673114660200448-d0-J"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[11px] font-semibold hover:underline"
+            style={{ color: "#0066CC" }}
+          >
+            Karnataka Elevate 2025
+          </a>
+        </div>
+      </div>
+      <button
+        onClick={() => {
+          setDismissed(true)
+          localStorage.setItem("award-toast-dismissed", "true")
+        }}
+        className="ml-auto flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center hover:bg-[#F1F5F9] transition-colors"
+      >
+        <X className="w-3.5 h-3.5" style={{ color: "#94A3B8" }} />
+      </button>
+    </div>
   )
 }
