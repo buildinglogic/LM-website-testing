@@ -67,7 +67,7 @@ export function PatramHero() {
       {/* Bottom fade — strong, stops map bleeding into next section */}
       <div className="absolute inset-x-0 bottom-0 h-[180px] pointer-events-none" style={{ background: "linear-gradient(to top, #FFFFFF 60%, transparent)" }} />
 
-      <div className="relative w-full max-w-[1400px] mx-auto px-5 lg:px-8 pt-[100px] pb-6 lg:pb-8">
+      <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-5 lg:px-8 pt-[120px] sm:pt-[130px] lg:pt-[140px] pb-4 sm:pb-6 lg:pb-8">
         {/* Main two-column: centered on mobile, left-aligned on desktop */}
         <div className="flex flex-col items-center text-center lg:text-left lg:items-start lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:items-center">
 
@@ -84,7 +84,7 @@ export function PatramHero() {
             </div>
 
             {/* Product name */}
-            <h1 className={`hero-text-reveal text-[32px] sm:text-[44px] lg:text-[56px] xl:text-[64px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-3 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <h1 className={`hero-text-reveal text-[28px] sm:text-[44px] lg:text-[56px] xl:text-[64px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-2 sm:mb-3 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
               <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
                 Patram AI
               </span>
@@ -92,20 +92,20 @@ export function PatramHero() {
 
             {/* Tagline — punchy and clear */}
             <p
-              className={`text-[18px] sm:text-[22px] lg:text-[26px] font-bold leading-snug mb-2 max-w-[500px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              className={`text-[16px] sm:text-[22px] lg:text-[26px] font-bold leading-snug mb-1.5 sm:mb-2 max-w-[500px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ color: "#0F172A" }}
             >
               Trade compliance, answered instantly.
             </p>
             <p
-              className={`text-[15px] sm:text-[16px] leading-relaxed mb-5 max-w-[480px] transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              className={`text-[13px] sm:text-[15px] lg:text-[16px] leading-relaxed mb-4 sm:mb-5 max-w-[480px] transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ color: "#475569" }}
             >
               Upload any trade document. Get sourced answers for 190+ countries in seconds.
             </p>
 
             {/* Stats row */}
-            <div className={`flex items-center justify-center lg:justify-start mb-5 transition-all duration-700 delay-[400ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className={`flex items-center justify-center lg:justify-start mb-4 sm:mb-5 transition-all duration-700 delay-[400ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
               {[
                 { value: `${countCountries}+`, label: "Countries" },
                 { value: "24/7", label: "Always on" },
@@ -113,11 +113,11 @@ export function PatramHero() {
               ].map((stat, idx) => (
                 <div key={idx} className="flex items-center">
                   {idx > 0 && (
-                    <div className="w-px h-7 mx-4 sm:mx-6" style={{ background: "#E2E8F0" }} />
+                    <div className="w-px h-6 sm:h-7 mx-3 sm:mx-6" style={{ background: "#E2E8F0" }} />
                   )}
                   <div className="flex flex-col">
                     <span
-                      className="text-[22px] sm:text-[26px] lg:text-[30px] font-extrabold tracking-tight leading-none"
+                      className="text-[20px] sm:text-[26px] lg:text-[30px] font-extrabold tracking-tight leading-none"
                       style={{ color: "#0F172A" }}
                     >
                       {stat.value}
@@ -131,13 +131,12 @@ export function PatramHero() {
             </div>
 
             {/* CTAs */}
-            <div className={`flex flex-col sm:flex-row items-center gap-3 mb-3 transition-all duration-700 delay-500 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className={`flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3 mb-2 sm:mb-3 w-full sm:w-auto transition-all duration-700 delay-500 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
               <Link
                 href="/book-demo"
                 onClick={() => trackBookDemoCTAClick("Hero")}
-                className="inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+                className="w-full sm:w-[172px] inline-flex items-center justify-center gap-2 py-3 sm:py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
                 style={{
-                  width: "172px",
                   background: "linear-gradient(135deg, #0066CC, #00A86B)",
                   color: "#FFFFFF",
                   boxShadow: "0 4px 25px rgba(0,102,204,0.3)",
@@ -148,9 +147,8 @@ export function PatramHero() {
               </Link>
               <Link
                 href="/products/patram"
-                className="inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
+                className="w-full sm:w-[172px] inline-flex items-center justify-center gap-2 py-3 sm:py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
                 style={{
-                  width: "172px",
                   background: "#FFFFFF",
                   border: "2px solid #0066CC",
                   boxShadow: "0 4px 20px rgba(0,102,204,0.12)",
@@ -185,7 +183,7 @@ export function PatramHero() {
         </div>
 
         {/* LOWER SECTION — Full-width product showcase */}
-        <div className={`mt-6 lg:mt-8 transition-all duration-700 delay-[700ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className={`mt-4 sm:mt-6 lg:mt-8 transition-all duration-700 delay-[700ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div className="flex flex-col sm:flex-row items-stretch gap-2 sm:gap-3">
             {[
               { name: "TradeGuard", tagline: "Cross-checks 40+ document fields in under 5 seconds", metric: "40+", metricSub: "fields", href: "/products/tradeguard", color: "#0066CC" },
@@ -194,8 +192,8 @@ export function PatramHero() {
               <Link
                 key={p.name}
                 href={p.href}
-                className="group flex-1 flex items-center gap-3 px-4 rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                style={{ height: "64px", background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
+                className="group flex-1 flex items-center gap-2.5 sm:gap-3 px-3 sm:px-4 rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                style={{ height: "56px", background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
               >
                 <div
                   className="w-10 h-10 rounded-xl flex flex-col items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-105"
@@ -216,7 +214,7 @@ export function PatramHero() {
             <a
               href="#products"
               className="group flex sm:flex-col items-center justify-center gap-2 sm:gap-1.5 px-4 sm:px-5 rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-              style={{ height: "64px", background: "#F8FAFC", border: "1px solid #E2E8F0" }}
+              style={{ height: "56px", background: "#F8FAFC", border: "1px solid #E2E8F0" }}
             >
               <ArrowRight className="w-4 h-4 transition-all duration-300 group-hover:translate-x-0.5" style={{ color: "#0066CC" }} />
               <span className="text-[10px] font-semibold text-center leading-snug" style={{ color: "#0066CC" }}>All products</span>
@@ -263,9 +261,10 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
 
   return (
     <div
-      className="w-full flex flex-col overflow-hidden animate-float"
+      className="w-full max-w-[480px] mx-auto lg:max-w-none flex flex-col overflow-hidden lg:animate-float"
       style={{
-        height: "435px",
+        height: "auto",
+        maxHeight: "435px",
         borderRadius: "20px",
         background: "#FFFFFF",
         border: "1px solid #E2E8F0",

@@ -144,16 +144,16 @@ function ProductShowcase() {
     <section
       ref={ref}
       id="products"
-      className="pt-6 pb-10 lg:pb-12 px-5 lg:px-8"
+      className="pt-4 sm:pt-6 pb-8 sm:pb-10 lg:pb-12 px-4 sm:px-5 lg:px-8"
       style={{ background: "#FFFFFF", scrollMarginTop: "80px" }}
     >
       <div className="max-w-[1100px] mx-auto">
 
         {/* Header */}
-        <div className={`text-center mb-6 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-5 sm:mb-6 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Our Products</span>
+            <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Our Products</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
           <h2 className="text-[22px] sm:text-[28px] lg:text-[36px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
@@ -172,7 +172,7 @@ function ProductShowcase() {
               key={product.name}
               href={product.href}
               onClick={() => trackProductCTAClick(product.name, "Product Showcase")}
-              className={`group relative flex flex-col px-5 py-5 lg:px-7 lg:py-6 transition-all duration-300 hover:bg-[#FAFBFF] ${idx < 2 ? "lg:border-r" : ""} ${idx < 2 ? "border-b lg:border-b-0" : ""}`}
+              className={`group relative flex flex-col px-4 py-4 sm:px-5 sm:py-5 lg:px-7 lg:py-6 transition-all duration-300 hover:bg-[#FAFBFF] ${idx < 2 ? "lg:border-r" : ""} ${idx < 2 ? "border-b lg:border-b-0" : ""}`}
               style={{
                 background: "#FFFFFF",
                 borderColor: "#E2E8F0",
@@ -188,7 +188,7 @@ function ProductShowcase() {
               </span>
 
               {/* Index + color dot */}
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 mb-3 sm:mb-4">
                 <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: product.color }} />
                 <span className="text-[10px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>{product.num}</span>
               </div>
@@ -202,12 +202,12 @@ function ProductShowcase() {
               <p className="text-[12px] font-semibold mb-3" style={{ color: product.color }}>{product.tagline}</p>
 
               {/* Description */}
-              <p className="text-[13px] leading-relaxed flex-1 mb-5" style={{ color: "#475569" }}>
+              <p className="text-[12px] sm:text-[13px] leading-relaxed flex-1 mb-3 sm:mb-5" style={{ color: "#475569" }}>
                 {product.description}
               </p>
 
               {/* Stats — animated count-up */}
-              <div className="flex items-start gap-5 mb-5" style={{ borderTop: "1px solid #F1F5F9", paddingTop: "16px" }}>
+              <div className="flex items-start gap-4 sm:gap-5 mb-3 sm:mb-5" style={{ borderTop: "1px solid #F1F5F9", paddingTop: "12px" }}>
                 <div>
                   <div className="text-[22px] font-black leading-none" style={{ color: "#0F172A" }}>
                     {isInView ? <><AnimatedCount to={product.statTo} />{product.statSuffix}</> : <span>0{product.statSuffix}</span>}
@@ -286,10 +286,10 @@ function ProblemSection() {
       <div className="w-full max-w-[1100px] mx-auto relative">
 
         {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-5 sm:mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Cost of Doing Nothing</span>
+            <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Cost of Doing Nothing</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
           <h2 className="text-[22px] sm:text-[30px] lg:text-[36px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
@@ -300,18 +300,18 @@ function ProblemSection() {
 
         {/* Editorial 4-column stat strip */}
         <div
-          className={`grid grid-cols-2 lg:grid-cols-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}
         >
           {problems.map((p, idx) => (
             <div
               key={idx}
-              className={`py-5 px-4 lg:px-8 flex flex-col ${idx < 3 ? "border-r" : ""} ${idx < 2 ? "border-b lg:border-b-0" : ""}`}
+              className={`py-4 sm:py-5 px-4 lg:px-8 flex flex-col sm:${idx % 2 === 0 ? "border-r" : ""} lg:${idx < 3 ? "border-r" : ""} ${idx < 3 ? "border-b" : ""} sm:${idx < 2 ? "border-b" : "border-b-0"} lg:border-b-0`}
               style={{ borderColor: "#E2E8F0", transitionDelay: `${idx * 80}ms` }}
             >
               {/* The number — animated count-up */}
               <div
-                className="text-[32px] sm:text-[40px] lg:text-[48px] font-black tracking-tight leading-none mb-2"
+                className="text-[28px] sm:text-[40px] lg:text-[48px] font-black tracking-tight leading-none mb-1.5 sm:mb-2"
                 style={{ color: "#0F172A" }}
               >
                 {p.prefix}{isInView ? <AnimatedCount to={p.countTo} /> : 0}{p.suffix}
@@ -336,11 +336,11 @@ function ProblemSection() {
         </div>
 
         {/* CTA */}
-        <div className={`text-center mt-8 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mt-5 sm:mt-8 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <a
             href="/book-demo"
-            className="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
-            style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
+            className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-6 py-3 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+            style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)", maxWidth: "320px" }}
           >
             See How We Fix This
             <ArrowRight className="w-4 h-4" />
@@ -408,10 +408,10 @@ function HowItWorks() {
       <div className="w-full max-w-[1100px] mx-auto">
 
         {/* Header */}
-        <div className={`text-center mb-10 lg:mb-12 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-6 sm:mb-8 lg:mb-12 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Journey</span>
+            <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Journey</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
           <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
@@ -539,13 +539,13 @@ function HowItWorks() {
             return (
               <div
                 key={idx}
-                className="flex gap-4 cursor-pointer"
+                className="flex gap-3 cursor-pointer"
                 onClick={() => setActiveIdx(idx)}
               >
                 {/* Left: node + line */}
                 <div className="flex flex-col items-center flex-shrink-0">
                   <div
-                    className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-500"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-500"
                     style={{
                       background: active ? "linear-gradient(135deg, #0066CC, #00A86B)" : done ? "#E8F5FF" : "#FFFFFF",
                       border: active ? "none" : done ? "2px solid #0066CC" : "2px solid #E2E8F0",
@@ -563,13 +563,13 @@ function HowItWorks() {
                     )}
                   </div>
                   {idx < 3 && (
-                    <div className="w-px flex-1 my-1" style={{ background: done ? "#0066CC40" : "#E2E8F0", minHeight: "32px" }} />
+                    <div className="w-px flex-1 my-0.5" style={{ background: done ? "#0066CC40" : "#E2E8F0", minHeight: "24px" }} />
                   )}
                 </div>
 
                 {/* Right: content */}
-                <div className="pb-5 flex-1">
-                  <h3 className="text-[15px] font-bold mb-1 transition-colors duration-300"
+                <div className="pb-3 sm:pb-5 flex-1">
+                  <h3 className="text-[14px] sm:text-[15px] font-bold mb-0.5 sm:mb-1 transition-colors duration-300"
                     style={{ color: active || done ? "#0F172A" : "#94A3B8" }}>
                     {step.title}
                   </h3>
@@ -584,16 +584,16 @@ function HowItWorks() {
         </div>
 
         {/* CTA */}
-        <div className={`text-center mt-10 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mt-6 sm:mt-8 lg:mt-10 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <Link
             href="/book-demo"
-            className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-[15px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
-            style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 sm:py-3.5 rounded-xl text-[14px] sm:text-[15px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+            style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)", maxWidth: "320px" }}
           >
             Watch It Happen Live
             <ArrowRight className="w-4 h-4" />
           </Link>
-          <p className="text-[11px] mt-2 uppercase tracking-widest" style={{ color: "#94A3B8" }}>
+          <p className="text-[10px] sm:text-[11px] mt-2 uppercase tracking-widest" style={{ color: "#94A3B8" }}>
             Entire journey under 5 minutes
           </p>
         </div>
@@ -636,19 +636,19 @@ function AwardsSection() {
   ]
 
   return (
-    <section ref={ref} className="page-snap flex flex-col justify-center py-8 lg:py-10 px-4 lg:px-8" style={{ background: "#FFFFFF" }}>
+    <section ref={ref} className="page-snap flex flex-col justify-center py-6 sm:py-8 lg:py-10 px-4 lg:px-8" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[1100px] mx-auto">
         <div className={`flex items-center justify-center gap-3 mb-3 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-          <span className="text-[13px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Recognition</span>
+          <span className="text-[10px] sm:text-[13px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Recognition</span>
           <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
         </div>
-        <h2 className={`text-[26px] sm:text-[30px] lg:text-[40px] font-extrabold text-center leading-[1.1] tracking-[-0.02em] mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ color: "#0F172A" }}>
+        <h2 className={`text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold text-center leading-[1.1] tracking-[-0.02em] mb-4 sm:mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ color: "#0F172A" }}>
           Recognised. Validated.{" "}
           <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">Trusted.</span>
         </h2>
 
-        <div className="grid lg:grid-cols-2 gap-5 mb-6">
+        <div className="grid lg:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-6">
           {awards.map((award, idx) => (
             <Link key={idx} href={award.href}
               onMouseEnter={() => trackAwardInteracted(award.title)}
@@ -731,9 +731,9 @@ function AwardsSection() {
       </div>
 
       {/* Backed By - Partner Logos Marquee */}
-      <div className="w-full py-5" style={{ background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
+      <div className="w-full py-3 sm:py-5" style={{ background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
         <div className="w-full text-center px-4 relative flex flex-col items-center">
-          <p className="text-[13px] font-semibold mb-4 tracking-[0.1em] uppercase" style={{ color: "#94A3B8" }}>Recognised by</p>
+          <p className="text-[10px] sm:text-[13px] font-semibold mb-3 sm:mb-4 tracking-[0.1em] uppercase" style={{ color: "#94A3B8" }}>Recognised by</p>
           <div className="w-full max-w-[1200px] overflow-hidden relative h-16 sm:h-24 lg:h-32">
             <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 lg:w-40 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #F8FAFC, transparent)' }} />
             <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 lg:w-40 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #F8FAFC, transparent)' }} />
