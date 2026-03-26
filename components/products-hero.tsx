@@ -73,13 +73,44 @@ export function PatramHero() {
 
             {/* Tagline */}
             <p
-              className="text-[16px] sm:text-[20px] lg:text-[24px] font-medium leading-snug mb-6 max-w-[460px]"
+              className="text-[16px] sm:text-[20px] lg:text-[24px] font-medium leading-snug mb-3 max-w-[460px]"
               style={{ color: "#475569" }}
             >
               Trade compliance, answered instantly.
             </p>
 
-            {/* 3-tier CTAs */}
+            {/* Description */}
+            <p className="text-[13px] sm:text-[14px] leading-relaxed mb-5 max-w-[480px]" style={{ color: "#64748B" }}>
+              Upload any trade document and ask questions in plain English. Patram AI reads the entire document and gives you accurate, sourced answers — covering 190+ countries, 24/7.
+            </p>
+
+            {/* Stats row */}
+            <div className="flex items-center justify-center lg:justify-start mb-5">
+              {[
+                { value: "190+", label: "Countries" },
+                { value: "24/7", label: "Always on" },
+                { value: "1.5s", label: "Avg. response" },
+              ].map((stat, idx) => (
+                <div key={idx} className="flex items-center">
+                  {idx > 0 && (
+                    <div className="w-px h-7 mx-4 sm:mx-6" style={{ background: "#E2E8F0" }} />
+                  )}
+                  <div className="flex flex-col">
+                    <span
+                      className="text-[22px] sm:text-[26px] lg:text-[30px] font-extrabold tracking-tight leading-none"
+                      style={{ color: "#0F172A" }}
+                    >
+                      {stat.value}
+                    </span>
+                    <span className="text-[10px] sm:text-[11px] font-medium mt-1 tracking-wide uppercase" style={{ color: "#94A3B8" }}>
+                      {stat.label}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-3">
               <Link
                 href="/book-demo"
@@ -109,7 +140,7 @@ export function PatramHero() {
             <Link
               href="/demo/patram"
               onClick={() => trackWatchDemoClick("Hero")}
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold mb-6 transition-colors hover:opacity-80"
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold transition-colors hover:opacity-80"
               style={{ color: "#0066CC" }}
             >
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
@@ -117,64 +148,40 @@ export function PatramHero() {
               </svg>
               Watch demo
             </Link>
-
-            {/* Stats row */}
-            <div className="flex items-center justify-center lg:justify-start mb-5">
-              {[
-                { value: "190+", label: "Countries" },
-                { value: "24/7", label: "Always on" },
-                { value: "1.5s", label: "Avg. response" },
-              ].map((stat, idx) => (
-                <div key={idx} className="flex items-center">
-                  {idx > 0 && (
-                    <div className="w-px h-7 mx-4 sm:mx-6" style={{ background: "#E2E8F0" }} />
-                  )}
-                  <div className="flex flex-col">
-                    <span
-                      className="text-[22px] sm:text-[26px] lg:text-[30px] font-extrabold tracking-tight leading-none"
-                      style={{ color: "#0F172A" }}
-                    >
-                      {stat.value}
-                    </span>
-                    <span className="text-[10px] sm:text-[11px] font-medium mt-1 tracking-wide uppercase" style={{ color: "#94A3B8" }}>
-                      {stat.label}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Product mini-cards */}
-            <div className="flex flex-col sm:flex-row gap-2.5 mb-2">
-              {[
-                { name: "TradeGuard", tagline: "Document Mismatch Detection", href: "/products/tradeguard", color: "#0066CC", Icon: Shield },
-                { name: "TariffIQ", tagline: "HSN Classification & Duty", href: "/products/tariffiq", color: "#1B4F8A", Icon: Calculator },
-              ].map((p) => (
-                <Link
-                  key={p.name}
-                  href={p.href}
-                  className="flex items-center gap-2.5 px-3 py-2 rounded-xl group transition-all duration-200 hover:-translate-y-0.5"
-                  style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}
-                >
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${p.color}10` }}>
-                    <p.Icon className="w-3.5 h-3.5" style={{ color: p.color }} />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-[12px] font-bold leading-tight" style={{ color: "#0F172A" }}>{p.name}</p>
-                    <p className="text-[10px] leading-tight" style={{ color: "#94A3B8" }}>{p.tagline}</p>
-                  </div>
-                  <ArrowRight className="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" style={{ color: p.color }} />
-                </Link>
-              ))}
-            </div>
-            <a href="#products" className="inline-flex items-center gap-1.5 text-[12px] font-semibold transition-colors hover:opacity-80" style={{ color: "#0066CC" }}>
-              View all products <ArrowRight className="w-3 h-3" />
-            </a>
           </div>
 
           {/* Right: PatramCard — desktop only */}
           <div className={`hidden lg:block transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
             <PatramCard isActive={isInView} />
+          </div>
+        </div>
+
+        {/* LOWER SECTION — Other Products */}
+        <div className={`mt-6 lg:mt-8 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5">
+            {[
+              { name: "TradeGuard", tagline: "Document Mismatch Detection", href: "/products/tradeguard", color: "#0066CC", Icon: Shield },
+              { name: "TariffIQ", tagline: "HSN Classification & Duty", href: "/products/tariffiq", color: "#1B4F8A", Icon: Calculator },
+            ].map((p) => (
+              <Link
+                key={p.name}
+                href={p.href}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-xl group transition-all duration-200 hover:-translate-y-0.5"
+                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}
+              >
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${p.color}10` }}>
+                  <p.Icon className="w-3.5 h-3.5" style={{ color: p.color }} />
+                </div>
+                <div className="text-left">
+                  <p className="text-[12px] font-bold leading-tight" style={{ color: "#0F172A" }}>{p.name}</p>
+                  <p className="text-[10px] leading-tight" style={{ color: "#94A3B8" }}>{p.tagline}</p>
+                </div>
+                <ArrowRight className="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" style={{ color: p.color }} />
+              </Link>
+            ))}
+            <a href="#products" className="inline-flex items-center gap-1.5 text-[12px] font-semibold transition-colors hover:opacity-80" style={{ color: "#0066CC" }}>
+              Explore all products <ArrowRight className="w-3 h-3" />
+            </a>
           </div>
         </div>
       </div>

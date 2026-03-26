@@ -5,7 +5,8 @@ import { Footer } from "@/components/footer"
 import { FooterLinks } from "@/components/footer-links"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import Link from "next/link"
-import { ArrowRight, Globe, FileText, Clock, MapPin, HelpCircle, ChevronRight, MessageSquare, Search, BookOpen, CheckCircle, Zap, Shield } from "lucide-react"
+import { PatramCard } from "@/components/products-hero"
+import { ArrowRight, Globe, FileText, Clock, MapPin, HelpCircle, ChevronRight, MessageSquare, BookOpen, CheckCircle, Zap, Shield } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 
 const BRAND_GREEN = "#00A86B"
@@ -149,7 +150,7 @@ function HeroSection() {
               <Link
                 href="/demo/patram"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
-                style={{ background: "#0F172A", color: "#FFFFFF" }}
+                style={{ background: "#FFFFFF", border: "2px solid #00A86B", color: "#00A86B" }}
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -161,82 +162,7 @@ function HeroSection() {
 
           {/* Right: Visual - Hidden on small mobile for cleaner UX */}
           <div className={`hidden sm:block transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
-            <div
-              className="rounded-2xl p-5 lg:p-6 animate-float"
-              style={{
-                background: "linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%)",
-                border: "1px solid #E2E8F0",
-                boxShadow: `0 25px 80px ${BRAND_GREEN}12, 0 10px 40px rgba(0,0,0,0.06)`,
-              }}
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ background: `linear-gradient(135deg, ${BRAND_GREEN}, ${BRAND_BLUE})` }}
-                  >
-                    <MessageSquare className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-[15px] font-bold" style={{ color: "#0F172A" }}>Patram AI</p>
-                    <p className="text-[12px] flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full" style={{ background: BRAND_GREEN }} />
-                      <span style={{ color: "#94A3B8" }}>Online</span>
-                    </p>
-                  </div>
-                </div>
-                <div className="text-[11px] px-2 py-1 rounded-lg flex items-center gap-1.5" style={{ background: "#F1F5F9", color: "#64748B" }}>
-                  <FileText className="w-3 h-3" />
-                  export_policy_2024.pdf
-                </div>
-              </div>
-
-              {/* Chat */}
-              <div className="space-y-4">
-                {/* User message */}
-                <div className="flex justify-end">
-                  <div className="max-w-[85%] px-4 py-3 rounded-2xl rounded-br-md" style={{ background: "#0F172A", color: "white" }}>
-                    <p className="text-[13px]">Can I export cotton fabric to Germany? What documents do I need?</p>
-                  </div>
-                </div>
-
-                {/* AI response */}
-                <div className="space-y-3">
-                  <div className="px-4 py-3 rounded-2xl rounded-bl-md" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-                    <p className="text-[13px] leading-relaxed" style={{ color: "#475569" }}>
-                      Based on your uploaded policy document, cotton fabric (HSN 5208) can be exported to Germany freely. However, there are specific requirements:
-                    </p>
-                  </div>
-
-                  {/* Compliance card */}
-                  <div className="ml-4 p-3 rounded-xl" style={{ background: "rgba(0,102,204,0.06)", border: "1px solid rgba(0,102,204,0.2)" }}>
-                    <div className="flex items-start gap-2">
-                      <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(0,102,204,0.15)" }}>
-                        <span className="text-[10px]" style={{ color: "#0066CC" }}>!</span>
-                      </span>
-                      <div>
-                        <p className="text-[13px] font-semibold" style={{ color: "#0066CC" }}>EU Compliance Required</p>
-                        <p className="text-[12px] mt-0.5" style={{ color: "#475569" }}>
-                          Azo dyes are prohibited in textiles sold in the EU. Your fabric must be tested and certified below 30 mg/kg.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Input */}
-              <div className="mt-4 flex items-center gap-2 px-4 py-2.5 rounded-xl" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-                <Search className="w-4 h-4" style={{ color: "#94A3B8" }} />
-                <span className="text-[14px]" style={{ color: "#94A3B8" }}>Ask about your export...</span>
-                <div className="ml-auto w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: BRAND_GREEN }}>
-                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
-                </div>
-              </div>
-            </div>
+            <PatramCard isActive={isInView} />
           </div>
         </div>
       </div>
@@ -440,13 +366,13 @@ function UseCasesSection() {
   ]
 
   return (
-    <section ref={ref} id="use-cases" className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#0F172A" }}>
+    <section ref={ref} id="use-cases" className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#00A86B" }}>
       <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
         <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#64748B" }}>Real-World Use Cases</span>
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "rgba(255,255,255,0.5)" }}>Real-World Use Cases</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
           <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white">
@@ -461,14 +387,14 @@ function UseCasesSection() {
               key={idx}
               className={`p-5 lg:p-6 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.1)",
+                background: "rgba(255,255,255,0.08)",
+                border: "1px solid rgba(255,255,255,0.15)",
                 transitionDelay: `${idx * 150}ms`,
               }}
             >
               <div className="flex items-center gap-2 mb-3">
-                <CheckCircle className="w-3.5 h-3.5" style={{ color: BRAND_GREEN }} />
-                <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: BRAND_GREEN }}>
+                <CheckCircle className="w-3.5 h-3.5" style={{ color: "rgba(255,255,255,0.7)" }} />
+                <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.7)" }}>
                   {useCase.type}
                 </span>
               </div>
@@ -546,7 +472,7 @@ function CTASection() {
     <section
       ref={ref}
       className="py-10 lg:py-14 px-5 lg:px-8"
-      style={{ background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)" }}
+      style={{ background: "linear-gradient(180deg, #00A86B 0%, #008F5B 100%)" }}
     >
       <div className={`max-w-[800px] mx-auto text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white mb-3">

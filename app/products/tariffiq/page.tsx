@@ -150,7 +150,7 @@ function HeroSection() {
               <Link
                 href="/demo/tariffiq"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
-                style={{ background: "#0F172A", color: "#FFFFFF" }}
+                style={{ background: "#FFFFFF", border: "2px solid #1B4F8A", color: "#1B4F8A" }}
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -417,13 +417,13 @@ function HowItWorksSection() {
   ]
 
   return (
-    <section ref={ref} id="how-it-works" className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#0F172A" }}>
+    <section ref={ref} id="how-it-works" className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#1B4F8A" }}>
       <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
         <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#64748B" }}>How TariffIQ Works</span>
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "rgba(255,255,255,0.5)" }}>How TariffIQ Works</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
           <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white">
@@ -446,7 +446,7 @@ function HowItWorksSection() {
             >
               <div
                 className="text-[28px] font-black flex-shrink-0"
-                style={{ color: BRAND_BLUE_DARK }}
+                style={{ color: "#FFFFFF" }}
               >
                 {step.number}
               </div>
@@ -526,7 +526,7 @@ function CTASection() {
     <section
       ref={ref}
       className="py-10 lg:py-14 px-5 lg:px-8"
-      style={{ background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)" }}
+      style={{ background: "linear-gradient(180deg, #1B4F8A 0%, #153F6E 100%)" }}
     >
       <div className={`max-w-[800px] mx-auto text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white mb-3">
