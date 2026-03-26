@@ -25,53 +25,32 @@ export function PatramHero() {
       ref={sectionRef}
       className="relative overflow-hidden"
     >
-      {/* Subtle dot grid background for high-contrast premium feel */}
+      {/* Elegant minimal background — white dominant */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "#FAFBFC" }} />
+
+      {/* Subtle diagonal lines pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          opacity: 0.4,
-          backgroundImage: "radial-gradient(circle, #E2E8F0 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
+          opacity: 0.035,
+          backgroundImage: "repeating-linear-gradient(135deg, #0066CC 0px, #0066CC 1px, transparent 1px, transparent 40px)",
+          backgroundSize: "56px 56px",
         }}
       />
 
-      {/* Very faint world map — almost invisible, just texture */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "url('/images/world-map-bg.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center 40%",
-          filter: "blur(8px)",
-          opacity: 0.15,
-          transform: "scale(1.05)",
-        }}
-      />
+      {/* Soft gradient orbs for depth */}
+      <div className="absolute top-[-10%] right-[10%] pointer-events-none" style={{ width: "500px", height: "500px", background: "radial-gradient(circle, rgba(0,102,204,0.04) 0%, transparent 60%)", filter: "blur(40px)" }} />
+      <div className="absolute bottom-[-5%] left-[5%] pointer-events-none" style={{ width: "400px", height: "400px", background: "radial-gradient(circle, rgba(0,168,107,0.03) 0%, transparent 60%)", filter: "blur(40px)" }} />
 
-      {/* Strong white overlay for contrast */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.92) 50%, #FFFFFF 100%)",
-        }}
-      />
-
-      {/* Subtle accent glow top-left */}
-      <div
-        className="absolute top-0 left-0 pointer-events-none"
-        style={{
-          width: "600px",
-          height: "400px",
-          background: "radial-gradient(ellipse at top left, rgba(0,102,204,0.05) 0%, transparent 70%)",
-        }}
-      />
+      {/* Bottom fade to pure white */}
+      <div className="absolute inset-x-0 bottom-0 h-[120px] pointer-events-none" style={{ background: "linear-gradient(to top, #FFFFFF, transparent)" }} />
 
       <div className="relative w-full max-w-[1400px] mx-auto px-5 lg:px-8 pt-[100px] pb-6 lg:pb-8">
         {/* Main two-column: centered on mobile, left-aligned on desktop */}
         <div className="flex flex-col items-center text-center lg:text-left lg:items-start lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:items-center">
 
-          {/* Left: Copy */}
-          <div className="lg:pl-4 xl:pl-8">
+          {/* Left: Copy — pushed toward center */}
+          <div className="lg:pl-12 xl:pl-20">
 
             {/* Section label */}
             <div className={`flex items-center justify-center lg:justify-start gap-3 mb-4 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -169,8 +148,9 @@ export function PatramHero() {
             </Link>
           </div>
 
-          {/* Right: PatramCard — desktop only */}
-          <div className={`hidden lg:block transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
+          {/* Right: PatramCard — desktop only, grey filter for subtle contrast */}
+          <div className={`hidden lg:block transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}
+            style={{ filter: "saturate(0.7) brightness(0.97)" }}>
             <PatramCard isActive={isInView} />
           </div>
         </div>
