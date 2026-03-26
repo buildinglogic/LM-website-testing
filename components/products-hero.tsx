@@ -259,7 +259,7 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
     >
       {/* Chat header bar */}
       <div className="flex items-center gap-2.5 px-4 py-2.5" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #6366F1, #8B5CF6)" }}>
+        <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
           <BrainIcon />
         </div>
         <div className="flex-1 min-w-0">
@@ -296,7 +296,7 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
 
         {/* AI response — left-aligned with chat arrow and brain logo */}
         <div className="flex items-start gap-1.5 flex-1 min-h-0 overflow-hidden">
-          <div className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style={{ background: "linear-gradient(135deg, #6366F1, #8B5CF6)" }}>
+          <div className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 2v20M8 8h8M8 12h8M9 16h6" />
               <circle cx="12" cy="10" r="8" />
@@ -310,7 +310,7 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
               </div>
 
               <div className="px-3 py-2 rounded-2xl rounded-tl-sm h-full overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
-                <p className="text-[10px] font-semibold mb-1.5" style={{ color: "#6366F1" }}>Patram AI</p>
+                <p className="text-[10px] font-semibold mb-1.5" style={{ color: "#00A86B" }}>Patram AI</p>
 
                 <div className="space-y-1">
                   {messages.map((msg, idx) => {
@@ -359,7 +359,7 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
           <span className="text-[11px]" style={{ color: "#94A3B8" }}>Ask about your export...</span>
           <div
             className="ml-auto w-6 h-6 rounded-lg flex items-center justify-center"
-            style={{ background: "linear-gradient(135deg, #6366F1, #8B5CF6)" }}
+            style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}
           >
             <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
