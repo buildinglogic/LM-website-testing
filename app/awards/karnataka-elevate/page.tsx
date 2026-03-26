@@ -96,45 +96,39 @@ export default function KarnatakaElevatePage() {
         <div ref={mainPhotos.ref} className="max-w-[1100px] mx-auto">
           <div className={`transition-all duration-700 ${mainPhotos.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Left column: felicitation image */}
-              <div
-                className="relative rounded-2xl overflow-hidden"
-                style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)", background: "#F8FAFC" }}
-              >
-                <Image
-                  src="/images/elevate-felicitation.png"
-                  alt="Liquidmind AI receiving the Karnataka Elevate 2025 felicitation"
-                  width={900}
-                  height={876}
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-              {/* Right column: policy stage + stage panel stacked to fill height */}
+              {/* Left column: felicitation image + text to fill gap */}
               <div className="flex flex-col gap-4">
                 <div
-                  className="relative rounded-2xl overflow-hidden flex-1"
-                  style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}
+                  className="relative rounded-2xl overflow-hidden"
+                  style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)", background: "#F8FAFC" }}
                 >
                   <Image
-                    src="/images/elevate-2025-policy-stage.png"
-                    alt="Liquidmind AI on the Elevate 2025 policy stage"
-                    width={1600}
-                    height={900}
-                    className="w-full h-full object-cover"
+                    src="/images/elevate-felicitation.png"
+                    alt="Liquidmind AI receiving the Karnataka Elevate 2025 felicitation"
+                    width={900}
+                    height={876}
+                    className="w-full h-auto object-contain"
                   />
                 </div>
-                <div
-                  className="relative rounded-2xl overflow-hidden flex-1"
-                  style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}
-                >
-                  <Image
-                    src="/images/elevate-2025-stage-panel.png"
-                    alt="Elevate 2025 stage panel discussion"
-                    width={1600}
-                    height={900}
-                    className="w-full h-full object-cover"
-                  />
+                <div className="p-4 rounded-2xl" style={{ background: "#ECFDF5", border: "1px solid #00A86B20" }}>
+                  <p className="text-[13px] font-bold mb-1" style={{ color: "#00A86B" }}>Winner #55 of 103</p>
+                  <p className="text-[12px] leading-relaxed" style={{ color: "#475569" }}>
+                    Selected from 1,500+ applicants across Karnataka. Felicitated by Hon. IT/BT Minister Shri Priyank Kharge.
+                  </p>
                 </div>
+              </div>
+              {/* Right column: policy stage */}
+              <div
+                className="relative rounded-2xl overflow-hidden"
+                style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}
+              >
+                <Image
+                  src="/images/elevate-2025-policy-stage.png"
+                  alt="Liquidmind AI on the Elevate 2025 policy stage"
+                  width={1600}
+                  height={900}
+                  className="w-full h-auto object-contain"
+                />
               </div>
             </div>
           </div>
@@ -247,10 +241,11 @@ export default function KarnatakaElevatePage() {
               <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Gallery</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {[
-                { src: "/images/elevate-2025-winner-trophy.png", alt: "Elevate 2025 winner trophy", span: "", h: "h-[240px] sm:h-[300px]" },
-                { src: "/images/elevate-2025-selection-funnel.png", alt: "Elevate 2025 selection funnel — from 1,500+ applicants to 103 winners", span: "", h: "h-[240px] sm:h-[300px]" },
+                { src: "/images/elevate-2025-stage-panel.png", alt: "Elevate 2025 stage panel discussion", span: "col-span-2", h: "h-[200px] sm:h-[260px]" },
+                { src: "/images/elevate-2025-winner-trophy.png", alt: "Elevate 2025 winner trophy", span: "", h: "h-[200px] sm:h-[260px]" },
+                { src: "/images/elevate-2025-selection-funnel.png", alt: "Elevate 2025 selection funnel — from 1,500+ applicants to 103 winners", span: "col-span-2 sm:col-span-3", h: "h-[280px] sm:h-[380px]" },
               ].map((img, i) => (
                 <div
                   key={i}
@@ -262,7 +257,7 @@ export default function KarnatakaElevatePage() {
                     alt={img.alt}
                     width={800}
                     height={600}
-                    className={`w-full ${img.h} object-cover`}
+                    className={`w-full ${img.h} object-cover object-top`}
                   />
                 </div>
               ))}
