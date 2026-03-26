@@ -848,10 +848,7 @@ function AwardToast() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("award-toast-dismissed")) {
-      setDismissed(true)
-      return
-    }
+    // Always show the toast on every visit — no localStorage check
     const timer = setTimeout(() => setVisible(true), 2000)
     return () => clearTimeout(timer)
   }, [])
@@ -860,27 +857,37 @@ function AwardToast() {
 
   return (
     <div
-      className={`hidden lg:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-40 items-center gap-4 px-5 py-3 rounded-2xl max-w-[540px] transition-all duration-700 ${visible ? "translate-y-0 opacity-100" : "translate-y-[120%] opacity-0"}`}
+      className={`hidden lg:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-40 items-center gap-5 px-6 py-4 rounded-2xl max-w-[620px] transition-all duration-1000 ease-out ${visible ? "translate-y-0 opacity-100 scale-100" : "translate-y-[140%] opacity-0 scale-95"}`}
       style={{
-        background: "rgba(255,255,255,0.92)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
+        background: "rgba(255,255,255,0.95)",
+        backdropFilter: "blur(24px)",
+        WebkitBackdropFilter: "blur(24px)",
         border: "1px solid #E2E8F0",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
+        boxShadow: "0 12px 48px rgba(0,0,0,0.15), 0 4px 16px rgba(0,102,204,0.08)",
       }}
     >
+      {/* Animated gradient border glow */}
       <div
-        className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-        style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}
+        className="absolute inset-0 rounded-2xl pointer-events-none"
+        style={{
+          background: "linear-gradient(135deg, rgba(0,102,204,0.08), rgba(0,168,107,0.08))",
+          animation: "pulse 3s ease-in-out infinite",
+        }}
+      />
+
+      <div
+        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 relative"
+        style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", boxShadow: "0 4px 12px rgba(0,102,204,0.3)" }}
       >
-        <Trophy className="w-4 h-4 text-white" />
+        <Trophy className="w-5 h-5 text-white" />
       </div>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="text-[12px] font-bold" style={{ color: "#0F172A" }}>Award-Winning AI</span>
+      <div className="flex flex-col gap-1 min-w-0 relative">
+        <span className="text-[14px] font-extrabold" style={{ color: "#0F172A" }}>Award-Winning AI Platform</span>
+        <p className="text-[11px] mb-1" style={{ color: "#64748B" }}>Recognized by Government of India & Karnataka</p>
         <div className="flex items-center gap-3">
           <Link
             href="/awards/aegis-graham-bell"
-            className="text-[11px] font-semibold hover:underline"
+            className="text-[12px] font-bold hover:underline transition-colors"
             style={{ color: "#0066CC" }}
           >
             Aegis Graham Bell 2026
@@ -888,21 +895,18 @@ function AwardToast() {
           <span className="text-[10px]" style={{ color: "#CBD5E1" }}>|</span>
           <Link
             href="/awards/karnataka-elevate"
-            className="text-[11px] font-semibold hover:underline"
-            style={{ color: "#0066CC" }}
+            className="text-[12px] font-bold hover:underline transition-colors"
+            style={{ color: "#00A86B" }}
           >
             Karnataka Elevate 2025
           </Link>
         </div>
       </div>
       <button
-        onClick={() => {
-          setDismissed(true)
-          localStorage.setItem("award-toast-dismissed", "true")
-        }}
-        className="ml-auto flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center hover:bg-[#F1F5F9] transition-colors"
+        onClick={() => setDismissed(true)}
+        className="ml-auto flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center hover:bg-[#F1F5F9] transition-colors relative"
       >
-        <X className="w-3.5 h-3.5" style={{ color: "#94A3B8" }} />
+        <X className="w-4 h-4" style={{ color: "#94A3B8" }} />
       </button>
     </div>
   )

@@ -7,7 +7,7 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef, useState, useEffect } from "react"
-import { ArrowRight, ExternalLink, Quote, Award, Users, Banknote, CheckCircle } from "lucide-react"
+import { ArrowRight, ExternalLink, Award, Users, Banknote, CheckCircle } from "lucide-react"
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
@@ -25,8 +25,10 @@ function useInView(threshold = 0.1) {
 
 export default function KarnatakaElevatePage() {
   const hero = useInView()
-  const photo = useInView()
+  const mainPhotos = useInView()
+  const recognition = useInView()
   const about = useInView()
+  const gallery = useInView()
   const why = useInView()
   const linkedin = useInView()
 
@@ -36,19 +38,16 @@ export default function KarnatakaElevatePage() {
 
       {/* Hero */}
       <section
-        className="pt-[100px] lg:pt-[120px] pb-10 px-5 lg:px-8 text-center relative overflow-hidden"
+        className="pt-[100px] lg:pt-[120px] pb-10 px-5 lg:px-8 relative overflow-hidden"
         style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}
       >
-        {/* Logo as faded background */}
-        <div
-          className="absolute inset-0 pointer-events-none flex items-center justify-center"
-          style={{ opacity: 0.05 }}
-        >
+        {/* Logo — visible */}
+        <div className="absolute top-6 right-6 lg:top-10 lg:right-10 pointer-events-none" style={{ opacity: 0.15 }}>
           <Image
             src="/images/karnataka_itbt_department_logo.png"
             alt=""
-            width={500}
-            height={500}
+            width={200}
+            height={200}
             className="object-contain"
             aria-hidden="true"
           />
@@ -56,47 +55,112 @@ export default function KarnatakaElevatePage() {
 
         <div ref={hero.ref} className="max-w-[860px] mx-auto relative">
           <div className={`transition-all duration-600 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-            <div className="flex items-center justify-center gap-3 mb-4">
+            {/* Section label */}
+            <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-              <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Award</span>
-              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+              <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Nov/Dec 2025 Winner — January 2026 Felicitation</span>
             </div>
 
             <h1 className="text-[26px] sm:text-[36px] lg:text-[48px] font-extrabold leading-tight tracking-tight mb-2" style={{ color: "#0F172A" }}>
-              Karnataka Elevate <span style={{ color: "#00A86B" }}>2025</span>
+              Liquidmind AI — Nov/Dec Elevate <span style={{ color: "#00A86B" }}>2025</span> Winner
             </h1>
-            <p className="text-[14px] sm:text-[16px] font-semibold mb-4" style={{ color: "#00A86B" }}>
-              Non-dilutive grant of up to Rs. 50 Lakhs
+            <p className="text-[14px] sm:text-[16px] font-semibold mb-5" style={{ color: "#00A86B" }}>
+              Up to Rs. 50 Lakhs Non-Dilutive Grant
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <p className="text-[13px] sm:text-[14px] leading-relaxed max-w-[700px] mb-6" style={{ color: "#475569" }}>
+              One of only 103 startups selected from ~1,500+ applicants across Karnataka. Felicitated by Hon. IT/BT Minister, Government of Karnataka, Shri Priyank Kharge ji in January 2026.
+            </p>
+
+            {/* Badges */}
+            <div className="flex flex-wrap items-center gap-3">
               <span className="px-3 py-1.5 rounded-lg text-[11px] font-semibold" style={{ background: "#ECFDF5", color: "#00A86B" }}>
                 January 17, 2026
               </span>
               <span className="px-3 py-1.5 rounded-lg text-[11px] font-semibold" style={{ background: "#ECFDF5", color: "#00A86B" }}>
                 Prof. U.R. Rao Bhavan, Bengaluru
               </span>
+              <span className="px-3 py-1.5 rounded-lg text-[11px] font-semibold" style={{ background: "#ECFDF5", color: "#00A86B" }}>
+                Govt. of Karnataka EITBT
+              </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Image */}
-      <section className="py-6 lg:py-8 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
-        <div ref={photo.ref} className="max-w-[700px] mx-auto">
-          <div className={`transition-all duration-700 ${photo.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <div
-              className="relative rounded-2xl overflow-hidden aspect-[16/9]"
-              style={{ border: "1px solid #E2E8F0", boxShadow: "0 8px 40px rgba(0,168,107,0.1)" }}
-            >
-              <Image src="/images/elevate-felicitation.png" alt="Liquidmind AI at Karnataka Elevate 2025 ceremony" fill className="object-cover" />
+      {/* Featured Photos — 2 main images */}
+      <section className="py-8 lg:py-10 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+        <div ref={mainPhotos.ref} className="max-w-[1100px] mx-auto">
+          <div className={`transition-all duration-700 ${mainPhotos.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                { src: "/images/elevate-2025-felicitation-award.png", alt: "Liquidmind AI receiving the Karnataka Elevate 2025 felicitation award" },
+                { src: "/images/elevate-2025-policy-stage.png", alt: "Liquidmind AI on the Elevate 2025 policy stage" },
+              ].map((img, i) => (
+                <div
+                  key={i}
+                  className="relative rounded-2xl overflow-hidden"
+                  style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={700}
+                    height={500}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Recognition Highlight */}
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+        <div ref={recognition.ref} className="max-w-[860px] mx-auto">
+          <div className={`transition-all duration-700 ${recognition.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 items-start">
+              {/* Number display */}
+              <div
+                className="p-6 rounded-2xl text-center"
+                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)", minWidth: "160px" }}
+              >
+                <p className="text-[14px] font-semibold mb-1" style={{ color: "#94A3B8" }}>#55</p>
+                <p className="text-[36px] font-black leading-none mb-2" style={{ color: "#00A86B" }}>Liquidmind AI</p>
+                <p className="text-[11px] font-semibold" style={{ color: "#64748B" }}>
+                  Official Selection Number
+                </p>
+              </div>
+
+              {/* Text */}
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+                  <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Recognition</span>
+                </div>
+                <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "#475569" }}>
+                  Recognized by the Government of Karnataka's Department of Electronics, IT, BT and Science & Technology (EITBT) for innovation in AI and technology solutions.
+                </p>
+
+                <a
+                  href="https://www.linkedin.com/posts/naveen-athresh-090b0a_elevate2025-startupkarnataka-liquidmind-activity-7418325908966551552-Zkpk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 mt-5 px-5 py-2.5 rounded-xl text-[14px] font-semibold transition-all duration-200 hover:-translate-y-0.5"
+                  style={{ background: "#ECFDF5", color: "#00A86B", border: "1px solid #00A86B20" }}
+                >
+                  View Official Winners List
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* About the Program */}
-      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div ref={about.ref} className="max-w-[860px] mx-auto">
           <div className={`transition-all duration-700 ${about.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="flex items-center gap-3 mb-4">
@@ -116,7 +180,7 @@ export default function KarnatakaElevatePage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div
                 className="p-5 rounded-2xl text-center"
-                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
+                style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
               >
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-2" style={{ background: "#ECFDF5" }}>
                   <Users className="w-5 h-5" style={{ color: "#00A86B" }} />
@@ -126,7 +190,7 @@ export default function KarnatakaElevatePage() {
               </div>
               <div
                 className="p-5 rounded-2xl text-center"
-                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
+                style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
               >
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-2" style={{ background: "#ECFDF5" }}>
                   <Award className="w-5 h-5" style={{ color: "#00A86B" }} />
@@ -136,7 +200,7 @@ export default function KarnatakaElevatePage() {
               </div>
               <div
                 className="p-5 rounded-2xl text-center"
-                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
+                style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
               >
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-2" style={{ background: "#ECFDF5" }}>
                   <Banknote className="w-5 h-5" style={{ color: "#00A86B" }} />
@@ -144,6 +208,40 @@ export default function KarnatakaElevatePage() {
                 <p className="text-[22px] font-extrabold" style={{ color: "#0F172A" }}>Rs. 50L</p>
                 <p className="text-[11px] font-medium" style={{ color: "#94A3B8" }}>Non-dilutive grant (up to)</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery — all remaining images */}
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+        <div ref={gallery.ref} className="max-w-[1100px] mx-auto">
+          <div className={`transition-all duration-700 ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+              <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Gallery</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {[
+                { src: "/images/elevate-2025-selection-funnel.png", alt: "Elevate 2025 selection funnel — from 1,500+ applicants to 103 winners" },
+                { src: "/images/elevate-2025-stage-panel.png", alt: "Elevate 2025 stage panel discussion" },
+                { src: "/images/elevate-2025-winner-trophy.png", alt: "Elevate 2025 winner trophy" },
+              ].map((img, i) => (
+                <div
+                  key={i}
+                  className={`relative rounded-xl overflow-hidden transition-all duration-700 ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                  style={{ border: "1px solid #E2E8F0", transitionDelay: `${i * 80}ms` }}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={500}
+                    height={400}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef, useState, useEffect } from "react"
-import { ArrowRight, ExternalLink, Globe, Shield, Calculator, Quote } from "lucide-react"
+import { ArrowRight, ExternalLink, Globe, Shield, Calculator, Quote, Star } from "lucide-react"
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
@@ -25,8 +25,9 @@ function useInView(threshold = 0.1) {
 
 export default function AegisGrahamBellPage() {
   const hero = useInView()
-  const photos = useInView()
-  const about = useInView()
+  const mainPhotos = useInView()
+  const rating = useInView()
+  const gallery = useInView()
   const recognized = useInView()
   const quote = useInView()
   const links = useInView()
@@ -37,19 +38,16 @@ export default function AegisGrahamBellPage() {
 
       {/* Hero */}
       <section
-        className="pt-[100px] lg:pt-[120px] pb-10 px-5 lg:px-8 text-center relative overflow-hidden"
+        className="pt-[100px] lg:pt-[120px] pb-10 px-5 lg:px-8 relative overflow-hidden"
         style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}
       >
-        {/* Award logo as faded background */}
-        <div
-          className="absolute inset-0 pointer-events-none flex items-center justify-center"
-          style={{ opacity: 0.06 }}
-        >
+        {/* Award logo — visible */}
+        <div className="absolute top-6 right-6 lg:top-10 lg:right-10 pointer-events-none" style={{ opacity: 0.15 }}>
           <Image
             src="/images/Aegis_award_logo.jpg"
             alt=""
-            width={500}
-            height={500}
+            width={200}
+            height={200}
             className="object-contain"
             aria-hidden="true"
           />
@@ -58,104 +56,163 @@ export default function AegisGrahamBellPage() {
         <div ref={hero.ref} className="max-w-[860px] mx-auto relative">
           <div className={`transition-all duration-600 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             {/* Section label */}
-            <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-              <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Award</span>
-              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+              <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>February 2026 — Gen AI Recognition</span>
             </div>
 
             <h1 className="text-[26px] sm:text-[36px] lg:text-[48px] font-extrabold leading-tight tracking-tight mb-2" style={{ color: "#0F172A" }}>
-              Aegis Graham Bell Award <span style={{ color: "#0066CC" }}>2026</span>
+              Aegis Graham Bell Award — February <span style={{ color: "#0066CC" }}>2026</span>
             </h1>
-            <p className="text-[14px] sm:text-[16px] font-semibold mb-4" style={{ color: "#0066CC" }}>
-              Innovation in Gen AI — CX, Sales & GTM Intelligence
+            <p className="text-[14px] sm:text-[16px] font-semibold mb-5" style={{ color: "#0066CC" }}>
+              3.5/5 Rating — Gen AI: CX, Sales & GTM Intelligence Category
+            </p>
+
+            <p className="text-[13px] sm:text-[14px] leading-relaxed max-w-[700px] mb-6" style={{ color: "#475569" }}>
+              Liquidmind AI's innovation was recognized by the Aegis Graham Bell Awards, recognized by the Ministry of Electronics and Information Technology (MeitY), Government of India. Felicitated by Minister of State, Ms. Anupriya Patel at Hotel Ashoka, Delhi.
             </p>
 
             {/* Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-3 mb-2">
+            <div className="flex flex-wrap items-center gap-3">
               <span className="px-3 py-1.5 rounded-lg text-[11px] font-semibold" style={{ background: "#EFF6FF", color: "#0066CC" }}>
                 February 27, 2026
               </span>
               <span className="px-3 py-1.5 rounded-lg text-[11px] font-semibold" style={{ background: "#EFF6FF", color: "#0066CC" }}>
                 The Ashok Hotel, New Delhi
               </span>
+              <span className="px-3 py-1.5 rounded-lg text-[11px] font-semibold" style={{ background: "#EFF6FF", color: "#0066CC" }}>
+                Supported by MeitY, Govt. of India
+              </span>
             </div>
-            <p className="text-[12px] font-medium" style={{ color: "#64748B" }}>
-              Supported by MeitY, Government of India
-            </p>
           </div>
         </div>
       </section>
 
-      {/* Photos */}
-      <section className="py-6 lg:py-8 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
-        <div ref={photos.ref} className="max-w-[1100px] mx-auto">
-          <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-700 ${photos.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            {[
-              { src: "/images/aegis-award.jpg", alt: "Aegis Graham Bell Award Ceremony" },
-              { src: "/images/aegis-graham-bell-award.jpg", alt: "Liquidmind AI team at Aegis Graham Bell Awards" },
-            ].map((img, i) => (
-              <div
-                key={i}
-                className="relative rounded-2xl overflow-hidden aspect-[16/8]"
-                style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}
-              >
-                <Image src={img.src} alt={img.alt} fill className="object-cover" />
-              </div>
-            ))}
+      {/* Featured Photos — 3 main images */}
+      <section className="py-8 lg:py-10 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+        <div ref={mainPhotos.ref} className="max-w-[1100px] mx-auto">
+          <div className={`transition-all duration-700 ${mainPhotos.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[
+                { src: "/images/graham-bell-group-winners.jpg", alt: "Aegis Graham Bell Award — group photo of all winners" },
+                { src: "/images/graham-bell-award-ceremony.png", alt: "Liquidmind AI at the Aegis Graham Bell Award ceremony" },
+                { src: "/images/graham-bell-award-certificate-framed.png", alt: "Aegis Graham Bell Award certificate — Liquidmind AI" },
+              ].map((img, i) => (
+                <div
+                  key={i}
+                  className="relative rounded-2xl overflow-hidden"
+                  style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* About the Award */}
+      {/* Rating & Recognition */}
       <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
-        <div ref={about.ref} className="max-w-[860px] mx-auto">
-          <div className={`transition-all duration-700 ${about.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <div className="flex items-center gap-3 mb-4">
+        <div ref={rating.ref} className="max-w-[860px] mx-auto">
+          <div className={`transition-all duration-700 ${rating.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 items-start">
+              {/* Rating display */}
+              <div
+                className="p-6 rounded-2xl text-center"
+                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)", minWidth: "160px" }}
+              >
+                <p className="text-[48px] font-black leading-none mb-1" style={{ color: "#0066CC" }}>3.5/5</p>
+                <div className="flex items-center justify-center gap-0.5 mb-2">
+                  {[1, 2, 3].map(i => <Star key={i} className="w-4 h-4 fill-current" style={{ color: "#0066CC" }} />)}
+                  <Star className="w-4 h-4" style={{ color: "#0066CC", fillOpacity: 0.5, fill: "#0066CC" }} />
+                  <Star className="w-4 h-4" style={{ color: "#E2E8F0" }} />
+                </div>
+                <p className="text-[11px] font-semibold" style={{ color: "#64748B" }}>
+                  Innovation Rating
+                </p>
+              </div>
+
+              {/* Text */}
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+                  <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Winner</span>
+                </div>
+                <h2 className="text-[22px] sm:text-[30px] lg:text-[36px] font-extrabold leading-tight mb-3" style={{ color: "#0F172A" }}>
+                  Winner: Gen AI — CX, Sales & GTM Intelligence Category
+                </h2>
+                <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "#475569" }}>
+                  The Graham Bell Awards recognize innovation and excellence in technology. This outstanding rating highlights Liquidmind AI's leadership in the rapidly evolving Agentic AI space.
+                </p>
+
+                <a
+                  href="https://www.linkedin.com/posts/liquid-mind-product-consulting-inc%2E_agba2026-aegisgrahambellawards-winner-activity-7434940047562375169-5N1e"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 mt-5 px-5 py-2.5 rounded-xl text-[14px] font-semibold transition-all duration-200 hover:-translate-y-0.5"
+                  style={{ background: "#EFF6FF", color: "#0066CC", border: "1px solid #0066CC20" }}
+                >
+                  View Announcement
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Full Gallery — all remaining images */}
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+        <div ref={gallery.ref} className="max-w-[1100px] mx-auto">
+          <div className={`transition-all duration-700 ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-              <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>About the Award</span>
+              <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Gallery</span>
             </div>
 
-            <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight mb-6" style={{ color: "#0F172A" }}>
-              16th Aegis Graham Bell Awards
-            </h2>
-
-            <div className="space-y-4">
-              <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "#475569" }}>
-                The Aegis Graham Bell Awards is one of India's most credible national innovation platforms, recognizing breakthrough innovations for over 15 years across AI, GenAI, Digital Transformation, Cybersecurity, Telecom, HealthTech, Fintech, and Agritech.
-              </p>
-
-              <div
-                className="p-5 rounded-2xl"
-                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
-              >
-                <p className="text-[12px] font-bold uppercase tracking-wide mb-2" style={{ color: "#0066CC" }}>Ceremony</p>
-                <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "#475569" }}>
-                  Inaugurated by Hon'ble Minister <strong style={{ color: "#0F172A" }}>Smt. Anupriya Patel</strong>, Minister of State for Health & Family Welfare and Chemicals & Fertilizers, Government of India.
-                </p>
-              </div>
-
-              <div
-                className="p-5 rounded-2xl"
-                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
-              >
-                <p className="text-[12px] font-bold uppercase tracking-wide mb-2" style={{ color: "#0066CC" }}>Supported By</p>
-                <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "#475569" }}>
-                  <strong style={{ color: "#0F172A" }}>Ministry of Electronics & Information Technology (MeitY)</strong>, Government of India — with <strong style={{ color: "#0F172A" }}>Swissnex</strong> as the country partner.
-                </p>
-              </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {[
+                { src: "/images/graham-bell-bharat-ai-stage.png", alt: "Bharat AI stage at Aegis Graham Bell Awards" },
+                { src: "/images/graham-bell-presentation.png", alt: "Liquidmind AI presentation at Graham Bell Awards" },
+                { src: "/images/graham-bell-team.png", alt: "Liquidmind AI team at the awards" },
+                { src: "/images/graham-bell-interaction.png", alt: "Networking at Aegis Graham Bell Awards" },
+                { src: "/images/graham-bell-booth.png", alt: "Liquidmind AI booth at the event" },
+                { src: "/images/graham-bell-solo-booth.png", alt: "Liquidmind AI solo booth display" },
+                { src: "/images/graham-bell-booth-signage.png", alt: "Booth signage at Graham Bell Awards" },
+                { src: "/images/graham-bell-trophy-closeup.png", alt: "Aegis Graham Bell Award trophy closeup" },
+              ].map((img, i) => (
+                <div
+                  key={i}
+                  className={`relative rounded-xl overflow-hidden transition-all duration-700 ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                  style={{ border: "1px solid #E2E8F0", transitionDelay: `${i * 60}ms` }}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={400}
+                    height={300}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* What Liquidmind Was Recognized For */}
-      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
         <div ref={recognized.ref} className="max-w-[860px] mx-auto">
           <div className={`transition-all duration-700 ${recognized.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-              <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Recognition</span>
+              <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Products Showcased</span>
             </div>
 
             <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight mb-3" style={{ color: "#0F172A" }}>
@@ -165,8 +222,6 @@ export default function AegisGrahamBellPage() {
               Liquidmind AI builds an AI-native platform that makes trade compliance, document generation, and HS classification effortless — serving India's 900,000+ EXIM traders.
             </p>
 
-            {/* Products showcased */}
-            <p className="text-[12px] font-bold uppercase tracking-wide mb-3" style={{ color: "#0066CC" }}>Products Showcased</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
               {[
                 { name: "Patram AI", tagline: "Document Q&A", href: "/products/patram", Icon: Globe, color: "#00A86B" },
@@ -177,7 +232,7 @@ export default function AegisGrahamBellPage() {
                   key={p.name}
                   href={p.href}
                   className="flex items-center gap-3 p-4 rounded-xl group transition-all duration-200 hover:-translate-y-0.5"
-                  style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
+                  style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}
                 >
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${p.color}12` }}>
                     <p.Icon className="w-4 h-4" style={{ color: p.color }} />
@@ -191,7 +246,6 @@ export default function AegisGrahamBellPage() {
               ))}
             </div>
 
-            {/* Team */}
             <p className="text-[12px] font-bold uppercase tracking-wide mb-2" style={{ color: "#0066CC" }}>Team</p>
             <p className="text-[13px] sm:text-[14px]" style={{ color: "#475569" }}>
               Naveen Athresh, Rajesh Pentakota, Srivani Vijaya
@@ -204,12 +258,12 @@ export default function AegisGrahamBellPage() {
       </section>
 
       {/* Founder Quote */}
-      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div ref={quote.ref} className="max-w-[860px] mx-auto">
           <div className={`transition-all duration-700 ${quote.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div
               className="p-6 sm:p-8 rounded-2xl relative"
-              style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderLeft: "4px solid #0066CC", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}
+              style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderLeft: "4px solid #0066CC", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}
             >
               <Quote className="w-8 h-8 mb-3 opacity-20" style={{ color: "#0066CC" }} />
               <blockquote className="text-[16px] sm:text-[20px] lg:text-[24px] font-semibold leading-snug mb-4" style={{ color: "#0F172A" }}>
@@ -229,8 +283,8 @@ export default function AegisGrahamBellPage() {
         </div>
       </section>
 
-      {/* LinkedIn Posts */}
-      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      {/* LinkedIn Posts + CTA */}
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
         <div ref={links.ref} className="max-w-[860px] mx-auto">
           <div className={`transition-all duration-700 ${links.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="flex items-center gap-3 mb-4">
@@ -255,7 +309,7 @@ export default function AegisGrahamBellPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 p-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 group"
-                  style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
+                  style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}
                 >
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "#EFF6FF" }}>
                     <svg className="w-4 h-4" style={{ color: "#0066CC" }} viewBox="0 0 24 24" fill="currentColor">
