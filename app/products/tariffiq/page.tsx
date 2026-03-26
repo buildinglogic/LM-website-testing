@@ -184,9 +184,8 @@ function TariffIQCard({ isActive }: { isActive: boolean }) {
 
   return (
     <div
-      className="w-full max-w-[480px] mx-auto lg:max-w-none flex flex-col overflow-hidden lg:animate-float lg:h-[435px]"
+      className="w-full max-w-[480px] mx-auto lg:max-w-none flex flex-col overflow-hidden lg:animate-float h-[400px] sm:h-[420px] lg:h-[435px]"
       style={{
-        height: "auto",
         borderRadius: "20px",
         background: "#FFFFFF",
         border: "1px solid #E2E8F0",
