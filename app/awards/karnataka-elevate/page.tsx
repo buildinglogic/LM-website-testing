@@ -7,7 +7,7 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef, useState, useEffect } from "react"
-import { ArrowRight, ExternalLink, Award, Users, Banknote, CheckCircle, Zap } from "lucide-react"
+import { ArrowRight, ExternalLink, Award, Users, Banknote, CheckCircle } from "lucide-react"
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
@@ -51,11 +51,10 @@ export default function KarnatakaElevatePage() {
 
         <div ref={hero.ref} className="max-w-[1000px] mx-auto relative">
           <div className={`transition-all duration-700 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-            {/* Glowing pill badge */}
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5 transition-all duration-700 delay-100 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-              style={{ background: "rgba(0,168,107,0.08)", border: "1px solid rgba(0,168,107,0.15)", backdropFilter: "blur(8px)" }}>
-              <Zap className="w-3.5 h-3.5" style={{ color: "#00A86B" }} />
-              <span className="text-[11px] font-bold tracking-wide uppercase" style={{ color: "#00A86B" }}>Nov/Dec 2025 Winner — January 2026 Felicitation</span>
+            {/* Section label */}
+            <div className={`flex items-center gap-3 mb-4 transition-all duration-700 delay-100 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #00A86B, #0066CC)" }} />
+              <span className="text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Startup Recognition</span>
             </div>
 
             <h1 className={`text-[28px] sm:text-[40px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.02em] mb-3 transition-all duration-700 delay-150 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
@@ -64,7 +63,7 @@ export default function KarnatakaElevatePage() {
               <span className="bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">2025 Winner</span>
             </h1>
 
-            {/* Inline highlight stat */}
+            {/* Grant stat */}
             <div className={`flex items-center gap-4 mb-4 transition-all duration-700 delay-200 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <span className="text-[28px] sm:text-[32px] font-black" style={{ color: "#00A86B" }}>Rs. 50L</span>
               <span className="text-[14px] font-semibold" style={{ color: "#64748B" }}>Non-Dilutive Grant (up to)</span>
@@ -74,14 +73,20 @@ export default function KarnatakaElevatePage() {
               One of only 103 startups selected from 1,500+ applicants across Karnataka. Felicitated by Hon. IT/BT Minister Shri Priyank Kharge at Prof. U.R. Rao Bhavan, Bengaluru.
             </p>
 
-            {/* Glassmorphism badges */}
-            <div className={`flex flex-wrap items-center gap-2 transition-all duration-700 delay-[400ms] ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              {["January 17, 2026", "Prof. U.R. Rao Bhavan, Bengaluru", "Govt. of Karnataka EITBT"].map((badge, i) => (
-                <span key={i} className="px-3.5 py-2 rounded-full text-[12px] font-semibold backdrop-blur-sm"
-                  style={{ background: "rgba(255,255,255,0.7)", border: "1px solid rgba(0,168,107,0.15)", color: "#00A86B" }}>
-                  {badge}
-                </span>
-              ))}
+            {/* Event details — compact horizontal strip */}
+            <div className={`flex items-center flex-wrap gap-x-5 gap-y-2 text-[13px] transition-all duration-700 delay-[400ms] ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#00A86B" }} />
+                <span className="font-semibold" style={{ color: "#0F172A" }}>Jan 17, 2026</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#00A86B" }} />
+                <span className="font-semibold" style={{ color: "#0F172A" }}>Prof. U.R. Rao Bhavan, Bengaluru</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#00A86B" }} />
+                <span className="font-semibold" style={{ color: "#0F172A" }}>Govt. of Karnataka EITBT</span>
+              </div>
             </div>
           </div>
         </div>

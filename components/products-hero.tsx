@@ -28,13 +28,13 @@ export function PatramHero() {
       {/* Elegant minimal background — white dominant */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: "#FAFBFC" }} />
 
-      {/* Subtle diagonal lines pattern */}
+      {/* Square grid pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          opacity: 0.035,
-          backgroundImage: "repeating-linear-gradient(135deg, #0066CC 0px, #0066CC 1px, transparent 1px, transparent 40px)",
-          backgroundSize: "56px 56px",
+          opacity: 0.06,
+          backgroundImage: "linear-gradient(#E2E8F0 1px, transparent 1px), linear-gradient(90deg, #E2E8F0 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
         }}
       />
 
