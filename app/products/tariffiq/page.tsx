@@ -51,7 +51,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="pt-[100px] lg:pt-[120px] pb-20 lg:pb-28 px-4 lg:px-8 relative overflow-hidden"
+      className="pt-[100px] lg:pt-[120px] pb-10 lg:pb-14 px-5 lg:px-8 relative overflow-hidden"
     >
       {/* Gradient background */}
       <div
@@ -75,7 +75,7 @@ function HeroSection() {
           {/* Left: Content */}
           <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {/* Product Name Header - Clear identification */}
-            <div className="mb-6">
+            <div className="mb-4">
               <div className="flex items-center gap-3 mb-2">
                 <div 
                   className="w-12 h-12 rounded-2xl flex items-center justify-center"
@@ -95,7 +95,7 @@ function HeroSection() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-[28px] sm:text-[36px] lg:text-[52px] xl:text-[60px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4 lg:mb-6" style={{ color: "#0F172A" }}>
+            <h1 className="text-[26px] sm:text-[36px] lg:text-[48px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-3 lg:mb-4" style={{ color: "#0F172A" }}>
               Classify Once.
               <br />
               <span style={{ color: BRAND_BLUE_DARK }}>Maximize</span>
@@ -104,12 +104,12 @@ function HeroSection() {
             </h1>
 
             {/* Description */}
-            <p className="text-[14px] sm:text-[16px] lg:text-[18px] leading-relaxed max-w-[520px] mb-6 lg:mb-8" style={{ color: "#475569" }}>
+            <p className="text-[13px] sm:text-[15px] lg:text-[16px] leading-relaxed max-w-[520px] mb-4 lg:mb-5" style={{ color: "#475569" }}>
               Stop guessing HSN codes. TariffIQ uses AI to classify your products to 8-digit ITC-HS and instantly shows whether RoDTEP or Duty Drawback earns you more.
             </p>
 
             {/* Stats - Mobile optimized */}
-            <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-6 lg:gap-12 mb-8 lg:mb-10">
+            <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-6 lg:gap-12 mb-5 lg:mb-6">
               {[
                 { value: "95%", label: "Classification Accuracy" },
                 { value: "< 3s", label: "Classification Time" },
@@ -163,7 +163,7 @@ function HeroSection() {
           {/* Right: Visual - Hidden on small mobile for cleaner UX */}
           <div className={`hidden sm:block transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
             <div
-              className="rounded-2xl p-6 lg:p-8 animate-float"
+              className="rounded-2xl p-5 lg:p-6 animate-float"
               style={{
                 background: "linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%)",
                 border: "1px solid #E2E8F0",
@@ -171,10 +171,10 @@ function HeroSection() {
               }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-3 rounded-full" style={{ background: "#FFBD2E" }} />
+                    <span className="w-3 h-3 rounded-full" style={{ background: "#E2E8F0" }} />
                     <span className="w-3 h-3 rounded-full" style={{ background: BRAND_GREEN }} />
                   </div>
                   <p className="text-[15px] font-bold" style={{ color: "#0F172A" }}>TariffIQ Classification</p>
@@ -182,7 +182,7 @@ function HeroSection() {
               </div>
 
               {/* Product Description Input */}
-              <div className="mb-6">
+              <div className="mb-4">
                 <p className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color: "#94A3B8" }}>
                   Product Description
                 </p>
@@ -263,27 +263,29 @@ function ProblemSection() {
   ]
 
   return (
-    <section ref={ref} className="py-20 lg:py-28 px-4 lg:px-8" style={{ background: "#FAFBFC" }}>
-      <div className="w-full max-w-[1200px] mx-auto">
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: "#DC2626" }}>
-            The HSN Classification Problem
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The HSN Classification Problem</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
             Why Exporters Struggle with{" "}
-            <span style={{ color: "#DC2626" }}>HSN Codes</span>
+            <span style={{ color: BRAND_BLUE_DARK }}>HSN Codes</span>
           </h2>
         </div>
 
         {/* Problem Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-4 lg:gap-5">
           {problems.map((problem, idx) => {
             const Icon = problem.icon
             return (
               <div
                 key={idx}
-                className={`p-6 lg:p-8 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                className={`p-5 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{
                   background: "#FFFFFF",
                   border: "1px solid #E2E8F0",
@@ -292,17 +294,17 @@ function ProblemSection() {
               >
                 <div className="flex items-start gap-4">
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "rgba(220,38,38,0.08)" }}
+                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: `${BRAND_BLUE_DARK}12` }}
                   >
-                    <Icon className="w-6 h-6" style={{ color: "#DC2626" }} />
+                    <Icon className="w-5 h-5" style={{ color: BRAND_BLUE_DARK }} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-bold mb-2" style={{ color: "#0F172A" }}>{problem.title}</h3>
-                    <p className="text-[15px] leading-relaxed mb-3" style={{ color: "#64748B" }}>{problem.description}</p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: "rgba(220,38,38,0.06)" }}>
-                      <AlertTriangle className="w-3.5 h-3.5" style={{ color: "#DC2626" }} />
-                      <span className="text-[13px] font-semibold" style={{ color: "#DC2626" }}>{problem.highlight}</span>
+                    <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{problem.title}</h3>
+                    <p className="text-[13px] sm:text-[14px] leading-relaxed mb-2.5" style={{ color: "#64748B" }}>{problem.description}</p>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: `${BRAND_BLUE_DARK}08` }}>
+                      <AlertTriangle className="w-3 h-3" style={{ color: BRAND_BLUE_DARK }} />
+                      <span className="text-[12px] font-semibold" style={{ color: BRAND_BLUE_DARK }}>{problem.highlight}</span>
                     </div>
                   </div>
                 </div>
@@ -335,50 +337,52 @@ function FeaturesSection() {
       icon: Database,
       title: "Live Policy Database",
       description: "Always up-to-date export and import policies. Know if your product is Free, Restricted, or Prohibited.",
-      color: "#F59E0B",
+      color: BRAND_GREEN,
     },
     {
       icon: Calculator,
       title: "Duty Rate Lookup",
       description: "Real-time BCD, IGST, and Cess rates. Calculate exact landed costs for imports in seconds.",
-      color: "#8B5CF6",
+      color: BRAND_BLUE,
     },
     {
       icon: Globe,
       title: "Country-Specific Rules",
       description: "Different countries have different requirements. We show you exactly what you need for your destination.",
-      color: "#EC4899",
+      color: BRAND_BLUE_DARK,
     },
     {
       icon: Zap,
       title: "Instant Results",
       description: "From product description to complete classification in under 3 seconds. No more hours of research.",
-      color: "#06B6D4",
+      color: BRAND_BLUE,
     },
   ]
 
   return (
-    <section ref={ref} className="py-20 lg:py-28 px-4 lg:px-8">
-      <div className="w-full max-w-[1200px] mx-auto">
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8">
+      <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: BRAND_BLUE_DARK }}>
-            Powerful Features
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Powerful Features</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
             Everything You Need for{" "}
             <span style={{ color: BRAND_BLUE_DARK }}>Perfect Classification</span>
           </h2>
         </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
           {features.map((feature, idx) => {
             const Icon = feature.icon
             return (
               <div
                 key={idx}
-                className={`p-6 rounded-2xl transition-all duration-700 hover:shadow-lg ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                className={`p-5 rounded-2xl transition-all duration-700 hover:shadow-lg ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{
                   background: "#FFFFFF",
                   border: "1px solid #E2E8F0",
@@ -386,13 +390,13 @@ function FeaturesSection() {
                 }}
               >
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
                   style={{ background: `${feature.color}12` }}
                 >
-                  <Icon className="w-6 h-6" style={{ color: feature.color }} />
+                  <Icon className="w-5 h-5" style={{ color: feature.color }} />
                 </div>
-                <h3 className="text-[17px] font-bold mb-2" style={{ color: "#0F172A" }}>{feature.title}</h3>
-                <p className="text-[14px] leading-relaxed" style={{ color: "#64748B" }}>{feature.description}</p>
+                <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{feature.title}</h3>
+                <p className="text-[13px] leading-relaxed" style={{ color: "#64748B" }}>{feature.description}</p>
               </div>
             )
           })}
@@ -413,25 +417,27 @@ function HowItWorksSection() {
   ]
 
   return (
-    <section ref={ref} id="how-it-works" className="py-20 lg:py-28 px-4 lg:px-8" style={{ background: "#0F172A" }}>
-      <div className="w-full max-w-[1000px] mx-auto">
+    <section ref={ref} id="how-it-works" className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#0F172A" }}>
+      <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: BRAND_BLUE_DARK }}>
-            How TariffIQ Works
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight text-white">
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#64748B" }}>How TariffIQ Works</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white">
             From Description to Classification in{" "}
             <span style={{ color: BRAND_BLUE }}>Seconds</span>
           </h2>
         </div>
 
         {/* Steps */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           {steps.map((step, idx) => (
             <div
               key={idx}
-              className={`flex items-start gap-6 p-6 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              className={`flex items-start gap-5 p-5 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{
                 background: "rgba(255,255,255,0.03)",
                 border: "1px solid rgba(255,255,255,0.08)",
@@ -439,14 +445,14 @@ function HowItWorksSection() {
               }}
             >
               <div
-                className="text-[32px] font-black flex-shrink-0"
+                className="text-[28px] font-black flex-shrink-0"
                 style={{ color: BRAND_BLUE_DARK }}
               >
                 {step.number}
               </div>
               <div>
-                <h3 className="text-[18px] font-bold text-white mb-2">{step.title}</h3>
-                <p className="text-[15px] leading-relaxed" style={{ color: "#94A3B8" }}>{step.description}</p>
+                <h3 className="text-[16px] font-bold text-white mb-1.5">{step.title}</h3>
+                <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "#94A3B8" }}>{step.description}</p>
               </div>
             </div>
           ))}
@@ -469,14 +475,16 @@ function ComparisonSection() {
   ]
 
   return (
-    <section ref={ref} className="py-20 lg:py-28 px-4 lg:px-8">
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8">
       <div className="w-full max-w-[900px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: BRAND_BLUE_DARK }}>
-            Why TariffIQ
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Why TariffIQ</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
             Manual Research vs{" "}
             <span style={{ color: BRAND_BLUE_DARK }}>TariffIQ</span>
           </h2>
@@ -490,17 +498,17 @@ function ComparisonSection() {
           <table className="w-full">
             <thead>
               <tr style={{ background: "#F8FAFC" }}>
-                <th className="text-left py-4 px-6 text-[14px] font-semibold" style={{ color: "#64748B" }}>Metric</th>
-                <th className="text-left py-4 px-6 text-[14px] font-semibold" style={{ color: "#64748B" }}>Manual</th>
-                <th className="text-left py-4 px-6 text-[14px] font-semibold" style={{ color: BRAND_BLUE_DARK }}>TariffIQ</th>
+                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: "#64748B" }}>Metric</th>
+                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: "#64748B" }}>Manual</th>
+                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: BRAND_BLUE_DARK }}>TariffIQ</th>
               </tr>
             </thead>
             <tbody>
               {metrics.map((row, idx) => (
                 <tr key={idx} style={{ borderTop: "1px solid #E2E8F0" }}>
-                  <td className="py-4 px-6 text-[15px] font-medium" style={{ color: "#475569" }}>{row.metric}</td>
-                  <td className="py-4 px-6 text-[15px]" style={{ color: "#0F172A" }}>{row.manual}</td>
-                  <td className="py-4 px-6 text-[15px] font-semibold" style={{ color: BRAND_GREEN }}>{row.tariffiq}</td>
+                  <td className="py-3 px-5 text-[13px] sm:text-[14px] font-medium" style={{ color: "#475569" }}>{row.metric}</td>
+                  <td className="py-3 px-5 text-[13px] sm:text-[14px]" style={{ color: "#0F172A" }}>{row.manual}</td>
+                  <td className="py-3 px-5 text-[13px] sm:text-[14px] font-semibold" style={{ color: BRAND_GREEN }}>{row.tariffiq}</td>
                 </tr>
               ))}
             </tbody>
@@ -517,20 +525,20 @@ function CTASection() {
   return (
     <section
       ref={ref}
-      className="py-20 lg:py-28 px-4 lg:px-8"
+      className="py-10 lg:py-14 px-5 lg:px-8"
       style={{ background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)" }}
     >
       <div className={`max-w-[800px] mx-auto text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight text-white mb-4">
+        <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white mb-3">
           Stop Leaving Money on the Table
         </h2>
-        <p className="text-[17px] leading-relaxed mb-10" style={{ color: "#94A3B8" }}>
+        <p className="text-[14px] sm:text-[15px] leading-relaxed mb-6" style={{ color: "#94A3B8" }}>
           Every day you classify manually is another day of missed incentives and compliance risk. Start using TariffIQ today.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/book-demo"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-[16px] font-bold transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-bold transition-all duration-300 hover:scale-105 btn-shine"
             style={{
               background: `linear-gradient(135deg, ${BRAND_BLUE_DARK}, ${BRAND_BLUE})`,
               color: "#FFFFFF",
@@ -542,7 +550,7 @@ function CTASection() {
           </Link>
           <Link
             href="/#products"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-[16px] font-semibold transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
             style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "#FFFFFF" }}
           >
             Explore Other Products

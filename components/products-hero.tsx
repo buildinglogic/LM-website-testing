@@ -267,12 +267,12 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
           <div className="flex justify-end">
             <div
               className="relative max-w-[80%] px-3 py-2 rounded-2xl rounded-tr-md"
-              style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}
+              style={{ background: "#0F172A" }}
             >
               <p className="text-[11px] text-white leading-snug">
                 Certifications needed to export turmeric to Germany?
               </p>
-              <div className="absolute top-2 -right-1.5 w-2.5 h-2.5 rotate-45" style={{ background: "#0066CC" }} />
+              <div className="absolute top-2 -right-1.5 w-2.5 h-2.5 rotate-45" style={{ background: "#0F172A" }} />
             </div>
           </div>
         </div>

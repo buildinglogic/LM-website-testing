@@ -50,7 +50,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="pt-[100px] lg:pt-[120px] pb-20 lg:pb-28 px-4 lg:px-8 relative overflow-hidden"
+      className="pt-[100px] lg:pt-[120px] pb-10 lg:pb-14 px-5 lg:px-8 relative overflow-hidden"
     >
       {/* Gradient background */}
       <div
@@ -74,7 +74,7 @@ function HeroSection() {
           {/* Left: Content */}
           <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {/* Product Name Header - Clear identification */}
-            <div className="mb-6">
+            <div className="mb-4">
               <div className="flex items-center gap-3 mb-2">
                 <div 
                   className="w-12 h-12 rounded-2xl flex items-center justify-center"
@@ -94,7 +94,7 @@ function HeroSection() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-[28px] sm:text-[36px] lg:text-[52px] xl:text-[60px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4 lg:mb-6" style={{ color: "#0F172A" }}>
+            <h1 className="text-[26px] sm:text-[36px] lg:text-[48px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-3 lg:mb-4" style={{ color: "#0F172A" }}>
               Your 24/7
               <br />
               <span style={{ color: BRAND_GREEN }}>Export Expert</span>
@@ -103,12 +103,12 @@ function HeroSection() {
             </h1>
 
             {/* Description */}
-            <p className="text-[14px] sm:text-[16px] lg:text-[18px] leading-relaxed max-w-[520px] mb-6 lg:mb-8" style={{ color: "#475569" }}>
+            <p className="text-[13px] sm:text-[15px] lg:text-[16px] leading-relaxed max-w-[520px] mb-4 lg:mb-5" style={{ color: "#475569" }}>
               Upload any trade document and ask questions in plain English. Patram AI reads the entire document and gives you accurate, sourced answers instantly.
             </p>
 
             {/* Stats - Mobile optimized */}
-            <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-6 lg:gap-12 mb-8 lg:mb-10">
+            <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-6 lg:gap-12 mb-5 lg:mb-6">
               {[
                 { value: "190+", label: "Countries Covered" },
                 { value: "24/7", label: "Always Available" },
@@ -162,7 +162,7 @@ function HeroSection() {
           {/* Right: Visual - Hidden on small mobile for cleaner UX */}
           <div className={`hidden sm:block transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
             <div
-              className="rounded-2xl p-6 lg:p-8 animate-float"
+              className="rounded-2xl p-5 lg:p-6 animate-float"
               style={{
                 background: "linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%)",
                 border: "1px solid #E2E8F0",
@@ -170,7 +170,7 @@ function HeroSection() {
               }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -196,28 +196,28 @@ function HeroSection() {
               <div className="space-y-4">
                 {/* User message */}
                 <div className="flex justify-end">
-                  <div className="max-w-[85%] px-4 py-3 rounded-2xl rounded-br-md" style={{ background: BRAND_GREEN, color: "white" }}>
-                    <p className="text-[14px]">Can I export cotton fabric to Germany? What documents do I need?</p>
+                  <div className="max-w-[85%] px-4 py-3 rounded-2xl rounded-br-md" style={{ background: "#0F172A", color: "white" }}>
+                    <p className="text-[13px]">Can I export cotton fabric to Germany? What documents do I need?</p>
                   </div>
                 </div>
 
                 {/* AI response */}
                 <div className="space-y-3">
                   <div className="px-4 py-3 rounded-2xl rounded-bl-md" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-                    <p className="text-[14px] leading-relaxed" style={{ color: "#475569" }}>
+                    <p className="text-[13px] leading-relaxed" style={{ color: "#475569" }}>
                       Based on your uploaded policy document, cotton fabric (HSN 5208) can be exported to Germany freely. However, there are specific requirements:
                     </p>
                   </div>
 
                   {/* Compliance card */}
-                  <div className="ml-4 p-3 rounded-xl" style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.2)" }}>
+                  <div className="ml-4 p-3 rounded-xl" style={{ background: "rgba(0,102,204,0.06)", border: "1px solid rgba(0,102,204,0.2)" }}>
                     <div className="flex items-start gap-2">
-                      <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(245,158,11,0.15)" }}>
-                        <span className="text-[10px]" style={{ color: "#F59E0B" }}>!</span>
+                      <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(0,102,204,0.15)" }}>
+                        <span className="text-[10px]" style={{ color: "#0066CC" }}>!</span>
                       </span>
                       <div>
-                        <p className="text-[13px] font-semibold" style={{ color: "#D97706" }}>EU Compliance Required</p>
-                        <p className="text-[12px] mt-0.5" style={{ color: "#92400E" }}>
+                        <p className="text-[13px] font-semibold" style={{ color: "#0066CC" }}>EU Compliance Required</p>
+                        <p className="text-[12px] mt-0.5" style={{ color: "#475569" }}>
                           Azo dyes are prohibited in textiles sold in the EU. Your fabric must be tested and certified below 30 mg/kg.
                         </p>
                       </div>
@@ -227,7 +227,7 @@ function HeroSection() {
               </div>
 
               {/* Input */}
-              <div className="mt-6 flex items-center gap-2 px-4 py-3 rounded-xl" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+              <div className="mt-4 flex items-center gap-2 px-4 py-2.5 rounded-xl" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
                 <Search className="w-4 h-4" style={{ color: "#94A3B8" }} />
                 <span className="text-[14px]" style={{ color: "#94A3B8" }}>Ask about your export...</span>
                 <div className="ml-auto w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: BRAND_GREEN }}>
@@ -275,27 +275,29 @@ function ProblemSection() {
   ]
 
   return (
-    <section ref={ref} className="py-20 lg:py-28 px-4 lg:px-8" style={{ background: "#FAFBFC" }}>
-      <div className="w-full max-w-[1200px] mx-auto">
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: "#DC2626" }}>
-            The Export Knowledge Problem
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Export Knowledge Problem</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
             Why Exporters Need{" "}
-            <span style={{ color: "#DC2626" }}>Instant Answers</span>
+            <span style={{ color: BRAND_GREEN }}>Instant Answers</span>
           </h2>
         </div>
 
         {/* Problem Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-4 lg:gap-5">
           {problems.map((problem, idx) => {
             const Icon = problem.icon
             return (
               <div
                 key={idx}
-                className={`p-6 lg:p-8 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                className={`p-5 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{
                   background: "#FFFFFF",
                   border: "1px solid #E2E8F0",
@@ -304,17 +306,17 @@ function ProblemSection() {
               >
                 <div className="flex items-start gap-4">
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "rgba(220,38,38,0.08)" }}
+                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: `${BRAND_GREEN}12` }}
                   >
-                    <Icon className="w-6 h-6" style={{ color: "#DC2626" }} />
+                    <Icon className="w-5 h-5" style={{ color: BRAND_GREEN }} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-bold mb-2" style={{ color: "#0F172A" }}>{problem.title}</h3>
-                    <p className="text-[15px] leading-relaxed mb-3" style={{ color: "#64748B" }}>{problem.description}</p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: "rgba(220,38,38,0.06)" }}>
-                      <Clock className="w-3.5 h-3.5" style={{ color: "#DC2626" }} />
-                      <span className="text-[13px] font-semibold" style={{ color: "#DC2626" }}>{problem.highlight}</span>
+                    <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{problem.title}</h3>
+                    <p className="text-[13px] sm:text-[14px] leading-relaxed mb-2.5" style={{ color: "#64748B" }}>{problem.description}</p>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: `${BRAND_GREEN}08` }}>
+                      <Clock className="w-3 h-3" style={{ color: BRAND_GREEN }} />
+                      <span className="text-[12px] font-semibold" style={{ color: BRAND_GREEN }}>{problem.highlight}</span>
                     </div>
                   </div>
                 </div>
@@ -347,50 +349,52 @@ function FeaturesSection() {
       icon: Globe,
       title: "190+ Countries Covered",
       description: "From major markets like US, EU, UAE to emerging destinations. Always current trade policies.",
-      color: "#F59E0B",
+      color: BRAND_GREEN,
     },
     {
       icon: BookOpen,
       title: "Sourced Answers",
       description: "Every answer cites the exact section and page from your document. Full traceability.",
-      color: "#8B5CF6",
+      color: BRAND_BLUE,
     },
     {
       icon: Zap,
       title: "1.5 Second Response",
       description: "No waiting. Get comprehensive answers faster than you can type your next question.",
-      color: "#EC4899",
+      color: "#1B4F8A",
     },
     {
       icon: Shield,
       title: "AI Fact-Checking",
       description: "Built-in verification layer prevents hallucinations. Answers are validated against source documents.",
-      color: "#06B6D4",
+      color: BRAND_BLUE,
     },
   ]
 
   return (
-    <section ref={ref} className="py-20 lg:py-28 px-4 lg:px-8">
-      <div className="w-full max-w-[1200px] mx-auto">
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8">
+      <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: BRAND_GREEN }}>
-            Powerful Features
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Powerful Features</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
             AI That Understands{" "}
             <span style={{ color: BRAND_GREEN }}>Trade Documents</span>
           </h2>
         </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
           {features.map((feature, idx) => {
             const Icon = feature.icon
             return (
               <div
                 key={idx}
-                className={`p-6 rounded-2xl transition-all duration-700 hover:shadow-lg ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                className={`p-5 rounded-2xl transition-all duration-700 hover:shadow-lg ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{
                   background: "#FFFFFF",
                   border: "1px solid #E2E8F0",
@@ -398,13 +402,13 @@ function FeaturesSection() {
                 }}
               >
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
                   style={{ background: `${feature.color}12` }}
                 >
-                  <Icon className="w-6 h-6" style={{ color: feature.color }} />
+                  <Icon className="w-5 h-5" style={{ color: feature.color }} />
                 </div>
-                <h3 className="text-[17px] font-bold mb-2" style={{ color: "#0F172A" }}>{feature.title}</h3>
-                <p className="text-[14px] leading-relaxed" style={{ color: "#64748B" }}>{feature.description}</p>
+                <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{feature.title}</h3>
+                <p className="text-[13px] leading-relaxed" style={{ color: "#64748B" }}>{feature.description}</p>
               </div>
             )
           })}
@@ -436,38 +440,40 @@ function UseCasesSection() {
   ]
 
   return (
-    <section ref={ref} id="use-cases" className="py-20 lg:py-28 px-4 lg:px-8" style={{ background: "#0F172A" }}>
-      <div className="w-full max-w-[1000px] mx-auto">
+    <section ref={ref} id="use-cases" className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#0F172A" }}>
+      <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: BRAND_GREEN }}>
-            Real-World Use Cases
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight text-white">
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#64748B" }}>Real-World Use Cases</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white">
             Questions Exporters Ask Every Day
           </h2>
         </div>
 
         {/* Use Cases */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           {useCases.map((useCase, idx) => (
             <div
               key={idx}
-              className={`p-6 lg:p-8 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              className={`p-5 lg:p-6 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{
                 background: "rgba(255,255,255,0.03)",
                 border: "1px solid rgba(255,255,255,0.1)",
                 transitionDelay: `${idx * 150}ms`,
               }}
             >
-              <div className="flex items-center gap-2 mb-4">
-                <CheckCircle className="w-4 h-4" style={{ color: BRAND_GREEN }} />
-                <span className="text-[12px] font-semibold uppercase tracking-wider" style={{ color: BRAND_GREEN }}>
+              <div className="flex items-center gap-2 mb-3">
+                <CheckCircle className="w-3.5 h-3.5" style={{ color: BRAND_GREEN }} />
+                <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: BRAND_GREEN }}>
                   {useCase.type}
                 </span>
               </div>
-              <h3 className="text-[18px] font-bold text-white mb-3">{useCase.question}</h3>
-              <p className="text-[15px] leading-relaxed" style={{ color: "#94A3B8" }}>{useCase.answer}</p>
+              <h3 className="text-[16px] font-bold text-white mb-2">{useCase.question}</h3>
+              <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "#94A3B8" }}>{useCase.answer}</p>
             </div>
           ))}
         </div>
@@ -489,14 +495,16 @@ function ComparisonSection() {
   ]
 
   return (
-    <section ref={ref} className="py-20 lg:py-28 px-4 lg:px-8">
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8">
       <div className="w-full max-w-[900px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: BRAND_GREEN }}>
-            Why Patram AI
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Why Patram AI</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
             Manual Research vs{" "}
             <span style={{ color: BRAND_GREEN }}>Patram AI</span>
           </h2>
@@ -510,17 +518,17 @@ function ComparisonSection() {
           <table className="w-full">
             <thead>
               <tr style={{ background: "#F8FAFC" }}>
-                <th className="text-left py-4 px-6 text-[14px] font-semibold" style={{ color: "#64748B" }}>Metric</th>
-                <th className="text-left py-4 px-6 text-[14px] font-semibold" style={{ color: "#64748B" }}>Manual</th>
-                <th className="text-left py-4 px-6 text-[14px] font-semibold" style={{ color: BRAND_GREEN }}>Patram AI</th>
+                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: "#64748B" }}>Metric</th>
+                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: "#64748B" }}>Manual</th>
+                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: BRAND_GREEN }}>Patram AI</th>
               </tr>
             </thead>
             <tbody>
               {metrics.map((row, idx) => (
                 <tr key={idx} style={{ borderTop: "1px solid #E2E8F0" }}>
-                  <td className="py-4 px-6 text-[15px] font-medium" style={{ color: "#475569" }}>{row.metric}</td>
-                  <td className="py-4 px-6 text-[15px]" style={{ color: "#0F172A" }}>{row.manual}</td>
-                  <td className="py-4 px-6 text-[15px] font-semibold" style={{ color: BRAND_GREEN }}>{row.patram}</td>
+                  <td className="py-3 px-5 text-[13px] sm:text-[14px] font-medium" style={{ color: "#475569" }}>{row.metric}</td>
+                  <td className="py-3 px-5 text-[13px] sm:text-[14px]" style={{ color: "#0F172A" }}>{row.manual}</td>
+                  <td className="py-3 px-5 text-[13px] sm:text-[14px] font-semibold" style={{ color: BRAND_GREEN }}>{row.patram}</td>
                 </tr>
               ))}
             </tbody>
@@ -537,20 +545,20 @@ function CTASection() {
   return (
     <section
       ref={ref}
-      className="py-20 lg:py-28 px-4 lg:px-8"
+      className="py-10 lg:py-14 px-5 lg:px-8"
       style={{ background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)" }}
     >
       <div className={`max-w-[800px] mx-auto text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight text-white mb-4">
+        <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white mb-3">
           Get Answers in Seconds, Not Hours
         </h2>
-        <p className="text-[17px] leading-relaxed mb-10" style={{ color: "#94A3B8" }}>
+        <p className="text-[14px] sm:text-[15px] leading-relaxed mb-6" style={{ color: "#94A3B8" }}>
           Stop wasting hours searching through documents. Let Patram AI be your always-on export intelligence advisor.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/book-demo"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-[16px] font-bold transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-bold transition-all duration-300 hover:scale-105 btn-shine"
             style={{
               background: `linear-gradient(135deg, ${BRAND_GREEN}, ${BRAND_BLUE})`,
               color: "#FFFFFF",
@@ -562,7 +570,7 @@ function CTASection() {
           </Link>
           <Link
             href="/#products"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-[16px] font-semibold transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
             style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "#FFFFFF" }}
           >
             Explore Other Products

@@ -58,7 +58,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="pt-[100px] lg:pt-[120px] pb-20 lg:pb-28 px-4 lg:px-8 relative overflow-hidden"
+      className="pt-[100px] lg:pt-[120px] pb-10 lg:pb-14 px-5 lg:px-8 relative overflow-hidden"
     >
       {/* Gradient background */}
       <div
@@ -82,7 +82,7 @@ function HeroSection() {
           {/* Left: Content */}
           <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {/* Product Name Header - Clear identification */}
-            <div className="mb-6">
+            <div className="mb-4">
               <div className="flex items-center gap-3 mb-2">
                 <div 
                   className="w-12 h-12 rounded-2xl flex items-center justify-center"
@@ -102,7 +102,7 @@ function HeroSection() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-[28px] sm:text-[36px] lg:text-[52px] xl:text-[60px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4 lg:mb-6" style={{ color: "#0F172A" }}>
+            <h1 className="text-[26px] sm:text-[36px] lg:text-[48px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-3 lg:mb-4" style={{ color: "#0F172A" }}>
               Catch Every
               <br />
               <span style={{ color: BRAND_BLUE }}>Mismatch</span>
@@ -111,12 +111,12 @@ function HeroSection() {
             </h1>
 
             {/* Description */}
-            <p className="text-[14px] sm:text-[16px] lg:text-[18px] leading-relaxed max-w-[520px] mb-6 lg:mb-8" style={{ color: "#475569" }}>
+            <p className="text-[13px] sm:text-[15px] lg:text-[16px] leading-relaxed max-w-[520px] mb-4 lg:mb-5" style={{ color: "#475569" }}>
               TradeGuard extracts 40+ fields from your Shipping Bill and Commercial Invoice, maps them intelligently, and flags every discrepancy in under 5 seconds.
             </p>
 
             {/* Stats - Mobile optimized */}
-            <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-6 lg:gap-12 mb-8 lg:mb-10">
+            <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-6 lg:gap-12 mb-5 lg:mb-6">
               {[
                 { value: "40+", label: "Fields Validated" },
                 { value: "< 5s", label: "Analysis Time" },
@@ -170,7 +170,7 @@ function HeroSection() {
           {/* Right: Visual - Hidden on small mobile for cleaner UX */}
           <div className={`hidden sm:block transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
             <div
-              className="rounded-2xl p-6 lg:p-8 animate-float"
+              className="rounded-2xl p-5 lg:p-6 animate-float"
               style={{
                 background: "linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%)",
                 border: "1px solid #E2E8F0",
@@ -178,7 +178,7 @@ function HeroSection() {
               }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -198,41 +198,41 @@ function HeroSection() {
               </div>
 
               {/* Fields */}
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {fields.map((f, idx) => (
                   <div
                     key={idx}
-                    className="rounded-xl p-3"
+                    className="rounded-xl p-2.5"
                     style={{
-                      background: f.status === "mismatch" ? "rgba(245,158,11,0.06)" : f.status === "warning" ? "rgba(245,158,11,0.04)" : "#FAFAFA",
-                      border: f.status === "mismatch" ? "1px solid rgba(245,158,11,0.3)" : f.status === "warning" ? "1px solid rgba(245,158,11,0.2)" : "1px solid #E2E8F0",
+                      background: f.status === "mismatch" ? "rgba(0,102,204,0.06)" : f.status === "warning" ? "rgba(0,102,204,0.04)" : "#FAFAFA",
+                      border: f.status === "mismatch" ? "1px solid rgba(0,102,204,0.2)" : f.status === "warning" ? "1px solid rgba(0,102,204,0.15)" : "1px solid #E2E8F0",
                     }}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2.5">
                         <div
                           className="w-5 h-5 rounded-full flex items-center justify-center"
-                          style={{ background: f.status === "match" ? "rgba(0,168,107,0.12)" : "rgba(245,158,11,0.12)" }}
+                          style={{ background: f.status === "match" ? "rgba(0,168,107,0.12)" : "rgba(0,102,204,0.12)" }}
                         >
                           {f.status === "match" ? (
                             <CheckCircle className="w-3 h-3" style={{ color: BRAND_GREEN }} />
                           ) : (
-                            <AlertTriangle className="w-3 h-3" style={{ color: "#F59E0B" }} />
+                            <AlertTriangle className="w-3 h-3" style={{ color: BRAND_BLUE }} />
                           )}
                         </div>
-                        <span className="text-[13px] font-medium" style={{ color: "#475569" }}>{f.field}</span>
+                        <span className="text-[12px] font-medium" style={{ color: "#475569" }}>{f.field}</span>
                       </div>
-                      <span className="text-[12px] font-mono" style={{ color: f.status === "match" ? "#0F172A" : "#D97706" }}>
+                      <span className="text-[12px] font-mono" style={{ color: f.status === "match" ? "#0F172A" : BRAND_BLUE }}>
                         {f.value || f.sb}
                       </span>
                     </div>
                     {f.status !== "match" && f.inv && (
-                      <div className="flex items-center gap-2 mt-2 ml-7 text-[11px]">
+                      <div className="flex items-center gap-2 mt-1.5 ml-7 text-[11px]">
                         <span className="px-1.5 py-0.5 rounded" style={{ background: `${BRAND_BLUE}10`, color: BRAND_BLUE }}>SB</span>
                         <span style={{ color: "#0F172A" }}>{f.sb}</span>
                         <span style={{ color: "#CBD5E1" }}>vs</span>
-                        <span className="px-1.5 py-0.5 rounded" style={{ background: "rgba(245,158,11,0.1)", color: "#F59E0B" }}>INV</span>
-                        <span style={{ color: "#D97706" }}>{f.inv}</span>
+                        <span className="px-1.5 py-0.5 rounded" style={{ background: "rgba(0,102,204,0.1)", color: BRAND_BLUE }}>INV</span>
+                        <span style={{ color: BRAND_BLUE }}>{f.inv}</span>
                       </div>
                     )}
                   </div>
@@ -277,27 +277,29 @@ function ProblemSection() {
   ]
 
   return (
-    <section ref={ref} className="py-20 lg:py-28 px-4 lg:px-8" style={{ background: "#FAFBFC" }}>
-      <div className="w-full max-w-[1200px] mx-auto">
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: "#DC2626" }}>
-            The Document Mismatch Problem
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Document Mismatch Problem</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
             Why Manual Checking{" "}
-            <span style={{ color: "#DC2626" }}>Always Fails</span>
+            <span style={{ color: BRAND_BLUE }}>Always Fails</span>
           </h2>
         </div>
 
         {/* Problem Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-4 lg:gap-5">
           {problems.map((problem, idx) => {
             const Icon = problem.icon
             return (
               <div
                 key={idx}
-                className={`p-6 lg:p-8 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                className={`p-5 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{
                   background: "#FFFFFF",
                   border: "1px solid #E2E8F0",
@@ -306,17 +308,17 @@ function ProblemSection() {
               >
                 <div className="flex items-start gap-4">
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "rgba(220,38,38,0.08)" }}
+                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: `${BRAND_BLUE}12` }}
                   >
-                    <Icon className="w-6 h-6" style={{ color: "#DC2626" }} />
+                    <Icon className="w-5 h-5" style={{ color: BRAND_BLUE }} />
                   </div>
                   <div>
-                    <h3 className="text-[18px] font-bold mb-2" style={{ color: "#0F172A" }}>{problem.title}</h3>
-                    <p className="text-[15px] leading-relaxed mb-3" style={{ color: "#64748B" }}>{problem.description}</p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: "rgba(220,38,38,0.06)" }}>
-                      <AlertTriangle className="w-3.5 h-3.5" style={{ color: "#DC2626" }} />
-                      <span className="text-[13px] font-semibold" style={{ color: "#DC2626" }}>{problem.highlight}</span>
+                    <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{problem.title}</h3>
+                    <p className="text-[13px] sm:text-[14px] leading-relaxed mb-2.5" style={{ color: "#64748B" }}>{problem.description}</p>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: `${BRAND_BLUE}08` }}>
+                      <AlertTriangle className="w-3 h-3" style={{ color: BRAND_BLUE }} />
+                      <span className="text-[12px] font-semibold" style={{ color: BRAND_BLUE }}>{problem.highlight}</span>
                     </div>
                   </div>
                 </div>
@@ -349,48 +351,50 @@ function FeaturesSection() {
       icon: "match",
       title: "Semantic Matching",
       description: "Our AI understands that 'NHAVA SHEVA' and 'INNSA1' refer to the same port. No false positives.",
-      color: "#F59E0B",
+      color: BRAND_GREEN,
     },
     {
       icon: "view",
       title: "Interactive PDF Viewer",
       description: "Click any extracted field to see exactly where it came from in the original document.",
-      color: "#8B5CF6",
+      color: BRAND_BLUE,
     },
     {
       icon: "fast",
       title: "5 Second Analysis",
       description: "From upload to complete mismatch report in under 5 seconds. No waiting, no manual comparison.",
-      color: "#EC4899",
+      color: "#1B4F8A",
     },
     {
       icon: "human",
       title: "Human-in-the-Loop",
       description: "AI flags issues, you make the final call. Review, approve, or override any detection.",
-      color: "#06B6D4",
+      color: BRAND_BLUE,
     },
   ]
 
   return (
-    <section ref={ref} className="py-20 lg:py-28 px-4 lg:px-8">
-      <div className="w-full max-w-[1200px] mx-auto">
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8">
+      <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: BRAND_BLUE }}>
-            Powerful Features
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Powerful Features</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
             Enterprise-Grade{" "}
             <span style={{ color: BRAND_BLUE }}>Document Intelligence</span>
           </h2>
         </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
           {features.map((feature, idx) => (
             <div
               key={idx}
-              className={`p-6 rounded-2xl transition-all duration-700 hover:shadow-lg ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              className={`p-5 rounded-2xl transition-all duration-700 hover:shadow-lg ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{
                 background: "#FFFFFF",
                 border: "1px solid #E2E8F0",
@@ -398,13 +402,13 @@ function FeaturesSection() {
               }}
             >
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
                 style={{ background: `${feature.color}12` }}
               >
                 <FeatureIcon type={feature.icon} color={feature.color} />
               </div>
-              <h3 className="text-[17px] font-bold mb-2" style={{ color: "#0F172A" }}>{feature.title}</h3>
-              <p className="text-[14px] leading-relaxed" style={{ color: "#64748B" }}>{feature.description}</p>
+              <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{feature.title}</h3>
+              <p className="text-[13px] leading-relaxed" style={{ color: "#64748B" }}>{feature.description}</p>
             </div>
           ))}
         </div>
@@ -460,20 +464,22 @@ function HowItWorksSection() {
   ]
 
   return (
-    <section ref={ref} id="how-it-works" className="py-20 lg:py-28 px-4 lg:px-8" style={{ background: "#0F172A" }}>
-      <div className="w-full max-w-[1200px] mx-auto">
+    <section ref={ref} id="how-it-works" className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#0F172A" }}>
+      <div className="w-full max-w-[1100px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: BRAND_BLUE }}>
-            See It In Action
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight text-white">
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#64748B" }}>See It In Action</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white">
             How TradeGuard Works
           </h2>
         </div>
 
         {/* Steps */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {steps.map((step, idx) => (
             <div
               key={idx}
@@ -481,13 +487,13 @@ function HowItWorksSection() {
               style={{ transitionDelay: `${idx * 150}ms` }}
             >
               <div
-                className="text-[48px] lg:text-[64px] font-black mb-4"
+                className="text-[40px] lg:text-[52px] font-black mb-3"
                 style={{ color: BRAND_BLUE }}
               >
                 {step.number}
               </div>
-              <h3 className="text-[20px] font-bold text-white mb-3">{step.title}</h3>
-              <p className="text-[15px] leading-relaxed" style={{ color: "#94A3B8" }}>{step.description}</p>
+              <h3 className="text-[17px] font-bold text-white mb-2">{step.title}</h3>
+              <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "#94A3B8" }}>{step.description}</p>
             </div>
           ))}
         </div>
@@ -509,14 +515,16 @@ function ComparisonSection() {
   ]
 
   return (
-    <section ref={ref} className="py-20 lg:py-28 px-4 lg:px-8">
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8">
       <div className="w-full max-w-[900px] mx-auto">
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase mb-3" style={{ color: BRAND_BLUE }}>
-            Why TradeGuard
-          </p>
-          <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight" style={{ color: "#0F172A" }}>
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Why TradeGuard</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+          </div>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
             Manual Checking vs{" "}
             <span style={{ color: BRAND_BLUE }}>TradeGuard</span>
           </h2>
@@ -530,17 +538,17 @@ function ComparisonSection() {
           <table className="w-full">
             <thead>
               <tr style={{ background: "#F8FAFC" }}>
-                <th className="text-left py-4 px-6 text-[14px] font-semibold" style={{ color: "#64748B" }}>Metric</th>
-                <th className="text-left py-4 px-6 text-[14px] font-semibold" style={{ color: "#64748B" }}>Manual</th>
-                <th className="text-left py-4 px-6 text-[14px] font-semibold" style={{ color: BRAND_BLUE }}>TradeGuard</th>
+                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: "#64748B" }}>Metric</th>
+                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: "#64748B" }}>Manual</th>
+                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: BRAND_BLUE }}>TradeGuard</th>
               </tr>
             </thead>
             <tbody>
               {metrics.map((row, idx) => (
                 <tr key={idx} style={{ borderTop: "1px solid #E2E8F0" }}>
-                  <td className="py-4 px-6 text-[15px] font-medium" style={{ color: "#475569" }}>{row.metric}</td>
-                  <td className="py-4 px-6 text-[15px]" style={{ color: "#0F172A" }}>{row.manual}</td>
-                  <td className="py-4 px-6 text-[15px] font-semibold" style={{ color: BRAND_GREEN }}>{row.tradeguard}</td>
+                  <td className="py-3 px-5 text-[13px] sm:text-[14px] font-medium" style={{ color: "#475569" }}>{row.metric}</td>
+                  <td className="py-3 px-5 text-[13px] sm:text-[14px]" style={{ color: "#0F172A" }}>{row.manual}</td>
+                  <td className="py-3 px-5 text-[13px] sm:text-[14px] font-semibold" style={{ color: BRAND_GREEN }}>{row.tradeguard}</td>
                 </tr>
               ))}
             </tbody>
@@ -557,20 +565,20 @@ function CTASection() {
   return (
     <section
       ref={ref}
-      className="py-20 lg:py-28 px-4 lg:px-8"
+      className="py-10 lg:py-14 px-5 lg:px-8"
       style={{ background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)" }}
     >
       <div className={`max-w-[800px] mx-auto text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <h2 className="text-[32px] lg:text-[44px] font-bold leading-tight text-white mb-4">
+        <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white mb-3">
           Stop Losing Money to Document Errors
         </h2>
-        <p className="text-[17px] leading-relaxed mb-10" style={{ color: "#94A3B8" }}>
+        <p className="text-[14px] sm:text-[15px] leading-relaxed mb-6" style={{ color: "#94A3B8" }}>
           Every mismatch you miss is money walking out the door. Let TradeGuard catch them all before customs does.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/book-demo"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-[16px] font-bold transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-bold transition-all duration-300 hover:scale-105 btn-shine"
             style={{
               background: `linear-gradient(135deg, ${BRAND_BLUE}, ${BRAND_GREEN})`,
               color: "#FFFFFF",
@@ -582,7 +590,7 @@ function CTASection() {
           </Link>
           <Link
             href="/#products"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-[16px] font-semibold transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
             style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "#FFFFFF" }}
           >
             Explore Other Products

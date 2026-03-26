@@ -189,20 +189,20 @@ function ProductShowcase() {
                 {/* Gradient top accent */}
                 <div className="h-1 rounded-t-2xl" style={{ background: `linear-gradient(90deg, ${product.color}, ${product.color}88)` }} />
 
-                <div className="p-6 lg:p-8 flex flex-col flex-1">
+                <div className="p-5 lg:p-6 flex flex-col flex-1">
                   {/* Icon + Name row */}
-                  <div className="flex items-center gap-4 mb-4">
+                  <div className="flex items-center gap-4 mb-3">
                     <div
-                      className="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-[-3deg]"
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-[-3deg]"
                       style={{
                         background: `linear-gradient(135deg, ${product.color}, ${product.color}bb)`,
                         boxShadow: `0 8px 24px ${product.color}30`,
                       }}
                     >
-                      <Icon className="w-7 h-7 text-white" />
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-[20px] sm:text-[22px] font-extrabold" style={{ color: "#0F172A" }}>
+                      <h3 className="text-[18px] sm:text-[20px] font-extrabold" style={{ color: "#0F172A" }}>
                         {product.name}
                       </h3>
                       <p className="text-[12px] font-semibold" style={{ color: product.color }}>{product.tagline}</p>
@@ -210,12 +210,12 @@ function ProductShowcase() {
                   </div>
 
                   {/* Description */}
-                  <p className="text-[13px] sm:text-[14px] leading-relaxed mb-6 flex-1" style={{ color: "#475569" }}>
+                  <p className="text-[13px] sm:text-[14px] leading-relaxed mb-4 flex-1" style={{ color: "#475569" }}>
                     {product.description}
                   </p>
 
                   {/* Stats row */}
-                  <div className="flex items-center gap-4 mb-6 pb-6" style={{ borderBottom: "1px solid #E2E8F0" }}>
+                  <div className="flex items-center gap-4 mb-4 pb-4" style={{ borderBottom: "1px solid #E2E8F0" }}>
                     <div className="flex-1 text-center py-3 rounded-xl" style={{ background: `${product.color}08` }}>
                       <div className="text-[22px] font-black" style={{ color: product.color }}>{product.stat}</div>
                       <div className="text-[11px] font-medium" style={{ color: "#94A3B8" }}>{product.statLabel}</div>
@@ -566,7 +566,7 @@ function HowItWorks() {
                 key={idx}
                 onClick={() => setActiveIdx(idx)}
                 onMouseEnter={() => setActiveIdx(idx)}
-                className={`journey-card card-shimmer-on-hover relative rounded-2xl p-6 cursor-pointer ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                className={`journey-card card-shimmer-on-hover relative rounded-2xl p-5 cursor-pointer ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{
                   transitionDelay: `${idx * 120}ms`,
                   transitionDuration: '0.6s',
@@ -587,7 +587,7 @@ function HowItWorks() {
 
                 {/* Step number badge */}
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-all duration-500"
+                  className="w-9 h-9 rounded-xl flex items-center justify-center mb-3 transition-all duration-500"
                   style={{
                     background: active ? `linear-gradient(135deg, ${step.color}, ${step.accent})` : '#F1F5F9',
                     color: active ? '#FFFFFF' : '#94A3B8',
@@ -607,7 +607,7 @@ function HowItWorks() {
                 </h3>
 
                 {/* Story */}
-                <p className="text-[13px] leading-relaxed mb-4 transition-colors duration-300"
+                <p className="text-[13px] leading-relaxed mb-3 transition-colors duration-300"
                   style={{ color: active ? '#475569' : '#94A3B8' }}>
                   {step.story}
                 </p>
@@ -637,7 +637,7 @@ function HowItWorks() {
         </div>
 
         {/* Progress dots */}
-        <div className="flex justify-center items-center gap-2 mb-8">
+        <div className="flex justify-center items-center gap-2 mb-5">
           {steps.map((step, idx) => (
             <button
               key={idx}

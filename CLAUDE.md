@@ -287,6 +287,10 @@ These rules apply to **every** change made to the website. Follow them exactly.
 - Every design decision should prioritise **customer convenience** — easy scanning, clear hierarchy, obvious actions.
 - If a user lands on the page, they should understand what each section does without effort.
 
+### 6. Award card sizes are LOCKED
+- The AwardsSection card layout in `app/page.tsx` (card dimensions `h-[460px] sm:h-[500px]`, grid layout, gradient border, image positioning, overlaid footer) must NOT be resized, restructured, or altered in any future change.
+- These cards have been carefully designed and iterated multiple times. Any changes to the award section should only touch text content or links, never the card structure or dimensions.
+
 ---
 
 ## What NOT to Do

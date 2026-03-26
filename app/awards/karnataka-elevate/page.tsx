@@ -36,19 +36,30 @@ export default function KarnatakaElevatePage() {
 
       {/* Hero */}
       <section
-        className="pt-[100px] lg:pt-[120px] pb-10 px-5 lg:px-8 text-center"
+        className="pt-[100px] lg:pt-[120px] pb-10 px-5 lg:px-8 text-center relative overflow-hidden"
         style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}
       >
-        <div ref={hero.ref} className="max-w-[860px] mx-auto">
+        {/* Logo as faded background */}
+        <div
+          className="absolute inset-0 pointer-events-none flex items-center justify-center"
+          style={{ opacity: 0.05 }}
+        >
+          <Image
+            src="/images/karnataka_itbt_department_logo.png"
+            alt=""
+            width={500}
+            height={500}
+            className="object-contain"
+            aria-hidden="true"
+          />
+        </div>
+
+        <div ref={hero.ref} className="max-w-[860px] mx-auto relative">
           <div className={`transition-all duration-600 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
               <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Award</span>
               <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
-            </div>
-
-            <div className="w-20 h-16 mx-auto mb-4 rounded-xl overflow-hidden flex items-center justify-center" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
-              <Image src="/images/karnataka_itbt_department_logo.png" alt="Karnataka IT/BT Department" width={72} height={56} className="object-contain p-1" />
             </div>
 
             <h1 className="text-[26px] sm:text-[36px] lg:text-[48px] font-extrabold leading-tight tracking-tight mb-2" style={{ color: "#0F172A" }}>
@@ -71,8 +82,8 @@ export default function KarnatakaElevatePage() {
       </section>
 
       {/* Featured Image */}
-      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
-        <div ref={photo.ref} className="max-w-[860px] mx-auto">
+      <section className="py-6 lg:py-8 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+        <div ref={photo.ref} className="max-w-[700px] mx-auto">
           <div className={`transition-all duration-700 ${photo.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div
               className="relative rounded-2xl overflow-hidden aspect-[16/9]"
