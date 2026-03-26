@@ -12,11 +12,9 @@ import Image from "next/image"
 import Link from "next/link"
 import React, { useEffect, useRef, useState } from "react"
 import { Shield, Globe, Calculator, ArrowRight, X, Trophy } from "lucide-react"
-import { trackBookDemoCTAClick, trackWatchDemoClick, trackJourneyStepViewed, trackPartnerInteracted, trackVideoPlayed, trackAwardInteracted, trackProductCTAClick } from "@/lib/amplitude"
+import { trackBookDemoCTAClick, trackJourneyStepViewed, trackPartnerInteracted, trackAwardInteracted, trackProductCTAClick } from "@/lib/amplitude"
 
 export default function LiquidmindLanding() {
-  const [autoplayVideo, setAutoplayVideo] = useState(false)
-
   useEffect(() => {
     const hash = window.location.hash
     if (hash) {
@@ -34,13 +32,12 @@ export default function LiquidmindLanding() {
     <main className="bg-white">
 
       <Navigation />
-      <PatramHero onWatchDemo={() => setAutoplayVideo(true)} />
+      <PatramHero />
       <ProblemSection />
       <ProductShowcase />
       <HowItWorks />
       <div className="page-snap"><ROICalculator /></div>
       <AwardsSection />
-      <MicroConversionSection autoplay={autoplayVideo} />
       <div className="page-snap"><FAQSection /></div>
       <CTASection />
       <FooterLinks />
@@ -694,6 +691,7 @@ function AwardsSection() {
       logo: "/images/Aegis_award_logo.jpg",
       logoAlt: "Aegis Graham Bell Award",
       accent: "#0066CC",
+      href: "/awards/aegis-graham-bell",
     },
     {
       date: "JANUARY 2026",
@@ -704,6 +702,7 @@ function AwardsSection() {
       logo: "/images/karnataka_itbt_department_logo.png",
       logoAlt: "Karnataka Elevate",
       accent: "#00A86B",
+      href: "/awards/karnataka-elevate",
     },
   ]
 
@@ -716,15 +715,15 @@ function AwardsSection() {
           <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
         </div>
         <h2 className={`text-[26px] sm:text-[30px] lg:text-[40px] font-extrabold text-center leading-[1.1] tracking-[-0.02em] mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ color: "#0F172A" }}>
-          Backed by the{" "}
-          <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">best in the industry.</span>
+          Recognised. Validated.{" "}
+          <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">Trusted.</span>
         </h2>
 
         <div className="grid lg:grid-cols-2 gap-5 mb-6">
           {awards.map((award, idx) => (
-            <div key={idx}
+            <Link key={idx} href={award.href}
               onMouseEnter={() => trackAwardInteracted(award.title)}
-              className={`relative rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              className={`relative rounded-2xl group cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{ transitionDelay: `${idx * 150}ms` }}
             >
               {/* Gradient border shell — 2px gradient edge */}
@@ -797,7 +796,7 @@ function AwardsSection() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -805,7 +804,7 @@ function AwardsSection() {
       {/* Backed By - Partner Logos Marquee */}
       <div className="w-full py-5" style={{ background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
         <div className="w-full text-center px-4 relative flex flex-col items-center">
-          <p className="text-[13px] font-semibold mb-4 tracking-[0.1em] uppercase" style={{ color: "#94A3B8" }}>Backed by</p>
+          <p className="text-[13px] font-semibold mb-4 tracking-[0.1em] uppercase" style={{ color: "#94A3B8" }}>Recognised by</p>
           <div className="w-full max-w-[1200px] overflow-hidden relative h-20 sm:h-32">
             <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-40 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #F8FAFC, transparent)' }} />
             <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-40 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #F8FAFC, transparent)' }} />
@@ -844,75 +843,6 @@ function AwardsSection() {
 }
 
 
-/* ========================
-   DEMO VIDEO SECTION
-======================== */
-function MicroConversionSection({ autoplay }: { autoplay: boolean }) {
-  const { ref, isInView } = useInView()
-  const hasTrackedRef = useRef(false)
-
-  useEffect(() => {
-    if (isInView && !hasTrackedRef.current) {
-      hasTrackedRef.current = true
-      trackVideoPlayed("Liquidmind AI Demo Section")
-    }
-  }, [isInView])
-
-  return (
-    <section id="video-demo" ref={ref} className="page-snap flex flex-col justify-center py-6 lg:py-8 px-4 lg:px-8" style={{ background: "#F8FAFC" }}>
-      <div className="w-full max-w-[800px] mx-auto">
-
-        {/* Header */}
-        <div className={`text-center mb-4 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="flex items-center justify-center gap-3 mb-1.5">
-            <div className="h-px w-6 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>See It Live</span>
-            <div className="h-px w-6 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
-          </div>
-          <h2 className="text-[20px] sm:text-[26px] lg:text-[32px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-1" style={{ color: "#0F172A" }}>
-            See it{" "}
-            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
-              in action.
-            </span>
-          </h2>
-          <p className="text-[13px] sm:text-[14px]" style={{ color: "#64748B" }}>
-            A real document audit. No slides, no fluff.
-          </p>
-        </div>
-
-        {/* Video embed — 16:9 responsive on all screens */}
-        <div
-          className={`relative rounded-2xl overflow-hidden transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-          style={{ border: "1px solid #E2E8F0", boxShadow: "0 8px 40px rgba(0,102,204,0.12)" }}
-        >
-          <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%", height: 0 }}>
-            <iframe
-              src={`https://www.youtube.com/embed/OBuNapaXt2I${autoplay ? '?autoplay=1&mute=1' : ''}`}
-              title="Liquidmind AI Demo"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }}
-            />
-          </div>
-        </div>
-
-        {/* CTA below video */}
-        <div className={`text-center mt-4 transition-all duration-700 delay-300 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <Link
-            href="/book-demo"
-            className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-[15px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
-            style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
-          >
-            Book a Live Demo
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-
-      </div>
-    </section>
-  )
-}
-
 function AwardToast() {
   const [dismissed, setDismissed] = useState(false)
   const [visible, setVisible] = useState(false)
@@ -948,25 +878,21 @@ function AwardToast() {
       <div className="flex flex-col gap-0.5 min-w-0">
         <span className="text-[12px] font-bold" style={{ color: "#0F172A" }}>Award-Winning AI</span>
         <div className="flex items-center gap-3">
-          <a
-            href="https://www.linkedin.com/posts/liquid-mind-product-consulting-inc%2E_agba2026-aegisgrahambellawards-winner-activity-7434940047562375169-5N1e"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/awards/aegis-graham-bell"
             className="text-[11px] font-semibold hover:underline"
             style={{ color: "#0066CC" }}
           >
             Aegis Graham Bell 2026
-          </a>
+          </Link>
           <span className="text-[10px]" style={{ color: "#CBD5E1" }}>|</span>
-          <a
-            href="https://www.linkedin.com/posts/liquid-mind-product-consulting-inc%2E_elevate2025-liquidmindai-bengalurutechsummit-activity-7397673114660200448-d0-J"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/awards/karnataka-elevate"
             className="text-[11px] font-semibold hover:underline"
             style={{ color: "#0066CC" }}
           >
             Karnataka Elevate 2025
-          </a>
+          </Link>
         </div>
       </div>
       <button

@@ -5,7 +5,7 @@ import Link from "next/link"
 import { ArrowRight, Shield, Calculator, Globe, Sparkles, FileText, User } from "lucide-react"
 import { trackBookDemoCTAClick, trackWatchDemoClick } from "@/lib/amplitude"
 
-export function PatramHero({ onWatchDemo }: { onWatchDemo?: () => void }) {
+export function PatramHero() {
   const [isInView, setIsInView] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -106,12 +106,9 @@ export function PatramHero({ onWatchDemo }: { onWatchDemo?: () => void }) {
                 Explore Patram AI
               </Link>
             </div>
-            <button
-              onClick={() => {
-                trackWatchDemoClick("Hero")
-                onWatchDemo?.()
-                document.getElementById("video-demo")?.scrollIntoView({ behavior: "smooth" })
-              }}
+            <Link
+              href="/demo/patram"
+              onClick={() => trackWatchDemoClick("Hero")}
               className="inline-flex items-center gap-1.5 text-[13px] font-semibold mb-6 transition-colors hover:opacity-80"
               style={{ color: "#0066CC" }}
             >
@@ -119,7 +116,7 @@ export function PatramHero({ onWatchDemo }: { onWatchDemo?: () => void }) {
                 <polygon points="5 3 19 12 5 21 5 3" />
               </svg>
               Watch demo
-            </button>
+            </Link>
 
             {/* Stats row */}
             <div className="flex items-center justify-center lg:justify-start mb-5">

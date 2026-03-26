@@ -68,6 +68,9 @@ const companyLinks = [
   { name: "Map", href: "/company#map" },
   { name: "Giving Back", href: "/company/giving-back" },
   { name: "divider", href: "" },
+  { name: "Aegis Graham Bell Award", href: "/awards/aegis-graham-bell" },
+  { name: "Karnataka Elevate 2025", href: "/awards/karnataka-elevate" },
+  { name: "divider", href: "" },
   { name: "Privacy Policy", href: "/legal/privacy-policy" },
   { name: "Terms of Service", href: "/legal/terms" },
 ]
