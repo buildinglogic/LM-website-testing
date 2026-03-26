@@ -157,29 +157,34 @@ export function PatramHero() {
           </div>
         </div>
 
-        {/* LOWER SECTION — Other Products — premium inline strip */}
+        {/* LOWER SECTION — Other Products */}
         <div className={`mt-6 lg:mt-8 pt-5 transition-all duration-700 delay-[700ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ borderTop: "1px solid #E2E8F0" }}>
-          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-4 items-center">
             {[
-              { name: "TradeGuard", tagline: "Document Mismatch Detection", href: "/products/tradeguard", color: "#0066CC" },
-              { name: "TariffIQ", tagline: "HSN Classification & Duty", href: "/products/tariffiq", color: "#1B4F8A" },
+              { name: "TradeGuard", tagline: "Document Mismatch Detection", desc: "Cross-checks 40+ fields between Shipping Bill and Invoice in under 5 seconds.", href: "/products/tradeguard", color: "#0066CC", stat: "40+ fields" },
+              { name: "TariffIQ", tagline: "HSN Classification & Duty", desc: "AI classifies products to 8-digit ITC-HS and compares RoDTEP vs Drawback.", href: "/products/tariffiq", color: "#1B4F8A", stat: "95% accuracy" },
             ].map((p) => (
               <Link
                 key={p.name}
                 href={p.href}
-                className="group flex items-center gap-3 transition-all duration-300 hover:translate-x-1"
+                className="group flex items-start gap-3.5 px-4 py-3.5 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}
               >
-                <div className="w-1 h-8 rounded-full transition-all duration-300 group-hover:h-10" style={{ background: p.color }} />
-                <div>
-                  <p className="text-[13px] font-bold leading-tight transition-colors" style={{ color: "#0F172A" }}>{p.name}</p>
-                  <p className="text-[11px] leading-tight mt-0.5" style={{ color: "#64748B" }}>{p.tagline}</p>
+                <div className="w-1.5 h-full min-h-[48px] rounded-full flex-shrink-0 transition-all duration-300 group-hover:w-2" style={{ background: p.color }} />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <p className="text-[14px] font-bold leading-tight" style={{ color: "#0F172A" }}>{p.name}</p>
+                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded" style={{ background: `${p.color}10`, color: p.color }}>{p.stat}</span>
+                  </div>
+                  <p className="text-[11px] font-semibold mb-1" style={{ color: p.color }}>{p.tagline}</p>
+                  <p className="text-[11px] leading-snug" style={{ color: "#64748B" }}>{p.desc}</p>
                 </div>
-                <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" style={{ color: p.color }} />
+                <ArrowRight className="w-4 h-4 mt-1 flex-shrink-0 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" style={{ color: p.color }} />
               </Link>
             ))}
-            <div className="hidden sm:block w-px h-6" style={{ background: "#E2E8F0" }} />
-            <a href="#products" className="inline-flex items-center gap-1.5 text-[12px] font-semibold transition-all duration-300 hover:gap-2.5" style={{ color: "#0066CC" }}>
-              Explore all products <ArrowRight className="w-3 h-3" />
+            <a href="#products" className="inline-flex items-center justify-center gap-1.5 text-[12px] font-semibold transition-all duration-300 hover:gap-2.5 sm:flex-col sm:gap-0.5" style={{ color: "#0066CC" }}>
+              <span>Explore all</span>
+              <ArrowRight className="w-3 h-3" />
             </a>
           </div>
         </div>

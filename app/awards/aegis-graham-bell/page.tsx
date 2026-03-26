@@ -41,14 +41,17 @@ export default function AegisGrahamBellPage() {
         className="pt-[100px] lg:pt-[120px] pb-10 px-5 lg:px-8 relative overflow-hidden"
         style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}
       >
-        {/* Award logo — visible */}
-        <div className="absolute top-6 right-6 lg:top-10 lg:right-10 pointer-events-none" style={{ opacity: 0.15 }}>
+        {/* Award logo — large centered background */}
+        <div
+          className="absolute inset-0 pointer-events-none flex items-center justify-center"
+          style={{ opacity: 0.08 }}
+        >
           <Image
             src="/images/Aegis_award_logo.jpg"
             alt=""
-            width={200}
-            height={200}
-            className="object-contain"
+            width={600}
+            height={424}
+            className="object-contain w-[400px] lg:w-[600px] h-auto"
             aria-hidden="true"
           />
         </div>
@@ -92,26 +95,46 @@ export default function AegisGrahamBellPage() {
       <section className="py-8 lg:py-10 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div ref={mainPhotos.ref} className="max-w-[1100px] mx-auto">
           <div className={`transition-all duration-700 ${mainPhotos.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {[
-                { src: "/images/graham-bell-group-winners.jpg", alt: "Aegis Graham Bell Award — group photo of all winners" },
-                { src: "/images/graham-bell-award-ceremony.png", alt: "Liquidmind AI at the Aegis Graham Bell Award ceremony" },
-                { src: "/images/graham-bell-award-certificate-framed.png", alt: "Aegis Graham Bell Award certificate — Liquidmind AI" },
-              ].map((img, i) => (
-                <div
-                  key={i}
-                  className="relative rounded-2xl overflow-hidden"
-                  style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={600}
-                    height={400}
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-4">
+              {/* Hero image — wide group photo spans full width */}
+              <div
+                className="relative rounded-2xl overflow-hidden md:col-span-2"
+                style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}
+              >
+                <Image
+                  src="/images/graham-bell-group-winners.jpg"
+                  alt="Aegis Graham Bell Award — group photo of all winners"
+                  width={1200}
+                  height={677}
+                  className="w-full h-auto object-cover"
+                  style={{ maxHeight: "360px" }}
+                />
+              </div>
+              {/* Two side-by-side */}
+              <div
+                className="relative rounded-2xl overflow-hidden"
+                style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}
+              >
+                <Image
+                  src="/images/graham-bell-award-ceremony.png"
+                  alt="Liquidmind AI at the Aegis Graham Bell Award ceremony"
+                  width={800}
+                  height={637}
+                  className="w-full h-[240px] object-cover"
+                />
+              </div>
+              <div
+                className="relative rounded-2xl overflow-hidden"
+                style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}
+              >
+                <Image
+                  src="/images/graham-bell-award-certificate-framed.png"
+                  alt="Aegis Graham Bell Award certificate — Liquidmind AI"
+                  width={1920}
+                  height={1440}
+                  className="w-full h-[240px] object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -176,28 +199,28 @@ export default function AegisGrahamBellPage() {
               <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Gallery</span>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {[
-                { src: "/images/graham-bell-bharat-ai-stage.png", alt: "Bharat AI stage at Aegis Graham Bell Awards" },
-                { src: "/images/graham-bell-presentation.png", alt: "Liquidmind AI presentation at Graham Bell Awards" },
-                { src: "/images/graham-bell-team.png", alt: "Liquidmind AI team at the awards" },
-                { src: "/images/graham-bell-interaction.png", alt: "Networking at Aegis Graham Bell Awards" },
-                { src: "/images/graham-bell-booth.png", alt: "Liquidmind AI booth at the event" },
-                { src: "/images/graham-bell-solo-booth.png", alt: "Liquidmind AI solo booth display" },
-                { src: "/images/graham-bell-booth-signage.png", alt: "Booth signage at Graham Bell Awards" },
-                { src: "/images/graham-bell-trophy-closeup.png", alt: "Aegis Graham Bell Award trophy closeup" },
+                { src: "/images/graham-bell-bharat-ai-stage.png", alt: "Bharat AI stage at Aegis Graham Bell Awards", span: "md:col-span-2", h: "h-[200px] md:h-[280px]" },
+                { src: "/images/graham-bell-trophy-closeup.png", alt: "Aegis Graham Bell Award trophy closeup", span: "", h: "h-[200px] md:h-[280px]" },
+                { src: "/images/graham-bell-presentation.png", alt: "Liquidmind AI presentation at Graham Bell Awards", span: "", h: "h-[180px] md:h-[220px]" },
+                { src: "/images/graham-bell-interaction.png", alt: "Networking at Aegis Graham Bell Awards", span: "", h: "h-[180px] md:h-[220px]" },
+                { src: "/images/graham-bell-team.png", alt: "Liquidmind AI team at the awards", span: "", h: "h-[180px] md:h-[220px]" },
+                { src: "/images/graham-bell-booth.png", alt: "Liquidmind AI booth at the event", span: "", h: "h-[180px] md:h-[220px]" },
+                { src: "/images/graham-bell-solo-booth.png", alt: "Liquidmind AI solo booth display", span: "", h: "h-[180px] md:h-[220px]" },
+                { src: "/images/graham-bell-booth-signage.png", alt: "Booth signage at Graham Bell Awards", span: "", h: "h-[180px] md:h-[220px]" },
               ].map((img, i) => (
                 <div
                   key={i}
-                  className={`relative rounded-xl overflow-hidden transition-all duration-700 ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                  className={`relative rounded-xl overflow-hidden transition-all duration-700 ${img.span} ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                   style={{ border: "1px solid #E2E8F0", transitionDelay: `${i * 60}ms` }}
                 >
                   <Image
                     src={img.src}
                     alt={img.alt}
-                    width={400}
-                    height={300}
-                    className="w-full h-auto object-contain"
+                    width={800}
+                    height={600}
+                    className={`w-full ${img.h} object-cover`}
                   />
                 </div>
               ))}
