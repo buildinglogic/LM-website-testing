@@ -74,7 +74,7 @@ export default function CompanyPage() {
             </span>
           </h1>
           <p className="text-[16px] sm:text-[17px] lg:text-[18px] max-w-3xl mx-auto leading-relaxed" style={{ color: "#475569" }}>
-            We automate international trade workflows using Agentic AI — transforming the fragmented doc flow, funds flow, and goods flow journey for Indian exporters and global traders.
+            We build AI Agents that automate international trade workflows — from compliance and documentation to classification and duty optimization.
           </p>
         </div>
       </section>
