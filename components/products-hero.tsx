@@ -295,24 +295,24 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
         </div>
 
         {/* AI response — left-aligned with chat arrow and brain logo */}
-        <div className="flex items-start gap-1.5 flex-1 min-h-0">
+        <div className="flex items-start gap-1.5 flex-1 min-h-0 overflow-hidden">
           <div className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style={{ background: "linear-gradient(135deg, #6366F1, #8B5CF6)" }}>
             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 2v20M8 8h8M8 12h8M9 16h6" />
               <circle cx="12" cy="10" r="8" />
             </svg>
           </div>
-          <div className="flex-1 min-w-0">
-            <div className="relative">
+          <div className="flex-1 min-w-0 min-h-0 overflow-hidden">
+            <div className="relative h-full">
               {/* Chat arrow — left side */}
-              <div className="absolute top-[8px] -left-[5px] w-[10px] h-[10px] overflow-hidden">
+              <div className="absolute top-[8px] -left-[5px] w-[10px] h-[10px] overflow-hidden z-10">
                 <div className="w-[10px] h-[10px] rotate-45 origin-bottom-right" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRight: "none", borderBottom: "none" }} />
               </div>
 
-              <div className="px-3.5 py-2.5 rounded-2xl rounded-tl-sm" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
-                <p className="text-[11px] font-semibold mb-2" style={{ color: "#6366F1" }}>Patram AI</p>
+              <div className="px-3 py-2 rounded-2xl rounded-tl-sm h-full overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
+                <p className="text-[10px] font-semibold mb-1.5" style={{ color: "#6366F1" }}>Patram AI</p>
 
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   {messages.map((msg, idx) => {
                     const visible = idx < messageStep
                     const isTyping = idx === messageStep && messageStep <= messages.length - 1
@@ -326,7 +326,7 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
                           transform: visible ? "translateY(0)" : "translateY(3px)",
                         }}
                       >
-                        <div className="px-2.5 py-2 rounded-lg" style={{ background: visible ? "#F8FAFC" : "#FAFBFC", borderLeft: `3px solid ${visible ? msg.borderColor : "#E2E8F0"}` }}>
+                        <div className="px-2 py-1.5 rounded-lg" style={{ background: visible ? "#F8FAFC" : "#FAFBFC", borderLeft: `2px solid ${visible ? msg.borderColor : "#E2E8F0"}` }}>
                           {isTyping ? (
                             <div className="flex items-center gap-1 py-0.5">
                               {[0, 1, 2].map(i => (
@@ -334,13 +334,13 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
                               ))}
                             </div>
                           ) : (
-                            <div className="flex items-start justify-between gap-2">
+                            <div className="flex items-start justify-between gap-1.5">
                               <div className="flex-1 min-w-0">
-                                <p className="text-[11px] font-bold leading-tight" style={{ color: visible ? msg.titleColor : "#CBD5E1" }}>{msg.title}</p>
-                                <p className="text-[10px] leading-snug mt-0.5" style={{ color: visible ? "#475569" : "#E2E8F0" }}>{msg.text}</p>
+                                <p className="text-[10px] font-bold leading-tight" style={{ color: visible ? msg.titleColor : "#CBD5E1" }}>{msg.title}</p>
+                                <p className="text-[9px] leading-snug mt-0.5" style={{ color: visible ? "#475569" : "#E2E8F0" }}>{msg.text}</p>
                               </div>
                               {visible && (
-                                <span className="flex-shrink-0 text-[8px] font-medium px-1.5 py-0.5 rounded" style={{ background: "#F1F5F9", color: "#94A3B8", border: "1px solid #E2E8F0" }}>{msg.source}</span>
+                                <span className="flex-shrink-0 text-[7px] font-medium px-1 py-0.5 rounded" style={{ background: "#F1F5F9", color: "#94A3B8", border: "1px solid #E2E8F0" }}>{msg.source}</span>
                               )}
                             </div>
                           )}
