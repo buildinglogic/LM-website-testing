@@ -78,7 +78,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="pt-[100px] sm:pt-[120px] lg:pt-[140px] pb-4 sm:pb-6 lg:pb-12 px-4 sm:px-5 lg:px-8 relative overflow-hidden"
+      className="pt-[100px] sm:pt-[120px] lg:pt-[140px] pb-10 sm:pb-10 lg:pb-12 px-4 sm:px-5 lg:px-8 relative overflow-hidden"
       style={{ background: "#FFFFFF" }}
     >
       {/* World map bg */}
