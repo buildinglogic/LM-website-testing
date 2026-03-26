@@ -298,6 +298,24 @@ These rules apply to **every** change made to the website. Follow them exactly.
 - The AwardsSection card layout in `app/page.tsx` (card dimensions `h-[460px] sm:h-[500px]`, grid layout, gradient border, image positioning, overlaid footer) must NOT be resized, restructured, or altered in any future change.
 - These cards have been carefully designed and iterated multiple times. Any changes to the award section should only touch text content or links, never the card structure or dimensions.
 
+
+
+
+---
+
+## PatramCard Design Spec (`components/products-hero.tsx`)
+
+When rebuilding or modifying `PatramCard`, follow this spec exactly:
+
+- **Shell**: macOS app window style — traffic light dots (red `#FF5F56`, yellow `#FFBD2E`, green `#27C93F`) top-left, "Patram AI" bold title + muted subtitle next to them, PDF pill badge top-right — all in **one header row**
+- **User bubble**: solid `#0066CC`, `max-w-[75%]`, right-aligned, `borderRadius: "18px 18px 4px 18px"`, no label, no wrapper card — iMessage style
+- **AI bubbles**: `#F2F2F7`, `max-w-[88%]`, left-aligned, `borderRadius: "18px 18px 18px 4px"` — title in `font-bold #0F172A` (no colour), body in `#475569`, source shown as just `"Pg X"` in a small grey badge
+- **Gradient (`#0066CC → #00A86B`) only on the send button** — never on chat bubbles
+- **Layout**: `flex flex-col` on outer card, `flex-1 min-h-0 overflow-hidden` on chat area, `flex-shrink-0` on header and input bar — messages must never escape the card boundary
+- **Float**: `animate-float` class on outer card div
+- **Shadow**: `0 32px 100px rgba(0,102,204,0.18), 0 12px 40px rgba(0,0,0,0.06)` + `border: 1px solid #E2E8F0`
+- **Preserve all animation logic** (interval, step counter, typing dots) exactly — do not alter timing or step logic
+
 ---
 
 ## What NOT to Do

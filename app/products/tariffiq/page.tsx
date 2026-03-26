@@ -5,17 +5,14 @@ import { Footer } from "@/components/footer"
 import { FooterLinks } from "@/components/footer-links"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import Link from "next/link"
-import { ArrowRight, Calculator, AlertTriangle, Clock, TrendingDown, RefreshCw, ChevronRight, Search, Database, Globe, Zap, BarChart3, Bell } from "lucide-react"
+import { ArrowRight, ChevronRight } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 
-const BRAND_BLUE_DARK = "#1B4F8A"
-const BRAND_BLUE = "#0066CC"
-const BRAND_GREEN = "#00A86B"
+const NAVY = "#1B4F8A"
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
   const [isInView, setIsInView] = useState(false)
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setIsInView(true) },
@@ -24,18 +21,48 @@ function useInView(threshold = 0.1) {
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [threshold])
-
   return { ref, isInView }
+}
+
+function AnimatedCount({ to }: { to: number }) {
+  const [count, setCount] = useState(0)
+  const [started, setStarted] = useState(false)
+  const ref = useRef<HTMLSpanElement>(null)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setStarted(true) },
+      { threshold: 0.1 }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+  useEffect(() => {
+    if (!started) return
+    let frame: number
+    const t0 = performance.now()
+    const dur = 1400
+    const isDecimal = !Number.isInteger(to)
+    const tick = (now: number) => {
+      const p = Math.min((now - t0) / dur, 1)
+      const eased = 1 - Math.pow(1 - p, 3)
+      setCount(isDecimal ? parseFloat((eased * to).toFixed(1)) : Math.floor(eased * to))
+      if (p < 1) frame = requestAnimationFrame(tick)
+      else setCount(to)
+    }
+    frame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frame)
+  }, [started, to])
+  return <span ref={ref}>{Number.isInteger(to) ? count : count.toFixed(1)}</span>
 }
 
 export default function TariffIQPage() {
   return (
-    <main className="bg-white">
+    <main style={{ background: "#FFFFFF" }}>
       <Navigation />
       <HeroSection />
       <ProblemSection />
       <FeaturesSection />
-      <HowItWorksSection />
+      <UseCasesSection />
       <ComparisonSection />
       <CTASection />
       <FooterLinks />
@@ -51,184 +78,226 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="pt-[100px] lg:pt-[120px] pb-10 lg:pb-14 px-5 lg:px-8 relative overflow-hidden"
+      className="pt-[140px] pb-10 lg:pb-16 px-5 lg:px-8 relative overflow-hidden"
+      style={{ background: "#FFFFFF" }}
     >
-      {/* Gradient background */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `radial-gradient(ellipse 80% 50% at 50% -20%, ${BRAND_BLUE_DARK}10 0%, transparent 50%)`,
-        }}
-      />
+      {/* World map bg */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: "url('/images/world-map-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        opacity: 0.04,
+      }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, #FFFFFF 0%, transparent 30%, #FFFFFF 100%)" }} />
 
       <div className="w-full max-w-[1400px] mx-auto relative">
-        {/* Breadcrumb */}
-        <nav className={`flex items-center gap-2 mb-8 text-[14px] transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <Link href="/" className="text-[#64748B] hover:text-[#0F172A] transition-colors">Home</Link>
-          <ChevronRight className="w-4 h-4 text-[#CBD5E1]" />
-          <Link href="/#products" className="text-[#64748B] hover:text-[#0F172A] transition-colors">Products</Link>
-          <ChevronRight className="w-4 h-4 text-[#CBD5E1]" />
-          <span style={{ color: BRAND_BLUE_DARK }}>TariffIQ</span>
-        </nav>
 
-        <div className="grid sm:grid-cols-2 gap-8 lg:gap-14 items-center">
-          {/* Left: Content */}
-          <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {/* Product Name Header - Clear identification */}
-            <div className="mb-4">
-              <div className="flex items-center gap-3 mb-2">
-                <div 
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${BRAND_BLUE_DARK}, ${BRAND_BLUE})` }}
-                >
-                  <Calculator className="w-6 h-6 text-white" />
+        {/* Breadcrumb */}
+        <div className={`flex items-center gap-1.5 mb-8 transition-all duration-500 ${isInView ? "opacity-100" : "opacity-0"}`}>
+          <Link href="/" className="text-[11px] font-medium transition-colors hover:text-[#0F172A]" style={{ color: "#94A3B8" }}>Home</Link>
+          <ChevronRight className="w-3 h-3" style={{ color: "#CBD5E1" }} />
+          <Link href="/#products" className="text-[11px] font-medium transition-colors hover:text-[#0F172A]" style={{ color: "#94A3B8" }}>Products</Link>
+          <ChevronRight className="w-3 h-3" style={{ color: "#CBD5E1" }} />
+          <span className="text-[11px] font-semibold" style={{ color: NAVY }}>TariffIQ</span>
+        </div>
+
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
+
+          {/* Left: Copy */}
+          <div>
+            <div className={`flex items-center gap-3 mb-4 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #1B4F8A, #0066CC)" }} />
+              <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>TariffIQ</span>
+            </div>
+
+            <h1 className={`text-[28px] sm:text-[42px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.02em] mb-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
+              <span className="block text-[32px] sm:text-[48px] lg:text-[58px] bg-gradient-to-r from-[#1B4F8A] to-[#0066CC] bg-clip-text text-transparent pb-1">TariffIQ</span>
+              Classify right, claim every rupee.
+            </h1>
+
+            <p className={`text-[15px] sm:text-[16px] leading-relaxed mb-6 max-w-[480px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
+              Describe your product in plain English. TariffIQ classifies it to 8-digit ITC-HS and instantly shows whether RoDTEP or Duty Drawback earns you more.
+            </p>
+
+            {/* Stats */}
+            <div className={`flex flex-wrap items-center gap-4 sm:gap-5 mb-7 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <div>
+                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>
+                  <AnimatedCount to={95} />%
                 </div>
-                <div>
-                  <h2 className="text-[28px] lg:text-[36px] font-black tracking-tight" style={{ color: BRAND_BLUE_DARK }}>
-                    TariffIQ
-                  </h2>
-                  <span className="text-[13px] font-medium tracking-wide" style={{ color: "#64748B" }}>
-                    HSN Classification & Duty Calculator
-                  </span>
+                <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>Accuracy</div>
+              </div>
+              <div className="w-px h-8 flex-shrink-0" style={{ background: "#E2E8F0" }} />
+              <div>
+                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>
+                  <AnimatedCount to={21000} />+
                 </div>
+                <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>HSN codes</div>
+              </div>
+              <div className="w-px h-8 flex-shrink-0" style={{ background: "#E2E8F0" }} />
+              <div>
+                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>&lt;3s</div>
+                <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>Classify</div>
               </div>
             </div>
 
-            {/* Headline */}
-            <h1 className="text-[26px] sm:text-[36px] lg:text-[48px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-3 lg:mb-4" style={{ color: "#0F172A" }}>
-              Classify Once.
-              <br />
-              <span style={{ color: BRAND_BLUE_DARK }}>Maximize</span>
-              <br />
-              Every Incentive.
-            </h1>
-
-            {/* Description */}
-            <p className="text-[13px] sm:text-[15px] lg:text-[16px] leading-relaxed max-w-[520px] mb-4 lg:mb-5" style={{ color: "#475569" }}>
-              Stop guessing HSN codes. TariffIQ uses AI to classify your products to 8-digit ITC-HS and instantly shows whether RoDTEP or Duty Drawback earns you more.
-            </p>
-
-            {/* Stats - Mobile optimized */}
-            <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-6 lg:gap-12 mb-5 lg:mb-6">
-              {[
-                { value: "95%", label: "Classification Accuracy" },
-                { value: "< 3s", label: "Classification Time" },
-                { value: "2x", label: "More Incentive Claims" },
-              ].map((stat, idx) => (
-                <div key={idx} className="flex flex-col min-w-0">
-                  <span className="text-[24px] sm:text-[28px] lg:text-[36px] font-black tracking-tight leading-none" style={{ color: BRAND_BLUE_DARK }}>
-                    {stat.value}
-                  </span>
-                  <span className="text-[11px] sm:text-[12px] lg:text-[13px] font-medium mt-1 whitespace-nowrap" style={{ color: "#94A3B8" }}>
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-wrap">
+            <div className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-3 transition-all duration-700 delay-[400ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Link
                 href="/book-demo"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-bold transition-all duration-300 hover:scale-105 btn-shine"
-                style={{
-                  background: `linear-gradient(135deg, ${BRAND_BLUE_DARK}, ${BRAND_BLUE})`,
-                  color: "#FFFFFF",
-                  boxShadow: `0 4px 25px ${BRAND_BLUE_DARK}40`,
-                }}
+                className="w-full sm:w-[160px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+                style={{ background: "linear-gradient(135deg, #1B4F8A, #0066CC)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(27,79,138,0.3)" }}
               >
-                Try TariffIQ Free
-                <ArrowRight className="w-4 h-4" />
+                Book a Demo <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-              <a
-                href="#how-it-works"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
-                style={{ background: "#FFFFFF", border: `2px solid ${BRAND_BLUE_DARK}25`, color: BRAND_BLUE_DARK }}
-              >
-                See How It Works
-              </a>
               <Link
                 href="/demo/tariffiq"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
-                style={{ background: "#FFFFFF", border: "2px solid #1B4F8A", color: "#1B4F8A" }}
+                className="w-full sm:w-[160px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
+                style={{ background: "#FFFFFF", border: "2px solid #1B4F8A", boxShadow: "0 4px 20px rgba(27,79,138,0.12)" }}
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                Watch Demo
+                <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #1B4F8A, #0066CC)" }}>
+                  <svg className="w-2 h-2 text-white" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                </div>
+                <span className="bg-gradient-to-r from-[#1B4F8A] to-[#0066CC] bg-clip-text text-transparent">Watch Demo</span>
               </Link>
             </div>
           </div>
 
-          {/* Right: Visual - Hidden on small mobile for cleaner UX */}
-          <div className={`hidden sm:block transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
-            <div
-              className="rounded-2xl p-5 lg:p-6 animate-float"
-              style={{
-                background: "linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%)",
-                border: "1px solid #E2E8F0",
-                boxShadow: `0 25px 80px ${BRAND_BLUE_DARK}12, 0 10px 40px rgba(0,0,0,0.06)`,
-              }}
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-3 rounded-full" style={{ background: "#E2E8F0" }} />
-                    <span className="w-3 h-3 rounded-full" style={{ background: BRAND_GREEN }} />
-                  </div>
-                  <p className="text-[15px] font-bold" style={{ color: "#0F172A" }}>TariffIQ Classification</p>
-                </div>
-              </div>
-
-              {/* Product Description Input */}
-              <div className="mb-4">
-                <p className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color: "#94A3B8" }}>
-                  Product Description
-                </p>
-                <div className="flex items-center gap-2 px-4 py-3 rounded-xl" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-                  <Search className="w-4 h-4" style={{ color: "#94A3B8" }} />
-                  <span className="text-[14px]" style={{ color: "#0F172A" }}>Basmati rice, aged 2 years, for export to UAE</span>
-                  <span className="animate-pulse" style={{ color: BRAND_BLUE_DARK }}>|</span>
-                </div>
-              </div>
-
-              {/* Classification Result */}
-              <div className="p-4 rounded-xl mb-4" style={{ background: `${BRAND_BLUE_DARK}08`, border: `1px solid ${BRAND_BLUE_DARK}20` }}>
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-[12px] font-semibold uppercase tracking-wider" style={{ color: "#94A3B8" }}>Classification Result</p>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold" style={{ background: `${BRAND_BLUE_DARK}15`, color: BRAND_BLUE_DARK }}>95% Match</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div>
-                    <p className="text-[11px]" style={{ color: "#94A3B8" }}>HSN Code</p>
-                    <p className="text-[20px] font-mono font-bold" style={{ color: BRAND_BLUE_DARK }}>1006.30.20</p>
-                  </div>
-                  <div className="h-8 w-px" style={{ background: "#E2E8F0" }} />
-                  <div>
-                    <p className="text-[11px]" style={{ color: "#94A3B8" }}>Description</p>
-                    <p className="text-[14px] font-medium" style={{ color: "#0F172A" }}>Semi-milled or wholly milled rice</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Incentive Comparison */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 rounded-xl" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-                  <p className="text-[11px] font-semibold mb-1" style={{ color: "#94A3B8" }}>RoDTEP Rate</p>
-                  <p className="text-[18px] font-bold" style={{ color: "#64748B" }}>0.5%</p>
-                </div>
-                <div className="p-3 rounded-xl" style={{ background: `${BRAND_GREEN}08`, border: `1px solid ${BRAND_GREEN}25` }}>
-                  <p className="text-[11px] font-semibold mb-1" style={{ color: BRAND_GREEN }}>Duty Drawback</p>
-                  <p className="text-[18px] font-bold" style={{ color: BRAND_GREEN }}>1.2%</p>
-                  <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded" style={{ background: BRAND_GREEN, color: "white" }}>BETTER</span>
-                </div>
-              </div>
-            </div>
+          {/* Right: TariffIQ Classification Card — visible on all screens */}
+          <div className={`transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0 lg:translate-x-0" : "opacity-0 translate-y-8 lg:translate-x-8"}`}>
+            <TariffIQCard isActive={isInView} />
           </div>
         </div>
       </div>
     </section>
+  )
+}
+
+function TariffIQCard({ isActive }: { isActive: boolean }) {
+  const [step, setStep] = useState(0)
+
+  useEffect(() => {
+    if (!isActive) { setStep(0); return }
+    let s = 0
+    const interval = setInterval(() => {
+      s++
+      if (s <= 3) setStep(s)
+      else if (s > 7) { s = 0; setStep(0) }
+    }, 1100)
+    return () => clearInterval(interval)
+  }, [isActive])
+
+  return (
+    <div
+      className="w-full flex flex-col overflow-hidden animate-float"
+      style={{
+        height: "435px",
+        borderRadius: "20px",
+        background: "#FFFFFF",
+        border: "1px solid #E2E8F0",
+        boxShadow: "0 32px 100px rgba(27,79,138,0.18), 0 12px 40px rgba(0,0,0,0.06)",
+      }}
+    >
+      {/* Header */}
+      <div className="flex items-center gap-2.5 px-4 pt-3 pb-2.5 flex-shrink-0" style={{ borderBottom: "1px solid #F1F5F9" }}>
+        <div className="flex gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+        </div>
+        <div className="flex-1 ml-1">
+          <p className="text-[13px] font-bold leading-none" style={{ color: "#0F172A" }}>TariffIQ</p>
+          <p className="text-[10px] mt-0.5" style={{ color: "#94A3B8" }}>HSN Classification & Duty Calculator</p>
+        </div>
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg flex-shrink-0 transition-all duration-500" style={{ background: step >= 2 ? "#EFF6FF" : "transparent", border: step >= 2 ? "1px solid #DBEAFE" : "1px solid transparent" }}>
+          <span className="text-[10px] font-bold transition-all duration-500" style={{ color: step >= 2 ? NAVY : "transparent" }}>95% match</span>
+        </div>
+      </div>
+
+      {/* Input row */}
+      <div className="px-4 pt-2.5 pb-2.5 flex-shrink-0" style={{ borderBottom: "1px solid #F8FAFC" }}>
+        <p className="text-[9px] font-semibold uppercase tracking-widest mb-1" style={{ color: "#94A3B8" }}>Product Description</p>
+        <div className="flex items-center gap-2 px-3 py-2 rounded-xl" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+          <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="#94A3B8" strokeWidth={2}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span className="text-[12px]" style={{ color: "#0F172A" }}>Basmati rice, aged 2 years, for export to UAE</span>
+          {step === 0 && <span className="animate-pulse text-[12px]" style={{ color: NAVY }}>|</span>}
+        </div>
+      </div>
+
+      {/* Result area — fixed layout, no flex-1 growth */}
+      <div className="px-4 pt-2.5 pb-3 flex flex-col gap-2.5 overflow-hidden" style={{ flex: "1 1 0" }}>
+
+        {/* HSN result */}
+        <div
+          className="rounded-xl px-4 py-2.5 transition-all duration-500 flex-shrink-0"
+          style={{
+            background: step >= 1 ? "#EFF6FF" : "#F8FAFC",
+            border: `1px solid ${step >= 1 ? "#DBEAFE" : "#E2E8F0"}`,
+            opacity: step >= 1 ? 1 : 0.4,
+          }}
+        >
+          {step === 1 ? (
+            <div className="flex items-center gap-2 py-1">
+              <div className="flex gap-1">
+                {[0,1,2].map(i => (
+                  <span key={i} className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: NAVY, animationDelay: `${i * 150}ms` }} />
+                ))}
+              </div>
+              <span className="text-[11px]" style={{ color: "#64748B" }}>Searching 21,000+ HSN codes...</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-4">
+              <div>
+                <p className="text-[9px] font-semibold uppercase tracking-widest mb-0.5" style={{ color: "#94A3B8" }}>ITC-HS Code</p>
+                <p className="text-[20px] font-mono font-extrabold leading-none" style={{ color: NAVY }}>1006.30.20</p>
+              </div>
+              <div className="w-px h-7" style={{ background: "#DBEAFE" }} />
+              <div>
+                <p className="text-[9px] font-semibold uppercase tracking-widest mb-0.5" style={{ color: "#94A3B8" }}>Description</p>
+                <p className="text-[12px] font-medium" style={{ color: "#0F172A" }}>Semi-milled or wholly milled rice</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Incentive comparison */}
+        <div
+          className="grid grid-cols-2 gap-2 flex-shrink-0 transition-all duration-500"
+          style={{ opacity: step >= 2 ? 1 : 0, transform: step >= 2 ? "translateY(0)" : "translateY(8px)" }}
+        >
+          <div className="rounded-xl px-3 py-2.5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+            <p className="text-[9px] font-semibold uppercase tracking-widest mb-1" style={{ color: "#94A3B8" }}>RoDTEP Rate</p>
+            <p className="text-[18px] font-extrabold leading-none" style={{ color: "#64748B" }}>0.5%</p>
+            <p className="text-[10px] mt-0.5" style={{ color: "#94A3B8" }}>of FOB value</p>
+          </div>
+          <div className="rounded-xl px-3 py-2.5 relative overflow-hidden" style={{ background: "rgba(0,168,107,0.07)", border: "1px solid rgba(0,168,107,0.25)" }}>
+            <p className="text-[9px] font-semibold uppercase tracking-widest mb-1" style={{ color: "#00A86B" }}>Duty Drawback</p>
+            <p className="text-[18px] font-extrabold leading-none" style={{ color: "#00A86B" }}>1.2%</p>
+            <p className="text-[10px] mt-0.5" style={{ color: "#00A86B" }}>of FOB value</p>
+            <span className="absolute top-2 right-2 text-[8px] font-extrabold px-1.5 py-0.5 rounded" style={{ background: "#00A86B", color: "#FFFFFF" }}>BETTER</span>
+          </div>
+        </div>
+
+        {/* Saving callout */}
+        <div
+          className="rounded-xl px-3.5 py-2.5 flex items-center gap-2.5 flex-shrink-0 transition-all duration-500"
+          style={{
+            background: step >= 3 ? "rgba(27,79,138,0.06)" : "transparent",
+            border: step >= 3 ? "1px solid rgba(27,79,138,0.15)" : "1px solid transparent",
+            opacity: step >= 3 ? 1 : 0,
+            transform: step >= 3 ? "translateY(0)" : "translateY(6px)",
+          }}
+        >
+          <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #1B4F8A, #0066CC)" }}>
+            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <p className="text-[11px] font-bold leading-tight" style={{ color: "#0F172A" }}>Switch to Drawback — save 0.7% per shipment</p>
+            <p className="text-[10px]" style={{ color: "#64748B" }}>On ₹50L FOB: extra ₹35,000 per shipment</p>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -237,80 +306,70 @@ function ProblemSection() {
 
   const problems = [
     {
-      icon: AlertTriangle,
-      title: "Wrong HSN = Wrong Everything",
-      description: "A single digit error in your HSN code can mean wrong duty rates, rejected drawback claims, and customs delays.",
-      highlight: "Up to 5% of shipment value lost",
+      num: "01",
+      title: "A single wrong digit costs lakhs",
+      body: "One HSN digit error means wrong duty rates, rejected Drawback claims, and customs delays. With 21,000+ codes, manual selection is a guessing game.",
     },
     {
-      icon: RefreshCw,
-      title: "RoDTEP vs Drawback Confusion",
-      description: "Most exporters pick one scheme without comparing. You could be leaving lakhs on the table every shipment.",
-      highlight: "Missing 40-60% of potential incentives",
+      num: "02",
+      title: "RoDTEP vs Drawback — most exporters pick blind",
+      body: "Both schemes exist for the same shipment but most exporters pick one without comparing. The difference can be 40–60% of total incentive value.",
     },
     {
-      icon: Clock,
-      title: "Hours of Manual Research",
-      description: "Searching through 21,000+ HSN codes and cross-referencing rate notifications is a full-time job.",
-      highlight: "2-4 hours per classification",
+      num: "03",
+      title: "2–4 hours of manual research per classification",
+      body: "Cross-referencing schedules, rate notifications, and DGFT circulars is a full-time job. Most teams don't have the bandwidth to do it properly.",
     },
     {
-      icon: TrendingDown,
-      title: "Outdated Rate Information",
-      description: "Rates change frequently. Using stale data means incorrect duty calculations and compliance risks.",
-      highlight: "Surprise duties at customs",
+      num: "04",
+      title: "Stale rates trigger surprise duties at customs",
+      body: "Duty rates change with every budget and notification. Exporters working from outdated data face unexpected levies, delays, and compliance notices.",
     },
   ]
 
   return (
     <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[1100px] mx-auto">
-        {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
-            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The HSN Classification Problem</span>
-            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #1B4F8A, #0066CC)" }} />
+            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Problem</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #1B4F8A, #0066CC)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
-            Why Exporters Struggle with{" "}
-            <span style={{ color: BRAND_BLUE_DARK }}>HSN Codes</span>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[38px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
+            Why HSN classification{" "}
+            <span className="bg-gradient-to-r from-[#1B4F8A] to-[#0066CC] bg-clip-text text-transparent">always goes wrong.</span>
           </h2>
         </div>
 
-        {/* Problem Grid */}
-        <div className="grid md:grid-cols-2 gap-4 lg:gap-5">
-          {problems.map((problem, idx) => {
-            const Icon = problem.icon
-            return (
-              <div
-                key={idx}
-                className={`p-5 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #E2E8F0",
-                  transitionDelay: `${idx * 100}ms`,
-                }}
+        {/* Editorial 4-column strip */}
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          style={{ borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}
+        >
+          {problems.map((p, idx) => (
+            <div
+              key={idx}
+              className={`relative pt-6 pb-8 px-5 lg:px-7 flex flex-col overflow-hidden transition-all duration-300 hover:bg-white group sm:border-r sm:last:border-r-0 lg:border-r ${idx < 3 ? "lg:border-r" : "lg:border-r-0"} border-b last:border-b-0 lg:border-b-0`}
+              style={{ borderColor: "#E2E8F0" }}
+            >
+              <span
+                className="absolute -top-2 -right-1 text-[96px] font-black leading-none select-none pointer-events-none"
+                style={{ color: "#1B4F8A0F", letterSpacing: "-0.04em" }}
               >
-                <div className="flex items-start gap-4">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: `${BRAND_BLUE_DARK}12` }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: BRAND_BLUE_DARK }} />
-                  </div>
-                  <div>
-                    <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{problem.title}</h3>
-                    <p className="text-[13px] sm:text-[14px] leading-relaxed mb-2.5" style={{ color: "#64748B" }}>{problem.description}</p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: `${BRAND_BLUE_DARK}08` }}>
-                      <AlertTriangle className="w-3 h-3" style={{ color: BRAND_BLUE_DARK }} />
-                      <span className="text-[12px] font-semibold" style={{ color: BRAND_BLUE_DARK }}>{problem.highlight}</span>
-                    </div>
-                  </div>
+                {p.num}
+              </span>
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #1B4F8A20, #0066CC10)" }}>
+                  <span className="text-[10px] font-black" style={{ color: NAVY }}>{idx + 1}</span>
                 </div>
+                <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #1B4F8A30, transparent)" }} />
               </div>
-            )
-          })}
+              <p className="text-[13px] sm:text-[14px] font-bold leading-snug mb-2.5 relative z-10" style={{ color: "#0F172A" }}>{p.title}</p>
+              <p className="text-[12px] leading-relaxed relative z-10" style={{ color: "#64748B" }}>{p.body}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -322,75 +381,66 @@ function FeaturesSection() {
 
   const features = [
     {
-      icon: Search,
-      title: "AI-Powered Classification",
-      description: "Describe your product in plain English. Our AI maps it to the exact 8-digit ITC-HS code with 95% accuracy.",
-      color: BRAND_BLUE_DARK,
+      title: "Plain-English product description",
+      body: "Type your product the way you'd describe it to a colleague. TariffIQ understands materials, use cases, and trade context — no codes needed.",
     },
     {
-      icon: BarChart3,
-      title: "RoDTEP vs Drawback Calculator",
-      description: "Instantly compare both incentive schemes side-by-side. Know which one earns you more before you ship.",
-      color: BRAND_GREEN,
+      title: "8-digit ITC-HS classification",
+      body: "AI searches all 21,000+ HSN codes using semantic matching. Returns the exact 8-digit code with 95% accuracy and a confidence score.",
     },
     {
-      icon: Database,
-      title: "Live Policy Database",
-      description: "Always up-to-date export and import policies. Know if your product is Free, Restricted, or Prohibited.",
-      color: BRAND_GREEN,
+      title: "RoDTEP vs Drawback side-by-side",
+      body: "Both incentive rates shown instantly for your HSN code. Know which scheme pays more before you file — never leave money on the table.",
     },
     {
-      icon: Calculator,
-      title: "Duty Rate Lookup",
-      description: "Real-time BCD, IGST, and Cess rates. Calculate exact landed costs for imports in seconds.",
-      color: BRAND_BLUE,
+      title: "Live duty rate lookup",
+      body: "Real-time BCD, IGST, and Cess rates for any product. Calculate exact landed costs and duty liability in under 3 seconds.",
     },
     {
-      icon: Globe,
-      title: "Country-Specific Rules",
-      description: "Different countries have different requirements. We show you exactly what you need for your destination.",
-      color: BRAND_BLUE_DARK,
+      title: "Export policy status",
+      body: "Instantly see if your product is Free, Restricted, or Prohibited for export. Know the required licenses before you commit to a shipment.",
     },
     {
-      icon: Zap,
-      title: "Instant Results",
-      description: "From product description to complete classification in under 3 seconds. No more hours of research.",
-      color: BRAND_BLUE,
+      title: "Always up-to-date",
+      body: "Rate notifications, budget changes, and DGFT circulars are reflected immediately. You're never working from stale data.",
     },
   ]
 
   return (
-    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8">
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[1100px] mx-auto">
-        {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
-            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Powerful Features</span>
-            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #1B4F8A, #0066CC)" }} />
+            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>How It Works</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #1B4F8A, #0066CC)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
-            Everything You Need for{" "}
-            <span style={{ color: BRAND_BLUE_DARK }}>Perfect Classification</span>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[38px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
+            What{" "}
+            <span className="bg-gradient-to-r from-[#1B4F8A] to-[#0066CC] bg-clip-text text-transparent">TariffIQ</span>{" "}
+            does for you.
           </h2>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
-          {features.map((feature, idx) => (
-              <div
-                key={idx}
-                className={`p-5 rounded-2xl transition-all duration-700 hover:shadow-lg ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #E2E8F0",
-                  borderTop: `3px solid ${feature.color}`,
-                  transitionDelay: `${idx * 80}ms`,
-                }}
-              >
-                <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{feature.title}</h3>
-                <p className="text-[13px] leading-relaxed" style={{ color: "#64748B" }}>{feature.description}</p>
+        <div className={`grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-0 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          {features.map((f, idx) => (
+            <div
+              key={idx}
+              className="flex gap-3 sm:gap-4 py-4 sm:py-5 transition-all duration-300 hover:translate-x-1"
+              style={{ borderBottom: "1px solid #F1F5F9" }}
+            >
+              <div className="flex flex-col items-center flex-shrink-0 pt-0.5">
+                <div className="w-0.5 h-full rounded-full" style={{ background: "linear-gradient(to bottom, #1B4F8A, #1B4F8A20)", minHeight: "48px" }} />
               </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[10px] font-black tracking-widest" style={{ color: NAVY }}>{String(idx + 1).padStart(2, "0")}</span>
+                  <h3 className="text-[13px] sm:text-[14px] font-bold leading-snug" style={{ color: "#0F172A" }}>{f.title}</h3>
+                </div>
+                <p className="text-[11px] sm:text-[12px] leading-relaxed" style={{ color: "#64748B" }}>{f.body}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -398,56 +448,188 @@ function FeaturesSection() {
   )
 }
 
-function HowItWorksSection() {
+function UseCasesSection() {
   const { ref, isInView } = useInView()
+  const [activeIdx, setActiveIdx] = useState(0)
 
-  const steps = [
-    { number: "01", title: "Describe Your Product", description: "Enter a plain-text description of your product. Our AI understands context, materials, and use cases." },
-    { number: "02", title: "AI Classification", description: "TariffIQ searches 21,000+ HSN codes and uses semantic matching to find the perfect classification." },
-    { number: "03", title: "Compare Incentives", description: "See RoDTEP vs Duty Drawback rates side-by-side. Know exactly which scheme maximizes your earnings." },
-    { number: "04", title: "Export with Confidence", description: "Get the full picture: HSN code, duty rates, policy status, and required documents. Ship without surprises." },
+  interface ClassificationCase {
+    tag: string
+    product: string
+    hsn: string
+    hsnDesc: string
+    confidence: string
+    rodtep: string
+    drawback: string
+    winner: "rodtep" | "drawback"
+    saving: string
+    note: string
+  }
+
+  const cases: ClassificationCase[] = [
+    {
+      tag: "Spices Export",
+      product: "Turmeric powder, dried and ground, for retail packaging export to EU",
+      hsn: "0910.30.10",
+      hsnDesc: "Turmeric (curcuma) — ground",
+      confidence: "97%",
+      rodtep: "1.8%",
+      drawback: "3.2%",
+      winner: "drawback",
+      saving: "1.4% extra",
+      note: "On ₹25L FOB: additional ₹35,000 per shipment by switching to Drawback",
+    },
+    {
+      tag: "Textile Classification",
+      product: "100% cotton woven fabric, plain weave, 200 gsm, bleached, for garment export",
+      hsn: "5208.21.00",
+      hsnDesc: "Woven fabrics of cotton — plain weave, bleached",
+      confidence: "94%",
+      rodtep: "0.9%",
+      drawback: "0.9%",
+      winner: "rodtep",
+      saving: "Equal rate",
+      note: "Both schemes equivalent here — choose RoDTEP for simpler documentation requirements",
+    },
+    {
+      tag: "Electronics Import",
+      product: "Laptop computer, 15.6 inch, Intel Core i7, 16GB RAM, for commercial import",
+      hsn: "8471.30.10",
+      hsnDesc: "Portable automatic data processing machines",
+      confidence: "99%",
+      rodtep: "N/A",
+      drawback: "N/A",
+      winner: "rodtep",
+      saving: "Import item",
+      note: "BCD: 0% | IGST: 18% | Cess: 0% — total duty: 18% of CIF value",
+    },
   ]
 
+  useEffect(() => {
+    const t = setInterval(() => setActiveIdx(p => (p + 1) % cases.length), 4500)
+    return () => clearInterval(t)
+  }, [cases.length])
+
   return (
-    <section ref={ref} id="how-it-works" className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#1B4F8A" }}>
-      <div className="w-full max-w-[1100px] mx-auto">
-        {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+    <section ref={ref} id="use-cases" className="py-10 lg:py-12 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <div className="w-full max-w-[860px] mx-auto">
+
+        <div className={`text-center mb-6 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
-            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "rgba(255,255,255,0.5)" }}>How TariffIQ Works</span>
-            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #1B4F8A, #0066CC)" }} />
+            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Live Classification</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #1B4F8A, #0066CC)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white">
-            From Description to Classification in{" "}
-            <span style={{ color: BRAND_BLUE }}>Seconds</span>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[38px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
+            Products{" "}
+            <span className="bg-gradient-to-r from-[#1B4F8A] to-[#0066CC] bg-clip-text text-transparent">TariffIQ classifies</span>
+            {" "}instantly.
           </h2>
         </div>
 
-        {/* Steps */}
-        <div className="space-y-4">
-          {steps.map((step, idx) => (
-            <div
-              key={idx}
-              className={`flex items-start gap-5 p-5 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-              style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                transitionDelay: `${idx * 100}ms`,
-              }}
-            >
-              <div
-                className="text-[28px] font-black flex-shrink-0"
-                style={{ color: "#FFFFFF" }}
+        <div className={`transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+
+          {/* Tab selectors */}
+          <div className="flex items-center justify-center gap-2 mb-4 flex-wrap px-2 sm:px-0" style={{ maxWidth: "720px", margin: "0 auto 16px" }}>
+            {cases.map((c, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveIdx(idx)}
+                className="px-3 sm:px-4 py-2 rounded-lg text-[11px] sm:text-[12px] font-semibold transition-all duration-300"
+                style={{
+                  background: activeIdx === idx ? NAVY : "#FFFFFF",
+                  color: activeIdx === idx ? "#FFFFFF" : "#64748B",
+                  border: activeIdx === idx ? `1px solid ${NAVY}` : "1px solid #E2E8F0",
+                }}
               >
-                {step.number}
+                {c.tag}
+              </button>
+            ))}
+          </div>
+
+          {/* Cards — stacked crossfade on sm+, single visible on mobile */}
+          <div className="relative sm:h-[390px]" style={{ maxWidth: "720px", margin: "0 auto" }}>
+            {cases.map((c, idx) => (
+              <div
+                key={idx}
+                className="sm:absolute sm:inset-0 transition-all duration-500"
+                style={{
+                  opacity: activeIdx === idx ? 1 : 0,
+                  pointerEvents: activeIdx === idx ? "auto" : "none",
+                  display: activeIdx === idx ? "block" : "none",
+                }}
+              >
+                <div className="rounded-2xl overflow-hidden sm:h-full flex flex-col" style={{ border: "1px solid #E2E8F0", boxShadow: "0 8px 40px rgba(0,0,0,0.07)" }}>
+
+                  {/* Header */}
+                  <div className="flex items-center justify-between px-5 py-3 flex-shrink-0" style={{ background: "#FFFFFF", borderBottom: "1px solid #F1F5F9" }}>
+                    <div className="flex items-center gap-2">
+                      <div className="flex gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
+                      </div>
+                      <span className="text-[12px] font-bold ml-1" style={{ color: "#0F172A" }}>TariffIQ</span>
+                    </div>
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full" style={{ background: "#EFF6FF", color: NAVY }}>{c.confidence} confidence</span>
+                  </div>
+
+                  {/* Product input */}
+                  <div className="px-5 py-3 flex-shrink-0" style={{ background: "#FAFBFF", borderBottom: "1px solid #F1F5F9" }}>
+                    <p className="text-[9px] font-semibold uppercase tracking-widest mb-1" style={{ color: "#94A3B8" }}>Product Description</p>
+                    <p className="text-[12px] leading-snug" style={{ color: "#475569" }}>{c.product}</p>
+                  </div>
+
+                  {/* HSN result row */}
+                  <div className="px-5 py-3 flex items-center gap-4 flex-shrink-0" style={{ background: "#FFFFFF", borderBottom: "1px solid #F1F5F9" }}>
+                    <div>
+                      <p className="text-[9px] font-semibold uppercase tracking-widest mb-0.5" style={{ color: "#94A3B8" }}>ITC-HS Code</p>
+                      <p className="text-[20px] font-mono font-extrabold leading-none" style={{ color: NAVY }}>{c.hsn}</p>
+                    </div>
+                    <div className="w-px h-8 flex-shrink-0" style={{ background: "#E2E8F0" }} />
+                    <div>
+                      <p className="text-[9px] font-semibold uppercase tracking-widest mb-0.5" style={{ color: "#94A3B8" }}>Classification</p>
+                      <p className="text-[12px] font-semibold" style={{ color: "#0F172A" }}>{c.hsnDesc}</p>
+                    </div>
+                  </div>
+
+                  {/* Incentive comparison */}
+                  <div className="px-5 py-3 grid grid-cols-2 gap-3 flex-shrink-0" style={{ background: "#F8FAFC", borderBottom: "1px solid #F1F5F9" }}>
+                    <div className="rounded-xl px-3.5 py-2.5" style={{
+                      background: c.winner === "rodtep" ? "rgba(27,79,138,0.08)" : "#FFFFFF",
+                      border: c.winner === "rodtep" ? `1px solid rgba(27,79,138,0.25)` : "1px solid #E2E8F0",
+                    }}>
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-[9px] font-semibold uppercase tracking-widest" style={{ color: "#94A3B8" }}>RoDTEP</p>
+                        {c.winner === "rodtep" && <span className="text-[8px] font-extrabold px-1.5 py-0.5 rounded" style={{ background: NAVY, color: "#FFFFFF" }}>BETTER</span>}
+                      </div>
+                      <p className="text-[18px] font-extrabold leading-none" style={{ color: c.winner === "rodtep" ? NAVY : "#94A3B8" }}>{c.rodtep}</p>
+                    </div>
+                    <div className="rounded-xl px-3.5 py-2.5" style={{
+                      background: c.winner === "drawback" ? "rgba(0,168,107,0.07)" : "#FFFFFF",
+                      border: c.winner === "drawback" ? "1px solid rgba(0,168,107,0.25)" : "1px solid #E2E8F0",
+                    }}>
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-[9px] font-semibold uppercase tracking-widest" style={{ color: "#94A3B8" }}>Drawback</p>
+                        {c.winner === "drawback" && <span className="text-[8px] font-extrabold px-1.5 py-0.5 rounded" style={{ background: "#00A86B", color: "#FFFFFF" }}>BETTER</span>}
+                      </div>
+                      <p className="text-[18px] font-extrabold leading-none" style={{ color: c.winner === "drawback" ? "#00A86B" : "#94A3B8" }}>{c.drawback}</p>
+                    </div>
+                  </div>
+
+                  {/* Saving note */}
+                  <div className="flex-shrink-0 px-5 py-3 flex items-start gap-3" style={{ background: "rgba(27,79,138,0.04)", borderTop: "1px solid rgba(27,79,138,0.08)" }}>
+                    <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "linear-gradient(135deg, #1B4F8A, #0066CC)" }}>
+                      <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <p className="text-[11px] leading-snug" style={{ color: "#475569" }}>
+                      <span className="font-semibold" style={{ color: NAVY }}>TariffIQ insight: </span>{c.note}
+                    </p>
+                  </div>
+
+                </div>
               </div>
-              <div>
-                <h3 className="text-[16px] font-bold text-white mb-1.5">{step.title}</h3>
-                <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "#94A3B8" }}>{step.description}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -458,53 +640,46 @@ function ComparisonSection() {
   const { ref, isInView } = useInView()
 
   const metrics = [
-    { metric: "Classification Time", manual: "2-4 hours", tariffiq: "< 3 seconds" },
-    { metric: "Accuracy", manual: "60-70%", tariffiq: "95%+" },
+    { metric: "Classification Time", manual: "2–4 hours", tariffiq: "< 3 seconds" },
+    { metric: "Accuracy", manual: "60–70%", tariffiq: "95%" },
     { metric: "HSN Codes Searchable", manual: "Limited", tariffiq: "21,000+" },
-    { metric: "RoDTEP/Drawback Comparison", manual: "Manual", tariffiq: "Automatic" },
+    { metric: "RoDTEP vs Drawback", manual: "Manual comparison", tariffiq: "Automatic side-by-side" },
     { metric: "Rate Updates", manual: "When you remember", tariffiq: "Real-time" },
-    { metric: "Policy Alerts", manual: "None", tariffiq: "Instant" },
+    { metric: "Policy Status", manual: "DGFT website search", tariffiq: "Instant lookup" },
   ]
 
   return (
-    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8">
-      <div className="w-full max-w-[900px] mx-auto">
-        {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      <div className="w-full max-w-[860px] mx-auto">
+
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
-            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Why TariffIQ</span>
-            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #1B4F8A, #0066CC)" }} />
+            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Why TariffIQ</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #1B4F8A, #0066CC)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
-            Manual Research vs{" "}
-            <span style={{ color: BRAND_BLUE_DARK }}>TariffIQ</span>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[38px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
+            Manual research vs{" "}
+            <span className="bg-gradient-to-r from-[#1B4F8A] to-[#0066CC] bg-clip-text text-transparent">TariffIQ.</span>
           </h2>
         </div>
 
-        {/* Comparison Table */}
         <div
-          className={`rounded-2xl overflow-hidden transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          className={`rounded-2xl overflow-hidden transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ border: "1px solid #E2E8F0" }}
         >
-          <table className="w-full">
-            <thead>
-              <tr style={{ background: "#F8FAFC" }}>
-                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: "#64748B" }}>Metric</th>
-                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: "#64748B" }}>Manual</th>
-                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: BRAND_BLUE_DARK }}>TariffIQ</th>
-              </tr>
-            </thead>
-            <tbody>
-              {metrics.map((row, idx) => (
-                <tr key={idx} style={{ borderTop: "1px solid #E2E8F0" }}>
-                  <td className="py-3 px-5 text-[13px] sm:text-[14px] font-medium" style={{ color: "#475569" }}>{row.metric}</td>
-                  <td className="py-3 px-5 text-[13px] sm:text-[14px]" style={{ color: "#0F172A" }}>{row.manual}</td>
-                  <td className="py-3 px-5 text-[13px] sm:text-[14px] font-semibold" style={{ color: BRAND_GREEN }}>{row.tariffiq}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="grid grid-cols-[0.8fr_1fr_1fr] sm:grid-cols-[1fr_1fr_1fr]" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Metric</div>
+            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Manual</div>
+            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: NAVY }}>TariffIQ</div>
+          </div>
+          {metrics.map((row, idx) => (
+            <div key={idx} className="grid grid-cols-[0.8fr_1fr_1fr] sm:grid-cols-[1fr_1fr_1fr]" style={{ borderTop: "1px solid #F1F5F9" }}>
+              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] font-medium leading-snug" style={{ color: "#475569" }}>{row.metric}</div>
+              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] leading-snug" style={{ color: "#94A3B8" }}>{row.manual}</div>
+              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] font-semibold leading-snug" style={{ color: NAVY }}>{row.tariffiq}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -515,37 +690,39 @@ function CTASection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section
-      ref={ref}
-      className="py-10 lg:py-14 px-5 lg:px-8"
-      style={{ background: "linear-gradient(180deg, #1B4F8A 0%, #153F6E 100%)" }}
-    >
-      <div className={`max-w-[800px] mx-auto text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white mb-3">
-          Stop Leaving Money on the Table
+    <section ref={ref} className="py-12 lg:py-16 px-5 lg:px-8 relative overflow-hidden" style={{ background: NAVY }}>
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: "url('/images/world-map-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        opacity: 0.06,
+      }} />
+      <div className={`max-w-[640px] mx-auto text-center relative transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="h-px w-8 rounded-full" style={{ background: "rgba(255,255,255,0.3)" }} />
+          <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "rgba(255,255,255,0.7)" }}>Get Started</span>
+          <div className="h-px w-8 rounded-full" style={{ background: "rgba(255,255,255,0.3)" }} />
+        </div>
+        <h2 className="text-[22px] sm:text-[28px] lg:text-[34px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-3 text-white">
+          Stop leaving incentives on the table.
         </h2>
-        <p className="text-[14px] sm:text-[15px] leading-relaxed mb-6" style={{ color: "#94A3B8" }}>
-          Every day you classify manually is another day of missed incentives and compliance risk. Start using TariffIQ today.
+        <p className="text-[14px] leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.8)" }}>
+          Every shipment you classify manually is a missed opportunity. Let TariffIQ find the right code and the better incentive — every time.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4 sm:px-0">
           <Link
             href="/book-demo"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-bold transition-all duration-300 hover:scale-105 btn-shine"
-            style={{
-              background: `linear-gradient(135deg, ${BRAND_BLUE_DARK}, ${BRAND_BLUE})`,
-              color: "#FFFFFF",
-              boxShadow: `0 4px 25px ${BRAND_BLUE_DARK}50`,
-            }}
+            className="w-full sm:w-[168px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+            style={{ background: "#FFFFFF", color: NAVY, boxShadow: "0 4px 25px rgba(0,0,0,0.15)" }}
           >
-            Get Started Free
-            <ArrowRight className="w-4 h-4" />
+            Book a Demo <ArrowRight className="w-3.5 h-3.5" />
           </Link>
           <Link
             href="/#products"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
-            style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "#FFFFFF" }}
+            className="w-full sm:w-[168px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
+            style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.3)", color: "#FFFFFF" }}
           >
-            Explore Other Products
+            Other Products
           </Link>
         </div>
       </div>

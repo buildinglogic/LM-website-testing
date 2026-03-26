@@ -138,18 +138,18 @@ export function Navigation() {
               <div className="absolute top-full left-0 right-0 h-3" />
 
               <div
-                className={`absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-[300px] p-2 rounded-xl transition-all duration-300 ${productsOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
+                className={`absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-[220px] p-1.5 rounded-xl transition-all duration-300 ${productsOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
                 style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 25px 60px rgba(0,0,0,0.2)" }}
               >
                 {products.map((product) => (
                   <button
                     key={product.name}
                     onClick={() => navigateToProduct(product)}
-                    className="w-full text-left block px-4 py-3 rounded-lg text-[14px] font-semibold transition-all hover:bg-[#F1F5F9]"
+                    className="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-lg transition-all hover:bg-[#F1F5F9]"
                     style={{ color: "#0F172A" }}
                   >
-                    {product.name}
-                    <span className="block text-[12px] font-normal mt-0.5" style={{ color: "#64748B" }}>{product.tagline}</span>
+                    <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: product.color }} />
+                    <span className="text-[13px] font-semibold">{product.name}</span>
                   </button>
                 ))}
               </div>

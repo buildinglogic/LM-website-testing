@@ -171,21 +171,19 @@ export default function KarnatakaElevatePage() {
               Initiated by Hon'ble IT/BT Minister <strong style={{ color: "#0F172A" }}>Shri Priyank Kharge</strong> in 2017, Karnataka Elevate is one of the most competitive startup recognition programs in India.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-3">
               {[
                 { Icon: Users, value: "103", label: "Startups selected", color: "#00A86B" },
                 { Icon: Award, value: "4", label: "Jury pitch rounds", color: "#0066CC" },
                 { Icon: Banknote, value: "Rs. 50L", label: "Grant (up to)", color: "#00A86B" },
               ].map((stat, i) => (
-                <div key={i} className={`p-4 sm:p-5 rounded-2xl text-center sm:text-center transition-all duration-500 hover:-translate-y-1 hover:shadow-lg flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0 ${about.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                <div key={i} className={`p-4 sm:p-5 rounded-2xl text-center transition-all duration-500 hover:-translate-y-1 hover:shadow-lg ${about.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                   style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)", transitionDelay: `${i * 100}ms` }}>
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 sm:mx-auto sm:mb-2" style={{ background: `${stat.color}10` }}>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-2" style={{ background: `${stat.color}10` }}>
                     <stat.Icon className="w-5 h-5" style={{ color: stat.color }} />
                   </div>
-                  <div className="flex items-center gap-2 sm:flex-col sm:gap-0">
-                    <p className="text-[24px] sm:text-[28px] font-black leading-none bg-gradient-to-br from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">{stat.value}</p>
-                    <p className="text-[12px] sm:text-[12px] font-medium sm:mt-1" style={{ color: "#94A3B8" }}>{stat.label}</p>
-                  </div>
+                  <p className="text-[24px] sm:text-[28px] font-black leading-none bg-gradient-to-br from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">{stat.value}</p>
+                  <p className="text-[11px] sm:text-[12px] font-medium mt-1" style={{ color: "#94A3B8" }}>{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -202,21 +200,18 @@ export default function KarnatakaElevatePage() {
               <span className="text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Gallery</span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {/* Stage panel — full width on all screens */}
-              <div
-                className={`relative rounded-xl overflow-hidden group transition-all duration-700 sm:col-span-2 h-[200px] sm:h-[280px] ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                style={{ border: "1px solid #E2E8F0", background: "#F8FAFC" }}>
-                <Image src="/images/elevate-2025-stage-panel.png" alt="Elevate 2025 stage panel discussion" width={1600} height={900} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              {/* Trophy — centered on mobile, fills width */}
-              <div
-                className={`relative rounded-xl overflow-hidden group transition-all duration-700 h-[280px] sm:h-[280px] mx-auto sm:mx-0 w-full max-w-[320px] sm:max-w-none ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                style={{ border: "1px solid #E2E8F0", transitionDelay: "80ms", background: "#F8FAFC" }}>
-                <Image src="/images/elevate-2025-winner-trophy.png" alt="Elevate 2025 winner trophy" width={1200} height={1600} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {[
+                { src: "/images/elevate-2025-stage-panel.png", alt: "Elevate 2025 stage panel discussion", span: "col-span-2", w: 1600, h: 900 },
+                { src: "/images/elevate-2025-winner-trophy.png", alt: "Elevate 2025 winner trophy", span: "", w: 1200, h: 1600 },
+              ].map((img, i) => (
+                <div key={i}
+                  className={`relative rounded-xl overflow-hidden group transition-all duration-700 ${img.span} h-[200px] sm:h-[280px] ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                  style={{ border: "1px solid #E2E8F0", transitionDelay: `${i * 80}ms`, background: "#F8FAFC" }}>
+                  <Image src={img.src} alt={img.alt} width={img.w} height={img.h} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              ))}
             </div>
           </div>
         </div>

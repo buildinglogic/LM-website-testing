@@ -6,16 +6,12 @@ import { FooterLinks } from "@/components/footer-links"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import Link from "next/link"
 import { PatramCard } from "@/components/products-hero"
-import { ArrowRight, Globe, FileText, Clock, MapPin, HelpCircle, ChevronRight, MessageSquare, BookOpen, CheckCircle, Zap, Shield } from "lucide-react"
+import { ArrowRight, ChevronRight } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
-
-const BRAND_GREEN = "#00A86B"
-const BRAND_BLUE = "#0066CC"
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
   const [isInView, setIsInView] = useState(false)
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setIsInView(true) },
@@ -24,13 +20,43 @@ function useInView(threshold = 0.1) {
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [threshold])
-
   return { ref, isInView }
+}
+
+function AnimatedCount({ to }: { to: number }) {
+  const [count, setCount] = useState(0)
+  const [started, setStarted] = useState(false)
+  const ref = useRef<HTMLSpanElement>(null)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setStarted(true) },
+      { threshold: 0.1 }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+  useEffect(() => {
+    if (!started) return
+    let frame: number
+    const t0 = performance.now()
+    const dur = 1400
+    const isDecimal = !Number.isInteger(to)
+    const tick = (now: number) => {
+      const p = Math.min((now - t0) / dur, 1)
+      const eased = 1 - Math.pow(1 - p, 3)
+      setCount(isDecimal ? parseFloat((eased * to).toFixed(1)) : Math.floor(eased * to))
+      if (p < 1) frame = requestAnimationFrame(tick)
+      else setCount(to)
+    }
+    frame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frame)
+  }, [started, to])
+  return <span ref={ref}>{Number.isInteger(to) ? count : count.toFixed(1)}</span>
 }
 
 export default function PatramAIPage() {
   return (
-    <main className="bg-white">
+    <main style={{ background: "#FFFFFF" }}>
       <Navigation />
       <HeroSection />
       <ProblemSection />
@@ -51,117 +77,94 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="pt-[100px] lg:pt-[120px] pb-10 lg:pb-14 px-5 lg:px-8 relative overflow-hidden"
+      className="pt-[140px] pb-10 lg:pb-16 px-5 lg:px-8 relative overflow-hidden"
+      style={{ background: "#FFFFFF" }}
     >
-      {/* Gradient background */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `radial-gradient(ellipse 80% 50% at 50% -20%, ${BRAND_GREEN}10 0%, transparent 50%)`,
-        }}
-      />
+      {/* World map bg */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: "url('/images/world-map-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        opacity: 0.04,
+      }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, #FFFFFF 0%, transparent 30%, #FFFFFF 100%)" }} />
 
       <div className="w-full max-w-[1400px] mx-auto relative">
-        {/* Breadcrumb */}
-        <nav className={`flex items-center gap-2 mb-8 text-[14px] transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <Link href="/" className="text-[#64748B] hover:text-[#0F172A] transition-colors">Home</Link>
-          <ChevronRight className="w-4 h-4 text-[#CBD5E1]" />
-          <Link href="/#products" className="text-[#64748B] hover:text-[#0F172A] transition-colors">Products</Link>
-          <ChevronRight className="w-4 h-4 text-[#CBD5E1]" />
-          <span style={{ color: BRAND_GREEN }}>Patram AI</span>
-        </nav>
 
-        <div className="grid sm:grid-cols-2 gap-8 lg:gap-14 items-center">
-          {/* Left: Content */}
-          <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {/* Product Name Header - Clear identification */}
-            <div className="mb-4">
-              <div className="flex items-center gap-3 mb-2">
-                <div 
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${BRAND_GREEN}, ${BRAND_BLUE})` }}
-                >
-                  <Globe className="w-6 h-6 text-white" />
+        {/* Breadcrumb — minimal */}
+        <div className={`flex items-center gap-1.5 mb-8 transition-all duration-500 ${isInView ? "opacity-100" : "opacity-0"}`}>
+          <Link href="/" className="text-[11px] font-medium transition-colors hover:text-[#0F172A]" style={{ color: "#94A3B8" }}>Home</Link>
+          <ChevronRight className="w-3 h-3" style={{ color: "#CBD5E1" }} />
+          <Link href="/#products" className="text-[11px] font-medium transition-colors hover:text-[#0F172A]" style={{ color: "#94A3B8" }}>Products</Link>
+          <ChevronRight className="w-3 h-3" style={{ color: "#CBD5E1" }} />
+          <span className="text-[11px] font-semibold" style={{ color: "#00A86B" }}>Patram AI</span>
+        </div>
+
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
+
+          {/* Left: Copy */}
+          <div>
+            {/* Section label */}
+            <div className={`flex items-center gap-3 mb-4 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+              <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Patram AI</span>
+            </div>
+
+            <h1 className={`text-[28px] sm:text-[42px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.02em] mb-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
+              <span className="block text-[32px] sm:text-[48px] lg:text-[58px] bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent pb-1">Patram AI</span>
+              Trade compliance, answered instantly.
+            </h1>
+
+            <p className={`text-[15px] sm:text-[16px] leading-relaxed mb-6 max-w-[480px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
+              Upload any trade document. Ask in plain English. Get sourced answers for 190+ countries in seconds — any time, no consultant needed.
+            </p>
+
+            {/* Stats */}
+            <div className={`flex flex-wrap items-center gap-4 sm:gap-5 mb-7 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <div>
+                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>
+                  <AnimatedCount to={190} />+
                 </div>
-                <div>
-                  <h2 className="text-[28px] lg:text-[36px] font-black tracking-tight" style={{ color: BRAND_GREEN }}>
-                    Patram AI
-                  </h2>
-                  <span className="text-[13px] font-medium tracking-wide" style={{ color: "#64748B" }}>
-                    Export Intelligence Advisor
-                  </span>
+                <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>Countries</div>
+              </div>
+              <div className="w-px h-8 flex-shrink-0" style={{ background: "#E2E8F0" }} />
+              <div>
+                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>
+                  <AnimatedCount to={1.5} />s
                 </div>
+                <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>Response</div>
+              </div>
+              <div className="w-px h-8 flex-shrink-0" style={{ background: "#E2E8F0" }} />
+              <div>
+                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>24/7</div>
+                <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>Always on</div>
               </div>
             </div>
 
-            {/* Headline */}
-            <h1 className="text-[26px] sm:text-[36px] lg:text-[48px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-3 lg:mb-4" style={{ color: "#0F172A" }}>
-              Your 24/7
-              <br />
-              <span style={{ color: BRAND_GREEN }}>Export Expert</span>
-              <br />
-              On Demand.
-            </h1>
-
-            {/* Description */}
-            <p className="text-[13px] sm:text-[15px] lg:text-[16px] leading-relaxed max-w-[520px] mb-4 lg:mb-5" style={{ color: "#475569" }}>
-              Upload any trade document and ask questions in plain English. Patram AI reads the entire document and gives you accurate, sourced answers instantly.
-            </p>
-
-            {/* Stats - Mobile optimized */}
-            <div className="flex items-start justify-between sm:justify-start gap-4 sm:gap-6 lg:gap-12 mb-5 lg:mb-6">
-              {[
-                { value: "190+", label: "Countries Covered" },
-                { value: "24/7", label: "Always Available" },
-                { value: "1.5s", label: "Avg Response Time" },
-              ].map((stat, idx) => (
-                <div key={idx} className="flex flex-col min-w-0">
-                  <span className="text-[24px] sm:text-[28px] lg:text-[36px] font-black tracking-tight leading-none" style={{ color: BRAND_GREEN }}>
-                    {stat.value}
-                  </span>
-                  <span className="text-[11px] sm:text-[12px] lg:text-[13px] font-medium mt-1 whitespace-nowrap" style={{ color: "#94A3B8" }}>
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-wrap">
+            <div className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-3 transition-all duration-700 delay-[400ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Link
                 href="/book-demo"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-bold transition-all duration-300 hover:scale-105 btn-shine"
-                style={{
-                  background: `linear-gradient(135deg, ${BRAND_GREEN}, ${BRAND_BLUE})`,
-                  color: "#FFFFFF",
-                  boxShadow: `0 4px 25px ${BRAND_GREEN}40`,
-                }}
+                className="w-full sm:w-[160px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+                style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,168,107,0.3)" }}
               >
-                Try Patram AI Free
-                <ArrowRight className="w-4 h-4" />
+                Book a Demo <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-              <a
-                href="#use-cases"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
-                style={{ background: "#FFFFFF", border: `2px solid ${BRAND_GREEN}25`, color: BRAND_GREEN }}
-              >
-                See Use Cases
-              </a>
               <Link
                 href="/demo/patram"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
-                style={{ background: "#FFFFFF", border: "2px solid #00A86B", color: "#00A86B" }}
+                className="w-full sm:w-[160px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
+                style={{ background: "#FFFFFF", border: "2px solid #00A86B", boxShadow: "0 4px 20px rgba(0,168,107,0.12)" }}
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                Watch Demo
+                <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
+                  <svg className="w-2 h-2 text-white" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                </div>
+                <span className="bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">Watch Demo</span>
               </Link>
             </div>
           </div>
 
-          {/* Right: Visual - Hidden on small mobile for cleaner UX */}
-          <div className={`hidden sm:block transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
+          {/* Right: PatramCard — visible on all screens */}
+          <div className={`transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0 lg:translate-x-0" : "opacity-0 translate-y-8 lg:translate-x-8"}`}>
             <PatramCard isActive={isInView} />
           </div>
         </div>
@@ -175,80 +178,74 @@ function ProblemSection() {
 
   const problems = [
     {
-      icon: FileText,
-      title: "Complex Trade Documents",
-      description: "Export policies, FTAs, and compliance docs are hundreds of pages long. Finding specific information takes hours.",
-      highlight: "4-6 hours per document",
+      num: "01",
+      title: "Documents are hundreds of pages",
+      body: "Export policies, FTAs, and compliance docs bury the answer you need. Finding it manually takes 4–6 hours per document.",
     },
     {
-      icon: Clock,
-      title: "Outdated Information",
-      description: "Regulations change constantly. What was allowed last month might be restricted today. Missing updates costs money.",
-      highlight: "Compliance risks",
+      num: "02",
+      title: "Regulations change without warning",
+      body: "What was allowed last month may be restricted today. Teams working from outdated rules face penalties, not refunds.",
     },
     {
-      icon: MapPin,
-      title: "Country-Specific Rules",
-      description: "Every destination has different requirements. What works for the US won't work for EU or ASEAN.",
-      highlight: "190+ rule sets to track",
+      num: "03",
+      title: "Every country plays by different rules",
+      body: "190+ distinct regulatory frameworks. What clears customs in the US will be flagged in the EU or ASEAN.",
     },
     {
-      icon: HelpCircle,
-      title: "No Expert On Call",
-      description: "Customs consultants are expensive and not always available. Questions arise at midnight before shipments.",
-      highlight: "Delayed decisions",
+      num: "04",
+      title: "Experts aren't available at midnight",
+      body: "Consultants are expensive and keep business hours. Shipment questions don't wait — decisions get delayed or made blind.",
     },
   ]
 
   return (
     <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[1100px] mx-auto">
-        {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Export Knowledge Problem</span>
+            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Problem</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
-            Why Exporters Need{" "}
-            <span style={{ color: BRAND_GREEN }}>Instant Answers</span>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[38px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
+            Why exporters lose time —{" "}
+            <span className="bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">and money.</span>
           </h2>
         </div>
 
-        {/* Problem Grid */}
-        <div className="grid md:grid-cols-2 gap-4 lg:gap-5">
-          {problems.map((problem, idx) => {
-            const Icon = problem.icon
-            return (
-              <div
-                key={idx}
-                className={`p-5 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #E2E8F0",
-                  transitionDelay: `${idx * 100}ms`,
-                }}
+        {/* Editorial 4-column strip */}
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          style={{ borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}
+        >
+          {problems.map((p, idx) => (
+            <div
+              key={idx}
+              className={`relative pt-6 pb-8 px-5 lg:px-7 flex flex-col overflow-hidden transition-all duration-300 hover:bg-white group sm:border-r sm:last:border-r-0 lg:border-r ${idx < 3 ? "lg:border-r" : "lg:border-r-0"} border-b last:border-b-0 lg:border-b-0`}
+              style={{ borderColor: "#E2E8F0" }}
+            >
+              {/* Large watermark number */}
+              <span
+                className="absolute -top-2 -right-1 text-[96px] font-black leading-none select-none pointer-events-none transition-all duration-500 group-hover:opacity-100"
+                style={{ color: "#00A86B0F", letterSpacing: "-0.04em" }}
               >
-                <div className="flex items-start gap-4">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: `${BRAND_GREEN}12` }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: BRAND_GREEN }} />
-                  </div>
-                  <div>
-                    <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{problem.title}</h3>
-                    <p className="text-[13px] sm:text-[14px] leading-relaxed mb-2.5" style={{ color: "#64748B" }}>{problem.description}</p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: `${BRAND_GREEN}08` }}>
-                      <Clock className="w-3 h-3" style={{ color: BRAND_GREEN }} />
-                      <span className="text-[12px] font-semibold" style={{ color: BRAND_GREEN }}>{problem.highlight}</span>
-                    </div>
-                  </div>
+                {p.num}
+              </span>
+
+              {/* Small accent number */}
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #00A86B20, #0066CC10)" }}>
+                  <span className="text-[10px] font-black" style={{ color: "#00A86B" }}>{idx + 1}</span>
                 </div>
+                <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #00A86B30, transparent)" }} />
               </div>
-            )
-          })}
+
+              <p className="text-[13px] sm:text-[14px] font-bold leading-snug mb-2.5 relative z-10" style={{ color: "#0F172A" }}>{p.title}</p>
+              <p className="text-[12px] leading-relaxed relative z-10" style={{ color: "#64748B" }}>{p.body}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -260,75 +257,67 @@ function FeaturesSection() {
 
   const features = [
     {
-      icon: FileText,
-      title: "Multi-Modal Document Analysis",
-      description: "Upload PDFs with tables, charts, and graphs. Our AI reads everything - text, visuals, and complex layouts.",
-      color: BRAND_GREEN,
+      title: "Ask in plain English",
+      body: "No syntax. No menus. Type your question like you'd ask a colleague — Patram reads the doc and answers precisely.",
     },
     {
-      icon: MessageSquare,
-      title: "Natural Language Questions",
-      description: "Ask questions in plain English. No need to learn search syntax or navigate complex menus.",
-      color: BRAND_BLUE,
+      title: "Every answer is sourced",
+      body: "Responses cite the exact page and section from your uploaded document. Full traceability, zero guesswork.",
     },
     {
-      icon: Globe,
-      title: "190+ Countries Covered",
-      description: "From major markets like US, EU, UAE to emerging destinations. Always current trade policies.",
-      color: BRAND_GREEN,
+      title: "190+ countries, always current",
+      body: "From US and EU to emerging markets. Trade policies are continuously updated — you're never working from stale data.",
     },
     {
-      icon: BookOpen,
-      title: "Sourced Answers",
-      description: "Every answer cites the exact section and page from your document. Full traceability.",
-      color: BRAND_BLUE,
+      title: "Reads tables, charts, complex PDFs",
+      body: "Multi-modal AI understands not just text but visuals, tables, and nested layouts inside trade documents.",
     },
     {
-      icon: Zap,
-      title: "1.5 Second Response",
-      description: "No waiting. Get comprehensive answers faster than you can type your next question.",
-      color: "#1B4F8A",
+      title: "1.5 second response time",
+      body: "Comprehensive answers faster than you can type the next question. No loading screens, no waiting.",
     },
     {
-      icon: Shield,
-      title: "AI Fact-Checking",
-      description: "Built-in verification layer prevents hallucinations. Answers are validated against source documents.",
-      color: BRAND_BLUE,
+      title: "Built-in fact verification",
+      body: "A verification layer validates every answer against your source document — prevents hallucinations at the root.",
     },
   ]
 
   return (
-    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8">
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[1100px] mx-auto">
-        {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Powerful Features</span>
+            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>How It Works</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
-            AI That Understands{" "}
-            <span style={{ color: BRAND_GREEN }}>Trade Documents</span>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[38px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
+            What{" "}
+            <span className="bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">Patram AI</span>{" "}
+            does for you.
           </h2>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
-          {features.map((feature, idx) => (
-              <div
-                key={idx}
-                className={`p-5 rounded-2xl transition-all duration-700 hover:shadow-lg ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #E2E8F0",
-                  borderTop: `3px solid ${feature.color}`,
-                  transitionDelay: `${idx * 80}ms`,
-                }}
-              >
-                <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{feature.title}</h3>
-                <p className="text-[13px] leading-relaxed" style={{ color: "#64748B" }}>{feature.description}</p>
+        {/* Two-column feature list with green left accent */}
+        <div className={`grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-0 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          {features.map((f, idx) => (
+            <div
+              key={idx}
+              className="flex gap-3 sm:gap-4 py-4 sm:py-5 transition-all duration-300 hover:translate-x-1"
+              style={{ borderBottom: "1px solid #F1F5F9" }}
+            >
+              <div className="flex flex-col items-center flex-shrink-0 pt-0.5">
+                <div className="w-0.5 h-full rounded-full" style={{ background: "linear-gradient(to bottom, #00A86B, #00A86B20)", minHeight: "48px" }} />
               </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[10px] font-black tracking-widest" style={{ color: "#00A86B" }}>{String(idx + 1).padStart(2, "0")}</span>
+                  <h3 className="text-[13px] sm:text-[14px] font-bold leading-snug" style={{ color: "#0F172A" }}>{f.title}</h3>
+                </div>
+                <p className="text-[11px] sm:text-[12px] leading-relaxed" style={{ color: "#64748B" }}>{f.body}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -338,62 +327,117 @@ function FeaturesSection() {
 
 function UseCasesSection() {
   const { ref, isInView } = useInView()
+  const [activeIdx, setActiveIdx] = useState(0)
 
   const useCases = [
     {
-      type: "FTA Eligibility Check",
+      tag: "FTA Eligibility",
       question: "Is my product eligible for preferential duty under India-UAE CEPA?",
-      answer: "Based on your product classification (HSN 8471.30) and origin criteria in the uploaded CEPA agreement, your product qualifies for 0% duty if you meet the 40% value addition rule...",
+      answer: "Based on your product classification (HSN 8471.30) and origin criteria in the uploaded CEPA agreement, your product qualifies for 0% duty if you meet the 40% value addition rule. EUR.1 Origin Certificate required.",
+      source: "Pg 18, Annex II",
     },
     {
-      type: "Document Requirements",
+      tag: "Document Requirements",
       question: "What certificates do I need to export pharmaceuticals to Brazil?",
-      answer: "For pharmaceutical exports to Brazil, you'll need: ANVISA registration, Certificate of Pharmaceutical Product (CPP), GMP certificate from CDSCO, and Portuguese-translated product information...",
+      answer: "For pharmaceutical exports to Brazil: ANVISA registration, Certificate of Pharmaceutical Product (CPP), GMP certificate from CDSCO, and Portuguese-translated product information. Allow 6–8 weeks for ANVISA clearance.",
+      source: "Pg 34, Section 4.2",
     },
     {
-      type: "Restriction Check",
-      question: "Can I export dual-use electronics to Russia?",
-      answer: "Based on current DGFT notifications and international sanctions, items under ITC-HS 8471 series have export restrictions to Russia. You'll need a SCOMET license from DGFT...",
+      tag: "Restriction Check",
+      question: "Can I export dual-use electronics to Russia under current sanctions?",
+      answer: "Items under ITC-HS 8471 series currently carry export restrictions to Russia per DGFT notification. A SCOMET license from DGFT is mandatory. Processing time is 30–45 working days.",
+      source: "Pg 7, DGFT Schedule 2",
     },
   ]
 
+  useEffect(() => {
+    const t = setInterval(() => setActiveIdx(p => (p + 1) % useCases.length), 4000)
+    return () => clearInterval(t)
+  }, [])
+
   return (
-    <section ref={ref} id="use-cases" className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#00A86B" }}>
-      <div className="w-full max-w-[1100px] mx-auto">
-        {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+    <section ref={ref} id="use-cases" className="py-10 lg:py-12 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <div className="w-full max-w-[860px] mx-auto">
+
+        <div className={`text-center mb-6 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "rgba(255,255,255,0.5)" }}>Real-World Use Cases</span>
+            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Real Questions, Real Answers</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white">
-            Questions Exporters Ask Every Day
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[38px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
+            Questions exporters{" "}
+            <span className="bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">ask every day.</span>
           </h2>
         </div>
 
-        {/* Use Cases */}
-        <div className="space-y-4">
-          {useCases.map((useCase, idx) => (
-            <div
-              key={idx}
-              className={`p-5 lg:p-6 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-              style={{
-                background: "rgba(255,255,255,0.08)",
-                border: "1px solid rgba(255,255,255,0.15)",
-                transitionDelay: `${idx * 150}ms`,
-              }}
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <CheckCircle className="w-3.5 h-3.5" style={{ color: "rgba(255,255,255,0.7)" }} />
-                <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.7)" }}>
-                  {useCase.type}
-                </span>
+        <div className={`transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+
+          {/* Tab selectors */}
+          <div className="flex items-center justify-center gap-2 mb-4 flex-wrap px-2 sm:px-0" style={{ maxWidth: "680px", margin: "0 auto 16px" }}>
+            {useCases.map((u, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveIdx(idx)}
+                className="px-3 sm:px-4 py-2 rounded-lg text-[11px] sm:text-[12px] font-semibold transition-all duration-300"
+                style={{
+                  background: activeIdx === idx ? "#00A86B" : "#FFFFFF",
+                  color: activeIdx === idx ? "#FFFFFF" : "#64748B",
+                  border: activeIdx === idx ? "1px solid #00A86B" : "1px solid #E2E8F0",
+                }}
+              >
+                {u.tag}
+              </button>
+            ))}
+          </div>
+
+          {/* Cards — stacked crossfade on sm+, single visible on mobile */}
+          <div className="relative sm:h-[400px]" style={{ maxWidth: "680px", margin: "0 auto" }}>
+            {useCases.map((u, idx) => (
+              <div
+                key={idx}
+                className="sm:absolute sm:inset-0 transition-all duration-500"
+                style={{
+                  opacity: activeIdx === idx ? 1 : 0,
+                  pointerEvents: activeIdx === idx ? "auto" : "none",
+                  display: activeIdx === idx ? "block" : "none",
+                }}
+              >
+                <div className="rounded-2xl overflow-hidden sm:h-full flex flex-col" style={{ border: "1px solid #E2E8F0", boxShadow: "0 8px 40px rgba(0,0,0,0.08)" }}>
+
+                  {/* Chat header */}
+                  <div className="flex items-center gap-2 px-5 py-3 flex-shrink-0" style={{ background: "#FFFFFF", borderBottom: "1px solid #F1F5F9" }}>
+                    <div className="flex gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
+                    </div>
+                    <span className="text-[12px] font-bold ml-1" style={{ color: "#0F172A" }}>Patram AI</span>
+                    <span className="text-[11px] ml-1" style={{ color: "#94A3B8" }}>— Intelligent Document Assistant</span>
+                  </div>
+
+                  {/* Chat body */}
+                  <div className="flex-1 px-5 py-5 flex flex-col gap-4" style={{ background: "#FAFBFF" }}>
+                    <div className="flex justify-end">
+                      <div className="px-4 py-2.5" style={{ background: "#00A86B", borderRadius: "18px 18px 4px 18px", boxShadow: "0 3px 12px rgba(0,168,107,0.25)", maxWidth: "78%" }}>
+                        <p className="text-[13px] leading-snug font-medium" style={{ color: "#FFFFFF" }}>{u.question}</p>
+                      </div>
+                    </div>
+                    <div className="flex justify-start">
+                      <div className="px-4 py-3" style={{ background: "#F2F2F7", borderRadius: "18px 18px 18px 4px", maxWidth: "82%" }}>
+                        <div className="flex items-start justify-between gap-3 mb-1.5">
+                          <p className="text-[13px] font-bold leading-tight" style={{ color: "#0F172A" }}>{u.tag}</p>
+                          <span className="flex-shrink-0 text-[10px] font-medium px-2 py-0.5 rounded" style={{ background: "rgba(0,0,0,0.06)", color: "#94A3B8", whiteSpace: "nowrap" }}>{u.source}</span>
+                        </div>
+                        <p className="text-[12px] leading-relaxed" style={{ color: "#475569" }}>{u.answer}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
-              <h3 className="text-[16px] font-bold text-white mb-2">{useCase.question}</h3>
-              <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{useCase.answer}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -404,53 +448,46 @@ function ComparisonSection() {
   const { ref, isInView } = useInView()
 
   const metrics = [
-    { metric: "Research Time", manual: "4-6 hours", patram: "1.5 seconds" },
-    { metric: "Availability", manual: "Business hours", patram: "24/7" },
-    { metric: "Countries Covered", manual: "Your expertise", patram: "190+" },
-    { metric: "Source Citations", manual: "Sometimes", patram: "Always" },
-    { metric: "Document Analysis", manual: "Manual reading", patram: "AI-powered" },
-    { metric: "Cost per Query", manual: "Consultant fees", patram: "Pennies" },
+    { metric: "Research Time", manual: "4–6 hours", patram: "1.5 seconds" },
+    { metric: "Availability", manual: "Business hours only", patram: "24/7" },
+    { metric: "Countries Covered", manual: "Your team's knowledge", patram: "190+" },
+    { metric: "Source Citations", manual: "Sometimes", patram: "Every answer" },
+    { metric: "Cost per Query", manual: "Consultant fees", patram: "Fraction of a cent" },
+    { metric: "Accuracy Validation", manual: "Human review", patram: "AI fact-checking" },
   ]
 
   return (
-    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8">
-      <div className="w-full max-w-[900px] mx-auto">
-        {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      <div className="w-full max-w-[860px] mx-auto">
+
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Why Patram AI</span>
+            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Why Patram AI</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight" style={{ color: "#0F172A" }}>
-            Manual Research vs{" "}
-            <span style={{ color: BRAND_GREEN }}>Patram AI</span>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[38px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
+            Manual research vs{" "}
+            <span className="bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">Patram AI.</span>
           </h2>
         </div>
 
-        {/* Comparison Table */}
         <div
-          className={`rounded-2xl overflow-hidden transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          className={`rounded-2xl overflow-hidden transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ border: "1px solid #E2E8F0" }}
         >
-          <table className="w-full">
-            <thead>
-              <tr style={{ background: "#F8FAFC" }}>
-                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: "#64748B" }}>Metric</th>
-                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: "#64748B" }}>Manual</th>
-                <th className="text-left py-3 px-5 text-[13px] font-semibold" style={{ color: BRAND_GREEN }}>Patram AI</th>
-              </tr>
-            </thead>
-            <tbody>
-              {metrics.map((row, idx) => (
-                <tr key={idx} style={{ borderTop: "1px solid #E2E8F0" }}>
-                  <td className="py-3 px-5 text-[13px] sm:text-[14px] font-medium" style={{ color: "#475569" }}>{row.metric}</td>
-                  <td className="py-3 px-5 text-[13px] sm:text-[14px]" style={{ color: "#0F172A" }}>{row.manual}</td>
-                  <td className="py-3 px-5 text-[13px] sm:text-[14px] font-semibold" style={{ color: BRAND_GREEN }}>{row.patram}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="grid grid-cols-[0.8fr_1fr_1fr] sm:grid-cols-[1fr_1fr_1fr]" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Metric</div>
+            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Manual</div>
+            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: "#00A86B" }}>Patram AI</div>
+          </div>
+          {metrics.map((row, idx) => (
+            <div key={idx} className="grid grid-cols-[0.8fr_1fr_1fr] sm:grid-cols-[1fr_1fr_1fr]" style={{ borderTop: "1px solid #F1F5F9" }}>
+              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] font-medium leading-snug" style={{ color: "#475569" }}>{row.metric}</div>
+              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] leading-snug" style={{ color: "#94A3B8" }}>{row.manual}</div>
+              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] font-semibold leading-snug" style={{ color: "#00A86B" }}>{row.patram}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -461,37 +498,40 @@ function CTASection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section
-      ref={ref}
-      className="py-10 lg:py-14 px-5 lg:px-8"
-      style={{ background: "linear-gradient(180deg, #00A86B 0%, #008F5B 100%)" }}
-    >
-      <div className={`max-w-[800px] mx-auto text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white mb-3">
-          Get Answers in Seconds, Not Hours
+    <section ref={ref} className="py-12 lg:py-16 px-5 lg:px-8 relative overflow-hidden" style={{ background: "#00A86B" }}>
+      {/* Subtle texture */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: "url('/images/world-map-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        opacity: 0.06,
+      }} />
+      <div className={`max-w-[640px] mx-auto text-center relative transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="h-px w-8 rounded-full" style={{ background: "rgba(255,255,255,0.3)" }} />
+          <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "rgba(255,255,255,0.7)" }}>Get Started</span>
+          <div className="h-px w-8 rounded-full" style={{ background: "rgba(255,255,255,0.3)" }} />
+        </div>
+        <h2 className="text-[22px] sm:text-[28px] lg:text-[34px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-3 text-white">
+          Get answers in seconds, not hours.
         </h2>
-        <p className="text-[14px] sm:text-[15px] leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.8)" }}>
-          Stop wasting hours searching through documents. Let Patram AI be your always-on export intelligence advisor.
+        <p className="text-[14px] leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.8)" }}>
+          Stop spending hours in policy documents. Let Patram AI be your always-on export intelligence layer.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4 sm:px-0">
           <Link
             href="/book-demo"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-bold transition-all duration-300 hover:scale-105 btn-shine"
-            style={{
-              background: `linear-gradient(135deg, ${BRAND_GREEN}, ${BRAND_BLUE})`,
-              color: "#FFFFFF",
-              boxShadow: `0 4px 25px ${BRAND_GREEN}50`,
-            }}
+            className="w-full sm:w-[168px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+            style={{ background: "#FFFFFF", color: "#00A86B", boxShadow: "0 4px 25px rgba(0,0,0,0.15)" }}
           >
-            Start Free Trial
-            <ArrowRight className="w-4 h-4" />
+            Book a Demo <ArrowRight className="w-3.5 h-3.5" />
           </Link>
           <Link
             href="/#products"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 hover:scale-105"
-            style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "#FFFFFF" }}
+            className="w-full sm:w-[168px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
+            style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.3)", color: "#FFFFFF" }}
           >
-            Explore Other Products
+            Other Products
           </Link>
         </div>
       </div>

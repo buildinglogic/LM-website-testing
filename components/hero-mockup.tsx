@@ -101,72 +101,88 @@ export function HeroMockup({ animated = true }: { animated?: boolean }) {
   return (
     <div
       className="w-full max-w-[520px] mx-auto animate-float"
-      style={{
-        perspective: "1000px",
-      }}
+      style={{ perspective: "1000px" }}
     >
       <div
-        className="bg-white border rounded-2xl p-4 lg:p-6 transition-all duration-500"
+        className="bg-white border rounded-2xl overflow-hidden"
         style={{
-          transform: "none",
           boxShadow: "0 24px 80px rgba(0,102,204,0.15), 0 0 40px rgba(0,102,204,0.05)",
           borderColor: "#E2E8F0"
         }}
       >
         {/* Top bar */}
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3 px-4 pt-3.5 pb-3" style={{ borderBottom: "1px solid #F1F5F9" }}>
           <div className="flex gap-1.5">
             <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
             <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
             <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
           </div>
-          <span className="text-[15px] font-bold" style={{ color: "#0F172A" }}>Tradeguard — Compliance Check</span>
+          <span className="text-[13px] font-bold" style={{ color: "#0F172A" }}>TradeGuard — Compliance Check</span>
         </div>
 
-        {/* Tabs */}
-        <div className="flex gap-2 mb-4">
-          <button className="px-4 py-2 text-[15px] font-medium border-b-2" style={{ color: "#0066CC", borderColor: "#0066CC" }}>
-            Shipping Bill
-          </button>
-          <button className="px-4 py-2 text-[15px] font-medium" style={{ color: "#94A3B8" }}>Commercial Invoice</button>
+        {/* Column headers */}
+        <div className="grid grid-cols-[1fr_auto_1fr] gap-0" style={{ borderBottom: "1px solid #F1F5F9", background: "#F8FAFC" }}>
+          <div className="px-4 py-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: "#0066CC" }}>Shipping Bill</div>
+          <div className="px-2 py-2 text-[10px] font-bold uppercase tracking-widest text-center" style={{ color: "#94A3B8", minWidth: "70px" }}>Status</div>
+          <div className="px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-right" style={{ color: "#64748B" }}>Invoice</div>
         </div>
 
-        {/* Field comparison list */}
-        <div className="space-y-2">
-          {fields.map((field, idx) => (
-            <div
-              key={field.id}
-              className={`transition-all duration-300 ${currentResolving === idx ? "bg-[#0066CC]/5 rounded-lg" : ""}`}
-            >
-              <div className="flex items-center justify-between py-2 px-2">
-                <div className="flex items-center gap-3">
-                  <span className="text-base">{getStatusIcon(field.status, idx)}</span>
-                  <span className="text-[15px]" style={{ color: "#475569" }}>{field.field}</span>
+        {/* Fixed-height field rows — no layout shift */}
+        <div style={{ height: "252px", overflow: "hidden" }}>
+          {fields.map((field, idx) => {
+            const isResolving = currentResolving === idx
+            const isMismatch = field.status === "mismatch"
+            const isWarning = field.status === "warning"
+            const isMatch = field.status === "match"
+            const rowBg = isResolving ? "rgba(0,102,204,0.04)" : isMismatch ? "rgba(220,38,38,0.03)" : isWarning ? "rgba(245,158,11,0.03)" : "transparent"
+
+            return (
+              <div
+                key={field.id}
+                className="grid grid-cols-[1fr_auto_1fr] gap-0 transition-all duration-300"
+                style={{ height: "42px", background: rowBg, borderBottom: "1px solid #F8FAFC" }}
+              >
+                {/* SB value */}
+                <div className="px-4 flex items-center">
+                  <span className="text-[11px] font-medium truncate" style={{ color: "#0F172A" }}>
+                    {field.billValue ?? field.field}
+                  </span>
                 </div>
-                {getStatusBadge(field.status, idx)}
+
+                {/* Status badge — centered */}
+                <div className="px-2 flex items-center justify-center" style={{ minWidth: "70px" }}>
+                  {isResolving ? (
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded" style={{ background: "rgba(0,102,204,0.1)", color: "#0066CC" }}>...</span>
+                  ) : isMatch ? (
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded" style={{ background: "rgba(0,168,107,0.1)", color: "#00A86B" }}>MATCH</span>
+                  ) : isMismatch ? (
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded" style={{ background: "rgba(220,38,38,0.1)", color: "#DC2626" }}>MISMATCH</span>
+                  ) : (
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded" style={{ background: "rgba(245,158,11,0.1)", color: "#D97706" }}>WARNING</span>
+                  )}
+                </div>
+
+                {/* Invoice value */}
+                <div className="px-4 flex items-center justify-end">
+                  <span
+                    className="text-[11px] font-medium truncate"
+                    style={{ color: isMismatch ? "#DC2626" : isWarning ? "#D97706" : "#475569" }}
+                  >
+                    {field.invoiceValue ?? field.field}
+                  </span>
+                </div>
               </div>
-              {field.status !== "match" && field.invoiceValue && (
-                <div className="pl-8 pb-2 text-[13px]" style={{ color: "#94A3B8" }}>
-                  {field.invoiceValue}{" "}
-                  <span style={{ color: "#64748B" }}>{field.status === "warning" ? "≈" : "→"}</span>{" "}
-                  {field.billValue}
-                </div>
-              )}
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-4 pt-4 border-t -mx-4 lg:-mx-6 -mb-4 lg:-mb-6 px-4 lg:px-6 py-3 rounded-b-2xl" style={{ background: "rgba(220,38,38,0.05)", borderColor: "#E2E8F0" }}>
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-[15px] font-medium" style={{ color: "#DC2626" }}>
-              ⚠ {issueCount} Issue{issueCount !== 1 ? "s" : ""} Found
-            </span>
-            <span className="text-[15px] font-mono" style={{ color: "#F59E0B" }}>₹2,40,000 at risk</span>
-            <span className="text-[15px] font-medium cursor-pointer hover:underline" style={{ color: "#0066CC" }}>
-              View Full Report →
-            </span>
-          </div>
+        <div className="px-4 py-3 flex items-center justify-between" style={{ background: "rgba(220,38,38,0.04)", borderTop: "1px solid #F1F5F9" }}>
+          <span className="text-[12px] font-semibold" style={{ color: "#DC2626" }}>
+            {issueCount} Issue{issueCount !== 1 ? "s" : ""} Found
+          </span>
+          <span className="text-[12px] font-mono" style={{ color: "#64748B" }}>₹2,40,000 at risk</span>
+          <span className="text-[12px] font-semibold" style={{ color: "#0066CC" }}>View Report →</span>
         </div>
       </div>
     </div>

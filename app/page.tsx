@@ -86,10 +86,11 @@ function AnimatedCount({ to }: { to: number }) {
     let frame: number
     const t0 = performance.now()
     const dur = 1600
+    const isDecimal = !Number.isInteger(to)
     const tick = (now: number) => {
       const p = Math.min((now - t0) / dur, 1)
       const eased = 1 - Math.pow(1 - p, 3)
-      setCount(Math.floor(eased * to))
+      setCount(isDecimal ? parseFloat((eased * to).toFixed(1)) : Math.floor(eased * to))
       if (p < 1) frame = requestAnimationFrame(tick)
       else setCount(to)
     }
@@ -97,7 +98,7 @@ function AnimatedCount({ to }: { to: number }) {
     return () => cancelAnimationFrame(frame)
   }, [started, to])
 
-  return <span ref={ref}>{count}</span>
+  return <span ref={ref}>{Number.isInteger(to) ? count : count.toFixed(1)}</span>
 }
 
 /* ========================
@@ -108,40 +109,34 @@ function ProductShowcase() {
 
   const products = [
     {
+      num: "01",
       name: "Patram AI",
       tagline: "Ask anything. Get sourced answers.",
       description: "Regulations, certifications, restrictions — for 190+ countries. Patram reads the policy documents so your team doesn't have to.",
-      stat: "190+",
-      statLabel: "Countries",
-      speed: "1.5s",
-      speedLabel: "Response time",
+      statTo: 190, statSuffix: "+", statLabel: "Countries",
+      speedPrefix: "", speedTo: 1.5, speedSuffix: "s", speedLabel: "Response time",
       href: "/products/patram",
       color: "#00A86B",
-      icon: Globe,
     },
     {
+      num: "02",
       name: "TradeGuard",
       tagline: "Document audit in seconds, not hours.",
       description: "Upload Shipping Bill and Invoice. TradeGuard cross-matches 40+ fields and flags the discrepancies that would cost you at customs.",
-      stat: "40+",
-      statLabel: "Fields checked",
-      speed: "<5s",
-      speedLabel: "Per audit",
+      statTo: 40, statSuffix: "+", statLabel: "Fields checked",
+      speedPrefix: "<", speedTo: 5, speedSuffix: "s", speedLabel: "Per audit",
       href: "/products/tradeguard",
       color: "#0066CC",
-      icon: Shield,
     },
     {
+      num: "03",
       name: "TariffIQ",
       tagline: "Right HSN code. Maximum incentive.",
       description: "Duty rates, drawback eligibility, RoDTEP claims — resolved in seconds. No guesswork. No missed refunds.",
-      stat: "95%",
-      statLabel: "Accuracy",
-      speed: "<3s",
-      speedLabel: "Classification",
+      statTo: 95, statSuffix: "%", statLabel: "Accuracy",
+      speedPrefix: "<", speedTo: 3, speedSuffix: "s", speedLabel: "Classification",
       href: "/products/tariffiq",
       color: "#1B4F8A",
-      icon: Calculator,
     },
   ]
 
@@ -149,92 +144,92 @@ function ProductShowcase() {
     <section
       ref={ref}
       id="products"
-      className="py-10 lg:py-14 px-5 lg:px-8"
+      className="pt-6 pb-10 lg:pb-12 px-5 lg:px-8"
       style={{ background: "#FFFFFF", scrollMarginTop: "80px" }}
     >
       <div className="max-w-[1100px] mx-auto">
+
         {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-6 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Our Products</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[26px] sm:text-[30px] lg:text-[40px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
+          <h2 className="text-[22px] sm:text-[28px] lg:text-[36px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
             Purpose-built for{" "}
             <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">every stage of export.</span>
           </h2>
-          <p className="text-[14px] sm:text-[15px] mt-3 max-w-[460px] mx-auto" style={{ color: "#64748B" }}>
-            Classification. Compliance. Intelligence. Each one solves a real bottleneck.
-          </p>
         </div>
 
-        {/* Cards — stacked on mobile, grid on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-          {products.map((product, idx) => {
-            const Icon = product.icon
-            return (
-              <Link
-                key={product.name}
-                href={product.href}
-                onClick={() => trackProductCTAClick(product.name, "Product Showcase")}
-                className={`group product-card-apple card-shimmer-on-hover rounded-2xl flex flex-col transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #E2E8F0",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
-                  transitionDelay: `${idx * 120}ms`,
-                }}
+        {/* Cards — editorial column layout, no icons, no colored top bars */}
+        <div
+          className={`grid grid-cols-1 lg:grid-cols-3 rounded-2xl overflow-hidden transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 30px rgba(0,0,0,0.06)" }}
+        >
+          {products.map((product, idx) => (
+            <Link
+              key={product.name}
+              href={product.href}
+              onClick={() => trackProductCTAClick(product.name, "Product Showcase")}
+              className={`group relative flex flex-col px-5 py-5 lg:px-7 lg:py-6 transition-all duration-300 hover:bg-[#FAFBFF] ${idx < 2 ? "lg:border-r" : ""} ${idx < 2 ? "border-b lg:border-b-0" : ""}`}
+              style={{
+                background: "#FFFFFF",
+                borderColor: "#E2E8F0",
+                transitionDelay: `${idx * 80}ms`,
+              }}
+            >
+              {/* Faint watermark number */}
+              <span
+                className="absolute top-4 right-5 text-[52px] font-black leading-none select-none pointer-events-none"
+                style={{ color: `${product.color}0D` }}
               >
-                {/* Gradient top accent */}
-                <div className="h-1 rounded-t-2xl" style={{ background: `linear-gradient(90deg, ${product.color}, ${product.color}88)` }} />
+                {product.num}
+              </span>
 
-                <div className="p-5 lg:p-6 flex flex-col flex-1">
-                  {/* Icon + Name row */}
-                  <div className="flex items-center gap-4 mb-3">
-                    <div
-                      className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-[-3deg]"
-                      style={{
-                        background: `linear-gradient(135deg, ${product.color}, ${product.color}bb)`,
-                        boxShadow: `0 8px 24px ${product.color}30`,
-                      }}
-                    >
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-[18px] sm:text-[20px] font-extrabold" style={{ color: "#0F172A" }}>
-                        {product.name}
-                      </h3>
-                      <p className="text-[12px] font-semibold" style={{ color: product.color }}>{product.tagline}</p>
-                    </div>
+              {/* Index + color dot */}
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: product.color }} />
+                <span className="text-[10px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>{product.num}</span>
+              </div>
+
+              {/* Product name */}
+              <h3 className="text-[20px] sm:text-[22px] font-extrabold leading-tight mb-1" style={{ color: "#0F172A" }}>
+                {product.name}
+              </h3>
+
+              {/* Tagline */}
+              <p className="text-[12px] font-semibold mb-3" style={{ color: product.color }}>{product.tagline}</p>
+
+              {/* Description */}
+              <p className="text-[13px] leading-relaxed flex-1 mb-5" style={{ color: "#475569" }}>
+                {product.description}
+              </p>
+
+              {/* Stats — animated count-up */}
+              <div className="flex items-start gap-5 mb-5" style={{ borderTop: "1px solid #F1F5F9", paddingTop: "16px" }}>
+                <div>
+                  <div className="text-[22px] font-black leading-none" style={{ color: "#0F172A" }}>
+                    {isInView ? <><AnimatedCount to={product.statTo} />{product.statSuffix}</> : <span>0{product.statSuffix}</span>}
                   </div>
-
-                  {/* Description */}
-                  <p className="text-[13px] sm:text-[14px] leading-relaxed mb-4 flex-1" style={{ color: "#475569" }}>
-                    {product.description}
-                  </p>
-
-                  {/* Stats row */}
-                  <div className="flex items-center gap-4 mb-4 pb-4" style={{ borderBottom: "1px solid #E2E8F0" }}>
-                    <div className="flex-1 text-center py-3 rounded-xl" style={{ background: `${product.color}08` }}>
-                      <div className="text-[22px] font-black" style={{ color: product.color }}>{product.stat}</div>
-                      <div className="text-[11px] font-medium" style={{ color: "#94A3B8" }}>{product.statLabel}</div>
-                    </div>
-                    <div className="flex-1 text-center py-3 rounded-xl" style={{ background: `${product.color}08` }}>
-                      <div className="text-[22px] font-black" style={{ color: product.color }}>{product.speed}</div>
-                      <div className="text-[11px] font-medium" style={{ color: "#94A3B8" }}>{product.speedLabel}</div>
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="flex items-center gap-2 font-bold text-[14px] transition-all duration-300 group-hover:gap-4" style={{ color: product.color }}>
-                    Explore {product.name}
-                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </div>
+                  <div className="text-[10px] font-medium uppercase tracking-wide mt-1" style={{ color: "#94A3B8" }}>{product.statLabel}</div>
                 </div>
-              </Link>
-            )
-          })}
+                <div className="w-px h-8 mt-1" style={{ background: "#E2E8F0" }} />
+                <div>
+                  <div className="text-[22px] font-black leading-none" style={{ color: "#0F172A" }}>
+                    {isInView ? <>{product.speedPrefix}<AnimatedCount to={product.speedTo} />{product.speedSuffix}</> : <span>{product.speedPrefix}0{product.speedSuffix}</span>}
+                  </div>
+                  <div className="text-[10px] font-medium uppercase tracking-wide mt-1" style={{ color: "#94A3B8" }}>{product.speedLabel}</div>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold transition-all duration-300 group-hover:gap-3" style={{ color: product.color }}>
+                Explore {product.name}
+                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
@@ -242,106 +237,106 @@ function ProductShowcase() {
 }
 
 /* ========================
-   PROBLEM SECTION — 4 Apple-style premium cards
+   PROBLEM SECTION — Editorial newspaper layout
 ======================== */
 function ProblemSection() {
   const { ref, isInView } = useInView()
 
   const problems = [
     {
-      number: "50%",
-      title: "Data Mismatches",
-      body: "Half of all trade documents contain errors. One discrepancy stalls your shipment.",
+      prefix: "", countTo: 50, suffix: "%",
+      title: "Documents contain errors",
+      body: "Half of all trade documents have at least one discrepancy. One mismatch stalls your shipment at customs.",
       citation: "ADB Report",
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
-        </svg>
-      ),
-      accentColor: "#0066CC",
     },
     {
-      number: "3-7%",
-      title: "FOB Value Lost",
-      body: "Drawback and refund claims rejected because documents don't match.",
+      prefix: "3–", countTo: 7, suffix: "%",
+      title: "FOB value lost to rejected claims",
+      body: "Drawback and RoDTEP refunds rejected because supporting documents don't align.",
       citation: "CBIC Analysis",
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      accentColor: "#00A86B",
     },
     {
-      number: "30%",
-      title: "Critical Errors",
-      body: "Even experienced teams miss discrepancies that trigger customs holds.",
+      prefix: "", countTo: 30, suffix: "%",
+      title: "Errors missed by experienced teams",
+      body: "Even seasoned compliance teams miss critical field mismatches that trigger holds and penalties.",
       citation: "World Bank LPI",
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-        </svg>
-      ),
-      accentColor: "#0066CC",
     },
     {
-      number: "3,000+",
-      title: "New Policies Yearly",
-      body: "Regulations change faster than any team can track manually.",
+      prefix: "", countTo: 3000, suffix: "+",
+      title: "Policy changes every year",
+      body: "Regulations shift faster than any team can manually track. One outdated rule costs you the shipment.",
       citation: "World Economic Forum",
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      accentColor: "#1B4F8A",
     },
   ]
 
   return (
     <section
       ref={ref}
-      className="py-8 lg:py-10 px-5 lg:px-8 relative overflow-hidden"
+      className="py-10 lg:py-14 px-5 lg:px-8 relative overflow-hidden"
+      style={{ background: "#F8FAFC" }}
     >
-      {/* Blurred map layer */}
-      <div className="absolute inset-0 scale-110 pointer-events-none" style={{
-        backgroundImage: `url('/images/world-map-bg.png')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        filter: 'blur(3px)',
-      }} />
+      {/* World map — very faint, no blur */}
       <div className="absolute inset-0 pointer-events-none" style={{
-        background: 'linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(248,250,252,0.92) 100%)',
+        backgroundImage: `url('/images/world-map-bg.png')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        opacity: 0.06,
       }} />
 
       <div className="w-full max-w-[1100px] mx-auto relative">
+
         {/* Header */}
-        <div className={`text-center mb-5 lg:mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <div className="h-px w-8 flex-shrink-0 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>
-              The Cost of Doing Nothing
-            </span>
-            <div className="h-px w-8 flex-shrink-0 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
+        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Cost of Doing Nothing</span>
+            <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[36px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-2" style={{ color: "#0F172A" }}>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[36px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
             The cost of{" "}
             <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">doing nothing.</span>
           </h2>
-          <p className="text-[13px] sm:text-[14px] max-w-[420px] mx-auto" style={{ color: "#64748B" }}>
-            What your shipments lose before they leave the port.
-          </p>
         </div>
 
-        {/* 4 Premium cards — 2x2 grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4 mb-5">
-          {problems.map((problem, idx) => (
-            <ProblemCardItem key={idx} problem={problem} idx={idx} isInView={isInView} />
+        {/* Editorial 4-column stat strip */}
+        <div
+          className={`grid grid-cols-2 lg:grid-cols-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          style={{ borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}
+        >
+          {problems.map((p, idx) => (
+            <div
+              key={idx}
+              className={`py-5 px-4 lg:px-8 flex flex-col ${idx < 3 ? "border-r" : ""} ${idx < 2 ? "border-b lg:border-b-0" : ""}`}
+              style={{ borderColor: "#E2E8F0", transitionDelay: `${idx * 80}ms` }}
+            >
+              {/* The number — animated count-up */}
+              <div
+                className="text-[32px] sm:text-[40px] lg:text-[48px] font-black tracking-tight leading-none mb-2"
+                style={{ color: "#0F172A" }}
+              >
+                {p.prefix}{isInView ? <AnimatedCount to={p.countTo} /> : 0}{p.suffix}
+              </div>
+
+              {/* Title */}
+              <p className="text-[12px] sm:text-[13px] font-bold leading-snug mb-1.5" style={{ color: "#0F172A" }}>
+                {p.title}
+              </p>
+
+              {/* Body */}
+              <p className="text-[11px] sm:text-[12px] leading-relaxed flex-1" style={{ color: "#64748B" }}>
+                {p.body}
+              </p>
+
+              {/* Citation */}
+              <p className="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase mt-3" style={{ color: "#94A3B8" }}>
+                {p.citation}
+              </p>
+            </div>
           ))}
         </div>
 
         {/* CTA */}
-        <div className={`text-center transition-all duration-700 delay-300 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mt-8 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <a
             href="#products"
             className="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
@@ -350,9 +345,7 @@ function ProblemSection() {
             See How We Fix This
             <ArrowRight className="w-4 h-4" />
           </a>
-          <p className="text-[11px] mt-2" style={{ color: "#94A3B8" }}>
-            Works on your actual documents
-          </p>
+          <p className="text-[11px] mt-2" style={{ color: "#94A3B8" }}>Works on your actual documents</p>
         </div>
       </div>
     </section>
@@ -360,101 +353,7 @@ function ProblemSection() {
 }
 
 /* ========================
-   PROBLEM CARD — Premium glass morphism with mouse tracking
-======================== */
-function ProblemCardItem({ problem, idx, isInView }: {
-  problem: { icon: React.ReactNode; number: string; title: string; body: string; citation: string; accentColor: string }
-  idx: number
-  isInView: boolean
-}) {
-  const divRef = useRef<HTMLDivElement>(null)
-  const [spotPos, setSpotPos] = useState({ x: 0, y: 0 })
-  const [spotOn, setSpotOn] = useState(false)
-
-  return (
-    <div
-      ref={divRef}
-      onMouseMove={(e) => {
-        if (!divRef.current) return
-        const rect = divRef.current.getBoundingClientRect()
-        setSpotPos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
-      }}
-      onMouseEnter={() => setSpotOn(true)}
-      onMouseLeave={() => setSpotOn(false)}
-      className={`problem-card-premium relative rounded-2xl overflow-hidden cursor-default ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-      style={{
-        background: "rgba(255,255,255,0.78)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        border: spotOn ? `1px solid ${problem.accentColor}40` : "1px solid rgba(226,232,240,0.8)",
-        transitionDelay: `${idx * 100}ms`,
-        transitionDuration: "0.6s",
-        boxShadow: spotOn
-          ? `0 16px 48px ${problem.accentColor}18, 0 1px 0 rgba(255,255,255,0.9) inset`
-          : "0 4px 20px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.9) inset",
-      }}
-    >
-      {/* Gradient top accent bar */}
-      <div className="absolute top-0 left-0 right-0 h-[3px] transition-all duration-500"
-        style={{
-          background: spotOn
-            ? `linear-gradient(90deg, ${problem.accentColor}, ${problem.accentColor}88)`
-            : `linear-gradient(90deg, ${problem.accentColor}40, ${problem.accentColor}20)`,
-        }} />
-
-      {/* Mouse-tracking spotlight */}
-      <div className="pointer-events-none absolute inset-0 transition-opacity duration-500"
-        style={{
-          opacity: spotOn ? 1 : 0,
-          background: `radial-gradient(350px circle at ${spotPos.x}px ${spotPos.y}px, ${problem.accentColor}12, transparent 65%)`
-        }}
-      />
-
-      <div className="p-4 lg:p-5 relative">
-        <div className="flex items-start gap-4">
-          {/* Left: Icon + Number */}
-          <div className="flex flex-col items-center flex-shrink-0">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center mb-2 transition-all duration-500"
-              style={{
-                background: spotOn ? `${problem.accentColor}15` : `${problem.accentColor}08`,
-                color: problem.accentColor,
-                boxShadow: spotOn ? `0 4px 16px ${problem.accentColor}20` : 'none',
-              }}
-            >
-              {problem.icon}
-            </div>
-            <div
-              className="text-[26px] lg:text-[32px] font-black tracking-tight leading-none stat-number-glow"
-              style={{ color: problem.accentColor }}
-            >
-              {problem.number}
-            </div>
-          </div>
-
-          {/* Right: Text */}
-          <div className="flex-1 pt-0.5">
-            <h3 className="font-bold text-[14px] lg:text-[15px] leading-snug mb-1" style={{ color: "#0F172A" }}>
-              {problem.title}
-            </h3>
-            <p className="text-[12px] sm:text-[13px] leading-relaxed mb-2" style={{ color: "#475569" }}>
-              {problem.body}
-            </p>
-            <div className="flex items-center gap-2">
-              <div className="w-1 h-1 rounded-full" style={{ background: problem.accentColor }} />
-              <span className="text-[11px] font-semibold tracking-wider uppercase" style={{ color: "#94A3B8" }}>
-                {problem.citation}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-/* ========================
-   HOW IT WORKS — Premium 4-step Apple-style
+   HOW IT WORKS — Horizontal timeline rail
 ======================== */
 function HowItWorks() {
   const { ref, isInView } = useInView()
@@ -463,56 +362,24 @@ function HowItWorks() {
 
   const steps = [
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-      ),
       title: "The PO Lands",
-      story: "Purchase order in. Deadline: 48 hours. Every document must be perfect.",
-      metric: "Day 0",
-      agent: null,
+      story: "Purchase order received. Deadline: 48 hours. Every document must be perfect.",
       color: "#64748B",
-      accent: "#94A3B8",
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-        </svg>
-      ),
       title: "Documents Go In",
       story: "Upload Shipping Bill and Invoice. 40+ fields extracted and cross-matched instantly.",
-      metric: "40+ fields",
-      agent: "TradeGuard",
       color: "#0066CC",
-      accent: "#60A5FA",
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      ),
       title: "Mismatches Caught",
       story: "FOB discrepancy, port conflict, HSN error — flagged in seconds, not at customs.",
-      metric: "< 5 sec",
-      agent: "TradeGuard",
       color: "#0066CC",
-      accent: "#60A5FA",
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-        </svg>
-      ),
       title: "Ship with Confidence",
       story: "Clean documents. Maximized incentives. Customs cleared. You focus on the deal.",
-      metric: "100% clean",
-      agent: "All Three",
       color: "#00A86B",
-      accent: "#34D399",
     },
   ]
 
@@ -521,7 +388,7 @@ function HowItWorks() {
     if (!isInView) return
     const timer = setInterval(() => {
       setActiveIdx(prev => (prev + 1) % 4)
-    }, 4000)
+    }, 3500)
     return () => clearInterval(timer)
   }, [isInView])
 
@@ -535,128 +402,189 @@ function HowItWorks() {
   return (
     <section
       ref={ref}
-      className="py-10 lg:py-14 px-5 lg:px-8 relative"
-      style={{ background: "#F8FAFC" }}
+      className="py-10 lg:py-14 px-5 lg:px-8"
+      style={{ background: "#FFFFFF" }}
     >
       <div className="w-full max-w-[1100px] mx-auto">
+
         {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mb-10 lg:mb-12 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Journey</span>
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-2" style={{ color: "#0F172A" }}>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={{ color: "#0F172A" }}>
             From purchase order to{" "}
-            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
-              cleared shipment.
-            </span>
+            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">cleared shipment.</span>
           </h2>
-          <p className="text-[14px] sm:text-[15px] max-w-[400px] mx-auto" style={{ color: "#64748B" }}>
-            The entire compliance workflow, in under five minutes.
-          </p>
         </div>
 
-        {/* Timeline connector + cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 mb-8">
+        {/* Timeline rail — desktop */}
+        <div className={`hidden lg:block transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+
+          {/* Rail + nodes row */}
+          <div className="relative flex items-center mb-0">
+            {/* Full-width background rule */}
+            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px" style={{ background: "#E2E8F0" }} />
+
+            {/* Filled progress line */}
+            <div
+              className="absolute left-0 top-1/2 -translate-y-1/2 h-px transition-all duration-700"
+              style={{
+                background: "linear-gradient(90deg, #0066CC, #00A86B)",
+                width: `${(activeIdx / 3) * 100}%`,
+              }}
+            />
+
+            {steps.map((step, idx) => {
+              const done = idx < activeIdx
+              const active = idx === activeIdx
+              return (
+                <div
+                  key={idx}
+                  className="relative flex-1 flex flex-col items-center cursor-pointer"
+                  onClick={() => setActiveIdx(idx)}
+                  onMouseEnter={() => setActiveIdx(idx)}
+                >
+                  {/* Node */}
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center z-10 transition-all duration-500 select-none"
+                    style={{
+                      background: active
+                        ? "linear-gradient(135deg, #0066CC, #00A86B)"
+                        : done
+                        ? "#E8F5FF"
+                        : "#FFFFFF",
+                      border: active
+                        ? "none"
+                        : done
+                        ? "2px solid #0066CC"
+                        : "2px solid #E2E8F0",
+                      boxShadow: active ? "0 4px 20px rgba(0,102,204,0.35)" : "none",
+                      transform: active ? "scale(1.2)" : "scale(1)",
+                    }}
+                  >
+                    {done ? (
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="#0066CC" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    ) : (
+                      <span
+                        className="text-[12px] font-black"
+                        style={{ color: active ? "#FFFFFF" : "#94A3B8" }}
+                      >
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Content panels — below the rail */}
+          <div className="flex mt-0">
+            {steps.map((step, idx) => {
+              const active = idx === activeIdx
+              const done = idx < activeIdx
+              return (
+                <div
+                  key={idx}
+                  className="flex-1 px-2 cursor-pointer"
+                  onClick={() => setActiveIdx(idx)}
+                  onMouseEnter={() => setActiveIdx(idx)}
+                >
+                  {/* Connector tick */}
+                  <div
+                    className="w-px mx-auto transition-all duration-500"
+                    style={{
+                      height: active ? "24px" : "16px",
+                      background: active ? "linear-gradient(to bottom, #0066CC, #00A86B)" : "#E2E8F0",
+                    }}
+                  />
+
+                  {/* Content block */}
+                  <div
+                    className="pt-3 pb-4 px-3 rounded-xl transition-all duration-500"
+                    style={{
+                      background: active ? "#F8FAFC" : "transparent",
+                      border: active ? "1px solid #E2E8F0" : "1px solid transparent",
+                    }}
+                  >
+                    <h3
+                      className="text-[15px] font-bold leading-snug mb-1.5 transition-colors duration-300"
+                      style={{ color: active || done ? "#0F172A" : "#94A3B8" }}
+                    >
+                      {step.title}
+                    </h3>
+                    <p
+                      className="text-[12px] leading-relaxed transition-colors duration-300"
+                      style={{ color: active ? "#475569" : "#CBD5E1" }}
+                    >
+                      {step.story}
+                    </p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Mobile — vertical stack */}
+        <div className="lg:hidden space-y-0">
           {steps.map((step, idx) => {
-            const active = activeIdx === idx
+            const active = idx === activeIdx
+            const done = idx < activeIdx
             return (
               <div
                 key={idx}
+                className="flex gap-4 cursor-pointer"
                 onClick={() => setActiveIdx(idx)}
-                onMouseEnter={() => setActiveIdx(idx)}
-                className={`journey-card card-shimmer-on-hover relative rounded-2xl p-5 cursor-pointer ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                style={{
-                  transitionDelay: `${idx * 120}ms`,
-                  transitionDuration: '0.6s',
-                  background: active ? '#FFFFFF' : '#FFFFFF',
-                  border: active ? `2px solid ${step.color}50` : '1px solid #E2E8F0',
-                  boxShadow: active
-                    ? `0 16px 48px ${step.color}18, 0 4px 12px rgba(0,0,0,0.05)`
-                    : '0 2px 8px rgba(0,0,0,0.04)',
-                }}
               >
-                {/* Gradient accent top */}
-                <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl transition-all duration-500"
-                  style={{
-                    background: active
-                      ? `linear-gradient(90deg, ${step.color}, ${step.accent})`
-                      : `linear-gradient(90deg, ${step.color}20, ${step.color}10)`,
-                  }} />
-
-                {/* Step number badge */}
-                <div
-                  className="w-9 h-9 rounded-xl flex items-center justify-center mb-3 transition-all duration-500"
-                  style={{
-                    background: active ? `linear-gradient(135deg, ${step.color}, ${step.accent})` : '#F1F5F9',
-                    color: active ? '#FFFFFF' : '#94A3B8',
-                    boxShadow: active ? `0 6px 20px ${step.color}35` : 'none',
-                    transform: active ? 'scale(1.1)' : 'scale(1)',
-                  }}
-                >
-                  {active ? step.icon : (
-                    <span className="text-[14px] font-black">{String(idx + 1).padStart(2, '0')}</span>
+                {/* Left: node + line */}
+                <div className="flex flex-col items-center flex-shrink-0">
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-500"
+                    style={{
+                      background: active ? "linear-gradient(135deg, #0066CC, #00A86B)" : done ? "#E8F5FF" : "#FFFFFF",
+                      border: active ? "none" : done ? "2px solid #0066CC" : "2px solid #E2E8F0",
+                      boxShadow: active ? "0 4px 16px rgba(0,102,204,0.3)" : "none",
+                    }}
+                  >
+                    {done ? (
+                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="#0066CC" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    ) : (
+                      <span className="text-[11px] font-black" style={{ color: active ? "#FFFFFF" : "#94A3B8" }}>
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                    )}
+                  </div>
+                  {idx < 3 && (
+                    <div className="w-px flex-1 my-1" style={{ background: done ? "#0066CC40" : "#E2E8F0", minHeight: "32px" }} />
                   )}
                 </div>
 
-                {/* Title */}
-                <h3 className="font-bold text-[16px] lg:text-[17px] mb-2 leading-snug transition-colors duration-300"
-                  style={{ color: active ? '#0F172A' : '#64748B' }}>
-                  {step.title}
-                </h3>
-
-                {/* Story */}
-                <p className="text-[13px] leading-relaxed mb-3 transition-colors duration-300"
-                  style={{ color: active ? '#475569' : '#94A3B8' }}>
-                  {step.story}
-                </p>
-
-                {/* Metric + Agent row */}
-                <div className="flex items-center justify-between mt-auto">
-                  <span
-                    className="inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-bold transition-all duration-300"
-                    style={{
-                      background: active ? `${step.color}12` : '#F8FAFC',
-                      color: active ? step.color : '#CBD5E1',
-                      border: `1px solid ${active ? step.color + '30' : '#E2E8F0'}`,
-                    }}
-                  >
-                    {step.metric}
-                  </span>
-                  {step.agent && (
-                    <span className="text-[11px] font-bold tracking-[0.12em] uppercase transition-colors duration-300"
-                      style={{ color: active ? step.color : '#CBD5E1' }}>
-                      {step.agent}
-                    </span>
-                  )}
+                {/* Right: content */}
+                <div className="pb-5 flex-1">
+                  <h3 className="text-[15px] font-bold mb-1 transition-colors duration-300"
+                    style={{ color: active || done ? "#0F172A" : "#94A3B8" }}>
+                    {step.title}
+                  </h3>
+                  <p className="text-[12px] leading-relaxed transition-colors duration-300"
+                    style={{ color: active ? "#475569" : "#CBD5E1" }}>
+                    {step.story}
+                  </p>
                 </div>
               </div>
             )
           })}
         </div>
 
-        {/* Progress dots */}
-        <div className="flex justify-center items-center gap-2 mb-5">
-          {steps.map((step, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveIdx(idx)}
-              aria-label={`Step ${idx + 1}: ${step.title}`}
-              className="transition-all duration-500"
-              style={{
-                width: activeIdx === idx ? '32px' : '8px',
-                height: '8px',
-                borderRadius: '4px',
-                background: activeIdx === idx ? step.color : '#CBD5E1',
-                boxShadow: activeIdx === idx ? `0 0 0 3px ${step.color}20` : 'none',
-              }}
-            />
-          ))}
-        </div>
-
         {/* CTA */}
-        <div className={`text-center transition-all duration-700 delay-400 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mt-10 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <Link
             href="/book-demo"
             className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-[15px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
@@ -665,10 +593,11 @@ function HowItWorks() {
             Watch It Happen Live
             <ArrowRight className="w-4 h-4" />
           </Link>
-          <p className="text-[12px] font-mono tracking-wider mt-3 uppercase" style={{ color: '#94A3B8' }}>
+          <p className="text-[11px] mt-2 uppercase tracking-widest" style={{ color: "#94A3B8" }}>
             Entire journey under 5 minutes
           </p>
         </div>
+
       </div>
     </section>
   )
@@ -805,31 +734,31 @@ function AwardsSection() {
       <div className="w-full py-5" style={{ background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
         <div className="w-full text-center px-4 relative flex flex-col items-center">
           <p className="text-[13px] font-semibold mb-4 tracking-[0.1em] uppercase" style={{ color: "#94A3B8" }}>Recognised by</p>
-          <div className="w-full max-w-[1200px] overflow-hidden relative h-20 sm:h-32">
-            <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-40 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #F8FAFC, transparent)' }} />
-            <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-40 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #F8FAFC, transparent)' }} />
+          <div className="w-full max-w-[1200px] overflow-hidden relative h-16 sm:h-24 lg:h-32">
+            <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 lg:w-40 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #F8FAFC, transparent)' }} />
+            <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 lg:w-40 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #F8FAFC, transparent)' }} />
 
-            <div className="flex items-center justify-start gap-8 sm:gap-12 w-max h-full" style={{ animation: 'marquee 40s linear infinite' }}>
+            <div className="flex items-center justify-start gap-6 sm:gap-10 lg:gap-12 w-max h-full" style={{ animation: 'marquee 40s linear infinite' }}>
               {[
-                { src: "/images/nvidia-inception.png", alt: "NVIDIA Inception", w: 360 },
-                { src: "/images/aws-powered.png", alt: "AWS Powered", w: 280 },
-                { src: "/images/microsoft-startups.png", alt: "Microsoft for Startups", w: 360, css: "scale-[1.35] mix-blend-multiply origin-center" },
-                { src: "/images/karnataka_itbt_department_logo.png", alt: "Karnataka Elevate", w: 300 },
-                { src: "/images/Aegis_award_logo.jpg", alt: "Aegis Award", w: 280 },
+                { src: "/images/nvidia-inception.png", alt: "NVIDIA Inception", w: 360, mw: 140 },
+                { src: "/images/aws-powered.png", alt: "AWS Powered", w: 280, mw: 110 },
+                { src: "/images/microsoft-startups.png", alt: "Microsoft for Startups", w: 360, mw: 140, css: "scale-[1.35] mix-blend-multiply origin-center" },
+                { src: "/images/karnataka_itbt_department_logo.png", alt: "Karnataka Elevate", w: 300, mw: 115 },
+                { src: "/images/Aegis_award_logo.jpg", alt: "Aegis Award", w: 280, mw: 110 },
               ].map((logo, i) => (
-                <div key={i} onMouseEnter={() => trackPartnerInteracted(logo.alt)} className="flex-shrink-0 h-16 sm:h-24 lg:h-28 relative transition-all duration-300 hover:scale-105" style={{ width: logo.w }}>
+                <div key={i} onMouseEnter={() => trackPartnerInteracted(logo.alt)} className="flex-shrink-0 h-10 sm:h-16 lg:h-24 relative transition-all duration-300 hover:scale-105" style={{ width: `clamp(${logo.mw}px, 20vw, ${logo.w}px)` }}>
                   <Image src={logo.src} alt={logo.alt} fill className={`object-contain ${logo.css || ''}`} />
                 </div>
               ))}
               <div className="contents">
                 {[
-                  { src: "/images/nvidia-inception.png", alt: "NVIDIA Inception", w: 360 },
-                  { src: "/images/aws-powered.png", alt: "AWS Powered", w: 280 },
-                  { src: "/images/microsoft-startups.png", alt: "Microsoft for Startups", w: 360, css: "scale-[1.35] mix-blend-multiply origin-center" },
-                  { src: "/images/karnataka_itbt_department_logo.png", alt: "Karnataka Elevate", w: 300 },
-                  { src: "/images/Aegis_award_logo.jpg", alt: "Aegis Award", w: 280 },
+                  { src: "/images/nvidia-inception.png", alt: "NVIDIA Inception", w: 360, mw: 140 },
+                  { src: "/images/aws-powered.png", alt: "AWS Powered", w: 280, mw: 110 },
+                  { src: "/images/microsoft-startups.png", alt: "Microsoft for Startups", w: 360, mw: 140, css: "scale-[1.35] mix-blend-multiply origin-center" },
+                  { src: "/images/karnataka_itbt_department_logo.png", alt: "Karnataka Elevate", w: 300, mw: 115 },
+                  { src: "/images/Aegis_award_logo.jpg", alt: "Aegis Award", w: 280, mw: 110 },
                 ].map((logo, i) => (
-                  <div key={`dup-${i}`} onMouseEnter={() => trackPartnerInteracted(logo.alt)} className="flex-shrink-0 h-16 sm:h-24 lg:h-28 relative transition-all duration-300 hover:scale-105" style={{ width: logo.w }}>
+                  <div key={`dup-${i}`} onMouseEnter={() => trackPartnerInteracted(logo.alt)} className="flex-shrink-0 h-10 sm:h-16 lg:h-24 relative transition-all duration-300 hover:scale-105" style={{ width: `clamp(${logo.mw}px, 20vw, ${logo.w}px)` }}>
                     <Image src={logo.src} alt={logo.alt} fill className={`object-contain ${logo.css || ''}`} />
                   </div>
                 ))}
