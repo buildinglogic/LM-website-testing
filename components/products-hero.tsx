@@ -25,22 +25,34 @@ export function PatramHero() {
       ref={sectionRef}
       className="relative overflow-hidden"
     >
-      {/* Elegant minimal background — white dominant */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "#FAFBFC" }} />
+      {/* Layered textured white background */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "#FFFFFF" }} />
 
-      {/* Square grid pattern */}
+      {/* Linen / paper texture via noise */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          opacity: 0.06,
-          backgroundImage: "linear-gradient(#E2E8F0 1px, transparent 1px), linear-gradient(90deg, #E2E8F0 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
+          opacity: 0.4,
+          backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23f8fafc'/%3E%3Crect width='1' height='1' fill='%23f1f5f9'/%3E%3C/svg%3E\")",
+          backgroundSize: "4px 4px",
         }}
       />
 
-      {/* Soft gradient orbs for depth */}
-      <div className="absolute top-[-10%] right-[10%] pointer-events-none" style={{ width: "500px", height: "500px", background: "radial-gradient(circle, rgba(0,102,204,0.04) 0%, transparent 60%)", filter: "blur(40px)" }} />
-      <div className="absolute bottom-[-5%] left-[5%] pointer-events-none" style={{ width: "400px", height: "400px", background: "radial-gradient(circle, rgba(0,168,107,0.03) 0%, transparent 60%)", filter: "blur(40px)" }} />
+      {/* Subtle cross-hatch pattern — gives depth like woven fabric */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          opacity: 0.025,
+          backgroundImage: "repeating-linear-gradient(0deg, #0066CC, #0066CC 1px, transparent 1px, transparent 60px), repeating-linear-gradient(90deg, #0066CC, #0066CC 1px, transparent 1px, transparent 60px)",
+        }}
+      />
+
+      {/* Faint radial gradient vignette — draws eye to center */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 40% 40%, transparent 0%, rgba(248,250,252,0.6) 70%, #F8FAFC 100%)" }} />
+
+      {/* Color accent orbs — very soft */}
+      <div className="absolute top-[5%] right-[15%] pointer-events-none" style={{ width: "600px", height: "600px", background: "radial-gradient(circle, rgba(0,102,204,0.025) 0%, transparent 50%)", filter: "blur(60px)" }} />
+      <div className="absolute bottom-[10%] left-[5%] pointer-events-none" style={{ width: "500px", height: "500px", background: "radial-gradient(circle, rgba(0,168,107,0.02) 0%, transparent 50%)", filter: "blur(60px)" }} />
 
       {/* Bottom fade to pure white */}
       <div className="absolute inset-x-0 bottom-0 h-[120px] pointer-events-none" style={{ background: "linear-gradient(to top, #FFFFFF, transparent)" }} />
