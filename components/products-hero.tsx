@@ -185,34 +185,34 @@ export function PatramHero({ onWatchDemo }: { onWatchDemo?: () => void }) {
   )
 }
 
-/* Patram AI Card — Premium Document Q&A Demo */
+/* Patram AI Card — Premium Document Q&A Demo (fixed-height, horizontal) */
 export function PatramCard({ isActive }: { isActive: boolean }) {
   const [messageStep, setMessageStep] = useState(0)
 
   const messages = [
     {
-      title: "Aflatoxin Limit Risk",
-      text: "EU enforces 10 \u00B5g/kg limit for Aflatoxin B1. Pre-shipment lab testing is mandatory.",
+      title: "Aflatoxin Risk",
+      text: "EU enforces 10 \u00B5g/kg limit. Pre-shipment testing mandatory.",
       titleColor: "#DC2626",
       borderColor: "#DC2626",
       bg: "rgba(220,38,38,0.04)",
-      source: "Page 12, Section 3.1",
+      source: "Pg 12, \u00A73.1",
     },
     {
-      title: "Required Certifications",
-      text: "FSSAI Export Certificate, EIC Health Certificate, Phytosanitary Certificate from NPPO.",
+      title: "Certifications",
+      text: "FSSAI Export, EIC Health, Phytosanitary (NPPO) required.",
       titleColor: "#0066CC",
       borderColor: "#0066CC",
       bg: "rgba(0,102,204,0.04)",
-      source: "Page 24, Section 5.4",
+      source: "Pg 24, \u00A75.4",
     },
     {
-      title: "Duty: 0% under India-EU GSP",
-      text: "Turmeric (HSN 0910.30) qualifies for 0% BCD. EUR.1 Certificate of Origin required.",
+      title: "Duty: 0% GSP",
+      text: "HSN 0910.30 qualifies. EUR.1 Origin Certificate needed.",
       titleColor: "#00A86B",
       borderColor: "#00A86B",
       bg: "rgba(0,168,107,0.04)",
-      source: "Page 31, Section 7.2",
+      source: "Pg 31, \u00A77.2",
     },
   ]
 
@@ -223,136 +223,132 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
       step++
       if (step <= messages.length) setMessageStep(step)
       else if (step > messages.length + 4) { step = 0; setMessageStep(0) }
-    }, 1000)
+    }, 1200)
     return () => clearInterval(interval)
   }, [isActive, messages.length])
 
   return (
     <div
-      className="relative rounded-2xl overflow-hidden max-w-[440px]"
+      className="relative rounded-2xl overflow-hidden w-full"
       style={{
+        height: "380px",
         background: "linear-gradient(165deg, #FFFFFF 0%, #F8FAFC 100%)",
         border: "1px solid #E2E8F0",
         boxShadow: "0 20px 50px rgba(0,102,204,0.08), 0 8px 24px rgba(0,0,0,0.05)",
       }}
     >
-      {/* Gradient accent */}
       <div className="h-[3px]" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
 
-      <div className="p-4">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
-              <Globe className="w-4 h-4 text-white" />
-            </div>
-            <div>
-              <p className="text-[13px] font-bold" style={{ color: "#0F172A" }}>Patram AI</p>
-              <p className="text-[10px] flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#00A86B" }} />
-                <span style={{ color: "#94A3B8" }}>Online</span>
-              </p>
-            </div>
+      <div className="p-3.5 h-[calc(100%-3px)] flex flex-col">
+        {/* Header row — compact */}
+        <div className="flex items-center gap-2 mb-2.5">
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
+            <Globe className="w-3.5 h-3.5 text-white" />
           </div>
-        </div>
-
-        {/* PDF uploaded indicator */}
-        <div className="flex items-center gap-2 px-3 py-2 rounded-lg mb-3" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-          <FileText className="w-4 h-4 flex-shrink-0" style={{ color: "#0066CC" }} />
           <div className="flex-1 min-w-0">
-            <p className="text-[11px] font-semibold truncate" style={{ color: "#0F172A" }}>eu_food_safety_regulations.pdf</p>
-            <p className="text-[10px]" style={{ color: "#94A3B8" }}>47 pages uploaded</p>
+            <p className="text-[12px] font-bold leading-none" style={{ color: "#0F172A" }}>Patram AI</p>
+            <p className="text-[9px] flex items-center gap-1 mt-0.5">
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#00A86B" }} />
+              <span style={{ color: "#94A3B8" }}>Online</span>
+            </p>
           </div>
-          <div className="px-1.5 py-0.5 rounded text-[9px] font-bold" style={{ background: "#ECFDF5", color: "#00A86B" }}>Ready</div>
+          <div className="flex items-center gap-1.5 px-2 py-1 rounded-md flex-shrink-0" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+            <FileText className="w-3 h-3" style={{ color: "#0066CC" }} />
+            <span className="text-[9px] font-semibold" style={{ color: "#0F172A" }}>eu_food_safety.pdf</span>
+            <span className="text-[8px] font-bold px-1 py-0.5 rounded" style={{ background: "#ECFDF5", color: "#00A86B" }}>47pg</span>
+          </div>
         </div>
 
-        {/* User message */}
-        <div className="mb-3">
-          <div className="flex items-center gap-1.5 mb-1 justify-end">
-            <span className="text-[10px] font-semibold" style={{ color: "#94A3B8" }}>You</span>
-            <div className="w-4 h-4 rounded-full flex items-center justify-center" style={{ background: "#E2E8F0" }}>
-              <User className="w-2.5 h-2.5" style={{ color: "#64748B" }} />
+        {/* User message — compact */}
+        <div className="mb-2.5">
+          <div className="flex items-center gap-1 mb-1 justify-end">
+            <span className="text-[9px] font-semibold" style={{ color: "#94A3B8" }}>You</span>
+            <div className="w-3.5 h-3.5 rounded-full flex items-center justify-center" style={{ background: "#E2E8F0" }}>
+              <User className="w-2 h-2" style={{ color: "#64748B" }} />
             </div>
           </div>
           <div className="flex justify-end">
             <div
-              className="relative max-w-[85%] px-3 py-2.5 rounded-2xl rounded-tr-md"
+              className="relative max-w-[80%] px-3 py-2 rounded-2xl rounded-tr-md"
               style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}
             >
-              <p className="text-[12px] text-white leading-snug">
-                What certifications do I need to export turmeric to Germany?
+              <p className="text-[11px] text-white leading-snug">
+                Certifications needed to export turmeric to Germany?
               </p>
-              {/* Speech tail */}
-              <div className="absolute top-2 -right-1.5 w-3 h-3 rotate-45" style={{ background: "#0066CC" }} />
+              <div className="absolute top-2 -right-1.5 w-2.5 h-2.5 rotate-45" style={{ background: "#0066CC" }} />
             </div>
           </div>
         </div>
 
-        {/* AI responses */}
-        <div className="space-y-2">
-          <div className="flex items-center gap-1.5 mb-1">
-            <div className="w-4 h-4 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
-              <Sparkles className="w-2.5 h-2.5 text-white" />
+        {/* AI responses — fixed height container */}
+        <div className="flex-1 min-h-0">
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <div className="w-3.5 h-3.5 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
+              <Sparkles className="w-2 h-2 text-white" />
             </div>
-            <span className="text-[10px] font-semibold" style={{ color: "#94A3B8" }}>Patram AI</span>
+            <span className="text-[9px] font-semibold" style={{ color: "#94A3B8" }}>Patram AI</span>
           </div>
 
-          {messages.map((msg, idx) => {
-            const visible = idx < messageStep
-            const isTyping = idx === messageStep && messageStep <= messages.length - 1
+          <div className="space-y-1.5">
+            {messages.map((msg, idx) => {
+              const visible = idx < messageStep
+              const isTyping = idx === messageStep && messageStep <= messages.length - 1
 
-            return (
-              <div
-                key={idx}
-                className="transition-all duration-500"
-                style={{
-                  opacity: visible ? 1 : isTyping ? 0.5 : 0.15,
-                  transform: visible ? "translateY(0)" : "translateY(4px)",
-                }}
-              >
+              return (
                 <div
-                  className="relative rounded-xl rounded-tl-md px-3 py-2"
+                  key={idx}
+                  className="transition-all duration-500"
                   style={{
-                    background: visible ? msg.bg : "#F8FAFC",
-                    borderLeft: `3px solid ${visible ? msg.borderColor : "#E2E8F0"}`,
+                    opacity: visible ? 1 : isTyping ? 0.5 : 0.15,
+                    transform: visible ? "translateY(0)" : "translateY(4px)",
                   }}
                 >
-                  {isTyping ? (
-                    <div className="flex items-center gap-1 py-1">
-                      {[0, 1, 2].map(i => (
-                        <span key={i} className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#94A3B8", animationDelay: `${i * 150}ms` }} />
-                      ))}
-                    </div>
-                  ) : (
-                    <>
-                      <p className="text-[11px] font-bold mb-0.5" style={{ color: visible ? msg.titleColor : "#CBD5E1" }}>
-                        {msg.title}
-                      </p>
-                      <p className="text-[10px] leading-relaxed" style={{ color: visible ? "#475569" : "#E2E8F0" }}>
-                        {msg.text}
-                      </p>
-                      {visible && (
-                        <div className="flex items-center gap-1 mt-1.5">
-                          <FileText className="w-2.5 h-2.5" style={{ color: "#94A3B8" }} />
-                          <span className="text-[9px] font-medium" style={{ color: "#94A3B8" }}>{msg.source}</span>
+                  <div
+                    className="rounded-lg rounded-tl-sm px-2.5 py-1.5"
+                    style={{
+                      background: visible ? msg.bg : "#F8FAFC",
+                      borderLeft: `3px solid ${visible ? msg.borderColor : "#E2E8F0"}`,
+                      minHeight: "42px",
+                    }}
+                  >
+                    {isTyping ? (
+                      <div className="flex items-center gap-1 h-[26px]">
+                        {[0, 1, 2].map(i => (
+                          <span key={i} className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#94A3B8", animationDelay: `${i * 150}ms` }} />
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[10px] font-bold leading-tight" style={{ color: visible ? msg.titleColor : "#CBD5E1" }}>
+                            {msg.title}
+                          </p>
+                          <p className="text-[9px] leading-snug mt-0.5" style={{ color: visible ? "#475569" : "#E2E8F0" }}>
+                            {msg.text}
+                          </p>
                         </div>
-                      )}
-                    </>
-                  )}
+                        {visible && (
+                          <span className="flex-shrink-0 text-[8px] font-medium px-1.5 py-0.5 rounded mt-0.5" style={{ background: "#F8FAFC", color: "#94A3B8", border: "1px solid #E2E8F0" }}>
+                            {msg.source}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
         </div>
 
         {/* Input mock */}
-        <div className="mt-3 flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-          <span className="text-[12px]" style={{ color: "#94A3B8" }}>Ask about your export...</span>
+        <div className="mt-2 flex items-center gap-2 px-2.5 py-1.5 rounded-lg flex-shrink-0" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+          <span className="text-[10px]" style={{ color: "#94A3B8" }}>Ask about your export...</span>
           <div
-            className="ml-auto w-6 h-6 rounded-md flex items-center justify-center"
+            className="ml-auto w-5 h-5 rounded-md flex items-center justify-center"
             style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}
           >
-            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>
           </div>
