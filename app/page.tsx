@@ -857,7 +857,7 @@ function AwardToast() {
 
   return (
     <div
-      className={`hidden lg:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-40 items-center gap-5 px-6 py-4 rounded-2xl max-w-[620px] transition-all duration-1000 ease-out ${visible ? "translate-y-0 opacity-100 scale-100" : "translate-y-[140%] opacity-0 scale-95"}`}
+      className={`hidden lg:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-40 items-center gap-5 px-6 py-4 rounded-2xl max-w-[620px] transition-all duration-1000 ease-out hover:scale-[1.03] ${visible ? "translate-y-0 opacity-100 scale-100" : "translate-y-[140%] opacity-0 scale-95"}`}
       style={{
         background: "rgba(255,255,255,0.95)",
         backdropFilter: "blur(24px)",
@@ -887,7 +887,7 @@ function AwardToast() {
         <div className="flex items-center gap-3">
           <Link
             href="/awards/aegis-graham-bell"
-            className="text-[12px] font-bold hover:underline transition-colors"
+            className="text-[12px] font-bold transition-all duration-200 hover:scale-110 hover:underline active:scale-95 inline-block origin-left"
             style={{ color: "#0066CC" }}
           >
             Aegis Graham Bell 2026
@@ -895,7 +895,7 @@ function AwardToast() {
           <span className="text-[10px]" style={{ color: "#CBD5E1" }}>|</span>
           <Link
             href="/awards/karnataka-elevate"
-            className="text-[12px] font-bold hover:underline transition-colors"
+            className="text-[12px] font-bold transition-all duration-200 hover:scale-110 hover:underline active:scale-95 inline-block origin-left"
             style={{ color: "#00A86B" }}
           >
             Karnataka Elevate 2025
@@ -904,7 +904,7 @@ function AwardToast() {
       </div>
       <button
         onClick={() => setDismissed(true)}
-        className="ml-auto flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center hover:bg-[#F1F5F9] transition-colors relative"
+        className="ml-auto flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200 hover:bg-[#F1F5F9] hover:scale-125 hover:rotate-90 active:scale-90 relative"
       >
         <X className="w-4 h-4" style={{ color: "#94A3B8" }} />
       </button>

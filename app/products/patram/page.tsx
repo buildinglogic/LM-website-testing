@@ -399,7 +399,7 @@ function UseCasesSection() {
                 </span>
               </div>
               <h3 className="text-[16px] font-bold text-white mb-2">{useCase.question}</h3>
-              <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "#94A3B8" }}>{useCase.answer}</p>
+              <p className="text-[13px] sm:text-[14px] leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{useCase.answer}</p>
             </div>
           ))}
         </div>
@@ -478,7 +478,7 @@ function CTASection() {
         <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-tight text-white mb-3">
           Get Answers in Seconds, Not Hours
         </h2>
-        <p className="text-[14px] sm:text-[15px] leading-relaxed mb-6" style={{ color: "#94A3B8" }}>
+        <p className="text-[14px] sm:text-[15px] leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.8)" }}>
           Stop wasting hours searching through documents. Let Patram AI be your always-on export intelligence advisor.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">

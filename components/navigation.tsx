@@ -67,10 +67,10 @@ const companyLinks = [
   { name: "Timeline", href: "/company/timeline" },
   { name: "Map", href: "/company#map" },
   { name: "Giving Back", href: "/company/giving-back" },
-  { name: "divider", href: "" },
+  { name: "divider-awards", href: "" },
   { name: "Aegis Graham Bell Award", href: "/awards/aegis-graham-bell" },
   { name: "Karnataka Elevate 2025", href: "/awards/karnataka-elevate" },
-  { name: "divider", href: "" },
+  { name: "divider-legal", href: "" },
   { name: "Privacy Policy", href: "/legal/privacy-policy" },
   { name: "Terms of Service", href: "/legal/terms" },
 ]
@@ -145,16 +145,11 @@ export function Navigation() {
                   <button
                     key={product.name}
                     onClick={() => navigateToProduct(product)}
-                    className="w-full text-left px-4 py-3 rounded-lg transition-all hover:bg-[#F1F5F9] flex items-center gap-3 group"
+                    className="w-full text-left block px-4 py-3 rounded-lg text-[14px] font-semibold transition-all hover:bg-[#F1F5F9]"
+                    style={{ color: "#0F172A" }}
                   >
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ background: `linear-gradient(135deg, ${product.gradientFrom}, ${product.gradientTo})` }}>
-                      {product.icon}
-                    </div>
-                    <div>
-                      <div className="text-[14px] font-semibold" style={{ color: "#0F172A" }}>{product.name}</div>
-                      <div className="text-[12px]" style={{ color: "#64748B" }}>{product.tagline}</div>
-                    </div>
+                    {product.name}
+                    <span className="block text-[12px] font-normal mt-0.5" style={{ color: "#64748B" }}>{product.tagline}</span>
                   </button>
                 ))}
               </div>
@@ -177,8 +172,8 @@ export function Navigation() {
                 style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 25px 60px rgba(0,0,0,0.2)" }}
               >
                 {companyLinks.map((link) =>
-                  link.name === "divider" ? (
-                    <div key="divider" className="my-1 mx-2" style={{ height: "1px", background: "#E2E8F0" }} />
+                  link.name.startsWith("divider") ? (
+                    <div key={link.name} className="my-1 mx-2" style={{ height: "1px", background: "#E2E8F0" }} />
                   ) : (
                     <Link
                       key={link.name}
@@ -289,8 +284,8 @@ export function Navigation() {
             {mobileCompanyOpen && (
               <div className="py-2 mb-1" style={{ borderBottom: "1px solid #E2E8F0" }}>
                 {companyLinks.map((link) =>
-                  link.name === "divider" ? (
-                    <div key="divider" className="my-1.5 mx-2" style={{ height: "1px", background: "#F1F5F9" }} />
+                  link.name.startsWith("divider") ? (
+                    <div key={link.name} className="my-1.5 mx-2" style={{ height: "1px", background: "#F1F5F9" }} />
                   ) : (
                     <Link
                       key={link.name}

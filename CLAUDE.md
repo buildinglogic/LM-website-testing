@@ -231,6 +231,13 @@ Both `/legal/privacy-policy` and `/legal/terms` have a local `RichText` componen
 - Animated counter: `AnimatedCount` component (home page + book-demo) — ease-out cubic, 1400ms
 - Stagger delays: `transitionDelay: ${Math.min(index * 40, 200)}ms`
 - Standard fade-in: `transition-all duration-500 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`
+- Hero staggered entrance: each element gets its own `delay-100`..`delay-[700ms]` with `translate-y-8` fade-in
+- PatramCard typing animation: 3-step message reveal with `setInterval` at 1200ms, bounce dots for typing state
+- Award toast: slide-up + scale entrance (`duration-1000`), hover-to-scale (`hover:scale-[1.03]`), cancel button rotates on hover (`hover:rotate-90 hover:scale-125`), award links pop on hover (`hover:scale-110 active:scale-95`)
+- Lower hero product links: accent bar grows on hover, arrow slides in, text shifts right
+
+### Animation Preservation Rule
+**Animations must NEVER be deleted — only replaced with equal or better alternatives.** Every animation listed above and every `transition-*`, `animate-*`, `hover:scale-*`, `hover:translate-*`, or `active:scale-*` class currently in the codebase is intentional. If a section is redesigned, its animations must be carried forward or upgraded, never removed.
 
 ---
 

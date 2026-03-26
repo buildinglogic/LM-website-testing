@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { ArrowRight, Shield, Calculator, Globe, Sparkles, FileText, User } from "lucide-react"
+import { ArrowRight, Globe, Sparkles, FileText, User } from "lucide-react"
 import { trackBookDemoCTAClick, trackWatchDemoClick } from "@/lib/amplitude"
 
 export function PatramHero() {
@@ -25,22 +25,22 @@ export function PatramHero() {
       ref={sectionRef}
       className="relative overflow-hidden"
     >
-      {/* World map background */}
+      {/* World map background — heavily blurred so content is king */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: "url('/images/world-map-bg.png')",
           backgroundSize: "cover",
           backgroundPosition: "center 40%",
-          filter: "blur(1px)",
-          opacity: 0.7,
+          filter: "blur(6px)",
+          opacity: 0.35,
           transform: "scale(1.05)",
         }}
       />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.3) 60%, #FFFFFF 95%)",
+          background: "linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.85) 60%, #FFFFFF 95%)",
         }}
       />
 
@@ -52,11 +52,11 @@ export function PatramHero() {
       <div className="relative w-full max-w-[1400px] mx-auto px-5 lg:px-8 pt-[100px] pb-6 lg:pb-8">
         <div className="flex flex-col items-center text-center lg:text-left lg:items-start lg:grid lg:grid-cols-2 lg:gap-10 lg:items-center">
 
-          {/* Left: Copy */}
-          <div className={`transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          {/* Left: Copy — staggered premium entrance */}
+          <div>
 
             {/* Section label */}
-            <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
+            <div className={`flex items-center justify-center lg:justify-start gap-3 mb-4 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
               <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
               <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>
                 Introducing
@@ -65,27 +65,28 @@ export function PatramHero() {
             </div>
 
             {/* Product name */}
-            <h1 className="hero-text-reveal text-[32px] sm:text-[44px] lg:text-[56px] xl:text-[64px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-2">
+            <h1 className={`hero-text-reveal text-[32px] sm:text-[44px] lg:text-[56px] xl:text-[64px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-2 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
               <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
                 Patram AI
               </span>
             </h1>
 
-            {/* Tagline */}
+            {/* Two key lines — high contrast */}
             <p
-              className="text-[16px] sm:text-[20px] lg:text-[24px] font-medium leading-snug mb-3 max-w-[460px]"
-              style={{ color: "#475569" }}
+              className={`text-[16px] sm:text-[20px] lg:text-[24px] font-semibold leading-snug mb-2 max-w-[500px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ color: "#0F172A" }}
             >
               Trade compliance, answered instantly.
             </p>
-
-            {/* Description */}
-            <p className="text-[13px] sm:text-[14px] leading-relaxed mb-5 max-w-[480px]" style={{ color: "#64748B" }}>
-              Upload any trade document and ask questions in plain English. Patram AI reads the entire document and gives you accurate, sourced answers — covering 190+ countries, 24/7.
+            <p
+              className={`text-[14px] sm:text-[15px] leading-relaxed mb-5 max-w-[480px] transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ color: "#475569" }}
+            >
+              Upload any trade document. Get sourced answers for 190+ countries in seconds.
             </p>
 
             {/* Stats row */}
-            <div className="flex items-center justify-center lg:justify-start mb-5">
+            <div className={`flex items-center justify-center lg:justify-start mb-5 transition-all duration-700 delay-[400ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
               {[
                 { value: "190+", label: "Countries" },
                 { value: "24/7", label: "Always on" },
@@ -111,7 +112,7 @@ export function PatramHero() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-3">
+            <div className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-3 transition-all duration-700 delay-500 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
               <Link
                 href="/book-demo"
                 onClick={() => trackBookDemoCTAClick("Hero")}
@@ -140,7 +141,7 @@ export function PatramHero() {
             <Link
               href="/demo/patram"
               onClick={() => trackWatchDemoClick("Hero")}
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold transition-colors hover:opacity-80"
+              className={`inline-flex items-center gap-1.5 text-[13px] font-semibold transition-all hover:opacity-80 duration-700 delay-[600ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ color: "#0066CC" }}
             >
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
@@ -156,30 +157,28 @@ export function PatramHero() {
           </div>
         </div>
 
-        {/* LOWER SECTION — Other Products */}
-        <div className={`mt-6 lg:mt-8 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5">
+        {/* LOWER SECTION — Other Products — premium inline strip */}
+        <div className={`mt-6 lg:mt-8 pt-5 transition-all duration-700 delay-[700ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ borderTop: "1px solid #E2E8F0" }}>
+          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 sm:gap-8">
             {[
-              { name: "TradeGuard", tagline: "Document Mismatch Detection", href: "/products/tradeguard", color: "#0066CC", Icon: Shield },
-              { name: "TariffIQ", tagline: "HSN Classification & Duty", href: "/products/tariffiq", color: "#1B4F8A", Icon: Calculator },
+              { name: "TradeGuard", tagline: "Document Mismatch Detection", href: "/products/tradeguard", color: "#0066CC" },
+              { name: "TariffIQ", tagline: "HSN Classification & Duty", href: "/products/tariffiq", color: "#1B4F8A" },
             ].map((p) => (
               <Link
                 key={p.name}
                 href={p.href}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-xl group transition-all duration-200 hover:-translate-y-0.5"
-                style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}
+                className="group flex items-center gap-3 transition-all duration-300 hover:translate-x-1"
               >
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${p.color}10` }}>
-                  <p.Icon className="w-3.5 h-3.5" style={{ color: p.color }} />
+                <div className="w-1 h-8 rounded-full transition-all duration-300 group-hover:h-10" style={{ background: p.color }} />
+                <div>
+                  <p className="text-[13px] font-bold leading-tight transition-colors" style={{ color: "#0F172A" }}>{p.name}</p>
+                  <p className="text-[11px] leading-tight mt-0.5" style={{ color: "#64748B" }}>{p.tagline}</p>
                 </div>
-                <div className="text-left">
-                  <p className="text-[12px] font-bold leading-tight" style={{ color: "#0F172A" }}>{p.name}</p>
-                  <p className="text-[10px] leading-tight" style={{ color: "#94A3B8" }}>{p.tagline}</p>
-                </div>
-                <ArrowRight className="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" style={{ color: p.color }} />
+                <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" style={{ color: p.color }} />
               </Link>
             ))}
-            <a href="#products" className="inline-flex items-center gap-1.5 text-[12px] font-semibold transition-colors hover:opacity-80" style={{ color: "#0066CC" }}>
+            <div className="hidden sm:block w-px h-6" style={{ background: "#E2E8F0" }} />
+            <a href="#products" className="inline-flex items-center gap-1.5 text-[12px] font-semibold transition-all duration-300 hover:gap-2.5" style={{ color: "#0066CC" }}>
               Explore all products <ArrowRight className="w-3 h-3" />
             </a>
           </div>
