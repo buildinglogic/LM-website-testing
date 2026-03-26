@@ -338,7 +338,7 @@ function ProblemSection() {
         {/* CTA */}
         <div className={`text-center mt-8 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <a
-            href="#products"
+            href="/book-demo"
             className="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
             style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
           >

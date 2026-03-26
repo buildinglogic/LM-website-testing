@@ -104,12 +104,6 @@ function HeroSection() {
 
           {/* Left: Copy */}
           <div>
-            {/* Section label */}
-            <div className={`flex items-center gap-3 mb-4 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-              <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>TradeGuard</span>
-            </div>
-
             <h1 className={`text-[28px] sm:text-[42px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.02em] mb-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
               <span className="block text-[32px] sm:text-[48px] lg:text-[58px] bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent pb-1">TradeGuard</span>
               Catch every mismatch, before customs does.
