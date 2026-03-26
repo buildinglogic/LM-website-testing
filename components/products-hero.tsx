@@ -253,50 +253,49 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
       className="relative rounded-2xl overflow-hidden w-full"
       style={{
         height: "380px",
-        background: "linear-gradient(165deg, #FFFFFF 0%, #F8FAFC 100%)",
+        background: "#FFFFFF",
         border: "1px solid #E2E8F0",
-        boxShadow: "0 20px 50px rgba(0,102,204,0.08), 0 8px 24px rgba(0,0,0,0.05)",
+        boxShadow: "0 8px 30px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02)",
       }}
     >
       <div className="h-[3px]" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
 
       <div className="p-3.5 h-[calc(100%-3px)] flex flex-col">
-        {/* Header row — compact */}
+        {/* Header row */}
         <div className="flex items-center gap-2 mb-2.5">
           <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
             <Globe className="w-3.5 h-3.5 text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-[12px] font-bold leading-none" style={{ color: "#0F172A" }}>Patram AI</p>
+            <p className="text-[12px] font-bold leading-none" style={{ color: "#475569" }}>Patram AI</p>
             <p className="text-[9px] flex items-center gap-1 mt-0.5">
               <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#00A86B" }} />
               <span style={{ color: "#94A3B8" }}>Online</span>
             </p>
           </div>
           <div className="flex items-center gap-1.5 px-2 py-1 rounded-md flex-shrink-0" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-            <FileText className="w-3 h-3" style={{ color: "#0066CC" }} />
-            <span className="text-[9px] font-semibold" style={{ color: "#0F172A" }}>eu_food_safety.pdf</span>
+            <FileText className="w-3 h-3" style={{ color: "#94A3B8" }} />
+            <span className="text-[9px] font-medium" style={{ color: "#64748B" }}>eu_food_safety.pdf</span>
             <span className="text-[8px] font-bold px-1 py-0.5 rounded" style={{ background: "#ECFDF5", color: "#00A86B" }}>47pg</span>
           </div>
         </div>
 
-        {/* User message — compact */}
+        {/* User message — light blue bubble, clear "You" label */}
         <div className="mb-2.5">
-          <div className="flex items-center gap-1 mb-1 justify-end">
-            <span className="text-[9px] font-semibold" style={{ color: "#94A3B8" }}>You</span>
-            <div className="w-3.5 h-3.5 rounded-full flex items-center justify-center" style={{ background: "#E2E8F0" }}>
-              <User className="w-2 h-2" style={{ color: "#64748B" }} />
+          <div className="flex items-center gap-1.5 mb-1 justify-end">
+            <span className="text-[10px] font-bold" style={{ color: "#64748B" }}>You</span>
+            <div className="w-4 h-4 rounded-full flex items-center justify-center" style={{ background: "#E2E8F0" }}>
+              <User className="w-2.5 h-2.5" style={{ color: "#64748B" }} />
             </div>
           </div>
           <div className="flex justify-end">
             <div
-              className="relative max-w-[80%] px-3 py-2 rounded-2xl rounded-tr-md"
-              style={{ background: "#0F172A" }}
+              className="relative max-w-[85%] px-3 py-2 rounded-2xl rounded-tr-md"
+              style={{ background: "#EFF6FF", border: "1px solid #DBEAFE" }}
             >
-              <p className="text-[11px] text-white leading-snug">
+              <p className="text-[11px] leading-snug" style={{ color: "#1E40AF" }}>
                 Certifications needed to export turmeric to Germany?
               </p>
-              <div className="absolute top-2 -right-1.5 w-2.5 h-2.5 rotate-45" style={{ background: "#0F172A" }} />
             </div>
           </div>
         </div>
@@ -304,10 +303,10 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
         {/* AI responses — fixed height container */}
         <div className="flex-1 min-h-0">
           <div className="flex items-center gap-1.5 mb-1.5">
-            <div className="w-3.5 h-3.5 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
-              <Sparkles className="w-2 h-2 text-white" />
+            <div className="w-4 h-4 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
+              <Sparkles className="w-2.5 h-2.5 text-white" />
             </div>
-            <span className="text-[9px] font-semibold" style={{ color: "#94A3B8" }}>Patram AI</span>
+            <span className="text-[10px] font-bold" style={{ color: "#00A86B" }}>Patram AI</span>
           </div>
 
           <div className="space-y-1.5">
