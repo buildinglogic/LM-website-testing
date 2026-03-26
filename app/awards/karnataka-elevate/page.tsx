@@ -206,8 +206,8 @@ export default function KarnatakaElevatePage() {
                 { src: "/images/elevate-2025-winner-trophy.png", alt: "Elevate 2025 winner trophy", span: "", w: 1200, h: 1600 },
               ].map((img, i) => (
                 <div key={i}
-                  className={`relative rounded-xl overflow-hidden group transition-all duration-700 ${img.span} ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                  style={{ border: "1px solid #E2E8F0", transitionDelay: `${i * 80}ms`, background: "#F8FAFC", height: "280px" }}>
+                  className={`relative rounded-xl overflow-hidden group transition-all duration-700 ${img.span} h-[200px] sm:h-[280px] ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                  style={{ border: "1px solid #E2E8F0", transitionDelay: `${i * 80}ms`, background: "#F8FAFC" }}>
                   <Image src={img.src} alt={img.alt} width={img.w} height={img.h} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>

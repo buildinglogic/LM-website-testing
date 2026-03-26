@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { ArrowRight, Globe, Sparkles, FileText, User } from "lucide-react"
+import { ArrowRight, Sparkles, FileText } from "lucide-react"
 import { trackBookDemoCTAClick, trackWatchDemoClick } from "@/lib/amplitude"
 
 export function PatramHero() {
@@ -160,9 +160,8 @@ export function PatramHero() {
             </Link>
           </div>
 
-          {/* Right: PatramCard — desktop only, grey filter for subtle contrast */}
-          <div className={`hidden lg:block transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}
-            style={{ filter: "saturate(0.7) brightness(0.97)" }}>
+          {/* Right: PatramCard — desktop only */}
+          <div className={`hidden lg:block transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
             <PatramCard isActive={isInView} />
           </div>
         </div>
@@ -245,62 +244,52 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
       className="relative rounded-2xl overflow-hidden w-full"
       style={{
         height: "380px",
-        background: "linear-gradient(165deg, #F0F7FF 0%, #F8FAFC 40%, #F0FDF8 100%)",
-        border: "1px solid #DBEAFE",
-        boxShadow: "0 8px 30px rgba(0,102,204,0.06), 0 2px 8px rgba(0,0,0,0.03)",
+        background: "linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%)",
+        border: "1px solid #E2E8F0",
+        boxShadow: "0 25px 80px rgba(0,102,204,0.08), 0 10px 40px rgba(0,0,0,0.04)",
       }}
     >
       <div className="h-[3px]" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
 
-      <div className="p-3.5 h-[calc(100%-3px)] flex flex-col">
-        {/* Header row */}
-        <div className="flex items-center gap-2 mb-2.5">
-          <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
-            <Globe className="w-3.5 h-3.5 text-white" />
+      <div className="p-4 h-[calc(100%-3px)] flex flex-col">
+        {/* Header — like TariffIQ */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full" style={{ background: "#E2E8F0" }} />
+              <span className="w-3 h-3 rounded-full" style={{ background: "#00A86B" }} />
+            </div>
+            <p className="text-[14px] font-bold" style={{ color: "#0F172A" }}>Patram AI</p>
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[12px] font-bold leading-none" style={{ color: "#475569" }}>Patram AI</p>
-            <p className="text-[9px] flex items-center gap-1 mt-0.5">
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#00A86B" }} />
-              <span style={{ color: "#94A3B8" }}>Online</span>
-            </p>
-          </div>
-          <div className="flex items-center gap-1.5 px-2 py-1 rounded-md flex-shrink-0" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-            <FileText className="w-3 h-3" style={{ color: "#94A3B8" }} />
-            <span className="text-[9px] font-medium" style={{ color: "#64748B" }}>eu_food_safety.pdf</span>
-            <span className="text-[8px] font-bold px-1 py-0.5 rounded" style={{ background: "#ECFDF5", color: "#00A86B" }}>47pg</span>
+          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: "#ECFDF5", color: "#00A86B" }}>Online</span>
+        </div>
+
+        {/* Document input — grey field */}
+        <div className="mb-3">
+          <p className="text-[10px] font-semibold uppercase tracking-wider mb-1.5" style={{ color: "#94A3B8" }}>Document Uploaded</p>
+          <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+            <FileText className="w-4 h-4" style={{ color: "#94A3B8" }} />
+            <span className="text-[13px] font-medium" style={{ color: "#0F172A" }}>eu_food_safety.pdf</span>
+            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded ml-auto" style={{ background: "#ECFDF5", color: "#00A86B" }}>47 pages</span>
           </div>
         </div>
 
-        {/* User message — light blue bubble, clear "You" label */}
-        <div className="mb-2.5">
-          <div className="flex items-center gap-1.5 mb-1 justify-end">
-            <span className="text-[10px] font-bold" style={{ color: "#64748B" }}>You</span>
-            <div className="w-4 h-4 rounded-full flex items-center justify-center" style={{ background: "#E2E8F0" }}>
-              <User className="w-2.5 h-2.5" style={{ color: "#64748B" }} />
-            </div>
-          </div>
-          <div className="flex justify-end">
-            <div
-              className="relative max-w-[85%] px-3 py-2 rounded-2xl rounded-tr-md"
-              style={{ background: "#EFF6FF", border: "1px solid #DBEAFE" }}
-            >
-              <p className="text-[11px] leading-snug" style={{ color: "#1E40AF" }}>
-                Certifications needed to export turmeric to Germany?
-              </p>
-            </div>
+        {/* Query — grey field */}
+        <div className="mb-3">
+          <p className="text-[10px] font-semibold uppercase tracking-wider mb-1.5" style={{ color: "#94A3B8" }}>Your Question</p>
+          <div className="px-3 py-2.5 rounded-xl" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+            <p className="text-[12px]" style={{ color: "#475569" }}>Certifications needed to export turmeric to Germany?</p>
           </div>
         </div>
 
-        {/* AI responses — fixed height container */}
+        {/* AI Response — animated results */}
         <div className="flex-1 min-h-0">
-          <div className="flex items-center gap-1.5 mb-1.5">
-            <div className="w-4 h-4 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
-              <Sparkles className="w-2.5 h-2.5 text-white" />
-            </div>
-            <span className="text-[10px] font-bold" style={{ color: "#00A86B" }}>Patram AI</span>
-          </div>
-
+          <p className="text-[10px] font-semibold uppercase tracking-wider mb-1.5" style={{ color: "#94A3B8" }}>
+            <span className="inline-flex items-center gap-1">
+              <Sparkles className="w-3 h-3" style={{ color: "#00A86B" }} />
+              AI Response
+            </span>
+          </p>
           <div className="space-y-1.5">
             {messages.map((msg, idx) => {
               const visible = idx < messageStep
@@ -315,54 +304,28 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
                     transform: visible ? "translateY(0)" : "translateY(4px)",
                   }}
                 >
-                  <div
-                    className="rounded-lg rounded-tl-sm px-2.5 py-1.5"
-                    style={{
-                      background: visible ? msg.bg : "#F8FAFC",
-                      borderLeft: `3px solid ${visible ? msg.borderColor : "#E2E8F0"}`,
-                      minHeight: "42px",
-                    }}
-                  >
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-xl" style={{ background: visible ? "#F8FAFC" : "#FAFBFC", border: `1px solid ${visible ? msg.borderColor + "30" : "#E2E8F0"}` }}>
                     {isTyping ? (
-                      <div className="flex items-center gap-1 h-[26px]">
+                      <div className="flex items-center gap-1 py-1">
                         {[0, 1, 2].map(i => (
                           <span key={i} className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#94A3B8", animationDelay: `${i * 150}ms` }} />
                         ))}
                       </div>
                     ) : (
-                      <div className="flex items-start justify-between gap-2">
+                      <>
                         <div className="flex-1 min-w-0">
-                          <p className="text-[10px] font-bold leading-tight" style={{ color: visible ? msg.titleColor : "#CBD5E1" }}>
-                            {msg.title}
-                          </p>
-                          <p className="text-[9px] leading-snug mt-0.5" style={{ color: visible ? "#475569" : "#E2E8F0" }}>
-                            {msg.text}
-                          </p>
+                          <p className="text-[11px] font-bold leading-tight" style={{ color: visible ? msg.titleColor : "#CBD5E1" }}>{msg.title}</p>
+                          <p className="text-[10px] leading-snug mt-0.5" style={{ color: visible ? "#475569" : "#E2E8F0" }}>{msg.text}</p>
                         </div>
                         {visible && (
-                          <span className="flex-shrink-0 text-[8px] font-medium px-1.5 py-0.5 rounded mt-0.5" style={{ background: "#F8FAFC", color: "#94A3B8", border: "1px solid #E2E8F0" }}>
-                            {msg.source}
-                          </span>
+                          <span className="flex-shrink-0 text-[9px] font-medium px-2 py-0.5 rounded-lg" style={{ background: "#FFFFFF", color: "#94A3B8", border: "1px solid #E2E8F0" }}>{msg.source}</span>
                         )}
-                      </div>
+                      </>
                     )}
                   </div>
                 </div>
               )
             })}
-          </div>
-        </div>
-
-        {/* Input mock */}
-        <div className="mt-2 flex items-center gap-2 px-2.5 py-1.5 rounded-lg flex-shrink-0" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-          <span className="text-[10px]" style={{ color: "#94A3B8" }}>Ask about your export...</span>
-          <div
-            className="ml-auto w-5 h-5 rounded-md flex items-center justify-center"
-            style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}
-          >
-            <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-            </svg>
           </div>
         </div>
       </div>

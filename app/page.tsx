@@ -334,7 +334,7 @@ function ProblemSection() {
         </div>
 
         {/* 4 Premium cards — 2x2 grid */}
-        <div className="grid grid-cols-2 gap-3 lg:gap-4 mb-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4 mb-5">
           {problems.map((problem, idx) => (
             <ProblemCardItem key={idx} problem={problem} idx={idx} isInView={isInView} />
           ))}

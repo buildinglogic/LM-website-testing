@@ -78,7 +78,7 @@ export default function AegisGrahamBellPage() {
             </p>
 
             {/* Event details — compact horizontal strip */}
-            <div className={`flex items-center gap-5 text-[13px] transition-all duration-700 delay-[400ms] ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <div className={`flex items-center flex-wrap gap-x-5 gap-y-2 text-[12px] sm:text-[13px] transition-all duration-700 delay-[400ms] ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#0066CC" }} />
                 <span className="font-semibold" style={{ color: "#0F172A" }}>Feb 27, 2026</span>
