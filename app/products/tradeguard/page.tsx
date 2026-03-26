@@ -77,7 +77,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="pt-[100px] sm:pt-[120px] lg:pt-[140px] pb-10 sm:pb-10 lg:pb-12 px-4 sm:px-5 lg:px-8 relative overflow-hidden"
+      className="pt-[100px] sm:pt-[120px] lg:pt-[140px] pb-10 lg:pb-16 px-4 sm:px-5 lg:px-8 relative overflow-hidden"
       style={{ background: "#FFFFFF" }}
     >
       {/* World map bg */}
@@ -92,7 +92,7 @@ function HeroSection() {
       <div className="w-full max-w-[1400px] mx-auto relative">
 
         {/* Breadcrumb */}
-        <div className={`flex items-center gap-1.5 mb-3 sm:mb-5 transition-all duration-500 ${isInView ? "opacity-100" : "opacity-0"}`}>
+        <div className={`flex items-center gap-1.5 mb-3 sm:mb-5 lg:mb-8 transition-all duration-500 ${isInView ? "opacity-100" : "opacity-0"}`}>
           <Link href="/" className="text-[11px] font-medium transition-colors hover:text-[#0F172A]" style={{ color: "#94A3B8" }}>Home</Link>
           <ChevronRight className="w-3 h-3" style={{ color: "#CBD5E1" }} />
           <Link href="/#products" className="text-[11px] font-medium transition-colors hover:text-[#0F172A]" style={{ color: "#94A3B8" }}>Products</Link>
@@ -100,7 +100,7 @@ function HeroSection() {
           <span className="text-[11px] font-semibold" style={{ color: "#0066CC" }}>TradeGuard</span>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-4 sm:gap-6 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-4 sm:gap-6 lg:gap-16 items-center">
 
           {/* Left: Copy */}
           <div>
@@ -109,12 +109,12 @@ function HeroSection() {
               Catch every mismatch, before customs does.
             </h1>
 
-            <p className={`text-[14px] sm:text-[15px] leading-relaxed mb-4 sm:mb-5 max-w-[480px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
+            <p className={`text-[14px] sm:text-[15px] lg:text-[16px] leading-relaxed mb-4 sm:mb-5 lg:mb-6 max-w-[480px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
               Upload your Shipping Bill and Commercial Invoice. TradeGuard cross-checks 40+ fields in under 5 seconds and flags every discrepancy before it reaches customs.
             </p>
 
             {/* Stats */}
-            <div className={`flex flex-wrap items-center gap-4 sm:gap-5 mb-5 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <div className={`flex flex-wrap items-center gap-4 sm:gap-5 mb-5 lg:mb-7 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <div>
                 <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>
                   <AnimatedCount to={40} />+
@@ -194,10 +194,10 @@ function ProblemSection() {
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-12 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+    <section ref={ref} className="py-8 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[1100px] mx-auto">
 
-        <div className={`text-center mb-6 sm:mb-8 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-6 sm:mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Problem</span>
@@ -277,10 +277,10 @@ function FeaturesSection() {
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-12 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+    <section ref={ref} className="py-8 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[1100px] mx-auto">
 
-        <div className={`text-center mb-6 sm:mb-8 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-6 sm:mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>How It Works</span>
@@ -372,7 +372,7 @@ function UseCasesSection() {
   }, [useCases.length])
 
   return (
-    <section ref={ref} id="use-cases" className="py-8 lg:py-10 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+    <section ref={ref} id="use-cases" className="py-8 lg:py-12 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[860px] mx-auto">
 
         <div className={`text-center mb-6 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -508,10 +508,10 @@ function ComparisonSection() {
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-12 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+    <section ref={ref} className="py-8 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[860px] mx-auto">
 
-        <div className={`text-center mb-6 sm:mb-8 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-6 sm:mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Why TradeGuard</span>
@@ -549,7 +549,7 @@ function CTASection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section ref={ref} className="py-10 lg:py-14 px-4 sm:px-5 lg:px-8 relative overflow-hidden" style={{ background: "#0066CC" }}>
+    <section ref={ref} className="py-10 lg:py-16 px-4 sm:px-5 lg:px-8 relative overflow-hidden" style={{ background: "#0066CC" }}>
       {/* Subtle texture */}
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: "url('/images/world-map-bg.png')",

@@ -261,10 +261,9 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
 
   return (
     <div
-      className="w-full max-w-[480px] mx-auto lg:max-w-none flex flex-col overflow-hidden lg:animate-float"
+      className="w-full max-w-[480px] mx-auto lg:max-w-none flex flex-col overflow-hidden lg:animate-float lg:h-[435px]"
       style={{
         height: "auto",
-        maxHeight: "435px",
         borderRadius: "20px",
         background: "#FFFFFF",
         border: "1px solid #E2E8F0",
