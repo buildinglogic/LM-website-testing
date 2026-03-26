@@ -41,10 +41,10 @@ export default function AegisGrahamBellPage() {
         className="pt-[100px] lg:pt-[120px] pb-10 px-5 lg:px-8 relative overflow-hidden"
         style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}
       >
-        {/* Award logo — large centered background */}
+        {/* Award logo — large centered background, clearly visible */}
         <div
           className="absolute inset-0 pointer-events-none flex items-center justify-center"
-          style={{ opacity: 0.08 }}
+          style={{ opacity: 0.2 }}
         >
           <Image
             src="/images/Aegis_award_logo.jpg"

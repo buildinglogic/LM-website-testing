@@ -301,7 +301,7 @@ function ProblemSection() {
   return (
     <section
       ref={ref}
-      className="py-10 lg:py-14 px-5 lg:px-8 relative overflow-hidden"
+      className="py-8 lg:py-10 px-5 lg:px-8 relative overflow-hidden"
     >
       {/* Blurred map layer */}
       <div className="absolute inset-0 scale-110 pointer-events-none" style={{
@@ -316,25 +316,25 @@ function ProblemSection() {
 
       <div className="w-full max-w-[1100px] mx-auto relative">
         {/* Header */}
-        <div className={`text-center mb-8 lg:mb-10 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="flex items-center justify-center gap-3 mb-3">
+        <div className={`text-center mb-5 lg:mb-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center justify-center gap-3 mb-2">
             <div className="h-px w-8 flex-shrink-0 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>
               The Cost of Doing Nothing
             </span>
             <div className="h-px w-8 flex-shrink-0 rounded-full" style={{ background: "linear-gradient(270deg, #0066CC, #00A86B)" }} />
           </div>
-          <h2 className="text-[22px] sm:text-[30px] lg:text-[40px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-3" style={{ color: "#0F172A" }}>
+          <h2 className="text-[22px] sm:text-[30px] lg:text-[36px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-2" style={{ color: "#0F172A" }}>
             The cost of{" "}
             <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">doing nothing.</span>
           </h2>
-          <p className="text-[14px] sm:text-[15px] max-w-[420px] mx-auto" style={{ color: "#64748B" }}>
+          <p className="text-[13px] sm:text-[14px] max-w-[420px] mx-auto" style={{ color: "#64748B" }}>
             What your shipments lose before they leave the port.
           </p>
         </div>
 
         {/* 4 Premium cards — 2x2 grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 mb-8">
+        <div className="grid grid-cols-2 gap-3 lg:gap-4 mb-5">
           {problems.map((problem, idx) => (
             <ProblemCardItem key={idx} problem={problem} idx={idx} isInView={isInView} />
           ))}
@@ -344,13 +344,13 @@ function ProblemSection() {
         <div className={`text-center transition-all duration-700 delay-300 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <a
             href="#products"
-            className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-[15px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+            className="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
             style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
           >
             See How We Fix This
             <ArrowRight className="w-4 h-4" />
           </a>
-          <p className="text-[12px] mt-3" style={{ color: "#94A3B8" }}>
+          <p className="text-[11px] mt-2" style={{ color: "#94A3B8" }}>
             Works on your actual documents
           </p>
         </div>
@@ -410,12 +410,12 @@ function ProblemCardItem({ problem, idx, isInView }: {
         }}
       />
 
-      <div className="p-6 lg:p-7 relative">
-        <div className="flex items-start gap-5">
+      <div className="p-4 lg:p-5 relative">
+        <div className="flex items-start gap-4">
           {/* Left: Icon + Number */}
           <div className="flex flex-col items-center flex-shrink-0">
             <div
-              className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3 transition-all duration-500"
+              className="w-10 h-10 rounded-xl flex items-center justify-center mb-2 transition-all duration-500"
               style={{
                 background: spotOn ? `${problem.accentColor}15` : `${problem.accentColor}08`,
                 color: problem.accentColor,
@@ -425,7 +425,7 @@ function ProblemCardItem({ problem, idx, isInView }: {
               {problem.icon}
             </div>
             <div
-              className="text-[32px] lg:text-[38px] font-black tracking-tight leading-none stat-number-glow"
+              className="text-[26px] lg:text-[32px] font-black tracking-tight leading-none stat-number-glow"
               style={{ color: problem.accentColor }}
             >
               {problem.number}
@@ -433,11 +433,11 @@ function ProblemCardItem({ problem, idx, isInView }: {
           </div>
 
           {/* Right: Text */}
-          <div className="flex-1 pt-1">
-            <h3 className="font-bold text-[15px] lg:text-[16px] leading-snug mb-2" style={{ color: "#0F172A" }}>
+          <div className="flex-1 pt-0.5">
+            <h3 className="font-bold text-[14px] lg:text-[15px] leading-snug mb-1" style={{ color: "#0F172A" }}>
               {problem.title}
             </h3>
-            <p className="text-[13px] leading-relaxed mb-3" style={{ color: "#475569" }}>
+            <p className="text-[12px] sm:text-[13px] leading-relaxed mb-2" style={{ color: "#475569" }}>
               {problem.body}
             </p>
             <div className="flex items-center gap-2">

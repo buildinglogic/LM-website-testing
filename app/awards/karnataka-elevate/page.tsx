@@ -41,10 +41,10 @@ export default function KarnatakaElevatePage() {
         className="pt-[100px] lg:pt-[120px] pb-10 px-5 lg:px-8 relative overflow-hidden"
         style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}
       >
-        {/* Logo — large centered background */}
+        {/* Logo — large centered background, clearly visible */}
         <div
           className="absolute inset-0 pointer-events-none flex items-center justify-center"
-          style={{ opacity: 0.06 }}
+          style={{ opacity: 0.18 }}
         >
           <Image
             src="/images/karnataka_itbt_department_logo.png"
@@ -96,7 +96,7 @@ export default function KarnatakaElevatePage() {
         <div ref={mainPhotos.ref} className="max-w-[1100px] mx-auto">
           <div className={`transition-all duration-700 ${mainPhotos.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* First image — same as homepage awards card, fully visible */}
+              {/* Left column: felicitation image */}
               <div
                 className="relative rounded-2xl overflow-hidden"
                 style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)", background: "#F8FAFC" }}
@@ -109,17 +109,32 @@ export default function KarnatakaElevatePage() {
                   className="w-full h-auto object-contain"
                 />
               </div>
-              <div
-                className="relative rounded-2xl overflow-hidden"
-                style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}
-              >
-                <Image
-                  src="/images/elevate-2025-policy-stage.png"
-                  alt="Liquidmind AI on the Elevate 2025 policy stage"
-                  width={1600}
-                  height={900}
-                  className="w-full h-auto object-contain"
-                />
+              {/* Right column: policy stage + stage panel stacked to fill height */}
+              <div className="flex flex-col gap-4">
+                <div
+                  className="relative rounded-2xl overflow-hidden flex-1"
+                  style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}
+                >
+                  <Image
+                    src="/images/elevate-2025-policy-stage.png"
+                    alt="Liquidmind AI on the Elevate 2025 policy stage"
+                    width={1600}
+                    height={900}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div
+                  className="relative rounded-2xl overflow-hidden flex-1"
+                  style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}
+                >
+                  <Image
+                    src="/images/elevate-2025-stage-panel.png"
+                    alt="Elevate 2025 stage panel discussion"
+                    width={1600}
+                    height={900}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -232,23 +247,22 @@ export default function KarnatakaElevatePage() {
               <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Gallery</span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               {[
-                { src: "/images/elevate-2025-stage-panel.png", alt: "Elevate 2025 stage panel discussion", span: "col-span-2", h: "h-[200px] sm:h-[260px]", contain: false },
-                { src: "/images/elevate-2025-winner-trophy.png", alt: "Elevate 2025 winner trophy", span: "", h: "h-[200px] sm:h-[260px]", contain: false },
-                { src: "/images/elevate-2025-selection-funnel.png", alt: "Elevate 2025 selection funnel — from 1,500+ applicants to 103 winners", span: "col-span-2 sm:col-span-3", h: "", contain: true },
+                { src: "/images/elevate-2025-winner-trophy.png", alt: "Elevate 2025 winner trophy", span: "", h: "h-[240px] sm:h-[300px]" },
+                { src: "/images/elevate-2025-selection-funnel.png", alt: "Elevate 2025 selection funnel — from 1,500+ applicants to 103 winners", span: "", h: "h-[240px] sm:h-[300px]" },
               ].map((img, i) => (
                 <div
                   key={i}
                   className={`relative rounded-xl overflow-hidden transition-all duration-700 ${img.span} ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                  style={{ border: "1px solid #E2E8F0", transitionDelay: `${i * 80}ms`, background: img.contain ? "#F8FAFC" : undefined }}
+                  style={{ border: "1px solid #E2E8F0", transitionDelay: `${i * 80}ms` }}
                 >
                   <Image
                     src={img.src}
                     alt={img.alt}
                     width={800}
                     height={600}
-                    className={`w-full ${img.contain ? "h-auto object-contain" : `${img.h} object-cover`}`}
+                    className={`w-full ${img.h} object-cover`}
                   />
                 </div>
               ))}
