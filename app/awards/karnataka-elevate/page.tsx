@@ -104,9 +104,14 @@ export default function KarnatakaElevatePage() {
                   </p>
                 </div>
               </div>
-              {/* Right: policy stage */}
-              <div className="relative rounded-2xl overflow-hidden group" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}>
-                <Image src="/images/elevate-2025-policy-stage.png" alt="Liquidmind AI on the Elevate 2025 policy stage" width={1600} height={900} className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]" />
+              {/* Right: policy stage + stage panel stacked */}
+              <div className="flex flex-col gap-4">
+                <div className="relative rounded-2xl overflow-hidden group flex-1" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}>
+                  <Image src="/images/elevate-2025-policy-stage.png" alt="Liquidmind AI on the Elevate 2025 policy stage" width={1600} height={900} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+                </div>
+                <div className="relative rounded-2xl overflow-hidden group flex-1" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}>
+                  <Image src="/images/elevate-2025-stage-panel.png" alt="Elevate 2025 stage panel discussion" width={1600} height={900} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+                </div>
               </div>
             </div>
           </div>
@@ -194,7 +199,6 @@ export default function KarnatakaElevatePage() {
               {[
                 { src: "/images/elevate-2025-stage-panel.png", alt: "Elevate 2025 stage panel discussion", span: "col-span-2", h: "h-[200px] sm:h-[260px]" },
                 { src: "/images/elevate-2025-winner-trophy.png", alt: "Elevate 2025 winner trophy", span: "", h: "h-[200px] sm:h-[260px]" },
-                { src: "/images/elevate-2025-selection-funnel.png", alt: "Elevate 2025 selection funnel", span: "col-span-2 sm:col-span-3", h: "h-[280px] sm:h-[380px]" },
               ].map((img, i) => (
                 <div key={i}
                   className={`relative rounded-xl overflow-hidden group transition-all duration-700 ${img.span} ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
