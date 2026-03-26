@@ -848,7 +848,7 @@ function AwardToast() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 2000)
+    const timer = setTimeout(() => setVisible(true), 3000)
     return () => clearTimeout(timer)
   }, [])
 
@@ -856,11 +856,23 @@ function AwardToast() {
 
   return (
     <div
-      className={`hidden lg:block fixed bottom-0 left-0 right-0 z-40 transition-all duration-700 ease-out ${visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}
+      className={`hidden lg:block fixed bottom-0 left-0 right-0 z-40 transition-all ease-out ${visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}
+      style={{ transitionDuration: "1400ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
-      {/* Single marquee bar with clickable links and centered cancel */}
+      {/* Cancel button — outside marquee, floating above */}
+      <div className="flex justify-center mb-2">
+        <button
+          onClick={() => setDismissed(true)}
+          className="w-8 h-8 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-125 hover:rotate-90 active:scale-90"
+          style={{ background: "#FFFFFF", border: "2px solid #E2E8F0" }}
+        >
+          <X className="w-4 h-4" style={{ color: "#64748B" }} />
+        </button>
+      </div>
+
+      {/* Marquee bar */}
       <div
-        className="relative overflow-hidden"
+        className="overflow-hidden"
         style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", height: "40px", boxShadow: "0 -4px 20px rgba(0,0,0,0.1)" }}
       >
         <div className="flex items-center h-full animate-marquee whitespace-nowrap">
@@ -884,14 +896,6 @@ function AwardToast() {
             </span>
           ))}
         </div>
-
-        {/* Cancel button — centered, always visible */}
-        <button
-          onClick={() => setDismissed(true)}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full flex items-center justify-center bg-white/20 backdrop-blur-sm transition-all duration-200 hover:bg-white/40 hover:scale-125 hover:rotate-90 active:scale-90"
-        >
-          <X className="w-4 h-4 text-white" />
-        </button>
       </div>
     </div>
   )
