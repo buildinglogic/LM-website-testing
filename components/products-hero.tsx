@@ -25,35 +25,53 @@ export function PatramHero() {
       ref={sectionRef}
       className="relative overflow-hidden"
     >
-      {/* World map background — heavily blurred so content is king */}
+      {/* Subtle dot grid background for high-contrast premium feel */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          opacity: 0.4,
+          backgroundImage: "radial-gradient(circle, #E2E8F0 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      {/* Very faint world map — almost invisible, just texture */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: "url('/images/world-map-bg.png')",
           backgroundSize: "cover",
           backgroundPosition: "center 40%",
-          filter: "blur(6px)",
-          opacity: 0.35,
+          filter: "blur(8px)",
+          opacity: 0.15,
           transform: "scale(1.05)",
         }}
       />
+
+      {/* Strong white overlay for contrast */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.85) 60%, #FFFFFF 95%)",
+          background: "linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.92) 50%, #FFFFFF 100%)",
         }}
       />
 
+      {/* Subtle accent glow top-left */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ opacity: 0.02, backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }}
+        className="absolute top-0 left-0 pointer-events-none"
+        style={{
+          width: "600px",
+          height: "400px",
+          background: "radial-gradient(ellipse at top left, rgba(0,102,204,0.05) 0%, transparent 70%)",
+        }}
       />
 
       <div className="relative w-full max-w-[1400px] mx-auto px-5 lg:px-8 pt-[100px] pb-6 lg:pb-8">
-        <div className="flex flex-col items-center text-center lg:text-left lg:items-start lg:grid lg:grid-cols-2 lg:gap-10 lg:items-center">
+        {/* Main two-column: centered on mobile, left-aligned on desktop */}
+        <div className="flex flex-col items-center text-center lg:text-left lg:items-start lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:items-center">
 
-          {/* Left: Copy — staggered premium entrance */}
-          <div>
+          {/* Left: Copy */}
+          <div className="lg:pl-4 xl:pl-8">
 
             {/* Section label */}
             <div className={`flex items-center justify-center lg:justify-start gap-3 mb-4 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -65,21 +83,21 @@ export function PatramHero() {
             </div>
 
             {/* Product name */}
-            <h1 className={`hero-text-reveal text-[32px] sm:text-[44px] lg:text-[56px] xl:text-[64px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-2 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <h1 className={`hero-text-reveal text-[32px] sm:text-[44px] lg:text-[56px] xl:text-[64px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-3 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
               <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
                 Patram AI
               </span>
             </h1>
 
-            {/* Two key lines — high contrast */}
+            {/* Tagline — punchy and clear */}
             <p
-              className={`text-[16px] sm:text-[20px] lg:text-[24px] font-semibold leading-snug mb-2 max-w-[500px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              className={`text-[18px] sm:text-[22px] lg:text-[26px] font-bold leading-snug mb-2 max-w-[500px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ color: "#0F172A" }}
             >
               Trade compliance, answered instantly.
             </p>
             <p
-              className={`text-[14px] sm:text-[15px] leading-relaxed mb-5 max-w-[480px] transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              className={`text-[15px] sm:text-[16px] leading-relaxed mb-5 max-w-[480px] transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ color: "#475569" }}
             >
               Upload any trade document. Get sourced answers for 190+ countries in seconds.
@@ -157,34 +175,29 @@ export function PatramHero() {
           </div>
         </div>
 
-        {/* LOWER SECTION — Other Products */}
+        {/* LOWER SECTION — Other Products — clean, concise */}
         <div className={`mt-6 lg:mt-8 pt-5 transition-all duration-700 delay-[700ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ borderTop: "1px solid #E2E8F0" }}>
           <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-4 items-center">
             {[
-              { name: "TradeGuard", tagline: "Document Mismatch Detection", desc: "Cross-checks 40+ fields between Shipping Bill and Invoice in under 5 seconds.", href: "/products/tradeguard", color: "#0066CC", stat: "40+ fields" },
-              { name: "TariffIQ", tagline: "HSN Classification & Duty", desc: "AI classifies products to 8-digit ITC-HS and compares RoDTEP vs Drawback.", href: "/products/tariffiq", color: "#1B4F8A", stat: "95% accuracy" },
+              { name: "TradeGuard", tagline: "Cross-checks 40+ document fields in under 5 seconds", href: "/products/tradeguard", color: "#0066CC" },
+              { name: "TariffIQ", tagline: "AI-powered HSN classification with 95% accuracy", href: "/products/tariffiq", color: "#1B4F8A" },
             ].map((p) => (
               <Link
                 key={p.name}
                 href={p.href}
-                className="group flex items-start gap-3.5 px-4 py-3.5 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                className="group flex items-center gap-3.5 px-4 py-3.5 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
                 style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}
               >
-                <div className="w-1.5 h-full min-h-[48px] rounded-full flex-shrink-0 transition-all duration-300 group-hover:w-2" style={{ background: p.color }} />
+                <div className="w-1.5 min-h-[36px] rounded-full flex-shrink-0 transition-all duration-300 group-hover:w-2" style={{ background: p.color }} />
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <p className="text-[14px] font-bold leading-tight" style={{ color: "#0F172A" }}>{p.name}</p>
-                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded" style={{ background: `${p.color}10`, color: p.color }}>{p.stat}</span>
-                  </div>
-                  <p className="text-[11px] font-semibold mb-1" style={{ color: p.color }}>{p.tagline}</p>
-                  <p className="text-[11px] leading-snug" style={{ color: "#64748B" }}>{p.desc}</p>
+                  <p className="text-[15px] font-bold leading-tight mb-0.5" style={{ color: "#0F172A" }}>{p.name}</p>
+                  <p className="text-[13px] leading-snug" style={{ color: "#64748B" }}>{p.tagline}</p>
                 </div>
-                <ArrowRight className="w-4 h-4 mt-1 flex-shrink-0 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" style={{ color: p.color }} />
+                <ArrowRight className="w-4 h-4 flex-shrink-0 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" style={{ color: p.color }} />
               </Link>
             ))}
-            <a href="#products" className="inline-flex items-center justify-center gap-1.5 text-[12px] font-semibold transition-all duration-300 hover:gap-2.5 sm:flex-col sm:gap-0.5" style={{ color: "#0066CC" }}>
-              <span>Explore all</span>
-              <ArrowRight className="w-3 h-3" />
+            <a href="#products" className="inline-flex items-center justify-center gap-1.5 text-[13px] font-semibold transition-all duration-300 hover:gap-2.5" style={{ color: "#0066CC" }}>
+              All products <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
         </div>
