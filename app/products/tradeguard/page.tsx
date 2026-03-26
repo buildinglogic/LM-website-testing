@@ -294,37 +294,22 @@ function ProblemSection() {
 
         {/* Problem Grid */}
         <div className="grid md:grid-cols-2 gap-4 lg:gap-5">
-          {problems.map((problem, idx) => {
-            const Icon = problem.icon
-            return (
+          {problems.map((problem, idx) => (
               <div
                 key={idx}
                 className={`p-5 rounded-2xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{
                   background: "#FFFFFF",
                   border: "1px solid #E2E8F0",
+                  borderLeft: `3px solid ${BRAND_BLUE}`,
                   transitionDelay: `${idx * 100}ms`,
                 }}
               >
-                <div className="flex items-start gap-4">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: `${BRAND_BLUE}12` }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: BRAND_BLUE }} />
-                  </div>
-                  <div>
-                    <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{problem.title}</h3>
-                    <p className="text-[13px] sm:text-[14px] leading-relaxed mb-2.5" style={{ color: "#64748B" }}>{problem.description}</p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: `${BRAND_BLUE}08` }}>
-                      <AlertTriangle className="w-3 h-3" style={{ color: BRAND_BLUE }} />
-                      <span className="text-[12px] font-semibold" style={{ color: BRAND_BLUE }}>{problem.highlight}</span>
-                    </div>
-                  </div>
-                </div>
+                <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{problem.title}</h3>
+                <p className="text-[13px] sm:text-[14px] leading-relaxed mb-2.5" style={{ color: "#64748B" }}>{problem.description}</p>
+                <span className="text-[12px] font-semibold" style={{ color: BRAND_BLUE }}>{problem.highlight}</span>
               </div>
-            )
-          })}
+          ))}
         </div>
       </div>
     </section>
@@ -398,15 +383,10 @@ function FeaturesSection() {
               style={{
                 background: "#FFFFFF",
                 border: "1px solid #E2E8F0",
+                borderTop: `3px solid ${feature.color}`,
                 transitionDelay: `${idx * 80}ms`,
               }}
             >
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                style={{ background: `${feature.color}12` }}
-              >
-                <FeatureIcon type={feature.icon} color={feature.color} />
-              </div>
               <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{feature.title}</h3>
               <p className="text-[13px] leading-relaxed" style={{ color: "#64748B" }}>{feature.description}</p>
             </div>

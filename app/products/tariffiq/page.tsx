@@ -377,29 +377,21 @@ function FeaturesSection() {
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
-          {features.map((feature, idx) => {
-            const Icon = feature.icon
-            return (
+          {features.map((feature, idx) => (
               <div
                 key={idx}
                 className={`p-5 rounded-2xl transition-all duration-700 hover:shadow-lg ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{
                   background: "#FFFFFF",
                   border: "1px solid #E2E8F0",
+                  borderTop: `3px solid ${feature.color}`,
                   transitionDelay: `${idx * 80}ms`,
                 }}
               >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                  style={{ background: `${feature.color}12` }}
-                >
-                  <Icon className="w-5 h-5" style={{ color: feature.color }} />
-                </div>
                 <h3 className="text-[15px] font-bold mb-1.5" style={{ color: "#0F172A" }}>{feature.title}</h3>
                 <p className="text-[13px] leading-relaxed" style={{ color: "#64748B" }}>{feature.description}</p>
               </div>
-            )
-          })}
+          ))}
         </div>
       </div>
     </section>

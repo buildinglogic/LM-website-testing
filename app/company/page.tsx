@@ -74,9 +74,7 @@ export default function CompanyPage() {
             </span>
           </h1>
           <p className="text-[16px] sm:text-[17px] lg:text-[18px] max-w-3xl mx-auto leading-relaxed" style={{ color: "#475569" }}>
-            Liquidmind AI is redefining trade finance and supply chain management with intelligent AI agents that automate
-            workflows, optimise liquidity, and enhance compliance. Designed for large and mid-sized enterprises, our AI-driven
-            products eliminate inefficiencies, improve decision-making, and scale effortlessly with business growth.
+            We automate international trade workflows using Agentic AI — transforming the fragmented doc flow, funds flow, and goods flow journey for Indian exporters and global traders.
           </p>
         </div>
       </section>

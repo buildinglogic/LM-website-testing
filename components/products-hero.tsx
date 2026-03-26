@@ -239,93 +239,131 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
     return () => clearInterval(interval)
   }, [isActive, messages.length])
 
+  /* Brain icon SVG for Patram logo */
+  const BrainIcon = () => (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2a4 4 0 0 0-4 4v1a4 4 0 0 0-4 4c0 1.5.8 2.8 2 3.4V16a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-1.6A4 4 0 0 0 20 11a4 4 0 0 0-4-4V6a4 4 0 0 0-4-4z" />
+      <path d="M12 2v20M8 8h8M8 12h8M9 16h6" />
+    </svg>
+  )
+
   return (
     <div
       className="relative rounded-2xl overflow-hidden w-full"
       style={{
-        height: "380px",
-        background: "linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%)",
+        height: "400px",
+        background: "#F1F5F9",
         border: "1px solid #E2E8F0",
-        boxShadow: "0 25px 80px rgba(0,102,204,0.08), 0 10px 40px rgba(0,0,0,0.04)",
+        boxShadow: "0 25px 80px rgba(0,0,0,0.06), 0 10px 40px rgba(0,0,0,0.03)",
       }}
     >
-      <div className="h-[3px]" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+      {/* Chat header bar */}
+      <div className="flex items-center gap-2.5 px-4 py-2.5" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+        <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #6366F1, #8B5CF6)" }}>
+          <BrainIcon />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-[13px] font-bold leading-none" style={{ color: "#0F172A" }}>Patram AI</p>
+          <p className="text-[10px] mt-0.5" style={{ color: "#94A3B8" }}>Intelligent Document Assistant</p>
+        </div>
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+          <FileText className="w-3 h-3" style={{ color: "#64748B" }} />
+          <span className="text-[10px] font-medium" style={{ color: "#64748B" }}>eu_food_safety.pdf</span>
+        </div>
+      </div>
 
-      <div className="p-4 h-[calc(100%-3px)] flex flex-col">
-        {/* Header — like TariffIQ */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-full" style={{ background: "#E2E8F0" }} />
-              <span className="w-3 h-3 rounded-full" style={{ background: "#00A86B" }} />
+      {/* Chat body */}
+      <div className="px-4 py-3 h-[calc(100%-52px)] flex flex-col overflow-hidden">
+
+        {/* User message — right-aligned with chat arrow */}
+        <div className="flex justify-end mb-3">
+          <div className="flex items-end gap-1.5 max-w-[85%]">
+            <div className="relative">
+              <div className="px-3.5 py-2.5 rounded-2xl rounded-br-sm" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
+                <p className="text-[11px] font-semibold mb-0.5" style={{ color: "#64748B" }}>You</p>
+                <p className="text-[12px] leading-snug" style={{ color: "#0F172A" }}>Certifications needed to export turmeric to Germany?</p>
+              </div>
+              {/* Chat arrow — right side */}
+              <div className="absolute bottom-[6px] -right-[5px] w-[10px] h-[10px] overflow-hidden">
+                <div className="w-[10px] h-[10px] rotate-45 origin-top-left" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderLeft: "none", borderTop: "none" }} />
+              </div>
             </div>
-            <p className="text-[14px] font-bold" style={{ color: "#0F172A" }}>Patram AI</p>
-          </div>
-          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: "#ECFDF5", color: "#00A86B" }}>Online</span>
-        </div>
-
-        {/* Document input — grey field */}
-        <div className="mb-3">
-          <p className="text-[10px] font-semibold uppercase tracking-wider mb-1.5" style={{ color: "#94A3B8" }}>Document Uploaded</p>
-          <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-            <FileText className="w-4 h-4" style={{ color: "#94A3B8" }} />
-            <span className="text-[13px] font-medium" style={{ color: "#0F172A" }}>eu_food_safety.pdf</span>
-            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded ml-auto" style={{ background: "#ECFDF5", color: "#00A86B" }}>47 pages</span>
+            <div className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center" style={{ background: "#E2E8F0" }}>
+              <span className="text-[8px] font-bold" style={{ color: "#64748B" }}>U</span>
+            </div>
           </div>
         </div>
 
-        {/* Query — grey field */}
-        <div className="mb-3">
-          <p className="text-[10px] font-semibold uppercase tracking-wider mb-1.5" style={{ color: "#94A3B8" }}>Your Question</p>
-          <div className="px-3 py-2.5 rounded-xl" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-            <p className="text-[12px]" style={{ color: "#475569" }}>Certifications needed to export turmeric to Germany?</p>
+        {/* AI response — left-aligned with chat arrow and brain logo */}
+        <div className="flex items-start gap-1.5 flex-1 min-h-0">
+          <div className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style={{ background: "linear-gradient(135deg, #6366F1, #8B5CF6)" }}>
+            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2v20M8 8h8M8 12h8M9 16h6" />
+              <circle cx="12" cy="10" r="8" />
+            </svg>
           </div>
-        </div>
+          <div className="flex-1 min-w-0">
+            <div className="relative">
+              {/* Chat arrow — left side */}
+              <div className="absolute top-[8px] -left-[5px] w-[10px] h-[10px] overflow-hidden">
+                <div className="w-[10px] h-[10px] rotate-45 origin-bottom-right" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRight: "none", borderBottom: "none" }} />
+              </div>
 
-        {/* AI Response — animated results */}
-        <div className="flex-1 min-h-0">
-          <p className="text-[10px] font-semibold uppercase tracking-wider mb-1.5" style={{ color: "#94A3B8" }}>
-            <span className="inline-flex items-center gap-1">
-              <Sparkles className="w-3 h-3" style={{ color: "#00A86B" }} />
-              AI Response
-            </span>
-          </p>
-          <div className="space-y-1.5">
-            {messages.map((msg, idx) => {
-              const visible = idx < messageStep
-              const isTyping = idx === messageStep && messageStep <= messages.length - 1
+              <div className="px-3.5 py-2.5 rounded-2xl rounded-tl-sm" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
+                <p className="text-[11px] font-semibold mb-2" style={{ color: "#6366F1" }}>Patram AI</p>
 
-              return (
-                <div
-                  key={idx}
-                  className="transition-all duration-500"
-                  style={{
-                    opacity: visible ? 1 : isTyping ? 0.5 : 0.15,
-                    transform: visible ? "translateY(0)" : "translateY(4px)",
-                  }}
-                >
-                  <div className="flex items-center gap-2 px-3 py-2 rounded-xl" style={{ background: visible ? "#F8FAFC" : "#FAFBFC", border: `1px solid ${visible ? msg.borderColor + "30" : "#E2E8F0"}` }}>
-                    {isTyping ? (
-                      <div className="flex items-center gap-1 py-1">
-                        {[0, 1, 2].map(i => (
-                          <span key={i} className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#94A3B8", animationDelay: `${i * 150}ms` }} />
-                        ))}
-                      </div>
-                    ) : (
-                      <>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-[11px] font-bold leading-tight" style={{ color: visible ? msg.titleColor : "#CBD5E1" }}>{msg.title}</p>
-                          <p className="text-[10px] leading-snug mt-0.5" style={{ color: visible ? "#475569" : "#E2E8F0" }}>{msg.text}</p>
+                <div className="space-y-1.5">
+                  {messages.map((msg, idx) => {
+                    const visible = idx < messageStep
+                    const isTyping = idx === messageStep && messageStep <= messages.length - 1
+
+                    return (
+                      <div
+                        key={idx}
+                        className="transition-all duration-500"
+                        style={{
+                          opacity: visible ? 1 : isTyping ? 0.5 : 0.15,
+                          transform: visible ? "translateY(0)" : "translateY(3px)",
+                        }}
+                      >
+                        <div className="px-2.5 py-2 rounded-lg" style={{ background: visible ? "#F8FAFC" : "#FAFBFC", borderLeft: `3px solid ${visible ? msg.borderColor : "#E2E8F0"}` }}>
+                          {isTyping ? (
+                            <div className="flex items-center gap-1 py-0.5">
+                              {[0, 1, 2].map(i => (
+                                <span key={i} className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#94A3B8", animationDelay: `${i * 150}ms` }} />
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="flex-1 min-w-0">
+                                <p className="text-[11px] font-bold leading-tight" style={{ color: visible ? msg.titleColor : "#CBD5E1" }}>{msg.title}</p>
+                                <p className="text-[10px] leading-snug mt-0.5" style={{ color: visible ? "#475569" : "#E2E8F0" }}>{msg.text}</p>
+                              </div>
+                              {visible && (
+                                <span className="flex-shrink-0 text-[8px] font-medium px-1.5 py-0.5 rounded" style={{ background: "#F1F5F9", color: "#94A3B8", border: "1px solid #E2E8F0" }}>{msg.source}</span>
+                              )}
+                            </div>
+                          )}
                         </div>
-                        {visible && (
-                          <span className="flex-shrink-0 text-[9px] font-medium px-2 py-0.5 rounded-lg" style={{ background: "#FFFFFF", color: "#94A3B8", border: "1px solid #E2E8F0" }}>{msg.source}</span>
-                        )}
-                      </>
-                    )}
-                  </div>
+                      </div>
+                    )
+                  })}
                 </div>
-              )
-            })}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Input bar */}
+        <div className="mt-2 flex items-center gap-2 px-3 py-2 rounded-xl flex-shrink-0" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0" }}>
+          <span className="text-[11px]" style={{ color: "#94A3B8" }}>Ask about your export...</span>
+          <div
+            className="ml-auto w-6 h-6 rounded-lg flex items-center justify-center"
+            style={{ background: "linear-gradient(135deg, #6366F1, #8B5CF6)" }}
+          >
+            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
           </div>
         </div>
       </div>
