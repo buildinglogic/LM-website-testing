@@ -858,64 +858,39 @@ function AwardToast() {
     <div
       className={`hidden lg:block fixed bottom-0 left-0 right-0 z-40 transition-all duration-700 ease-out ${visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}
     >
-      {/* Marquee bar — running text at the bottom */}
-      <div className="overflow-hidden" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", height: "28px" }}>
+      {/* Single marquee bar with clickable links and centered cancel */}
+      <div
+        className="relative overflow-hidden"
+        style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", height: "40px", boxShadow: "0 -4px 20px rgba(0,0,0,0.1)" }}
+      >
         <div className="flex items-center h-full animate-marquee whitespace-nowrap">
           {[...Array(6)].map((_, i) => (
-            <span key={i} className="inline-flex items-center gap-6 mx-8 text-[11px] font-semibold text-white/90 tracking-wide">
-              <span>Aegis Graham Bell Award 2026</span>
+            <span key={i} className="inline-flex items-center gap-6 mx-8 text-[13px] font-semibold text-white tracking-wide">
+              <span className="flex items-center gap-2">
+                <Trophy className="w-3.5 h-3.5" />
+                Award-Winning AI Platform
+              </span>
               <span className="w-1 h-1 rounded-full bg-white/50" />
-              <span>Karnataka Elevate 2025 Winner</span>
+              <Link href="/awards/aegis-graham-bell" className="underline decoration-white/40 hover:decoration-white transition-all hover:text-white">
+                Aegis Graham Bell 2026
+              </Link>
+              <span className="w-1 h-1 rounded-full bg-white/50" />
+              <Link href="/awards/karnataka-elevate" className="underline decoration-white/40 hover:decoration-white transition-all hover:text-white">
+                Karnataka Elevate 2025
+              </Link>
               <span className="w-1 h-1 rounded-full bg-white/50" />
               <span>Recognized by Govt. of India & Karnataka</span>
               <span className="w-1 h-1 rounded-full bg-white/50" />
             </span>
           ))}
         </div>
-      </div>
 
-      {/* Main toast bar above marquee */}
-      <div
-        className="flex items-center gap-5 px-6 py-3"
-        style={{
-          background: "rgba(255,255,255,0.97)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          borderTop: "1px solid #E2E8F0",
-          boxShadow: "0 -4px 24px rgba(0,0,0,0.08)",
-        }}
-      >
-        <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-          style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)", boxShadow: "0 4px 12px rgba(0,102,204,0.3)" }}
-        >
-          <Trophy className="w-5 h-5 text-white" />
-        </div>
-        <div className="flex items-center gap-6 flex-1 min-w-0">
-          <span className="text-[14px] font-extrabold" style={{ color: "#0F172A" }}>Award-Winning AI</span>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/awards/aegis-graham-bell"
-              className="text-[13px] font-bold transition-all duration-200 hover:scale-110 hover:underline active:scale-95 inline-block origin-left"
-              style={{ color: "#0066CC" }}
-            >
-              Aegis Graham Bell 2026
-            </Link>
-            <span className="w-px h-4" style={{ background: "#E2E8F0" }} />
-            <Link
-              href="/awards/karnataka-elevate"
-              className="text-[13px] font-bold transition-all duration-200 hover:scale-110 hover:underline active:scale-95 inline-block origin-left"
-              style={{ color: "#00A86B" }}
-            >
-              Karnataka Elevate 2025
-            </Link>
-          </div>
-        </div>
+        {/* Cancel button — centered, always visible */}
         <button
           onClick={() => setDismissed(true)}
-          className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200 hover:bg-[#F1F5F9] hover:scale-125 hover:rotate-90 active:scale-90"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full flex items-center justify-center bg-white/20 backdrop-blur-sm transition-all duration-200 hover:bg-white/40 hover:scale-125 hover:rotate-90 active:scale-90"
         >
-          <X className="w-4 h-4" style={{ color: "#94A3B8" }} />
+          <X className="w-4 h-4 text-white" />
         </button>
       </div>
     </div>

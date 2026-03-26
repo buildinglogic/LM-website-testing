@@ -101,11 +101,11 @@ export default function KarnatakaElevatePage() {
                 style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}
               >
                 <Image
-                  src="/images/elevate-2025-felicitation-award.png"
-                  alt="Liquidmind AI receiving the Karnataka Elevate 2025 felicitation award"
+                  src="/images/elevate-felicitation.png"
+                  alt="Liquidmind AI receiving the Karnataka Elevate 2025 felicitation"
                   width={900}
-                  height={1600}
-                  className="w-full h-[320px] md:h-[380px] object-cover object-top"
+                  height={876}
+                  className="w-full h-[320px] md:h-[380px] object-cover"
                 />
               </div>
               <div
@@ -235,7 +235,7 @@ export default function KarnatakaElevatePage() {
               {[
                 { src: "/images/elevate-2025-stage-panel.png", alt: "Elevate 2025 stage panel discussion", span: "col-span-2", h: "h-[200px] sm:h-[260px]" },
                 { src: "/images/elevate-2025-winner-trophy.png", alt: "Elevate 2025 winner trophy", span: "", h: "h-[200px] sm:h-[260px]" },
-                { src: "/images/elevate-2025-selection-funnel.png", alt: "Elevate 2025 selection funnel — from 1,500+ applicants to 103 winners", span: "col-span-2 sm:col-span-3", h: "h-[220px] sm:h-[300px]" },
+                { src: "/images/elevate-2025-selection-funnel.png", alt: "Elevate 2025 selection funnel — from 1,500+ applicants to 103 winners", span: "col-span-2 sm:col-span-3", h: "h-[320px] sm:h-[440px]" },
               ].map((img, i) => (
                 <div
                   key={i}
