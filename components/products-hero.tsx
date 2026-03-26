@@ -253,9 +253,9 @@ export function PatramCard({ isActive }: { isActive: boolean }) {
       className="relative rounded-2xl overflow-hidden w-full"
       style={{
         height: "380px",
-        background: "#FFFFFF",
-        border: "1px solid #E2E8F0",
-        boxShadow: "0 8px 30px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02)",
+        background: "linear-gradient(165deg, #F0F7FF 0%, #F8FAFC 40%, #F0FDF8 100%)",
+        border: "1px solid #DBEAFE",
+        boxShadow: "0 8px 30px rgba(0,102,204,0.06), 0 2px 8px rgba(0,0,0,0.03)",
       }}
     >
       <div className="h-[3px]" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />

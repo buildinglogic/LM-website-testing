@@ -883,11 +883,11 @@ function AwardToast() {
                 Award-Winning AI Platform
               </span>
               <span className="w-1 h-1 rounded-full bg-white/50" />
-              <Link href="/awards/aegis-graham-bell" className="underline decoration-white/40 hover:decoration-white transition-all hover:text-white">
+              <Link href="/awards/aegis-graham-bell" className="inline-flex items-center px-3 py-1 rounded-full bg-white/15 border border-white/25 transition-all duration-200 hover:bg-white/30 hover:scale-110 hover:shadow-[0_0_16px_rgba(255,255,255,0.3)] active:scale-95">
                 Aegis Graham Bell 2026
               </Link>
               <span className="w-1 h-1 rounded-full bg-white/50" />
-              <Link href="/awards/karnataka-elevate" className="underline decoration-white/40 hover:decoration-white transition-all hover:text-white">
+              <Link href="/awards/karnataka-elevate" className="inline-flex items-center px-3 py-1 rounded-full bg-white/15 border border-white/25 transition-all duration-200 hover:bg-white/30 hover:scale-110 hover:shadow-[0_0_16px_rgba(255,255,255,0.3)] active:scale-95">
                 Karnataka Elevate 2025
               </Link>
               <span className="w-1 h-1 rounded-full bg-white/50" />
