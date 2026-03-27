@@ -1,11 +1,12 @@
-"use client"
-
-import { useState } from "react"
+import Link from "next/link"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { FooterLinks } from "@/components/footer-links"
 import { WhatsAppButton } from "@/components/whatsapp-button"
-import { Check } from "lucide-react"
+import { getPublishedPosts } from "./lib/notion"
+import { SubscribeForm } from "./subscribe-form"
+
+export const revalidate = 300
 
 const benefits = [
   "Weekly trade compliance insights",
@@ -14,15 +15,6 @@ const benefits = [
   "Tips to maximize Drawback & RoDTEP",
   "Case studies & success stories",
   "Early access to new features",
-]
-
-const recentIssues = [
-  { title: "5 Hidden Reasons Your Drawback Claims Are Getting Rejected", date: "March 10, 2026", readTime: "5 min read" },
-  { title: "RoDTEP vs Duty Drawback: Which Scheme Pays You More?", date: "March 3, 2026", readTime: "7 min read" },
-  { title: "How One Exporter Recovered 12 Lakhs in 30 Days", date: "February 24, 2026", readTime: "4 min read" },
-  { title: "New DGFT Guidelines: What Changes for You in 2026", date: "February 17, 2026", readTime: "6 min read" },
-  { title: "The Complete Guide to HSN Code Classification", date: "February 10, 2026", readTime: "10 min read" },
-  { title: "Avoiding IGST Refund Rejections: A Step-by-Step Checklist", date: "February 3, 2026", readTime: "8 min read" },
 ]
 
 const learnItems = [
@@ -61,29 +53,17 @@ const learnItems = [
   },
 ]
 
-export default function NewsletterPage() {
-  const [email, setEmail] = useState("")
-  const [role, setRole] = useState("")
-  const [subscribed, setSubscribed] = useState(false)
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
+}
 
-  const [loading, setLoading] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    try {
-      await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, role }),
-      })
-    } catch (_) {
-      // still show success
-    } finally {
-      setLoading(false)
-      setSubscribed(true)
-    }
-  }
+export default async function NewsletterPage() {
+  const posts = await getPublishedPosts()
+  const hasPosts = posts.length > 0
 
   return (
     <main className="min-h-screen" style={{ background: "#FFFFFF" }}>
@@ -110,21 +90,19 @@ export default function NewsletterPage() {
                   Made Simple
                 </span>
               </h1>
-              <a
-                href="#subscribe"
-                onClick={(e) => { e.preventDefault(); const el = document.getElementById("subscribe"); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 100, behavior: "smooth" }) }}
-                className="inline-block px-7 py-3 rounded-full text-[15px] font-bold btn-shine transition-all hover:scale-105 mb-6"
-                style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
-              >
-                Subscribe Now — It's Free
-              </a>
+              <p className="text-[16px] sm:text-[17px] lg:text-[18px] leading-relaxed mb-6 max-w-md" style={{ color: "#475569" }}>
+                Actionable insights on trade compliance, export documentation, and refund optimisation —
+                delivered every week. Join thousands of exporters already saving crores.
+              </p>
 
               <div className="space-y-2">
                 {benefits.map((benefit, idx) => (
                   <div key={idx} className="flex items-center gap-2.5">
                     <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                       style={{ background: "#ECFDF5" }}>
-                      <Check className="w-3 h-3" style={{ color: "#00A86B" }} />
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} style={{ color: "#00A86B" }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
                     </div>
                     <span className="text-[15px] sm:text-[16px]" style={{ color: "#0F172A" }}>{benefit}</span>
                   </div>
@@ -133,79 +111,7 @@ export default function NewsletterPage() {
             </div>
 
             {/* Right: subscribe card */}
-            <div id="subscribe" className="rounded-2xl p-6 lg:p-8"
-              style={{ background: "#FFFFFF", border: "2px solid #0066CC", boxShadow: "0 8px 40px rgba(0,102,204,0.12)" }}>
-              {subscribed ? (
-                <div className="text-center py-8">
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"
-                    style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}>
-                    <Check className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="text-[18px] font-bold mb-2" style={{ color: "#0F172A" }}>{"You're Subscribed!"}</h3>
-                  <p className="text-[16px]" style={{ color: "#475569" }}>
-                    Check your inbox for a confirmation email. Your first issue arrives this week.
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <h3 className="text-[18px] sm:text-[20px] font-bold mb-1" style={{ color: "#0F172A" }}>Subscribe Now</h3>
-                  <p className="text-[16px] mb-5" style={{ color: "#64748B" }}>Free. No spam. Unsubscribe anytime.</p>
-
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                      <label className="block text-[15px] font-semibold mb-1.5" style={{ color: "#0066CC" }}>
-                        Work Email <span style={{ color: "#0066CC" }}>*</span>
-                      </label>
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="you@company.com"
-                        required
-                        className="w-full px-4 py-3 rounded-full text-[14px] outline-none transition-all focus:ring-2 focus:ring-[#0066CC]/30"
-                        style={{ background: "#F1F5F9", border: "none", color: "#0F172A" }}
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[13px] font-semibold mb-1.5" style={{ color: "#0066CC" }}>
-                        Your Role <span style={{ color: "#94A3B8", fontWeight: 400 }}>(Optional)</span>
-                      </label>
-                      {/* Custom role selector */}
-                      <div className="flex flex-wrap gap-2">
-                        {["Exporter / Trader", "CHA", "CA / Auditor", "Logistics", "Other"].map((r) => (
-                          <button
-                            key={r}
-                            type="button"
-                            onClick={() => setRole(r)}
-                            className="px-3 py-1.5 rounded-full text-[14px] font-medium transition-all"
-                            style={{
-                              background: role === r ? "#0066CC" : "#F1F5F9",
-                              color: role === r ? "#FFFFFF" : "#475569",
-                              border: role === r ? "none" : "1px solid #E2E8F0",
-                            }}
-                          >
-                            {r}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full py-3.5 rounded-full text-[16px] font-bold btn-shine transition-all hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed"
-                      style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF" }}
-                    >
-                      {loading ? 'Subscribing…' : 'Subscribe to Newsletter'}
-                    </button>
-                    <p className="text-[13px] text-center" style={{ color: "#94A3B8" }}>
-                      By subscribing you agree to receive our newsletter. We respect your privacy.
-                    </p>
-                  </form>
-                </>
-              )}
-            </div>
+            <SubscribeForm />
           </div>
         </div>
       </section>
@@ -276,37 +182,69 @@ export default function NewsletterPage() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {recentIssues.map((issue, idx) => (
-              <div
-                key={idx}
-                className="p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md cursor-pointer"
-                style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-[13px]" style={{ color: "#94A3B8" }}>{issue.date}</span>
-                  <span
-                    className="text-[13px] px-2 py-0.5 rounded-full font-medium"
-                    style={{ background: "rgba(0,102,204,0.08)", color: "#0066CC" }}
-                  >
-                    {issue.readTime}
-                  </span>
-                </div>
-                <h3 className="text-[16px] sm:text-[17px] font-bold leading-snug" style={{ color: "#0F172A" }}>
-                  {issue.title}
-                </h3>
-                <div className="mt-3 flex items-center gap-1 text-[14px] font-semibold" style={{ color: "#0066CC" }}>
-                  Read issue
-                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </div>
-              </div>
-            ))}
-          </div>
+          {hasPosts ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {posts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/newsletter/${post.slug}`}
+                  className="block p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md cursor-pointer"
+                  style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-[13px]" style={{ color: "#94A3B8" }}>{formatDate(post.date)}</span>
+                    <span
+                      className="text-[13px] px-2 py-0.5 rounded-full font-medium"
+                      style={{ background: "rgba(0,102,204,0.08)", color: "#0066CC" }}
+                    >
+                      {post.read_time}
+                    </span>
+                  </div>
+                  <h3 className="text-[16px] sm:text-[17px] font-bold leading-snug mb-2" style={{ color: "#0F172A" }}>
+                    {post.title}
+                  </h3>
+                  <p className="text-[14px] leading-relaxed line-clamp-2 mb-3" style={{ color: "#475569" }}>
+                    {post.excerpt}
+                  </p>
+                  <div className="flex items-center gap-1 text-[14px] font-semibold" style={{ color: "#0066CC" }}>
+                    Read issue
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="text-[15px] text-center py-8" style={{ color: "#64748B" }}>
+              New articles coming soon. Subscribe to get notified.
+            </p>
+          )}
         </div>
       </section>
 
+      {/* ── Bottom CTA ── */}
+      <section className="py-12 lg:py-16 px-5 lg:px-8" style={{ background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
+        <div className="max-w-[600px] mx-auto text-center">
+          <h2 className="text-[20px] sm:text-[26px] lg:text-[32px] font-extrabold mb-3" style={{ color: "#0F172A" }}>
+            Join{" "}
+            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
+              2,400+ Exporters
+            </span>{" "}
+            Already Subscribed
+          </h2>
+          <p className="text-[16px] sm:text-[17px] mb-6" style={{ color: "#64748B" }}>
+            Free. No spam. Unsubscribe anytime.
+          </p>
+          <Link
+            href="/newsletter"
+            className="inline-block px-8 py-3.5 rounded-full text-[16px] font-bold btn-shine transition-all hover:scale-105"
+            style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
+          >
+            Subscribe Now — It's Free
+          </Link>
+        </div>
+      </section>
 
       <FooterLinks />
       <Footer />
