@@ -166,7 +166,7 @@ export function ROICalculator() {
               </div>
             </div>
 
-            <a href="#demo"
+            <a href="/book-demo"
               onClick={() => trackROIReportClick(annualRisk, estimatedProtectionLow)}
               className="w-full mt-3 py-2.5 rounded-lg text-center font-bold text-[15px] transition-all duration-300 hover:scale-105 block relative z-10"
               style={{ background: "#FFFFFF", color: "#0066CC" }}>

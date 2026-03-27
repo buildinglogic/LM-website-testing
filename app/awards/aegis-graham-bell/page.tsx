@@ -38,7 +38,7 @@ export default function AegisGrahamBellPage() {
 
       {/* Hero — modern gradient bg with logo watermark */}
       <section
-        className="pt-[100px] lg:pt-[120px] pb-6 sm:pb-10 px-4 sm:px-5 lg:px-8 relative overflow-hidden"
+        className="pt-[100px] lg:pt-[120px] pb-10 px-5 lg:px-8 relative overflow-hidden"
         style={{ background: "linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 50%, #F8FAFC 100%)" }}
       >
         {/* Dot grid texture */}
@@ -57,23 +57,23 @@ export default function AegisGrahamBellPage() {
               <span className="text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Gen AI Recognition</span>
             </div>
 
-            <h1 className={`text-[24px] sm:text-[40px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.02em] mb-2 sm:mb-3 transition-all duration-700 delay-150 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
+            <h1 className={`text-[28px] sm:text-[40px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.02em] mb-3 transition-all duration-700 delay-150 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
               Aegis Graham Bell Award
               <br />
               <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">February 2026</span>
             </h1>
 
             {/* Rating inline */}
-            <div className={`flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4 transition-all duration-700 delay-200 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <div className="flex items-center gap-0.5 sm:gap-1">
-                {[1, 2, 3].map(i => <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-current" style={{ color: "#0066CC" }} />)}
-                <Star className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: "#0066CC", fillOpacity: 0.5, fill: "#0066CC" }} />
-                <Star className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: "#E2E8F0" }} />
+            <div className={`flex items-center gap-4 mb-4 transition-all duration-700 delay-200 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <div className="flex items-center gap-1">
+                {[1, 2, 3].map(i => <Star key={i} className="w-5 h-5 fill-current" style={{ color: "#0066CC" }} />)}
+                <Star className="w-5 h-5" style={{ color: "#0066CC", fillOpacity: 0.5, fill: "#0066CC" }} />
+                <Star className="w-5 h-5" style={{ color: "#E2E8F0" }} />
               </div>
-              <span className="text-[13px] sm:text-[15px] font-bold" style={{ color: "#0066CC" }}>3.5/5 Innovation Rating</span>
+              <span className="text-[15px] font-bold" style={{ color: "#0066CC" }}>3.5/5 Innovation Rating</span>
             </div>
 
-            <p className={`text-[13px] sm:text-[16px] leading-relaxed max-w-[680px] mb-4 sm:mb-6 transition-all duration-700 delay-300 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
+            <p className={`text-[14px] sm:text-[16px] leading-relaxed max-w-[680px] mb-6 transition-all duration-700 delay-300 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
               Winner in Gen AI: CX, Sales & GTM Intelligence. Recognized by MeitY, Government of India. Felicitated by Minister of State Ms. Anupriya Patel at The Ashok Hotel, New Delhi.
             </p>
 
@@ -97,19 +97,19 @@ export default function AegisGrahamBellPage() {
       </section>
 
       {/* Featured Photos */}
-      <section className="py-6 sm:py-8 lg:py-10 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      <section className="py-8 lg:py-10 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div ref={mainPhotos.ref} className="max-w-[1100px] mx-auto">
           <div className={`transition-all duration-700 ${mainPhotos.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              <div className="relative rounded-xl sm:rounded-2xl overflow-hidden sm:col-span-2 group" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}>
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-4">
+              <div className="relative rounded-2xl overflow-hidden md:col-span-2 group" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}>
                 <Image src="/images/graham-bell-group-winners.jpg" alt="Aegis Graham Bell Award — group photo of all winners" width={1200} height={677} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ maxHeight: "360px" }} />
               </div>
               {[
                 { src: "/images/graham-bell-award-ceremony.png", alt: "Liquidmind AI at the Aegis Graham Bell Award ceremony" },
                 { src: "/images/graham-bell-award-certificate-framed.png", alt: "Aegis Graham Bell Award certificate" },
               ].map((img, i) => (
-                <div key={i} className="relative rounded-xl sm:rounded-2xl overflow-hidden group" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}>
-                  <Image src={img.src} alt={img.alt} width={800} height={600} className="w-full h-[180px] sm:h-[240px] object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+                <div key={i} className="relative rounded-2xl overflow-hidden group" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}>
+                  <Image src={img.src} alt={img.alt} width={800} height={600} className="w-full h-[240px] object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
                 </div>
               ))}
             </div>
@@ -118,7 +118,7 @@ export default function AegisGrahamBellPage() {
       </section>
 
       {/* Rating — modern card with gradient accent */}
-      <section className="py-8 sm:py-10 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
         <div ref={rating.ref} className="max-w-[900px] mx-auto">
           <div className={`transition-all duration-700 ${rating.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="rounded-2xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 8px 32px rgba(0,0,0,0.06)" }}>
@@ -162,27 +162,27 @@ export default function AegisGrahamBellPage() {
       </section>
 
       {/* Gallery — hover zoom on images */}
-      <section className="py-8 sm:py-10 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div ref={gallery.ref} className="max-w-[1100px] mx-auto">
           <div className={`transition-all duration-700 ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+            <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-              <span className="text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Gallery</span>
+              <span className="text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Gallery</span>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {[
-                { src: "/images/graham-bell-bharat-ai-stage.png", alt: "Bharat AI stage", span: "col-span-2 md:col-span-2", h: "h-[160px] sm:h-[200px] md:h-[280px]" },
-                { src: "/images/graham-bell-trophy-closeup.png", alt: "Trophy closeup", span: "col-span-2 md:col-span-1", h: "h-[160px] sm:h-[200px] md:h-[280px]" },
-                { src: "/images/graham-bell-presentation.png", alt: "Presentation", span: "", h: "h-[140px] sm:h-[180px] md:h-[220px]" },
-                { src: "/images/graham-bell-interaction.png", alt: "Networking", span: "", h: "h-[140px] sm:h-[180px] md:h-[220px]" },
-                { src: "/images/graham-bell-team.png", alt: "Team", span: "", h: "h-[140px] sm:h-[180px] md:h-[220px]" },
-                { src: "/images/graham-bell-booth.png", alt: "Booth", span: "", h: "h-[140px] sm:h-[180px] md:h-[220px]" },
-                { src: "/images/graham-bell-solo-booth.png", alt: "Solo booth display", span: "", h: "h-[140px] sm:h-[180px] md:h-[220px]" },
-                { src: "/images/graham-bell-booth-signage.png", alt: "Booth signage", span: "", h: "h-[140px] sm:h-[180px] md:h-[220px]" },
+                { src: "/images/graham-bell-bharat-ai-stage.png", alt: "Bharat AI stage", span: "md:col-span-2", h: "h-[200px] md:h-[280px]" },
+                { src: "/images/graham-bell-trophy-closeup.png", alt: "Trophy closeup", span: "", h: "h-[200px] md:h-[280px]" },
+                { src: "/images/graham-bell-presentation.png", alt: "Presentation", span: "", h: "h-[180px] md:h-[220px]" },
+                { src: "/images/graham-bell-interaction.png", alt: "Networking", span: "", h: "h-[180px] md:h-[220px]" },
+                { src: "/images/graham-bell-team.png", alt: "Team", span: "", h: "h-[180px] md:h-[220px]" },
+                { src: "/images/graham-bell-booth.png", alt: "Booth", span: "", h: "h-[180px] md:h-[220px]" },
+                { src: "/images/graham-bell-solo-booth.png", alt: "Solo booth display", span: "", h: "h-[180px] md:h-[220px]" },
+                { src: "/images/graham-bell-booth-signage.png", alt: "Booth signage", span: "", h: "h-[180px] md:h-[220px]" },
               ].map((img, i) => (
                 <div key={i}
-                  className={`relative rounded-lg sm:rounded-xl overflow-hidden group transition-all duration-700 ${img.span} ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                  className={`relative rounded-xl overflow-hidden group transition-all duration-700 ${img.span} ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                   style={{ border: "1px solid #E2E8F0", transitionDelay: `${i * 60}ms` }}>
                   <Image src={img.src} alt={img.alt} width={800} height={600} className={`w-full ${img.h} object-cover transition-transform duration-500 group-hover:scale-105`} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -194,7 +194,7 @@ export default function AegisGrahamBellPage() {
       </section>
 
       {/* Products Showcased — modern horizontal cards */}
-      <section className="py-8 sm:py-10 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
         <div ref={recognized.ref} className="max-w-[900px] mx-auto">
           <div className={`transition-all duration-700 ${recognized.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="flex items-center gap-3 mb-4">
@@ -241,7 +241,7 @@ export default function AegisGrahamBellPage() {
       </section>
 
       {/* Quote — modern gradient border card */}
-      <section className="py-8 sm:py-10 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div ref={quote.ref} className="max-w-[860px] mx-auto">
           <div className={`transition-all duration-700 ${quote.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="relative p-[2px] rounded-2xl" style={{ background: "linear-gradient(135deg, #0066CC, #00A86B)" }}>
@@ -266,7 +266,7 @@ export default function AegisGrahamBellPage() {
       </section>
 
       {/* LinkedIn + CTA */}
-      <section className="py-8 sm:py-10 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
         <div ref={links.ref} className="max-w-[900px] mx-auto">
           <div className={`transition-all duration-700 ${links.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="flex items-center gap-3 mb-4">

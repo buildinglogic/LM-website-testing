@@ -6,48 +6,10 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { FooterLinks } from "@/components/footer-links"
 import { WhatsAppButton } from "@/components/whatsapp-button"
-import { Check, Calendar, Clock, Users } from "lucide-react"
+import { Calendar, Clock, Users, Check } from "lucide-react"
 import Link from "next/link"
 
-function AnimatedCount({ to, prefix = "", suffix = "" }: { to: number; prefix?: string; suffix?: string }) {
-  const [count, setCount] = useState(0)
-  const [started, setStarted] = useState(false)
-  const ref = useRef<HTMLSpanElement>(null)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setStarted(true) },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (!started) return
-    let frame: number
-    const t0 = performance.now()
-    const dur = 1400
-    const tick = (now: number) => {
-      const p = Math.min((now - t0) / dur, 1)
-      const eased = 1 - Math.pow(1 - p, 3)
-      setCount(Math.floor(eased * to))
-      if (p < 1) frame = requestAnimationFrame(tick)
-      else setCount(to)
-    }
-    frame = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(frame)
-  }, [started, to])
-
-  return <span ref={ref}>{prefix}{count}{suffix}</span>
-}
-
-const benefits = [
-  "See Tradeguard analyse your real documents live",
-  "Get your personalised risk exposure calculation",
-  "Learn how to recover lost refunds",
-  "No commitment required",
-]
 
 const sessionMeta = [
   { icon: <Clock className="w-4 h-4" />, label: "30 minutes" },
@@ -116,29 +78,8 @@ export default function BookDemoPage() {
                 Personalised Demo
               </span>
             </h1>
-            <p className="text-[13px] sm:text-[14px]" style={{ color: "#64748B" }}>
-              Live, 30-minute session with our trade compliance experts.
-            </p>
           </div>
 
-          {/* Right: animated stats inline */}
-          <div className="flex items-start flex-shrink-0">
-            {[
-              { to: 99, suffix: ".2%", line1: "document accuracy" },
-              { to: 5, prefix: "< ", suffix: "s", line1: "verification time" },
-              { to: 190, suffix: "+", line1: "countries covered" },
-            ].map((s, i) => (
-              <div key={i} className="flex items-center">
-                <div className="flex flex-col items-center px-3 sm:px-4">
-                  <span className="text-[18px] sm:text-[20px] font-black tracking-tight leading-none" style={{ color: "#0066CC" }}>
-                    <AnimatedCount to={s.to} prefix={s.prefix} suffix={s.suffix} />
-                  </span>
-                  <span className="text-[13px] font-medium mt-0.5 text-center" style={{ color: "#94A3B8" }}>{s.line1}</span>
-                </div>
-                {i < 2 && <div className="w-px" style={{ height: "28px", background: "#E2E8F0" }} />}
-              </div>
-            ))}
-          </div>
 
         </div>
       </section>
@@ -178,15 +119,6 @@ export default function BookDemoPage() {
                 <div className="h-0.5 w-8 rounded-full mb-3" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
                 <h2 className="text-[16px] font-bold mb-3" style={{ color: "#0F172A" }}>Request Your Demo</h2>
 
-                {/* Compact benefits + session pills row */}
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 mb-3">
-                  {benefits.map((b, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <Check className="w-3 h-3 mt-0.5 flex-shrink-0" style={{ color: "#00A86B" }} />
-                      <span className="text-[13px] leading-snug" style={{ color: "#475569" }}>{b}</span>
-                    </div>
-                  ))}
-                </div>
                 <div className="flex flex-wrap gap-2 mb-4 pb-4" style={{ borderBottom: "1px solid #E2E8F0" }}>
                   {sessionMeta.map((m, i) => (
                     <div key={i} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[13px] font-medium"
@@ -208,7 +140,7 @@ export default function BookDemoPage() {
                         onFocus={handleFieldFocus}
                         className="w-full px-3 py-2 rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#0066CC]"
                         style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#0F172A" }}
-                        placeholder="John Doe"
+                        placeholder="Rahul Sharma"
                       />
                     </div>
                     <div>
@@ -218,7 +150,7 @@ export default function BookDemoPage() {
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full px-3 py-2 rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#0066CC]"
                         style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#0F172A" }}
-                        placeholder="john@company.com"
+                        placeholder="rahul@work.in"
                       />
                     </div>
                   </div>
@@ -231,7 +163,7 @@ export default function BookDemoPage() {
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         className="w-full px-3 py-2 rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#0066CC]"
                         style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#0F172A" }}
-                        placeholder="Your Company"
+                        placeholder="Liquidmind AI"
                       />
                     </div>
                     <div>
@@ -239,9 +171,9 @@ export default function BookDemoPage() {
                       <input
                         type="tel" required value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-3 py-2 rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#0066CC]"
+                        className="w-full px-3 py-2 rounded-lg text-[11px] focus:outline-none focus:ring-2 focus:ring-[#0066CC]"
                         style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#0F172A" }}
-                        placeholder="+91 98765 43210"
+                        placeholder="+91 XXXXXXXXXX"
                       />
                     </div>
                   </div>
@@ -254,7 +186,7 @@ export default function BookDemoPage() {
                       onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                       className="w-full px-3 py-2 rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#0066CC]"
                       style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#0F172A" }}
-                      placeholder="City, State / Country"
+                      placeholder="Bengaluru, Karnataka"
                     />
                   </div>
 

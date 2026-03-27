@@ -15,7 +15,7 @@ function useInView(threshold = 0.1) {
   const [isInView, setIsInView] = useState(false)
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setIsInView(true) },
+      ([entry]) => { setIsInView(entry.isIntersecting) },
       { threshold }
     )
     if (ref.current) observer.observe(ref.current)
@@ -78,7 +78,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="pt-[100px] sm:pt-[120px] lg:pt-[140px] pb-10 lg:pb-16 px-4 sm:px-5 lg:px-8 relative overflow-hidden"
+      className="pt-[112px] pb-16 lg:pb-20 px-5 lg:px-8 relative overflow-hidden"
       style={{ background: "#FFFFFF" }}
     >
       {/* World map bg */}
@@ -93,7 +93,7 @@ function HeroSection() {
       <div className="w-full max-w-[1400px] mx-auto relative">
 
         {/* Breadcrumb */}
-        <div className={`flex items-center gap-1.5 mb-3 sm:mb-5 lg:mb-8 transition-all duration-500 ${isInView ? "opacity-100" : "opacity-0"}`}>
+        <div className={`flex items-center gap-1.5 mb-8 transition-all duration-500 ${isInView ? "opacity-100" : "opacity-0"}`}>
           <Link href="/" className="text-[11px] font-medium transition-colors hover:text-[#0F172A]" style={{ color: "#94A3B8" }}>Home</Link>
           <ChevronRight className="w-3 h-3" style={{ color: "#CBD5E1" }} />
           <Link href="/#products" className="text-[11px] font-medium transition-colors hover:text-[#0F172A]" style={{ color: "#94A3B8" }}>Products</Link>
@@ -101,54 +101,59 @@ function HeroSection() {
           <span className="text-[11px] font-semibold" style={{ color: NAVY }}>TariffIQ</span>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-4 sm:gap-6 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
 
           {/* Left: Copy */}
           <div>
-            <h1 className={`text-[28px] sm:text-[42px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.02em] mb-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
-              <span className="block text-[32px] sm:text-[48px] lg:text-[58px] bg-gradient-to-r from-[#1B4F8A] to-[#0066CC] bg-clip-text text-transparent pb-1">TariffIQ</span>
-              Classify right, claim every rupee.
+            <div className={`flex items-center gap-3 mb-4 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #1B4F8A, #0066CC)" }} />
+              <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>TariffIQ</span>
+            </div>
+
+            <h1 className={`text-[26px] sm:text-[42px] lg:text-[52px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
+              Classify right, claim{" "}
+              <span className="bg-gradient-to-r from-[#1B4F8A] to-[#0066CC] bg-clip-text text-transparent">every rupee.</span>
             </h1>
 
-            <p className={`text-[14px] sm:text-[15px] lg:text-[16px] leading-relaxed mb-4 sm:mb-5 lg:mb-6 max-w-[480px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
+            <p className={`text-[15px] sm:text-[16px] leading-relaxed mb-6 max-w-[480px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
               Describe your product in plain English. TariffIQ classifies it to 8-digit ITC-HS and instantly shows whether RoDTEP or Duty Drawback earns you more.
             </p>
 
             {/* Stats */}
-            <div className={`flex flex-wrap items-center gap-4 sm:gap-5 mb-5 lg:mb-7 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <div className={`flex items-center gap-5 mb-7 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <div>
-                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>
+                <div className="text-[22px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>
                   <AnimatedCount to={95} />%
                 </div>
                 <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>Accuracy</div>
               </div>
               <div className="w-px h-8 flex-shrink-0" style={{ background: "#E2E8F0" }} />
               <div>
-                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>
+                <div className="text-[22px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>
                   <AnimatedCount to={21000} />+
                 </div>
                 <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>HSN codes</div>
               </div>
               <div className="w-px h-8 flex-shrink-0" style={{ background: "#E2E8F0" }} />
               <div>
-                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>&lt;3s</div>
+                <div className="text-[22px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>&lt;3s</div>
                 <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>Classify</div>
               </div>
             </div>
 
             {/* CTAs */}
-            <div className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-3 transition-all duration-700 delay-[400ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <div className={`flex flex-row items-stretch gap-3 transition-all duration-700 delay-[400ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Link
                 href="/book-demo"
-                className="w-full sm:w-[160px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #1B4F8A, #0066CC)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(27,79,138,0.3)" }}
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+                style={{ width: "160px", background: "linear-gradient(135deg, #1B4F8A, #0066CC)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(27,79,138,0.3)" }}
               >
                 Book a Demo <ArrowRight className="w-3.5 h-3.5" />
               </Link>
               <Link
                 href="/demo/tariffiq"
-                className="w-full sm:w-[160px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
-                style={{ background: "#FFFFFF", border: "2px solid #1B4F8A", boxShadow: "0 4px 20px rgba(27,79,138,0.12)" }}
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
+                style={{ width: "160px", background: "#FFFFFF", border: "2px solid #1B4F8A", boxShadow: "0 4px 20px rgba(27,79,138,0.12)" }}
               >
                 <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #1B4F8A, #0066CC)" }}>
                   <svg className="w-2 h-2 text-white" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3" /></svg>
@@ -158,8 +163,8 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* Right: TariffIQ Classification Card — visible on all screens */}
-          <div className={`transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0 lg:translate-x-0" : "opacity-0 translate-y-8 lg:translate-x-8"}`}>
+          {/* Right: TariffIQ Classification Card */}
+          <div className={`hidden lg:block transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
             <TariffIQCard isActive={isInView} />
           </div>
         </div>
@@ -184,8 +189,9 @@ function TariffIQCard({ isActive }: { isActive: boolean }) {
 
   return (
     <div
-      className="w-full max-w-[480px] mx-auto lg:max-w-none flex flex-col overflow-hidden lg:animate-float h-[400px] sm:h-[420px] lg:h-[435px]"
+      className="w-full flex flex-col overflow-hidden animate-float"
       style={{
+        height: "435px",
         borderRadius: "20px",
         background: "#FFFFFF",
         border: "1px solid #E2E8F0",
@@ -322,10 +328,10 @@ function ProblemSection() {
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[1100px] mx-auto">
 
-        <div className={`text-center mb-6 sm:mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #1B4F8A, #0066CC)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Problem</span>
@@ -339,13 +345,13 @@ function ProblemSection() {
 
         {/* Editorial 4-column strip */}
         <div
-          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          className={`grid grid-cols-2 lg:grid-cols-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}
         >
           {problems.map((p, idx) => (
             <div
               key={idx}
-              className={`relative pt-6 pb-8 px-5 lg:px-7 flex flex-col overflow-hidden transition-all duration-300 hover:bg-white group sm:border-r sm:last:border-r-0 lg:border-r ${idx < 3 ? "lg:border-r" : "lg:border-r-0"} border-b last:border-b-0 lg:border-b-0`}
+              className={`relative pt-6 pb-8 px-5 lg:px-7 flex flex-col overflow-hidden transition-all duration-300 hover:bg-white group ${idx < 3 ? "border-r" : ""} ${idx < 2 ? "border-b lg:border-b-0" : ""}`}
               style={{ borderColor: "#E2E8F0" }}
             >
               <span
@@ -401,10 +407,10 @@ function FeaturesSection() {
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[1100px] mx-auto">
 
-        <div className={`text-center mb-6 sm:mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #1B4F8A, #0066CC)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>How It Works</span>
@@ -421,7 +427,7 @@ function FeaturesSection() {
           {features.map((f, idx) => (
             <div
               key={idx}
-              className="flex gap-3 sm:gap-4 py-4 sm:py-5 transition-all duration-300 hover:translate-x-1"
+              className="flex gap-4 py-5 transition-all duration-300 hover:translate-x-1"
               style={{ borderBottom: "1px solid #F1F5F9" }}
             >
               <div className="flex flex-col items-center flex-shrink-0 pt-0.5">
@@ -430,9 +436,9 @@ function FeaturesSection() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-[10px] font-black tracking-widest" style={{ color: NAVY }}>{String(idx + 1).padStart(2, "0")}</span>
-                  <h3 className="text-[13px] sm:text-[14px] font-bold leading-snug" style={{ color: "#0F172A" }}>{f.title}</h3>
+                  <h3 className="text-[14px] font-bold leading-snug" style={{ color: "#0F172A" }}>{f.title}</h3>
                 </div>
-                <p className="text-[11px] sm:text-[12px] leading-relaxed" style={{ color: "#64748B" }}>{f.body}</p>
+                <p className="text-[12px] leading-relaxed" style={{ color: "#64748B" }}>{f.body}</p>
               </div>
             </div>
           ))}
@@ -463,26 +469,26 @@ function UseCasesSection() {
     {
       tag: "Spices Export",
       product: "Turmeric powder, dried and ground, for retail packaging export to EU",
-      hsn: "0910.30.10",
+      hsn: "0910.30.30",
       hsnDesc: "Turmeric (curcuma) — ground",
       confidence: "97%",
-      rodtep: "1.8%",
-      drawback: "3.2%",
-      winner: "drawback",
-      saving: "1.4% extra",
-      note: "On ₹25L FOB: additional ₹35,000 per shipment by switching to Drawback",
+      rodtep: "1%",
+      drawback: "0.15%",
+      winner: "rodtep",
+      saving: "0.85% extra",
+      note: "On ₹25L FOB: additional ₹21,250 per shipment by choosing RoDTEP over Drawback",
     },
     {
       tag: "Textile Classification",
       product: "100% cotton woven fabric, plain weave, 200 gsm, bleached, for garment export",
-      hsn: "5208.21.00",
+      hsn: "5208.12.90",
       hsnDesc: "Woven fabrics of cotton — plain weave, bleached",
       confidence: "94%",
-      rodtep: "0.9%",
-      drawback: "0.9%",
+      rodtep: "3.5%",
+      drawback: "0%",
       winner: "rodtep",
-      saving: "Equal rate",
-      note: "Both schemes equivalent here — choose RoDTEP for simpler documentation requirements",
+      saving: "3.5% extra",
+      note: "No Drawback available for this code — RoDTEP at 3.5% is the only incentive scheme",
     },
     {
       tag: "Electronics Import",
@@ -490,21 +496,22 @@ function UseCasesSection() {
       hsn: "8471.30.10",
       hsnDesc: "Portable automatic data processing machines",
       confidence: "99%",
-      rodtep: "N/A",
-      drawback: "N/A",
-      winner: "rodtep",
-      saving: "Import item",
-      note: "BCD: 0% | IGST: 18% | Cess: 0% — total duty: 18% of CIF value",
+      rodtep: "0.9%",
+      drawback: "1%",
+      winner: "drawback",
+      saving: "0.1% extra",
+      note: "Drawback marginally better — choose based on compliance overhead and filing timeline",
     },
   ]
 
   useEffect(() => {
+    if (!isInView) return
     const t = setInterval(() => setActiveIdx(p => (p + 1) % cases.length), 4500)
     return () => clearInterval(t)
-  }, [cases.length])
+  }, [isInView, cases.length])
 
   return (
-    <section ref={ref} id="use-cases" className="py-8 lg:py-12 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+    <section ref={ref} id="use-cases" className="py-10 lg:py-12 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[860px] mx-auto">
 
         <div className={`text-center mb-6 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -522,17 +529,19 @@ function UseCasesSection() {
 
         <div className={`transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
 
-          {/* Tab selectors */}
-          <div className="flex items-center justify-center gap-2 mb-4 flex-wrap px-2 sm:px-0" style={{ maxWidth: "720px", margin: "0 auto 16px" }}>
+          {/* Tab selectors — fixed height, no wrapping */}
+          <div className="flex gap-2 mb-4" style={{ maxWidth: "720px", margin: "0 auto 16px" }}>
             {cases.map((c, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveIdx(idx)}
-                className="px-3 sm:px-4 py-2 rounded-lg text-[11px] sm:text-[12px] font-semibold transition-all duration-300"
+                className="flex-1 flex items-center justify-center text-center rounded-lg text-[10px] font-semibold transition-all duration-300"
                 style={{
+                  height: "40px",
                   background: activeIdx === idx ? NAVY : "#FFFFFF",
                   color: activeIdx === idx ? "#FFFFFF" : "#64748B",
                   border: activeIdx === idx ? `1px solid ${NAVY}` : "1px solid #E2E8F0",
+                  lineHeight: "1.2",
                 }}
               >
                 {c.tag}
@@ -540,19 +549,18 @@ function UseCasesSection() {
             ))}
           </div>
 
-          {/* Cards — stacked crossfade on sm+, single visible on mobile */}
-          <div className="relative sm:h-[390px]" style={{ maxWidth: "720px", margin: "0 auto" }}>
+          {/* Cards — always fixed height, absolute stacked, opacity crossfade */}
+          <div className="relative" style={{ height: "420px", maxWidth: "720px", margin: "0 auto" }}>
             {cases.map((c, idx) => (
               <div
                 key={idx}
-                className="sm:absolute sm:inset-0 transition-all duration-500"
+                className="absolute inset-0 transition-opacity duration-500"
                 style={{
                   opacity: activeIdx === idx ? 1 : 0,
                   pointerEvents: activeIdx === idx ? "auto" : "none",
-                  display: activeIdx === idx ? "block" : "none",
                 }}
               >
-                <div className="rounded-2xl overflow-hidden sm:h-full flex flex-col" style={{ border: "1px solid #E2E8F0", boxShadow: "0 8px 40px rgba(0,0,0,0.07)" }}>
+                <div className="rounded-2xl overflow-hidden h-full flex flex-col" style={{ border: "1px solid #E2E8F0", boxShadow: "0 8px 40px rgba(0,0,0,0.07)" }}>
 
                   {/* Header */}
                   <div className="flex items-center justify-between px-5 py-3 flex-shrink-0" style={{ background: "#FFFFFF", borderBottom: "1px solid #F1F5F9" }}>
@@ -568,7 +576,7 @@ function UseCasesSection() {
                   </div>
 
                   {/* Product input */}
-                  <div className="px-5 py-3 flex-shrink-0" style={{ background: "#FAFBFF", borderBottom: "1px solid #F1F5F9" }}>
+                  <div className="px-5 py-3 flex-1 overflow-hidden" style={{ background: "#FAFBFF", borderBottom: "1px solid #F1F5F9" }}>
                     <p className="text-[9px] font-semibold uppercase tracking-widest mb-1" style={{ color: "#94A3B8" }}>Product Description</p>
                     <p className="text-[12px] leading-snug" style={{ color: "#475569" }}>{c.product}</p>
                   </div>
@@ -634,19 +642,19 @@ function ComparisonSection() {
   const { ref, isInView } = useInView()
 
   const metrics = [
-    { metric: "Classification Time", manual: "2–4 hours", tariffiq: "< 3 seconds" },
+    { metric: "Classify Time", manual: "2–4 hrs", tariffiq: "< 3 seconds" },
     { metric: "Accuracy", manual: "60–70%", tariffiq: "95%" },
-    { metric: "HSN Codes Searchable", manual: "Limited", tariffiq: "21,000+" },
-    { metric: "RoDTEP vs Drawback", manual: "Manual comparison", tariffiq: "Automatic side-by-side" },
-    { metric: "Rate Updates", manual: "When you remember", tariffiq: "Real-time" },
-    { metric: "Policy Status", manual: "DGFT website search", tariffiq: "Instant lookup" },
+    { metric: "HSN Codes", manual: "Limited", tariffiq: "21,000+" },
+    { metric: "Incentives", manual: "Manual", tariffiq: "Auto compare" },
+    { metric: "Rate Updates", manual: "Manual", tariffiq: "Real-time" },
+    { metric: "Policy Status", manual: "DGFT", tariffiq: "Instant" },
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[860px] mx-auto">
 
-        <div className={`text-center mb-6 sm:mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #1B4F8A, #0066CC)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Why TariffIQ</span>
@@ -662,16 +670,16 @@ function ComparisonSection() {
           className={`rounded-2xl overflow-hidden transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ border: "1px solid #E2E8F0" }}
         >
-          <div className="grid grid-cols-[0.8fr_1fr_1fr] sm:grid-cols-[1fr_1fr_1fr]" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
-            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Metric</div>
-            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Manual</div>
-            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: NAVY }}>TariffIQ</div>
+          <div className="grid grid-cols-[1.3fr_1fr_1.2fr]" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+            <div className="py-2.5 px-3 text-[10px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Metric</div>
+            <div className="py-2.5 px-3 text-[10px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Manual</div>
+            <div className="py-2.5 px-3 text-[10px] font-bold uppercase tracking-wide" style={{ color: NAVY }}>TariffIQ</div>
           </div>
           {metrics.map((row, idx) => (
-            <div key={idx} className="grid grid-cols-[0.8fr_1fr_1fr] sm:grid-cols-[1fr_1fr_1fr]" style={{ borderTop: "1px solid #F1F5F9" }}>
-              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] font-medium leading-snug" style={{ color: "#475569" }}>{row.metric}</div>
-              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] leading-snug" style={{ color: "#94A3B8" }}>{row.manual}</div>
-              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] font-semibold leading-snug" style={{ color: NAVY }}>{row.tariffiq}</div>
+            <div key={idx} className="grid grid-cols-[1.3fr_1fr_1.2fr] items-center" style={{ height: "50px", borderTop: "1px solid #F1F5F9" }}>
+              <div className="px-3 text-[12px] font-medium" style={{ color: "#475569" }}>{row.metric}</div>
+              <div className="px-3 text-[12px]" style={{ color: "#94A3B8" }}>{row.manual}</div>
+              <div className="px-3 text-[12px] font-semibold" style={{ color: NAVY }}>{row.tariffiq}</div>
             </div>
           ))}
         </div>
@@ -684,7 +692,7 @@ function CTASection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section ref={ref} className="py-10 lg:py-16 px-4 sm:px-5 lg:px-8 relative overflow-hidden" style={{ background: NAVY }}>
+    <section ref={ref} className="py-12 lg:py-16 px-5 lg:px-8 relative overflow-hidden" style={{ background: NAVY }}>
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: "url('/images/world-map-bg.png')",
         backgroundSize: "cover",
@@ -703,18 +711,18 @@ function CTASection() {
         <p className="text-[14px] leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.8)" }}>
           Every shipment you classify manually is a missed opportunity. Let TariffIQ find the right code and the better incentive — every time.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4 sm:px-0">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/book-demo"
-            className="w-full sm:w-[168px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
-            style={{ background: "#FFFFFF", color: NAVY, boxShadow: "0 4px 25px rgba(0,0,0,0.15)" }}
+            className="inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+            style={{ width: "168px", background: "#FFFFFF", color: NAVY, boxShadow: "0 4px 25px rgba(0,0,0,0.15)" }}
           >
             Book a Demo <ArrowRight className="w-3.5 h-3.5" />
           </Link>
           <Link
             href="/#products"
-            className="w-full sm:w-[168px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
-            style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.3)", color: "#FFFFFF" }}
+            className="inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
+            style={{ width: "168px", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.3)", color: "#FFFFFF" }}
           >
             Other Products
           </Link>

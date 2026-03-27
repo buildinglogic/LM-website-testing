@@ -14,7 +14,7 @@ function useInView(threshold = 0.1) {
   const [isInView, setIsInView] = useState(false)
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setIsInView(true) },
+      ([entry]) => { setIsInView(entry.isIntersecting) },
       { threshold }
     )
     if (ref.current) observer.observe(ref.current)
@@ -23,36 +23,6 @@ function useInView(threshold = 0.1) {
   return { ref, isInView }
 }
 
-function AnimatedCount({ to }: { to: number }) {
-  const [count, setCount] = useState(0)
-  const [started, setStarted] = useState(false)
-  const ref = useRef<HTMLSpanElement>(null)
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setStarted(true) },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-  useEffect(() => {
-    if (!started) return
-    let frame: number
-    const t0 = performance.now()
-    const dur = 1400
-    const isDecimal = !Number.isInteger(to)
-    const tick = (now: number) => {
-      const p = Math.min((now - t0) / dur, 1)
-      const eased = 1 - Math.pow(1 - p, 3)
-      setCount(isDecimal ? parseFloat((eased * to).toFixed(1)) : Math.floor(eased * to))
-      if (p < 1) frame = requestAnimationFrame(tick)
-      else setCount(to)
-    }
-    frame = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(frame)
-  }, [started, to])
-  return <span ref={ref}>{Number.isInteger(to) ? count : count.toFixed(1)}</span>
-}
 
 export default function PatramAIPage() {
   return (
@@ -77,7 +47,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="pt-[100px] sm:pt-[120px] lg:pt-[140px] pb-10 lg:pb-16 px-4 sm:px-5 lg:px-8 relative overflow-hidden"
+      className="pt-[112px] pb-16 lg:pb-20 px-5 lg:px-8 relative overflow-hidden"
       style={{ background: "#FFFFFF" }}
     >
       {/* World map bg */}
@@ -92,7 +62,7 @@ function HeroSection() {
       <div className="w-full max-w-[1400px] mx-auto relative">
 
         {/* Breadcrumb — minimal */}
-        <div className={`flex items-center gap-1.5 mb-3 sm:mb-5 lg:mb-8 transition-all duration-500 ${isInView ? "opacity-100" : "opacity-0"}`}>
+        <div className={`flex items-center gap-1.5 mb-8 transition-all duration-500 ${isInView ? "opacity-100" : "opacity-0"}`}>
           <Link href="/" className="text-[11px] font-medium transition-colors hover:text-[#0F172A]" style={{ color: "#94A3B8" }}>Home</Link>
           <ChevronRight className="w-3 h-3" style={{ color: "#CBD5E1" }} />
           <Link href="/#products" className="text-[11px] font-medium transition-colors hover:text-[#0F172A]" style={{ color: "#94A3B8" }}>Products</Link>
@@ -100,54 +70,38 @@ function HeroSection() {
           <span className="text-[11px] font-semibold" style={{ color: "#00A86B" }}>Patram AI</span>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-4 sm:gap-6 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
 
           {/* Left: Copy */}
           <div>
-            <h1 className={`text-[28px] sm:text-[42px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.02em] mb-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
-              <span className="block text-[32px] sm:text-[48px] lg:text-[58px] bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent pb-1">Patram AI</span>
-              Trade compliance, answered instantly.
+            {/* Section label */}
+            <div className={`flex items-center gap-3 mb-4 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
+              <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Patram AI</span>
+            </div>
+
+            <h1 className={`text-[26px] sm:text-[42px] lg:text-[52px] font-extrabold leading-[1.1] tracking-[-0.02em] mb-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
+              Trade compliance,{" "}
+              <span className="bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">answered instantly.</span>
             </h1>
 
-            <p className={`text-[14px] sm:text-[15px] lg:text-[16px] leading-relaxed mb-4 sm:mb-5 lg:mb-6 max-w-[480px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
+            <p className={`text-[15px] sm:text-[16px] leading-relaxed mb-6 max-w-[480px] transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
               Upload any trade document. Ask in plain English. Get sourced answers for 190+ countries in seconds — any time, no consultant needed.
             </p>
 
-            {/* Stats */}
-            <div className={`flex flex-wrap items-center gap-4 sm:gap-5 mb-5 lg:mb-7 transition-all duration-700 delay-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <div>
-                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>
-                  <AnimatedCount to={190} />+
-                </div>
-                <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>Countries</div>
-              </div>
-              <div className="w-px h-8 flex-shrink-0" style={{ background: "#E2E8F0" }} />
-              <div>
-                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>
-                  <AnimatedCount to={1.5} />s
-                </div>
-                <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>Response</div>
-              </div>
-              <div className="w-px h-8 flex-shrink-0" style={{ background: "#E2E8F0" }} />
-              <div>
-                <div className="text-[20px] sm:text-[28px] font-extrabold leading-none" style={{ color: "#0F172A" }}>24/7</div>
-                <div className="text-[10px] font-medium mt-0.5 uppercase tracking-wide" style={{ color: "#94A3B8" }}>Always on</div>
-              </div>
-            </div>
-
             {/* CTAs */}
-            <div className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-3 transition-all duration-700 delay-[400ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <div className={`flex flex-row items-stretch gap-3 transition-all duration-700 delay-[400ms] ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Link
                 href="/book-demo"
-                className="w-full sm:w-[160px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,168,107,0.3)" }}
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+                style={{ width: "160px", background: "linear-gradient(135deg, #00A86B, #0066CC)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,168,107,0.3)" }}
               >
                 Book a Demo <ArrowRight className="w-3.5 h-3.5" />
               </Link>
               <Link
                 href="/demo/patram"
-                className="w-full sm:w-[160px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
-                style={{ background: "#FFFFFF", border: "2px solid #00A86B", boxShadow: "0 4px 20px rgba(0,168,107,0.12)" }}
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
+                style={{ width: "160px", background: "#FFFFFF", border: "2px solid #00A86B", boxShadow: "0 4px 20px rgba(0,168,107,0.12)" }}
               >
                 <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)" }}>
                   <svg className="w-2 h-2 text-white" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3" /></svg>
@@ -157,8 +111,8 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* Right: PatramCard — visible on all screens */}
-          <div className={`transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-y-0 lg:translate-x-0" : "opacity-0 translate-y-8 lg:translate-x-8"}`}>
+          {/* Right: PatramCard */}
+          <div className={`hidden lg:block transition-all duration-700 delay-200 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
             <PatramCard isActive={isInView} />
           </div>
         </div>
@@ -194,10 +148,10 @@ function ProblemSection() {
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[1100px] mx-auto">
 
-        <div className={`text-center mb-6 sm:mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>The Problem</span>
@@ -211,13 +165,13 @@ function ProblemSection() {
 
         {/* Editorial 4-column strip */}
         <div
-          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          className={`grid grid-cols-2 lg:grid-cols-4 transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}
         >
           {problems.map((p, idx) => (
             <div
               key={idx}
-              className={`relative pt-6 pb-8 px-5 lg:px-7 flex flex-col overflow-hidden transition-all duration-300 hover:bg-white group sm:border-r sm:last:border-r-0 lg:border-r ${idx < 3 ? "lg:border-r" : "lg:border-r-0"} border-b last:border-b-0 lg:border-b-0`}
+              className={`relative pt-6 pb-8 px-5 lg:px-7 flex flex-col overflow-hidden transition-all duration-300 hover:bg-white group ${idx < 3 ? "border-r" : ""} ${idx < 2 ? "border-b lg:border-b-0" : ""}`}
               style={{ borderColor: "#E2E8F0" }}
             >
               {/* Large watermark number */}
@@ -277,10 +231,10 @@ function FeaturesSection() {
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[1100px] mx-auto">
 
-        <div className={`text-center mb-6 sm:mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>How It Works</span>
@@ -298,18 +252,19 @@ function FeaturesSection() {
           {features.map((f, idx) => (
             <div
               key={idx}
-              className="flex gap-3 sm:gap-4 py-4 sm:py-5 transition-all duration-300 hover:translate-x-1"
+              className="flex gap-4 py-5 transition-all duration-300 hover:translate-x-1"
               style={{ borderBottom: "1px solid #F1F5F9" }}
             >
+              {/* Green accent bar + number */}
               <div className="flex flex-col items-center flex-shrink-0 pt-0.5">
                 <div className="w-0.5 h-full rounded-full" style={{ background: "linear-gradient(to bottom, #00A86B, #00A86B20)", minHeight: "48px" }} />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-[10px] font-black tracking-widest" style={{ color: "#00A86B" }}>{String(idx + 1).padStart(2, "0")}</span>
-                  <h3 className="text-[13px] sm:text-[14px] font-bold leading-snug" style={{ color: "#0F172A" }}>{f.title}</h3>
+                  <h3 className="text-[14px] font-bold leading-snug" style={{ color: "#0F172A" }}>{f.title}</h3>
                 </div>
-                <p className="text-[11px] sm:text-[12px] leading-relaxed" style={{ color: "#64748B" }}>{f.body}</p>
+                <p className="text-[12px] leading-relaxed" style={{ color: "#64748B" }}>{f.body}</p>
               </div>
             </div>
           ))}
@@ -327,30 +282,31 @@ function UseCasesSection() {
     {
       tag: "FTA Eligibility",
       question: "Is my product eligible for preferential duty under India-UAE CEPA?",
-      answer: "Based on your product classification (HSN 8471.30) and origin criteria in the uploaded CEPA agreement, your product qualifies for 0% duty if you meet the 40% value addition rule. EUR.1 Origin Certificate required.",
+      answer: "HSN 8471.30 qualifies for 0% duty under India-UAE CEPA if you meet the 40% value addition rule. EUR.1 Origin Certificate required.",
       source: "Pg 18, Annex II",
     },
     {
-      tag: "Document Requirements",
+      tag: "Doc Requirements",
       question: "What certificates do I need to export pharmaceuticals to Brazil?",
-      answer: "For pharmaceutical exports to Brazil: ANVISA registration, Certificate of Pharmaceutical Product (CPP), GMP certificate from CDSCO, and Portuguese-translated product information. Allow 6–8 weeks for ANVISA clearance.",
-      source: "Pg 34, Section 4.2",
+      answer: "ANVISA registration, Certificate of Pharmaceutical Product (CPP), GMP certificate from CDSCO, and Portuguese-translated product info. Allow 6–8 weeks for ANVISA clearance.",
+      source: "Pg 34, Sec 4.2",
     },
     {
       tag: "Restriction Check",
       question: "Can I export dual-use electronics to Russia under current sanctions?",
-      answer: "Items under ITC-HS 8471 series currently carry export restrictions to Russia per DGFT notification. A SCOMET license from DGFT is mandatory. Processing time is 30–45 working days.",
-      source: "Pg 7, DGFT Schedule 2",
+      answer: "ITC-HS 8471 series carries export restrictions to Russia per DGFT notification. SCOMET license from DGFT is mandatory. Processing: 30–45 working days.",
+      source: "Pg 7, DGFT Sch 2",
     },
   ]
 
   useEffect(() => {
+    if (!isInView) return
     const t = setInterval(() => setActiveIdx(p => (p + 1) % useCases.length), 4000)
     return () => clearInterval(t)
-  }, [])
+  }, [isInView])
 
   return (
-    <section ref={ref} id="use-cases" className="py-8 lg:py-12 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+    <section ref={ref} id="use-cases" className="py-10 lg:py-12 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
       <div className="w-full max-w-[860px] mx-auto">
 
         <div className={`text-center mb-6 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -367,17 +323,19 @@ function UseCasesSection() {
 
         <div className={`transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
 
-          {/* Tab selectors */}
-          <div className="flex items-center justify-center gap-2 mb-4 flex-wrap px-2 sm:px-0" style={{ maxWidth: "680px", margin: "0 auto 16px" }}>
+          {/* Tab selectors — fixed height, no wrapping */}
+          <div className="flex gap-2 mb-4" style={{ maxWidth: "680px", margin: "0 auto 16px" }}>
             {useCases.map((u, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveIdx(idx)}
-                className="px-3 sm:px-4 py-2 rounded-lg text-[11px] sm:text-[12px] font-semibold transition-all duration-300"
+                className="flex-1 flex items-center justify-center text-center rounded-lg text-[10px] font-semibold transition-all duration-300"
                 style={{
+                  height: "40px",
                   background: activeIdx === idx ? "#00A86B" : "#FFFFFF",
                   color: activeIdx === idx ? "#FFFFFF" : "#64748B",
                   border: activeIdx === idx ? "1px solid #00A86B" : "1px solid #E2E8F0",
+                  lineHeight: "1.2",
                 }}
               >
                 {u.tag}
@@ -385,45 +343,44 @@ function UseCasesSection() {
             ))}
           </div>
 
-          {/* Cards — stacked crossfade on sm+, single visible on mobile */}
-          <div className="relative sm:h-[400px]" style={{ maxWidth: "680px", margin: "0 auto" }}>
+          {/* Cards — always fixed height, absolute stacked, opacity crossfade */}
+          <div className="relative" style={{ height: "360px", maxWidth: "680px", margin: "0 auto" }}>
             {useCases.map((u, idx) => (
               <div
                 key={idx}
-                className="sm:absolute sm:inset-0 transition-all duration-500"
+                className="absolute inset-0 transition-opacity duration-500"
                 style={{
                   opacity: activeIdx === idx ? 1 : 0,
                   pointerEvents: activeIdx === idx ? "auto" : "none",
-                  display: activeIdx === idx ? "block" : "none",
                 }}
               >
-                <div className="rounded-2xl overflow-hidden sm:h-full flex flex-col" style={{ border: "1px solid #E2E8F0", boxShadow: "0 8px 40px rgba(0,0,0,0.08)" }}>
+                <div className="rounded-2xl overflow-hidden h-full flex flex-col" style={{ border: "1px solid #E2E8F0", boxShadow: "0 8px 40px rgba(0,0,0,0.08)" }}>
 
                   {/* Chat header */}
-                  <div className="flex items-center gap-2 px-5 py-3 flex-shrink-0" style={{ background: "#FFFFFF", borderBottom: "1px solid #F1F5F9" }}>
-                    <div className="flex gap-1.5">
+                  <div className="flex items-center gap-2 px-4 py-2.5 flex-shrink-0" style={{ background: "#FFFFFF", borderBottom: "1px solid #F1F5F9" }}>
+                    <div className="flex gap-1.5 flex-shrink-0">
                       <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
                       <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
                       <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
                     </div>
-                    <span className="text-[12px] font-bold ml-1" style={{ color: "#0F172A" }}>Patram AI</span>
-                    <span className="text-[11px] ml-1" style={{ color: "#94A3B8" }}>— Intelligent Document Assistant</span>
+                    <span className="text-[12px] font-bold ml-1 flex-shrink-0" style={{ color: "#0F172A" }}>Patram AI</span>
+                    <span className="text-[11px] ml-1 truncate min-w-0" style={{ color: "#94A3B8" }}>— Intelligent Document Assistant</span>
                   </div>
 
                   {/* Chat body */}
-                  <div className="flex-1 px-5 py-5 flex flex-col gap-4" style={{ background: "#FAFBFF" }}>
+                  <div className="flex-1 px-4 py-4 flex flex-col gap-3 overflow-hidden" style={{ background: "#FAFBFF" }}>
                     <div className="flex justify-end">
-                      <div className="px-4 py-2.5" style={{ background: "#00A86B", borderRadius: "18px 18px 4px 18px", boxShadow: "0 3px 12px rgba(0,168,107,0.25)", maxWidth: "78%" }}>
-                        <p className="text-[13px] leading-snug font-medium" style={{ color: "#FFFFFF" }}>{u.question}</p>
+                      <div className="px-3 py-2" style={{ background: "#00A86B", borderRadius: "18px 18px 4px 18px", boxShadow: "0 3px 12px rgba(0,168,107,0.25)", maxWidth: "80%" }}>
+                        <p className="text-[12px] leading-snug font-medium" style={{ color: "#FFFFFF" }}>{u.question}</p>
                       </div>
                     </div>
                     <div className="flex justify-start">
-                      <div className="px-4 py-3" style={{ background: "#F2F2F7", borderRadius: "18px 18px 18px 4px", maxWidth: "82%" }}>
-                        <div className="flex items-start justify-between gap-3 mb-1.5">
-                          <p className="text-[13px] font-bold leading-tight" style={{ color: "#0F172A" }}>{u.tag}</p>
-                          <span className="flex-shrink-0 text-[10px] font-medium px-2 py-0.5 rounded" style={{ background: "rgba(0,0,0,0.06)", color: "#94A3B8", whiteSpace: "nowrap" }}>{u.source}</span>
+                      <div className="px-3 py-2.5" style={{ background: "#F2F2F7", borderRadius: "18px 18px 18px 4px", maxWidth: "88%" }}>
+                        <div className="flex items-center gap-2 mb-1">
+                          <p className="text-[12px] font-bold leading-none flex-shrink-0" style={{ color: "#0F172A" }}>{u.tag}</p>
+                          <span className="text-[9px] font-medium px-1.5 py-0.5 rounded flex-shrink-0" style={{ background: "rgba(0,0,0,0.06)", color: "#94A3B8" }}>{u.source}</span>
                         </div>
-                        <p className="text-[12px] leading-relaxed" style={{ color: "#475569" }}>{u.answer}</p>
+                        <p className="text-[11px] leading-relaxed" style={{ color: "#475569" }}>{u.answer}</p>
                       </div>
                     </div>
                   </div>
@@ -443,18 +400,17 @@ function ComparisonSection() {
 
   const metrics = [
     { metric: "Research Time", manual: "4–6 hours", patram: "1.5 seconds" },
-    { metric: "Availability", manual: "Business hours only", patram: "24/7" },
-    { metric: "Countries Covered", manual: "Your team's knowledge", patram: "190+" },
-    { metric: "Source Citations", manual: "Sometimes", patram: "Every answer" },
-    { metric: "Cost per Query", manual: "Consultant fees", patram: "Fraction of a cent" },
-    { metric: "Accuracy Validation", manual: "Human review", patram: "AI fact-checking" },
+    { metric: "Availability", manual: "Business hours", patram: "24/7" },
+    { metric: "Countries", manual: "Team knowledge", patram: "190+" },
+    { metric: "Citations", manual: "Sometimes", patram: "Every answer" },
+    { metric: "Accuracy", manual: "Human review", patram: "AI fact-checking" },
   ]
 
   return (
-    <section ref={ref} className="py-8 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+    <section ref={ref} className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
       <div className="w-full max-w-[860px] mx-auto">
 
-        <div className={`text-center mb-6 sm:mb-8 lg:mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-10 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
             <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Why Patram AI</span>
@@ -470,16 +426,16 @@ function ComparisonSection() {
           className={`rounded-2xl overflow-hidden transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ border: "1px solid #E2E8F0" }}
         >
-          <div className="grid grid-cols-[0.8fr_1fr_1fr] sm:grid-cols-[1fr_1fr_1fr]" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
-            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Metric</div>
-            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Manual</div>
-            <div className="py-2.5 px-2 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide" style={{ color: "#00A86B" }}>Patram AI</div>
+          <div className="grid grid-cols-[1fr_1.2fr_1.4fr]" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+            <div className="py-2.5 px-3 text-[10px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Metric</div>
+            <div className="py-2.5 px-3 text-[10px] font-bold uppercase tracking-wide" style={{ color: "#94A3B8" }}>Manual</div>
+            <div className="py-2.5 px-3 text-[10px] font-bold uppercase tracking-wide" style={{ color: "#00A86B" }}>Patram AI</div>
           </div>
           {metrics.map((row, idx) => (
-            <div key={idx} className="grid grid-cols-[0.8fr_1fr_1fr] sm:grid-cols-[1fr_1fr_1fr]" style={{ borderTop: "1px solid #F1F5F9" }}>
-              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] font-medium leading-snug" style={{ color: "#475569" }}>{row.metric}</div>
-              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] leading-snug" style={{ color: "#94A3B8" }}>{row.manual}</div>
-              <div className="py-2.5 sm:py-3 px-2 sm:px-3 text-[10px] sm:text-[12px] font-semibold leading-snug" style={{ color: "#00A86B" }}>{row.patram}</div>
+            <div key={idx} className="grid grid-cols-[1fr_1.2fr_1.4fr] items-center" style={{ height: "50px", borderTop: "1px solid #F1F5F9" }}>
+              <div className="px-3 text-[12px] font-medium" style={{ color: "#475569" }}>{row.metric}</div>
+              <div className="px-3 text-[12px]" style={{ color: "#94A3B8" }}>{row.manual}</div>
+              <div className="px-3 text-[12px] font-semibold" style={{ color: "#00A86B" }}>{row.patram}</div>
             </div>
           ))}
         </div>
@@ -492,7 +448,7 @@ function CTASection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section ref={ref} className="py-10 lg:py-16 px-4 sm:px-5 lg:px-8 relative overflow-hidden" style={{ background: "#00A86B" }}>
+    <section ref={ref} className="py-12 lg:py-16 px-5 lg:px-8 relative overflow-hidden" style={{ background: "#00A86B" }}>
       {/* Subtle texture */}
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: "url('/images/world-map-bg.png')",
@@ -512,18 +468,18 @@ function CTASection() {
         <p className="text-[14px] leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.8)" }}>
           Stop spending hours in policy documents. Let Patram AI be your always-on export intelligence layer.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4 sm:px-0">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/book-demo"
-            className="w-full sm:w-[168px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
-            style={{ background: "#FFFFFF", color: "#00A86B", boxShadow: "0 4px 25px rgba(0,0,0,0.15)" }}
+            className="inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-bold btn-shine transition-all duration-300 hover:scale-[1.03] overflow-hidden"
+            style={{ width: "168px", background: "#FFFFFF", color: "#00A86B", boxShadow: "0 4px 25px rgba(0,0,0,0.15)" }}
           >
             Book a Demo <ArrowRight className="w-3.5 h-3.5" />
           </Link>
           <Link
             href="/#products"
-            className="w-full sm:w-[168px] inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
-            style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.3)", color: "#FFFFFF" }}
+            className="inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-[14px] font-semibold transition-all duration-300 hover:scale-[1.03]"
+            style={{ width: "168px", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.3)", color: "#FFFFFF" }}
           >
             Other Products
           </Link>

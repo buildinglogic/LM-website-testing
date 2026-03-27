@@ -1,6 +1,14 @@
+import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { FooterLinks } from "@/components/footer-links"
+
+export const metadata: Metadata = {
+  title: "Privacy Policy — Liquidmind AI",
+  description: "Read Liquidmind AI's privacy policy. Learn how we collect, use and protect your data when you use our trade compliance platform.",
+  alternates: { canonical: "https://liquidmind.ai/legal/privacy-policy" },
+  robots: { index: false },
+}
 
 // Renders strings with **bold**, *italic*, and • bullet lines
 function RichText({ text }: { text: string }) {

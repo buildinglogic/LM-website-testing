@@ -1,6 +1,14 @@
+import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { FooterLinks } from "@/components/footer-links"
+
+export const metadata: Metadata = {
+  title: "Terms of Service — Liquidmind AI",
+  description: "Liquidmind AI terms of service. Understand your rights and obligations when using our AI trade compliance products.",
+  alternates: { canonical: "https://liquidmind.ai/legal/terms" },
+  robots: { index: false },
+}
 
 function RichText({ text }: { text: string }) {
   const lines = text.split("\n")

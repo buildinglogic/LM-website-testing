@@ -45,7 +45,7 @@ export function CTASection() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
-          <a href="mailto:support@liquidmind.ai"
+          <a href="mailto:naveen@liquidmind.ai"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[15px] font-bold transition-all hover:bg-white/20"
             style={{ background: "transparent", color: "#FFFFFF", border: "2px solid rgba(255,255,255,0.5)" }}>
             <span>Contact Us</span>

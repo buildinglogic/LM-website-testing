@@ -93,7 +93,7 @@ export default function CareersPage() {
               <a
                 href="#apply"
                 className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 rounded-full text-[15px] sm:text-[17px] font-bold transition-all duration-300 hover:scale-105 btn-shine"
-                style={{ background: "#0066CC", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.35)" }}
+                style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.35)" }}
               >
                 EXPLORE VACANCIES <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
@@ -163,7 +163,7 @@ export default function CareersPage() {
               </p>
               <a
                 href="#apply"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold transition-all duration-300 hover:scale-105"
+                className="hidden lg:inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold transition-all duration-300 hover:scale-105"
                 style={{ background: "transparent", color: "#0F172A", border: "2px solid #0F172A" }}
               >
                 EXPLORE VACANCIES <ArrowRight className="w-5 h-5" />

@@ -38,7 +38,7 @@ export default function KarnatakaElevatePage() {
 
       {/* Hero — modern gradient bg with logo watermark */}
       <section
-        className="pt-[100px] lg:pt-[120px] pb-6 sm:pb-10 px-4 sm:px-5 lg:px-8 relative overflow-hidden"
+        className="pt-[100px] lg:pt-[120px] pb-10 px-5 lg:px-8 relative overflow-hidden"
         style={{ background: "linear-gradient(135deg, #F8FAFC 0%, #ECFDF5 50%, #F8FAFC 100%)" }}
       >
         {/* Dot grid texture */}
@@ -57,24 +57,24 @@ export default function KarnatakaElevatePage() {
               <span className="text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Startup Recognition</span>
             </div>
 
-            <h1 className={`text-[24px] sm:text-[40px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.02em] mb-2 sm:mb-3 transition-all duration-700 delay-150 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
+            <h1 className={`text-[28px] sm:text-[40px] lg:text-[52px] font-extrabold leading-[1.08] tracking-[-0.02em] mb-3 transition-all duration-700 delay-150 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#0F172A" }}>
               Karnataka Elevate
               <br />
               <span className="bg-gradient-to-r from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">2025 Winner</span>
             </h1>
 
             {/* Grant stat */}
-            <div className={`flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4 transition-all duration-700 delay-200 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <span className="text-[24px] sm:text-[32px] font-black" style={{ color: "#00A86B" }}>Rs. 50L</span>
-              <span className="text-[12px] sm:text-[14px] font-semibold" style={{ color: "#64748B" }}>Non-Dilutive Grant (up to)</span>
+            <div className={`flex items-center gap-4 mb-4 transition-all duration-700 delay-200 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <span className="text-[28px] sm:text-[32px] font-black" style={{ color: "#00A86B" }}>Rs. 50L</span>
+              <span className="text-[14px] font-semibold" style={{ color: "#64748B" }}>Non-Dilutive Grant (up to)</span>
             </div>
 
-            <p className={`text-[13px] sm:text-[16px] leading-relaxed max-w-[680px] mb-4 sm:mb-6 transition-all duration-700 delay-300 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
+            <p className={`text-[14px] sm:text-[16px] leading-relaxed max-w-[680px] mb-6 transition-all duration-700 delay-300 ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ color: "#475569" }}>
               One of only 103 startups selected from 1,500+ applicants across Karnataka. Felicitated by Hon. IT/BT Minister Shri Priyank Kharge at Prof. U.R. Rao Bhavan, Bengaluru.
             </p>
 
             {/* Event details — compact horizontal strip */}
-            <div className={`flex items-center flex-wrap gap-x-4 sm:gap-x-5 gap-y-2 text-[11px] sm:text-[13px] transition-all duration-700 delay-[400ms] ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <div className={`flex items-center flex-wrap gap-x-5 gap-y-2 text-[13px] transition-all duration-700 delay-[400ms] ${hero.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#00A86B" }} />
                 <span className="font-semibold" style={{ color: "#0F172A" }}>Jan 17, 2026</span>
@@ -93,29 +93,29 @@ export default function KarnatakaElevatePage() {
       </section>
 
       {/* Featured Photos */}
-      <section className="py-6 sm:py-8 lg:py-10 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      <section className="py-8 lg:py-10 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div ref={mainPhotos.ref} className="max-w-[1100px] mx-auto">
           <div className={`transition-all duration-700 ${mainPhotos.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Left: felicitation image + text card */}
-              <div className="flex flex-col gap-3 sm:gap-4">
-                <div className="relative rounded-xl sm:rounded-2xl overflow-hidden group" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)", background: "#F8FAFC" }}>
+              <div className="flex flex-col gap-4">
+                <div className="relative rounded-2xl overflow-hidden group" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)", background: "#F8FAFC" }}>
                   <Image src="/images/elevate-felicitation.png" alt="Liquidmind AI receiving the Karnataka Elevate 2025 felicitation" width={900} height={876} className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]" />
                 </div>
-                <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl" style={{ background: "linear-gradient(135deg, #ECFDF5, #F0FDF4)", border: "1px solid #00A86B20" }}>
-                  <p className="text-[13px] sm:text-[14px] font-bold mb-1" style={{ color: "#00A86B" }}>Winner #55 of 103</p>
-                  <p className="text-[12px] sm:text-[13px] leading-relaxed" style={{ color: "#475569" }}>
+                <div className="p-4 rounded-2xl" style={{ background: "linear-gradient(135deg, #ECFDF5, #F0FDF4)", border: "1px solid #00A86B20" }}>
+                  <p className="text-[14px] font-bold mb-1" style={{ color: "#00A86B" }}>Winner #55 of 103</p>
+                  <p className="text-[13px] leading-relaxed" style={{ color: "#475569" }}>
                     Selected from 1,500+ applicants across Karnataka. Felicitated by Hon. IT/BT Minister Shri Priyank Kharge.
                   </p>
                 </div>
               </div>
               {/* Right: policy stage + stage panel stacked */}
-              <div className="flex flex-col gap-3 sm:gap-4">
-                <div className="relative rounded-xl sm:rounded-2xl overflow-hidden group" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}>
-                  <Image src="/images/elevate-2025-policy-stage.png" alt="Liquidmind AI on the Elevate 2025 policy stage" width={1600} height={900} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+              <div className="flex flex-col gap-4">
+                <div className="relative rounded-2xl overflow-hidden group flex-1" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}>
+                  <Image src="/images/elevate-2025-policy-stage.png" alt="Liquidmind AI on the Elevate 2025 policy stage" width={1600} height={900} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
                 </div>
-                <div className="relative rounded-xl sm:rounded-2xl overflow-hidden group" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}>
-                  <Image src="/images/elevate-2025-stage-panel.png" alt="Elevate 2025 stage panel discussion" width={1600} height={900} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+                <div className="relative rounded-2xl overflow-hidden group flex-1" style={{ border: "1px solid #E2E8F0", boxShadow: "0 4px 20px rgba(0,168,107,0.08)" }}>
+                  <Image src="/images/elevate-2025-stage-panel.png" alt="Elevate 2025 stage panel discussion" width={1600} height={900} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
                 </div>
               </div>
             </div>
@@ -124,7 +124,7 @@ export default function KarnatakaElevatePage() {
       </section>
 
       {/* Recognition — modern card */}
-      <section className="py-8 sm:py-10 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
         <div ref={recognition.ref} className="max-w-[900px] mx-auto">
           <div className={`transition-all duration-700 ${recognition.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="rounded-2xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 8px 32px rgba(0,0,0,0.06)" }}>
@@ -156,34 +156,34 @@ export default function KarnatakaElevatePage() {
       </section>
 
       {/* About — stats with gradient numbers */}
-      <section className="py-8 sm:py-10 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div ref={about.ref} className="max-w-[900px] mx-auto">
           <div className={`transition-all duration-700 ${about.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <div className="flex items-center gap-3 mb-3 sm:mb-4">
+            <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-              <span className="text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>About the Program</span>
+              <span className="text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>About the Program</span>
             </div>
 
-            <h2 className="text-[20px] sm:text-[30px] lg:text-[38px] font-extrabold leading-tight mb-2" style={{ color: "#0F172A" }}>
+            <h2 className="text-[22px] sm:text-[30px] lg:text-[38px] font-extrabold leading-tight mb-2" style={{ color: "#0F172A" }}>
               Karnataka Startup Elevate
             </h2>
-            <p className="text-[13px] sm:text-[15px] leading-relaxed mb-4 sm:mb-6" style={{ color: "#475569" }}>
+            <p className="text-[14px] sm:text-[15px] leading-relaxed mb-6" style={{ color: "#475569" }}>
               Initiated by Hon'ble IT/BT Minister <strong style={{ color: "#0F172A" }}>Shri Priyank Kharge</strong> in 2017, Karnataka Elevate is one of the most competitive startup recognition programs in India.
             </p>
 
-            <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            <div className="grid grid-cols-3 gap-3">
               {[
                 { Icon: Users, value: "103", label: "Startups selected", color: "#00A86B" },
                 { Icon: Award, value: "4", label: "Jury pitch rounds", color: "#0066CC" },
                 { Icon: Banknote, value: "Rs. 50L", label: "Grant (up to)", color: "#00A86B" },
               ].map((stat, i) => (
-                <div key={i} className={`p-3 sm:p-5 rounded-xl sm:rounded-2xl text-center transition-all duration-500 hover:-translate-y-1 hover:shadow-lg ${about.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                <div key={i} className={`p-4 sm:p-5 rounded-2xl text-center transition-all duration-500 hover:-translate-y-1 hover:shadow-lg ${about.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                   style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)", transitionDelay: `${i * 100}ms` }}>
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center mx-auto mb-1.5 sm:mb-2" style={{ background: `${stat.color}10` }}>
-                    <stat.Icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: stat.color }} />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-2" style={{ background: `${stat.color}10` }}>
+                    <stat.Icon className="w-5 h-5" style={{ color: stat.color }} />
                   </div>
-                  <p className="text-[18px] sm:text-[28px] font-black leading-none bg-gradient-to-br from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">{stat.value}</p>
-                  <p className="text-[9px] sm:text-[12px] font-medium mt-1" style={{ color: "#94A3B8" }}>{stat.label}</p>
+                  <p className="text-[24px] sm:text-[28px] font-black leading-none bg-gradient-to-br from-[#00A86B] to-[#0066CC] bg-clip-text text-transparent">{stat.value}</p>
+                  <p className="text-[11px] sm:text-[12px] font-medium mt-1" style={{ color: "#94A3B8" }}>{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -192,36 +192,33 @@ export default function KarnatakaElevatePage() {
       </section>
 
       {/* Gallery — hover zoom */}
-      <section className="py-8 sm:py-10 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
         <div ref={gallery.ref} className="max-w-[1100px] mx-auto">
           <div className={`transition-all duration-700 ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+            <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)" }} />
-              <span className="text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Gallery</span>
+              <span className="text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: "#94A3B8" }}>Gallery</span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {/* Stage panel — full width on mobile, 2-col span on desktop */}
-              <div
-                className={`relative rounded-xl overflow-hidden group transition-all duration-700 sm:col-span-2 ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                style={{ border: "1px solid #E2E8F0", background: "#F8FAFC" }}>
-                <Image src="/images/elevate-2025-stage-panel.png" alt="Elevate 2025 stage panel discussion" width={1600} height={900} className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              {/* Trophy — portrait image, taller on mobile, no cropping */}
-              <div
-                className={`relative rounded-xl overflow-hidden group transition-all duration-700 ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                style={{ border: "1px solid #E2E8F0", transitionDelay: "80ms", background: "#F8FAFC" }}>
-                <Image src="/images/elevate-2025-winner-trophy.png" alt="Elevate 2025 winner trophy" width={1200} height={1600} className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {[
+                { src: "/images/elevate-2025-stage-panel.png", alt: "Elevate 2025 stage panel discussion", span: "col-span-2", w: 1600, h: 900 },
+                { src: "/images/elevate-2025-winner-trophy.png", alt: "Elevate 2025 winner trophy", span: "", w: 1200, h: 1600 },
+              ].map((img, i) => (
+                <div key={i}
+                  className={`relative rounded-xl overflow-hidden group transition-all duration-700 ${img.span} h-[200px] sm:h-[280px] ${gallery.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                  style={{ border: "1px solid #E2E8F0", transitionDelay: `${i * 80}ms`, background: "#F8FAFC" }}>
+                  <Image src={img.src} alt={img.alt} width={img.w} height={img.h} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Why Selected — modern checklist */}
-      <section className="py-8 sm:py-10 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#FFFFFF" }}>
         <div ref={why.ref} className="max-w-[860px] mx-auto">
           <div className={`transition-all duration-700 ${why.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="flex items-center gap-3 mb-4">
@@ -263,7 +260,7 @@ export default function KarnatakaElevatePage() {
       </section>
 
       {/* LinkedIn + CTA */}
-      <section className="py-8 sm:py-10 lg:py-14 px-4 sm:px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
+      <section className="py-10 lg:py-14 px-5 lg:px-8" style={{ background: "#F8FAFC" }}>
         <div ref={linkedin.ref} className="max-w-[860px] mx-auto">
           <div className={`transition-all duration-700 ${linkedin.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="flex items-center gap-3 mb-4">

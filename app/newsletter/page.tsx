@@ -110,10 +110,14 @@ export default function NewsletterPage() {
                   Made Simple
                 </span>
               </h1>
-              <p className="text-[16px] sm:text-[17px] lg:text-[18px] leading-relaxed mb-6 max-w-md" style={{ color: "#475569" }}>
-                Actionable insights on trade compliance, export documentation, and refund optimisation —
-                delivered every week. Join thousands of exporters already saving crores.
-              </p>
+              <a
+                href="#subscribe"
+                onClick={(e) => { e.preventDefault(); const el = document.getElementById("subscribe"); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 100, behavior: "smooth" }) }}
+                className="inline-block px-7 py-3 rounded-full text-[15px] font-bold btn-shine transition-all hover:scale-105 mb-6"
+                style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
+              >
+                Subscribe Now — It's Free
+              </a>
 
               <div className="space-y-2">
                 {benefits.map((benefit, idx) => (
@@ -129,7 +133,7 @@ export default function NewsletterPage() {
             </div>
 
             {/* Right: subscribe card */}
-            <div className="rounded-2xl p-6 lg:p-8"
+            <div id="subscribe" className="rounded-2xl p-6 lg:p-8"
               style={{ background: "#FFFFFF", border: "2px solid #0066CC", boxShadow: "0 8px 40px rgba(0,102,204,0.12)" }}>
               {subscribed ? (
                 <div className="text-center py-8">
@@ -303,29 +307,6 @@ export default function NewsletterPage() {
         </div>
       </section>
 
-      {/* ── Bottom CTA ── */}
-      <section className="py-12 lg:py-16 px-5 lg:px-8" style={{ background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
-        <div className="max-w-[600px] mx-auto text-center">
-          <h2 className="text-[20px] sm:text-[26px] lg:text-[32px] font-extrabold mb-3" style={{ color: "#0F172A" }}>
-            Join{" "}
-            <span className="bg-gradient-to-r from-[#0066CC] to-[#00A86B] bg-clip-text text-transparent">
-              2,400+ Exporters
-            </span>{" "}
-            Already Subscribed
-          </h2>
-          <p className="text-[16px] sm:text-[17px] mb-6" style={{ color: "#64748B" }}>
-            Free. No spam. Unsubscribe anytime.
-          </p>
-          <a
-            href="#top"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }) }}
-            className="inline-block px-8 py-3.5 rounded-full text-[16px] font-bold btn-shine transition-all hover:scale-105"
-            style={{ background: "linear-gradient(90deg, #0066CC, #00A86B)", color: "#FFFFFF", boxShadow: "0 4px 25px rgba(0,102,204,0.3)" }}
-          >
-            Subscribe Now — It's Free
-          </a>
-        </div>
-      </section>
 
       <FooterLinks />
       <Footer />
