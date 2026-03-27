@@ -141,7 +141,7 @@ export default function KarnatakaElevatePage() {
                     <p className="text-[14px] sm:text-[15px] leading-relaxed mb-4" style={{ color: "#475569" }}>
                       Recognized by the Government of Karnataka's Department of Electronics, IT, BT and Science & Technology (EITBT) for innovation in AI and technology solutions.
                     </p>
-                    <a href="https://www.linkedin.com/posts/naveen-athresh-090b0a_elevate2025-startupkarnataka-liquidmind-activity-7418325908966551552-Zkpk"
+                    <a href="https://eitbt.karnataka.gov.in/startup/public/141/elevate-2025-winners/en"
                       target="_blank" rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-[13px] font-bold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
                       style={{ background: "linear-gradient(135deg, #00A86B, #0066CC)", color: "#FFFFFF" }}>
