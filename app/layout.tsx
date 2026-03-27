@@ -25,7 +25,23 @@ export const metadata: Metadata = {
     title: 'Liquidmind AI — Stop Losing Crores to Trade Document Errors',
     description: 'India\'s #1 AI Trade Compliance Platform. Tradeguard catches every document mismatch before customs does.',
     type: 'website',
+    url: 'https://liquidmind.ai',
   },
+  alternates: { canonical: 'https://liquidmind.ai' },
+}
+
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Liquidmind AI",
+  url: "https://liquidmind.ai",
+  logo: "https://liquidmind.ai/images/liquidmind-logo.png",
+  sameAs: [
+    "https://www.linkedin.com/company/liquid-mind-product-consulting-inc./",
+    "https://www.youtube.com/@LIQUIDMIND_AI",
+  ],
+  contactPoint: { "@type": "ContactPoint", email: "support@liquidmind.ai", contactType: "customer support" },
+  description: "India's #1 AI Trade Compliance Platform — Patram AI, TariffIQ and TradeGuard for Indian exporters.",
 }
 
 export const viewport: Viewport = {
@@ -42,6 +58,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
+      </head>
       <body className={`${plusJakarta.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <PHProvider>
           {children}

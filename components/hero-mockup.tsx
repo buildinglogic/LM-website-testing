@@ -100,7 +100,7 @@ export function HeroMockup({ animated = true }: { animated?: boolean }) {
 
   return (
     <div
-      className="w-full max-w-[520px] mx-auto animate-float"
+      className="w-full max-w-[480px] mx-auto lg:max-w-[520px] lg:animate-float"
       style={{ perspective: "1000px" }}
     >
       <div
