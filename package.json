@@ -11,6 +11,7 @@
   "dependencies": {
     "@amplitude/analytics-browser": "^2.36.5",
     "@hookform/resolvers": "^3.9.1",
+    "@notionhq/client": "^2.3.0",
     "@radix-ui/react-accordion": "1.2.12",
     "@radix-ui/react-alert-dialog": "1.1.15",
     "@radix-ui/react-aspect-ratio": "1.1.8",
@@ -48,8 +49,10 @@
     "embla-carousel-react": "8.6.0",
     "input-otp": "1.4.2",
     "lucide-react": "^0.564.0",
+    "marked": "^17.0.5",
     "next": "16.1.6",
     "next-themes": "^0.4.6",
+    "notion-to-md": "^3.1.9",
     "posthog-js": "^1.360.2",
     "react": "19.2.4",
     "react-day-picker": "9.13.2",
